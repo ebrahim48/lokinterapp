@@ -15,16 +15,19 @@ dependencies:
     sdk: flutter
 
   get: ^4.6.6
-  dio: ^5.7.0
-  cached_network_image: ^3.4.1
-  shimmer: ^3.0.0
   flutter_screenutil: ^5.9.3
+  google_fonts: ^6.2.1
+
+  # data layer + offline 
+  dio: ^5.7.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   connectivity_plus: ^6.0.5
   path_provider: ^2.1.4
-  google_fonts: ^6.2.1
   shared_preferences: ^2.3.2
+  # image caching + loading placeholders
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

@@ -381,6 +381,7 @@ class ApiService {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
         return TimeoutException(error.message);
 
       case DioExceptionType.connectionError:
