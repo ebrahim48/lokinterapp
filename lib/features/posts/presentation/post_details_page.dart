@@ -68,7 +68,7 @@ class PostDetailsPage extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: _end(context, 'FROM', post.from, false)),
-          ModeBadge(location: post.location),
+          ModeBadge(location: post.location, place: post.from),
           Expanded(child: _end(context, 'TO', post.to, true)),
         ],
       ),

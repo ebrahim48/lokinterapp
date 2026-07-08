@@ -56,7 +56,7 @@ class RegisterPage extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'Country',
+                label: 'Country of Residence',
                 hint: 'select a country',
                 icon: Icons.public,
                 required: true,
@@ -227,28 +227,51 @@ class RegisterPage extends StatelessWidget {
           controller: c.address,
         ),
         SizedBox(height: 16.h),
-        Obx(() => LokDropdownField(
+        Obx(() => LokMultiSelectField(
               label: 'Countries of operation',
-              hint: 'select country',
+              hint: 'select countries',
               icon: Icons.public,
               required: true,
               options: MockData.countries,
-              value: c.operatingCountry.value,
-              onChanged: (v) => c.operatingCountry.value = v,
+              selected: c.operatingCountries.toList(),
+              onChanged: (v) => c.operatingCountries.value = v,
             )),
         SizedBox(height: 16.h),
+        _docLabel(context, 'Transport license'),
+        SizedBox(height: 6.h),
         Obx(() => LokUploadField(
-              label: 'Upload business documents',
-              fileName: c.documentName.value,
-              onTap: () => c.documentName.value = 'business-docs.pdf',
-            )),
-        SizedBox(height: 16.h),
-        Obx(() => LokUploadField(
-              label: 'Upload transportation license',
+              label: 'Upload transport license',
               fileName: c.licenseName.value,
-              onTap: () => c.licenseName.value = 'license.pdf',
+              onTap: () => c.licenseName.value = 'transport-license.pdf',
             )),
+        SizedBox(height: 16.h),
+        _docLabel(context, 'Transporter legal documents'),
+        SizedBox(height: 6.h),
+        Obx(() => LokUploadField(
+              label: 'Upload legal documents',
+              fileName: c.documentName.value,
+              onTap: () => c.documentName.value = 'legal-documents.pdf',
+            )),
+        SizedBox(height: 10.h),
+        Text(
+          'Documents are reviewed by our team before your transporter account is approved.',
+          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
+        ),
       ],
+    );
+  }
+
+  Widget _docLabel(BuildContext context, String text) {
+    return Text.rich(
+      TextSpan(
+        text: text,
+        children: const [TextSpan(text: ' *', style: TextStyle(color: AppPalette.primary))],
+      ),
+      style: TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
     );
   }
 }

@@ -154,6 +154,14 @@ class PostTripPage extends StatelessWidget {
               value: c.rejectedCategory.value,
               onChanged: (v) => c.rejectedCategory.value = v,
             )),
+        SizedBox(height: 16.h),
+        LokTextField(
+          label: 'Notes (optional)',
+          hint: 'stops, links, special instructions...',
+          icon: Icons.notes_outlined,
+          maxLines: 3,
+          controller: c.notes,
+        ),
         SizedBox(height: 18.h),
         Text(
           'By clicking post, I confirm that the details of this trip are '

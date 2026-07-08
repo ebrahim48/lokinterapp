@@ -7,7 +7,7 @@ class WalletPage extends StatelessWidget {
 
   static const _tx = [
     ('Delivery payout — LK-2025', '+ USD 18.00', true),
-    ('Top up', '+ USD 50.00', true),
+    ('Delivery payout — LK-2038', '+ TND 20.000', true),
     ('Service fee — LK-2041', '- TND 3.000', false),
     ('Withdrawal to bank', '- USD 40.00', false),
   ];
@@ -33,19 +33,13 @@ class WalletPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Available balance',
+                Text('Available earnings',
                     style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.sp)),
                 SizedBox(height: 6.h),
                 Text('USD 85.00',
                     style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w800)),
                 SizedBox(height: 16.h),
-                Row(
-                  children: [
-                    Expanded(child: _miniBtn(context, Icons.add, 'Top up')),
-                    SizedBox(width: 12.w),
-                    Expanded(child: _miniBtn(context, Icons.arrow_outward, 'Withdraw')),
-                  ],
-                ),
+                _miniBtn(context, Icons.arrow_outward, 'Withdraw to bank'),
               ],
             ),
           ),

@@ -42,8 +42,63 @@ class ChatConversationPage extends StatelessWidget {
               },
             ),
           ),
+          _confirmBar(context),
           _composer(context, cs),
         ],
+      ),
+    );
+  }
+
+  Widget _confirmBar(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 10.h),
+      decoration: BoxDecoration(
+        color: cs.surface,
+        border: Border(top: BorderSide(color: cs.outline)),
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton.icon(
+          onPressed: () => _openConfirm(context),
+          icon: Icon(Icons.handshake_outlined, size: 18.sp),
+          label: const Text('Confirm agreement & continue'),
+          style: ElevatedButton.styleFrom(minimumSize: Size(0, 46.h)),
+        ),
+      ),
+    );
+  }
+
+  void _openConfirm(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: cs.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22.r)),
+      ),
+      builder: (_) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 24.h),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Confirm agreement', style: Theme.of(context).textTheme.titleLarge),
+              SizedBox(height: 6.h),
+              Text(
+                'Lock in the details agreed with ${conversation.user.name} — '
+                'weight, price, and dates — and move to the deal.',
+                style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.4),
+              ),
+              SizedBox(height: 18.h),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Confirm & continue'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -59,6 +114,18 @@ class ChatConversationPage extends StatelessWidget {
         top: false,
         child: Row(
           children: [
+            IconButton(
+              onPressed: () {},
+              tooltip: 'Attach file or image',
+              visualDensity: VisualDensity.compact,
+              icon: Icon(Icons.attach_file, color: cs.onSurfaceVariant, size: 22.sp),
+            ),
+            IconButton(
+              onPressed: () {},
+              tooltip: 'Send video',
+              visualDensity: VisualDensity.compact,
+              icon: Icon(Icons.videocam_outlined, color: cs.onSurfaceVariant, size: 22.sp),
+            ),
             Expanded(
               child: TextField(
                 decoration: InputDecoration(

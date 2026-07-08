@@ -26,6 +26,7 @@ class Post {
   final PostLocation location;
   final WantTo wantTo;
   final String? title; // item name for deliver requests
+  final String? description; // request item description
   final String fromCountry;
   final String toCountry;
   final String? fromCity;
@@ -43,6 +44,7 @@ class Post {
     required this.location,
     this.wantTo = WantTo.send,
     this.title,
+    this.description,
     required this.fromCountry,
     required this.toCountry,
     this.fromCity,

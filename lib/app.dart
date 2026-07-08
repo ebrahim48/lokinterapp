@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: LokinterTheme.light,
           darkTheme: LokinterTheme.dark,
-          themeMode: ThemeMode.dark, // mockups are dark; toggle from the app bar
+          themeMode: ThemeMode.light, // toggle from the app bar
           home: child,
         );
       },

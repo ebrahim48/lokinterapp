@@ -6,7 +6,7 @@ class AppPalette {
 
   static const primary = Color(0xFFB85450); // coral, used for delivery/CTAs
   static const primaryPressed = Color(0xFFA4433F);
-  static const navy = Color(0xFF2C2D5B); // secondary
+  static const navy = Color(0xFF0D1536); // brand navy — text, trips, banner
   static const deepNavy = Color(0xFF0D1536); // trip cards
   static const grey = Color(0xFFADADAD);
 

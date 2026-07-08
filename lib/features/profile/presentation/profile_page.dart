@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../auth/presentation/welcome_page.dart';
+import '../../my_posts/presentation/my_posts_page.dart';
 import '../../notifications/presentation/notifications_page.dart';
 import '../../reviews/presentation/user_reviews_page.dart';
 import '../../static/presentation/contact_us_page.dart';
@@ -10,7 +11,6 @@ import '../../static/presentation/terms_page.dart';
 import '../data/profile_mock.dart';
 import 'basic_info_page.dart';
 import 'increase_visibility_page.dart';
-import 'subscription_page.dart';
 import 'wallet_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -40,10 +40,10 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: 20.h),
           _group(context, [
             _Item(Icons.person_outline, 'Basic info', () => Get.to(() => const BasicInfoPage())),
+            _Item(Icons.dynamic_feed_outlined, 'My requests & trips',
+                () => Get.to(() => const MyPostsPage())),
             _Item(Icons.trending_up, 'Increase Visibility to Senders',
                 () => Get.to(() => const IncreaseVisibilityPage())),
-            _Item(Icons.workspace_premium_outlined, 'Subscription',
-                () => Get.to(() => const SubscriptionPage())),
             _Item(Icons.account_balance_wallet_outlined, 'Wallet & payouts',
                 () => Get.to(() => const WalletPage())),
           ]),

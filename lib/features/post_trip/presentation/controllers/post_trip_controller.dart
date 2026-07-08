@@ -15,12 +15,14 @@ class PostTripController extends GetxController {
   final rejectedCategory = RxnString();
 
   final weight = TextEditingController();
+  final notes = TextEditingController();
 
   bool get isLocal => location.value == PostLocation.local;
 
   @override
   void onClose() {
     weight.dispose();
+    notes.dispose();
     super.onClose();
   }
 }

@@ -6,7 +6,7 @@ enum RegisterRole { transporter, individual }
 class RegisterController extends GetxController {
   final role = RegisterRole.individual.obs;
   final country = RxnString();
-  final operatingCountry = RxnString();
+  final operatingCountries = <String>[].obs;
   final documentName = RxnString(); // business legal documents
   final licenseName = RxnString(); // transportation license
 

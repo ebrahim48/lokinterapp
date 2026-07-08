@@ -122,11 +122,7 @@ class PostRequestPage extends StatelessWidget {
             controller: c.itemName,
           ),
           SizedBox(height: 12.h),
-          OutlinedButton.icon(
-            onPressed: () => Get.to(() => const BrandsPage()),
-            icon: const Icon(Icons.storefront_outlined),
-            label: const Text('Browse brands'),
-          ),
+          _BrowseBrandsCard(onTap: () => Get.to(() => const BrandsPage())),
           SizedBox(height: 16.h),
         ],
         if (c.isLocal) ...[
@@ -255,6 +251,89 @@ class PostRequestPage extends StatelessWidget {
         SizedBox(height: 18.h),
         ElevatedButton(onPressed: () {}, child: const Text('Post')),
       ],
+    );
+  }
+}
+
+// "Browse Brands and shops" entry — local shops + international brands in one place.
+class _BrowseBrandsCard extends StatelessWidget {
+  final VoidCallback onTap;
+  const _BrowseBrandsCard({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(14.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: AppPalette.primary.withValues(alpha: 0.35)),
+          gradient: LinearGradient(
+            colors: [
+              AppPalette.primary.withValues(alpha: 0.12),
+              AppPalette.intlAccent.withValues(alpha: 0.1),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 46.r,
+              height: 46.r,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    width: 46.r,
+                    height: 46.r,
+                    decoration: const BoxDecoration(color: AppPalette.primary, shape: BoxShape.circle),
+                    child: Icon(Icons.storefront, color: Colors.white, size: 22.sp),
+                  ),
+                  Positioned(
+                    right: -2,
+                    bottom: -2,
+                    child: Container(
+                      padding: EdgeInsets.all(3.r),
+                      decoration: BoxDecoration(
+                        color: AppPalette.intlAccent,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: cs.surface, width: 1.5),
+                      ),
+                      child: Icon(Icons.public, color: Colors.white, size: 12.sp),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 14.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Browse Brands and shops',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppPalette.primary,
+                    ),
+                  ),
+                  SizedBox(height: 3.h),
+                  Text(
+                    'Discover local shops and international brands all in one place.',
+                    style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.3),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: AppPalette.primary, size: 22.sp),
+          ],
+        ),
+      ),
     );
   }
 }

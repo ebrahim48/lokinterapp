@@ -15,6 +15,9 @@ class Deal {
   final DealStatus status;
   final PostUser counterpart;
   final String? disputeReason;
+  // agreed terms finalised in chat
+  final String paymentMethod;
+  final String agreedWeight;
 
   const Deal({
     required this.refId,
@@ -28,6 +31,8 @@ class Deal {
     required this.status,
     required this.counterpart,
     this.disputeReason,
+    this.paymentMethod = 'Card •••• 4242',
+    this.agreedWeight = '2 kg',
   });
 
   bool get isLocal => location == PostLocation.local;

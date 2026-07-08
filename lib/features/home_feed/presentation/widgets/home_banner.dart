@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
 
-// Top image banner. Placeholder gradients until real banner images come from the API.
+// Top banner — auto-advances between slides. Placeholder gradients until the API sends images.
 class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});
 
@@ -12,6 +13,7 @@ class HomeBanner extends StatefulWidget {
 
 class _HomeBannerState extends State<HomeBanner> {
   final _pageController = PageController();
+  Timer? _timer;
   int _index = 0;
 
   static const _slides = [
@@ -21,7 +23,22 @@ class _HomeBannerState extends State<HomeBanner> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 4), (_) {
+      if (!_pageController.hasClients) return;
+      final next = (_index + 1) % _slides.length;
+      _pageController.animateToPage(
+        next,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
   void dispose() {
+    _timer?.cancel();
     _pageController.dispose();
     super.dispose();
   }
@@ -31,7 +48,7 @@ class _HomeBannerState extends State<HomeBanner> {
     return Column(
       children: [
         SizedBox(
-          height: 140.h,
+          height: 124.h,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _slides.length,

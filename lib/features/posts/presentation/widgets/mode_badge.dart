@@ -1,17 +1,21 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
+import '../../../../core/utils/flags.dart';
 import '../../data/models/post_model.dart';
 
-// Local = green pin, International = blue plane. Used on cards and rails.
+// International = blue plane. Local = circular country flag so you can see WHICH country.
 class ModeBadge extends StatelessWidget {
   final PostLocation location;
+  final String? place; // country/city for the local flag
   final bool showLabel;
   final Color? labelColor;
 
   const ModeBadge({
     super.key,
     required this.location,
+    this.place,
     this.showLabel = true,
     this.labelColor,
   });
@@ -19,18 +23,7 @@ class ModeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final local = location == PostLocation.local;
-    final color = local ? AppPalette.localAccent : AppPalette.intlAccent;
-    final icon = local ? Icons.location_on : Icons.flight;
-
-    final dot = Container(
-      width: 34.r,
-      height: 34.r,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: color, size: 18.sp),
-    );
+    final dot = local ? _flagDot() : _planeDot();
 
     if (!showLabel) return dot;
 
@@ -45,10 +38,41 @@ class ModeBadge extends StatelessWidget {
             fontSize: 9.sp,
             letterSpacing: 0.5,
             fontWeight: FontWeight.w600,
-            color: labelColor ?? color,
+            color: labelColor ?? (local ? AppPalette.localAccent : AppPalette.intlAccent),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _flagDot() {
+    return Container(
+      width: 34.r,
+      height: 34.r,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 4),
+        ],
+      ),
+      child: CountryFlag.fromCountryCode(
+        countryCodeFor(place ?? ''),
+        height: 34.r,
+        width: 34.r,
+        shape: const Circle(),
+      ),
+    );
+  }
+
+  Widget _planeDot() {
+    return Container(
+      width: 34.r,
+      height: 34.r,
+      decoration: BoxDecoration(
+        color: AppPalette.intlAccent.withValues(alpha: 0.15),
+        shape: BoxShape.circle,
+      ),
+      child: Icon(Icons.flight, color: AppPalette.intlAccent, size: 18.sp),
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../core/widgets/lokinter_logo.dart';
 import '../../shell/presentation/main_shell.dart';
 import 'login_page.dart';
 import 'register_page.dart';
@@ -15,34 +18,15 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 28.h),
+          padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 28.h),
           child: Column(
             children: [
+              Align(alignment: Alignment.centerRight, child: const LanguageSelector()),
               const Spacer(),
-              Text(
-                'LOKINTER',
-                style: TextStyle(
-                  color: AppPalette.primary,
-                  fontSize: 34.sp,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1,
-                ),
-              ),
-              SizedBox(height: 14.h),
-              Container(
-                width: 180.r,
-                height: 180.r,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: const LinearGradient(
-                    colors: [AppPalette.deepNavy, AppPalette.primary],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Icon(Icons.public, color: Colors.white, size: 90.sp),
-              ),
-              SizedBox(height: 28.h),
+              const LokinterLogo(fontSize: 40),
+              SizedBox(height: 20.h),
+              _hero(),
+              SizedBox(height: 24.h),
               Text(
                 'Ship anything, anywhere',
                 textAlign: TextAlign.center,
@@ -65,7 +49,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () => Get.to(() => const RegisterPage()),
                 child: const Text('Create an account'),
               ),
-              SizedBox(height: 14.h),
+              SizedBox(height: 12.h),
               TextButton(
                 onPressed: () => Get.offAll(() => const MainShell()),
                 child: Text(
@@ -76,6 +60,52 @@ class WelcomePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _hero() {
+    return SizedBox(
+      width: 240.r,
+      height: 240.r,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipOval(
+            child: Container(
+              width: 200.r,
+              height: 200.r,
+              color: AppPalette.primary,
+              alignment: Alignment.center,
+              child: Lottie.asset(
+                'assets/animations/traveling_girl.json',
+                width: 200.r,
+                height: 200.r,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) =>
+                    Icon(Icons.public, color: Colors.white, size: 90.sp),
+              ),
+            ),
+          ),
+          _floating(Alignment.topLeft, Icons.flight, AppPalette.intlAccent),
+          _floating(Alignment.topRight, Icons.people_alt_outlined, AppPalette.primary),
+          _floating(Alignment.bottomLeft, Icons.inventory_2_outlined, AppPalette.primary),
+          _floating(Alignment.bottomRight, Icons.verified_user_outlined, AppPalette.intlAccent),
+        ],
+      ),
+    );
+  }
+
+  Widget _floating(Alignment align, IconData icon, Color color) {
+    return Align(
+      alignment: align,
+      child: Container(
+        padding: EdgeInsets.all(10.r),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(14.r),
+        ),
+        child: Icon(icon, color: color, size: 20.sp),
       ),
     );
   }

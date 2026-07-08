@@ -22,6 +22,10 @@ class DealDetailsPage extends StatelessWidget {
           SizedBox(height: 16.h),
           _counterpart(context),
           SizedBox(height: 16.h),
+          if (deal.status != DealStatus.pending) ...[
+            _agreement(context),
+            SizedBox(height: 16.h),
+          ],
           if (deal.status == DealStatus.disputes)
             _dispute(context)
           else if (deal.status == DealStatus.completed)
@@ -57,7 +61,7 @@ class DealDetailsPage extends StatelessWidget {
           Row(
             children: [
               Expanded(child: _stat(context, 'FROM', deal.fromCountry)),
-              ModeBadge(location: deal.location),
+              ModeBadge(location: deal.location, place: deal.fromCountry),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -143,6 +147,53 @@ class DealDetailsPage extends StatelessWidget {
             icon: Icon(Icons.chat_bubble_outline, size: 16.sp),
             label: const Text('Chat'),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _agreement(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final rows = <(String, String)>[
+      ('Receiver', deal.counterpart.name),
+      ('Agreed amount', deal.profit),
+      ('Weight', deal.agreedWeight),
+      ('Trip date', shortDate(deal.date)),
+      ('Payment method', deal.paymentMethod),
+    ];
+    return _card(
+      context,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.assignment_turned_in_outlined, size: 18.sp, color: AppPalette.primary),
+              SizedBox(width: 8.w),
+              Text('Agreement details',
+                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+          SizedBox(height: 4.h),
+          Text('As confirmed in the chat between both parties.',
+              style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+          SizedBox(height: 12.h),
+          for (var i = 0; i < rows.length; i++) ...[
+            if (i > 0) Divider(height: 18.h, color: cs.outline),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(rows[i].$1, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+                Flexible(
+                  child: Text(
+                    rows[i].$2,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/widgets/lok_fields.dart';
+import '../../../core/widgets/lokinter_logo.dart';
 import '../../shell/presentation/main_shell.dart';
 import 'forgot_password_page.dart';
 import 'register_page.dart';
@@ -18,6 +19,8 @@ class LoginPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 24.h),
         children: [
+          Center(child: const LokinterLogo(fontSize: 30)),
+          SizedBox(height: 24.h),
           Text('Welcome back', style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(

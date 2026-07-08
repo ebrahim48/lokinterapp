@@ -186,6 +186,122 @@ class LokDropdownField extends StatelessWidget {
   }
 }
 
+// Multi-select backed by a checkbox bottom sheet; shows chosen values as chips.
+class LokMultiSelectField extends StatelessWidget {
+  final String label;
+  final String hint;
+  final IconData icon;
+  final List<String> options;
+  final List<String> selected;
+  final bool required;
+  final ValueChanged<List<String>> onChanged;
+
+  const LokMultiSelectField({
+    super.key,
+    required this.label,
+    required this.hint,
+    required this.icon,
+    required this.options,
+    required this.selected,
+    required this.onChanged,
+    this.required = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _Label(label, required: required),
+        _FieldBox(
+          icon: icon,
+          onTap: () => _open(context),
+          trailing: const Icon(Icons.keyboard_arrow_down),
+          child: Text(
+            selected.isEmpty ? hint : '${selected.length} selected',
+            style: _valueStyle(context, selected.isNotEmpty),
+          ),
+        ),
+        if (selected.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: 8.h),
+            child: Wrap(
+              spacing: 8.w,
+              runSpacing: 8.h,
+              children: [
+                for (final s in selected)
+                  Chip(
+                    label: Text(s, style: TextStyle(fontSize: 11.sp)),
+                    onDeleted: () => onChanged(selected.where((e) => e != s).toList()),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: VisualDensity.compact,
+                  ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+
+  void _open(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final draft = [...selected];
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: cs.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => StatefulBuilder(
+        builder: (context, setSheet) => SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 8.h),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(label, style: Theme.of(context).textTheme.titleLarge),
+                ),
+              ),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (final o in options)
+                      CheckboxListTile(
+                        value: draft.contains(o),
+                        activeColor: AppPalette.primary,
+                        title: Text(o),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        onChanged: (v) => setSheet(() {
+                          v == true ? draft.add(o) : draft.remove(o);
+                        }),
+                      ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20.w),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      onChanged(draft);
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Done'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class LokDateField extends StatelessWidget {
   final String label;
   final String hint;
