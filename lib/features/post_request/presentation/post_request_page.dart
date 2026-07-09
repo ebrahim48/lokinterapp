@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
@@ -181,6 +182,7 @@ class PostRequestPage extends StatelessWidget {
               label: 'Before Date/time',
               hint: 'before (date and time)',
               required: true,
+              withTime: c.isLocal,
               value: c.beforeDate.value,
               onChanged: (d) => c.beforeDate.value = d,
             )),
@@ -284,29 +286,15 @@ class _BrowseBrandsCard extends StatelessWidget {
             SizedBox(
               width: 46.r,
               height: 46.r,
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    width: 46.r,
-                    height: 46.r,
-                    decoration: const BoxDecoration(color: AppPalette.primary, shape: BoxShape.circle),
-                    child: Icon(Icons.storefront, color: Colors.white, size: 22.sp),
-                  ),
-                  Positioned(
-                    right: -2,
-                    bottom: -2,
-                    child: Container(
-                      padding: EdgeInsets.all(3.r),
-                      decoration: BoxDecoration(
-                        color: AppPalette.intlAccent,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: cs.surface, width: 1.5),
-                      ),
-                      child: Icon(Icons.public, color: Colors.white, size: 12.sp),
-                    ),
-                  ),
-                ],
+              child: Lottie.asset(
+                'assets/animations/shopping_cart.json',
+                width: 46.r,
+                height: 46.r,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => Container(
+                  decoration: const BoxDecoration(color: AppPalette.primary, shape: BoxShape.circle),
+                  child: Icon(Icons.storefront, color: Colors.white, size: 22.sp),
+                ),
               ),
             ),
             SizedBox(width: 14.w),

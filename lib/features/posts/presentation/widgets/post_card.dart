@@ -1,24 +1,34 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
+import '../../../../core/utils/flags.dart';
 import '../../../../core/utils/format.dart';
 import '../../data/models/post_model.dart';
 import 'corner_ribbon.dart';
 import 'mode_badge.dart';
+import 'transporter_chip.dart';
 
 // Picks the right card for a post: coral for delivery requests, white for trips.
 class PostCard extends StatelessWidget {
   final Post post;
   final VoidCallback? onChat;
   final VoidCallback? onTap;
+  final bool showChat; // hidden on the user's own posts
 
-  const PostCard({super.key, required this.post, this.onChat, this.onTap});
+  const PostCard({
+    super.key,
+    required this.post,
+    this.onChat,
+    this.onTap,
+    this.showChat = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return post.isTrip
-        ? TripCard(post: post, onChat: onChat, onTap: onTap)
-        : RequestCard(post: post, onChat: onChat, onTap: onTap);
+        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat)
+        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat);
   }
 }
 
@@ -27,115 +37,119 @@ class RequestCard extends StatelessWidget {
   final Post post;
   final VoidCallback? onChat;
   final VoidCallback? onTap;
+  final bool showChat;
 
-  const RequestCard({super.key, required this.post, this.onChat, this.onTap});
+  const RequestCard({
+    super.key,
+    required this.post,
+    this.onChat,
+    this.onTap,
+    this.showChat = true,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final buy = post.wantTo == WantTo.buyAndDeliver;
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 14.h),
-            decoration: BoxDecoration(
-              color: AppPalette.requestCard,
-              borderRadius: BorderRadius.circular(18.r),
-              boxShadow: [
-                BoxShadow(
-                  color: AppPalette.requestCard.withValues(alpha: 0.3),
-                  blurRadius: 18,
-                  offset: const Offset(0, 10),
-                ),
-              ],
+      child: Container(
+        padding: EdgeInsets.fromLTRB(18.w, 16.h, 18.w, 14.h),
+        decoration: BoxDecoration(
+          color: AppPalette.requestCard,
+          borderRadius: BorderRadius.circular(18.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppPalette.requestCard.withValues(alpha: 0.3),
+              blurRadius: 18,
+              offset: const Offset(0, 10),
             ),
-            child: Column(
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (post.user.isTransporter) ...[
+              const TransporterChip(),
+              SizedBox(height: 10.h),
+            ],
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (post.user.isTransporter) SizedBox(height: 10.h),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: _typePill(buy)),
-                    SizedBox(width: 10.w),
-                    _thumb(),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                Text(
-                  post.title ?? '${post.from} → ${post.to}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w800),
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  '${post.from} → ${post.to}',
-                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13.sp),
-                ),
-                if (post.description != null) ...[
-                  SizedBox(height: 6.h),
-                  Text(
-                    post.description!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.82),
-                      fontSize: 12.sp,
-                      height: 1.3,
-                    ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _typePill(),
+                      SizedBox(height: 10.h),
+                      Text(
+                        post.title ?? '${post.from} → ${post.to}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 19.sp, fontWeight: FontWeight.w800),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        '${post.from} → ${post.to}',
+                        style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13.sp),
+                      ),
+                    ],
                   ),
-                ],
-                SizedBox(height: 14.h),
-                Row(
-                  children: [
-                    _meta(Icons.card_giftcard, 'PROFIT', post.profit ?? '-'),
-                    _meta(Icons.shopping_bag_outlined, 'WEIGHT', kg(post.weight)),
-                    _meta(Icons.event_outlined, 'BEFORE', dayMonth(post.date)),
-                  ],
                 ),
-                SizedBox(height: 12.h),
-                const _DashedLine(),
-                SizedBox(height: 12.h),
-                Row(
-                  children: [
-                    Expanded(child: _userName()),
-                    ModeBadge(
-                      location: post.location,
-                      place: post.from,
-                      showLabel: false,
-                    ),
-                    SizedBox(width: 10.w),
-                    _ChatPill(onTap: onChat, light: true),
-                  ],
-                ),
+                SizedBox(width: 12.w),
+                _image(),
               ],
             ),
-          ),
-          if (post.user.isTransporter)
-            CornerRibbon(text: 'TRANSPORTER', color: AppPalette.navy, radius: 18.r),
-        ],
+            if (post.description != null) ...[
+              SizedBox(height: 8.h),
+              Text(
+                post.description!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white.withValues(alpha: 0.82), fontSize: 12.sp, height: 1.3),
+              ),
+            ],
+            SizedBox(height: 14.h),
+            Row(
+              children: [
+                _meta(Icons.card_giftcard, 'PROFIT', post.profit ?? '-'),
+                _meta(Icons.shopping_bag_outlined, 'WEIGHT', kg(post.weight)),
+                _meta(Icons.event_outlined, 'BEFORE', dayMonth(post.date)),
+              ],
+            ),
+            SizedBox(height: 12.h),
+            const _DashedLine(),
+            SizedBox(height: 12.h),
+            Row(
+              children: [
+                Expanded(child: _userName()),
+                if (showChat) _ChatPill(onTap: onChat, light: true),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _typePill(bool buy) {
+  // navy pill: mode indicator (local flag / intl plane) merged with the request type
+  Widget _typePill() {
+    final buy = post.wantTo == WantTo.buyAndDeliver;
+    final local = post.isLocal;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-      decoration: BoxDecoration(
-        color: AppPalette.navy,
-        borderRadius: BorderRadius.circular(20.r),
-      ),
+      padding: EdgeInsets.fromLTRB(local ? 4.w : 10.w, 4.h, 12.w, 4.h),
+      decoration: BoxDecoration(color: AppPalette.navy, borderRadius: BorderRadius.circular(24.r)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            buy ? Icons.shopping_bag_outlined : Icons.inventory_2_outlined,
-            color: Colors.white,
-            size: 13.sp,
-          ),
-          SizedBox(width: 6.w),
+          if (local)
+            CountryFlag.fromCountryCode(
+              countryCodeFor(post.from),
+              height: 22.r,
+              width: 22.r,
+              shape: const Circle(),
+            )
+          else
+            Icon(Icons.flight, color: AppPalette.intlAccent, size: 16.sp),
+          SizedBox(width: 7.w),
           Flexible(
             child: Text(
               buy ? 'BUY FOR ME & DELIVER' : 'DELIVER READY ITEMS',
@@ -150,6 +164,21 @@ class RequestCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _image() {
+    final box = 84.r;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14.r),
+      child: Container(
+        width: box,
+        height: box,
+        color: Colors.white.withValues(alpha: 0.16),
+        child: post.imageUrl != null
+            ? Image.network(post.imageUrl!, fit: BoxFit.cover)
+            : Icon(Icons.image_outlined, color: Colors.white.withValues(alpha: 0.8), size: 30.sp),
       ),
     );
   }
@@ -173,19 +202,6 @@ class RequestCard extends StatelessWidget {
     );
   }
 
-  Widget _thumb() {
-    return Container(
-      width: 60.w,
-      height: 50.h,
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.6)),
-      ),
-      child: Icon(Icons.inventory_2_outlined, color: Colors.white.withValues(alpha: 0.8), size: 22.sp),
-    );
-  }
-
   Widget _meta(IconData icon, String label, String value) {
     return Expanded(
       child: Column(
@@ -195,23 +211,19 @@ class RequestCard extends StatelessWidget {
             children: [
               Icon(icon, size: 12.sp, color: Colors.white.withValues(alpha: 0.8)),
               SizedBox(width: 4.w),
-              Text(
-                label,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.8),
-                  fontSize: 9.sp,
-                  letterSpacing: 0.5,
-                ),
-              ),
+              Text(label,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 9.sp,
+                    letterSpacing: 0.5,
+                  )),
             ],
           ),
           SizedBox(height: 3.h),
-          Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600),
-          ),
+          Text(value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -223,8 +235,15 @@ class TripCard extends StatelessWidget {
   final Post post;
   final VoidCallback? onChat;
   final VoidCallback? onTap;
+  final bool showChat;
 
-  const TripCard({super.key, required this.post, this.onChat, this.onTap});
+  const TripCard({
+    super.key,
+    required this.post,
+    this.onChat,
+    this.onTap,
+    this.showChat = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +266,7 @@ class TripCard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                if (post.user.isTransporter) SizedBox(height: 12.h),
+                if (post.user.isTransporter) SizedBox(height: 26.h),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -293,7 +312,7 @@ class TripCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    _ChatPill(onTap: onChat, light: false),
+                    if (showChat) _ChatPill(onTap: onChat, light: false),
                   ],
                 ),
               ],
@@ -310,21 +329,17 @@ class TripCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: align,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            color: AppPalette.navy.withValues(alpha: 0.55),
-            fontSize: 10.sp,
-            letterSpacing: 0.5,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              color: AppPalette.navy.withValues(alpha: 0.55),
+              fontSize: 10.sp,
+              letterSpacing: 0.5,
+            )),
         SizedBox(height: 2.h),
-        Text(
-          value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: AppPalette.navy, fontSize: 18.sp, fontWeight: FontWeight.w700),
-        ),
+        Text(value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: AppPalette.navy, fontSize: 18.sp, fontWeight: FontWeight.w700)),
       ],
     );
   }
@@ -334,24 +349,20 @@ class TripCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: alignEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: AppPalette.navy.withValues(alpha: 0.55),
-              fontSize: 9.sp,
-              letterSpacing: 0.5,
-            ),
-          ),
+          Text(label,
+              style: TextStyle(
+                color: AppPalette.navy.withValues(alpha: 0.55),
+                fontSize: 9.sp,
+                letterSpacing: 0.5,
+              )),
           SizedBox(height: 3.h),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, size: 13.sp, color: AppPalette.navy.withValues(alpha: 0.7)),
               SizedBox(width: 5.w),
-              Text(
-                value,
-                style: TextStyle(color: AppPalette.navy, fontSize: 12.sp, fontWeight: FontWeight.w600),
-              ),
+              Text(value,
+                  style: TextStyle(color: AppPalette.navy, fontSize: 12.sp, fontWeight: FontWeight.w600)),
             ],
           ),
         ],

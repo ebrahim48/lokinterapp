@@ -79,6 +79,10 @@ class MockData {
   static final List<Post> recommendedTravelers =
       trips.where((t) => t.recommended).toList();
 
+  // recommended people (recommended travelers + transporters) with active trips
+  static List<Post> get recommendedActiveTrips =>
+      trips.where((t) => t.recommended || t.user.isTransporter).toList();
+
   // dropdown options used by the post/search forms
   static const countries = [
     'Tunisia', 'France', 'Turkey', 'Qatar', 'Egypt', 'Germany', 'Italy', 'Spain',

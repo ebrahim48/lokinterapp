@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -71,21 +73,10 @@ class WelcomePage extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          ClipOval(
-            child: Container(
-              width: 200.r,
-              height: 200.r,
-              color: AppPalette.primary,
-              alignment: Alignment.center,
-              child: Lottie.asset(
-                'assets/animations/traveling_girl.json',
-                width: 200.r,
-                height: 200.r,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
-                    Icon(Icons.public, color: Colors.white, size: 90.sp),
-              ),
-            ),
+          SizedBox(
+            width: 210.r,
+            height: 210.r,
+            child: const _HeroCarousel(),
           ),
           _floating(Alignment.topLeft, Icons.flight, AppPalette.intlAccent),
           _floating(Alignment.topRight, Icons.people_alt_outlined, AppPalette.primary),
@@ -106,6 +97,57 @@ class WelcomePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.r),
         ),
         child: Icon(icon, color: color, size: 20.sp),
+      ),
+    );
+  }
+}
+
+// Client wants the hero to rotate through a few animations rather than sit on one.
+// Timer-driven so a missing asset (shows its fallback icon) never stalls the loop.
+class _HeroCarousel extends StatefulWidget {
+  const _HeroCarousel();
+
+  @override
+  State<_HeroCarousel> createState() => _HeroCarouselState();
+}
+
+class _HeroCarouselState extends State<_HeroCarousel> {
+  static const _clips = [
+    ('assets/animations/loading_car.json', Icons.local_shipping_outlined),
+    ('assets/animations/shopping_cart.json', Icons.shopping_cart_outlined),
+  ];
+
+  int _i = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 4), (_) {
+      if (!mounted) return;
+      setState(() => _i = (_i + 1) % _clips.length);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final (path, fallback) = _clips[_i];
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 450),
+      child: Lottie.asset(
+        path,
+        key: ValueKey(path),
+        width: 210.r,
+        height: 210.r,
+        fit: BoxFit.contain,
+        errorBuilder: (_, __, ___) =>
+            Icon(fallback, color: AppPalette.primary, size: 90.sp),
       ),
     );
   }

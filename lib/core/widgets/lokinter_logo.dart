@@ -3,14 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_palette.dart';
 
-// Lokinter wordmark — coral "Lok" with a parcel mark, navy "inter".
-// Swap for the official logo asset when available.
+// Uses the official logo asset if present, else falls back to the wordmark.
+// Drop the logo at assets/images/lokinter_logo.png to use the real one.
 class LokinterLogo extends StatelessWidget {
   final double fontSize;
   const LokinterLogo({super.key, this.fontSize = 24});
 
   @override
   Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/lokinter_logo.png',
+      height: (fontSize * 1.5).sp,
+      fit: BoxFit.contain,
+      errorBuilder: (_, __, ___) => _wordmark(),
+    );
+  }
+
+  Widget _wordmark() {
     final coral = GoogleFonts.bricolageGrotesque(
       fontSize: fontSize.sp,
       fontWeight: FontWeight.w800,

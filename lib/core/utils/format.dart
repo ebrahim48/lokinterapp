@@ -6,6 +6,12 @@ const _months = [
 
 String shortDate(DateTime d) => '${_months[d.month - 1]} ${d.day}, ${d.year}';
 
+String shortDateTime(DateTime d) {
+  final h = d.hour % 12 == 0 ? 12 : d.hour % 12;
+  final ampm = d.hour < 12 ? 'AM' : 'PM';
+  return '${shortDate(d)} · $h:${d.minute.toString().padLeft(2, '0')} $ampm';
+}
+
 String dayMonth(DateTime d) => '${d.day} ${_months[d.month - 1]}';
 
 String kg(double value) {

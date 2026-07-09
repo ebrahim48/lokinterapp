@@ -4,7 +4,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../data/models/post_model.dart';
 import 'widgets/mode_badge.dart';
-import 'widgets/transporter_badge.dart';
+import 'widgets/transporter_chip.dart';
 
 class PostDetailsPage extends StatelessWidget {
   final Post post;
@@ -155,7 +155,7 @@ class PostDetailsPage extends StatelessWidget {
                     ],
                     if (post.user.isTransporter) ...[
                       SizedBox(width: 6.w),
-                      const TransporterBadge(),
+                      const TransporterChip(),
                     ],
                   ],
                 ),

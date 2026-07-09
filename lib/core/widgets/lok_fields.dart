@@ -307,6 +307,7 @@ class LokDateField extends StatelessWidget {
   final String hint;
   final DateTime? value;
   final bool required;
+  final bool withTime; // also pick a time (used for local trips/requests)
   final ValueChanged<DateTime> onChanged;
 
   const LokDateField({
@@ -316,6 +317,7 @@ class LokDateField extends StatelessWidget {
     required this.onChanged,
     this.value,
     this.required = false,
+    this.withTime = false,
   });
 
   @override
@@ -325,10 +327,10 @@ class LokDateField extends StatelessWidget {
       children: [
         _Label(label, required: required),
         _FieldBox(
-          icon: Icons.event_outlined,
+          icon: withTime ? Icons.schedule : Icons.event_outlined,
           onTap: () => _pick(context),
           child: Text(
-            value == null ? hint : shortDate(value!),
+            value == null ? hint : (withTime ? shortDateTime(value!) : shortDate(value!)),
             style: _valueStyle(context, value != null),
           ),
         ),
@@ -338,13 +340,25 @@ class LokDateField extends StatelessWidget {
 
   Future<void> _pick(BuildContext context) async {
     final now = DateTime.now();
-    final picked = await showDatePicker(
+    final date = await showDatePicker(
       context: context,
       initialDate: value ?? now,
       firstDate: now,
       lastDate: DateTime(now.year + 2),
     );
-    if (picked != null) onChanged(picked);
+    if (date == null) return;
+
+    if (!withTime) {
+      onChanged(date);
+      return;
+    }
+
+    if (!context.mounted) return;
+    final time = await showTimePicker(
+      context: context,
+      initialTime: value == null ? TimeOfDay.now() : TimeOfDay.fromDateTime(value!),
+    );
+    onChanged(DateTime(date.year, date.month, date.day, time?.hour ?? 0, time?.minute ?? 0));
   }
 }
 

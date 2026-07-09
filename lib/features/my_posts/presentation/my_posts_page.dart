@@ -56,7 +56,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
   Widget _postWithActions(Post post) {
     return Column(
       children: [
-        PostCard(post: post),
+        PostCard(post: post, showChat: false),
         SizedBox(height: 8.h),
         Row(
           children: [

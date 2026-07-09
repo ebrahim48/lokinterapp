@@ -125,6 +125,7 @@ class PostTripPage extends StatelessWidget {
               label: 'Trip Date/time',
               hint: 'trip date and time',
               required: !c.noSpecificDate.value,
+              withTime: c.isLocal,
               value: c.date.value,
               onChanged: (d) => c.date.value = d,
             )),

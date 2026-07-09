@@ -24,20 +24,20 @@ class CornerRibbon extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                top: 14.h,
-                left: -34.w,
+                top: 9.h,
+                left: -36.w,
                 child: Transform.rotate(
                   angle: -math.pi / 4,
                   child: Container(
-                    width: 140.w,
-                    padding: EdgeInsets.symmetric(vertical: 4.h),
+                    width: 124.w,
+                    padding: EdgeInsets.symmetric(vertical: 3.h),
                     color: color,
                     alignment: Alignment.center,
                     child: Text(
                       text,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 8.5.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.5,
                       ),

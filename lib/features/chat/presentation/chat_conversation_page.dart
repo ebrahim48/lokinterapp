@@ -63,7 +63,11 @@ class ChatConversationPage extends StatelessWidget {
           onPressed: () => _openConfirm(context),
           icon: Icon(Icons.handshake_outlined, size: 18.sp),
           label: const Text('Confirm agreement & continue'),
-          style: ElevatedButton.styleFrom(minimumSize: Size(0, 46.h)),
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(0, 46.h),
+            backgroundColor: AppPalette.confirmGreen,
+            foregroundColor: Colors.white,
+          ),
         ),
       ),
     );

@@ -11,6 +11,7 @@ class AppPalette {
   static const grey = Color(0xFFADADAD);
 
   static const verified = Color(0xFF35D17F); // verified-user check
+  static const confirmGreen = Color(0xFF2BA84A); // "confirm agreement" CTA
   static const localAccent = Color(0xFF2BB673); // "local" mode
   static const intlAccent = Color(0xFF3480FF); // "international" mode (plane)
 

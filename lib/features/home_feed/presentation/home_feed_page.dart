@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/language_selector.dart';
 import '../../../core/widgets/lokinter_logo.dart';
 import '../../../core/widgets/section_title.dart';
 import '../../notifications/presentation/notifications_page.dart';
 import '../../posts/presentation/post_details_page.dart';
 import '../../posts/presentation/widgets/post_card.dart';
+import '../../recommended/presentation/recommended_page.dart';
 import '../../search_results/presentation/search_results_page.dart';
 import 'controllers/home_feed_controller.dart';
-import 'widgets/app_drawer.dart';
 import 'widgets/home_banner.dart';
 import 'widgets/recommended_rail.dart';
 
@@ -21,7 +22,6 @@ class HomeFeedPage extends StatelessWidget {
     final c = Get.put(HomeFeedController());
 
     return Scaffold(
-      endDrawer: const AppDrawer(),
       appBar: AppBar(
         title: const LokinterLogo(fontSize: 20),
         actions: [
@@ -37,13 +37,7 @@ class HomeFeedPage extends StatelessWidget {
             onPressed: () => Get.to(() => const NotificationsPage()),
             icon: const Icon(Icons.notifications_none),
           ),
-          Builder(
-            builder: (ctx) => IconButton(
-              tooltip: 'Menu',
-              onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-              icon: const Icon(Icons.menu),
-            ),
-          ),
+          const LanguageSelector(compact: true),
           SizedBox(width: 4.w),
         ],
       ),
@@ -54,7 +48,7 @@ class HomeFeedPage extends StatelessWidget {
           SizedBox(height: 20.h),
           SectionTitle(
             title: 'Recommended Travelers',
-            onSeeAll: () => Get.to(() => const SearchResultsPage(), arguments: 0),
+            onSeeAll: () => Get.to(() => const RecommendedPage()),
           ),
           SizedBox(height: 12.h),
           RecommendedRail(travelers: c.recommended),
