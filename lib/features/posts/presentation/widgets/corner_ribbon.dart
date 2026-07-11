@@ -23,23 +23,28 @@ class CornerRibbon extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           child: Stack(
             children: [
+              // Centered on the corner's diagonal so the whole word stays inside
+              // the clipped triangle — off-center offsets clip the end letters.
               Positioned(
-                top: 9.h,
-                left: -36.w,
+                top: 16.h,
+                left: -42.w,
                 child: Transform.rotate(
                   angle: -math.pi / 4,
                   child: Container(
-                    width: 124.w,
-                    padding: EdgeInsets.symmetric(vertical: 3.h),
+                    width: 130.w,
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
                     color: color,
                     alignment: Alignment.center,
                     child: Text(
                       text,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 8.sp,
+                        fontSize: 7.sp,
                         fontWeight: FontWeight.w800,
-                        letterSpacing: 0.5,
+                        letterSpacing: 0.2,
                       ),
                     ),
                   ),

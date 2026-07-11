@@ -15,6 +15,7 @@ class PostCard extends StatelessWidget {
   final VoidCallback? onChat;
   final VoidCallback? onTap;
   final bool showChat; // hidden on the user's own posts
+  final bool showUser; // also hidden on own posts — no point showing yourself
 
   const PostCard({
     super.key,
@@ -22,13 +23,14 @@ class PostCard extends StatelessWidget {
     this.onChat,
     this.onTap,
     this.showChat = true,
+    this.showUser = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return post.isTrip
-        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat)
-        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat);
+        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat, showUser: showUser)
+        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat, showUser: showUser);
   }
 }
 
@@ -38,6 +40,7 @@ class RequestCard extends StatelessWidget {
   final VoidCallback? onChat;
   final VoidCallback? onTap;
   final bool showChat;
+  final bool showUser;
 
   const RequestCard({
     super.key,
@@ -45,6 +48,7 @@ class RequestCard extends StatelessWidget {
     this.onChat,
     this.onTap,
     this.showChat = true,
+    this.showUser = true,
   });
 
   @override
@@ -115,15 +119,17 @@ class RequestCard extends StatelessWidget {
                 _meta(Icons.event_outlined, 'BEFORE', dayMonth(post.date)),
               ],
             ),
-            SizedBox(height: 12.h),
-            const _DashedLine(),
-            SizedBox(height: 12.h),
-            Row(
-              children: [
-                Expanded(child: _userName()),
-                if (showChat) _ChatPill(onTap: onChat, light: true),
-              ],
-            ),
+            if (showUser || showChat) ...[
+              SizedBox(height: 12.h),
+              const _DashedLine(),
+              SizedBox(height: 12.h),
+              Row(
+                children: [
+                  if (showUser) Expanded(child: _userName()) else const Spacer(),
+                  if (showChat) _ChatPill(onTap: onChat, light: true),
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -236,6 +242,7 @@ class TripCard extends StatelessWidget {
   final VoidCallback? onChat;
   final VoidCallback? onTap;
   final bool showChat;
+  final bool showUser;
 
   const TripCard({
     super.key,
@@ -243,6 +250,7 @@ class TripCard extends StatelessWidget {
     this.onChat,
     this.onTap,
     this.showChat = true,
+    this.showUser = true,
   });
 
   @override
@@ -266,7 +274,7 @@ class TripCard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                if (post.user.isTransporter) SizedBox(height: 26.h),
+                if (post.user.isTransporter) SizedBox(height: 24.h),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -285,36 +293,41 @@ class TripCard extends StatelessWidget {
                         alignEnd: true),
                   ],
                 ),
-                SizedBox(height: 12.h),
-                Divider(color: AppPalette.navy.withValues(alpha: 0.1), height: 1),
-                SizedBox(height: 10.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              post.user.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: AppPalette.navy,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w700,
+                if (showUser || showChat) ...[
+                  SizedBox(height: 12.h),
+                  Divider(color: AppPalette.navy.withValues(alpha: 0.1), height: 1),
+                  SizedBox(height: 10.h),
+                  Row(
+                    children: [
+                      if (showUser)
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  post.user.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: AppPalette.navy,
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
-                            ),
+                              if (post.user.verified) ...[
+                                SizedBox(width: 4.w),
+                                Icon(Icons.verified, color: AppPalette.verified, size: 15.sp),
+                              ],
+                            ],
                           ),
-                          if (post.user.verified) ...[
-                            SizedBox(width: 4.w),
-                            Icon(Icons.verified, color: AppPalette.verified, size: 15.sp),
-                          ],
-                        ],
-                      ),
-                    ),
-                    if (showChat) _ChatPill(onTap: onChat, light: false),
-                  ],
-                ),
+                        )
+                      else
+                        const Spacer(),
+                      if (showChat) _ChatPill(onTap: onChat, light: false),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),

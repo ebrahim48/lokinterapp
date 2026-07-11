@@ -14,7 +14,7 @@ class RecommendedRail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 168.h,
+      height: 144.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 2.w),
@@ -34,8 +34,8 @@ class _TravelerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Container(
-      width: 224.w,
-      padding: EdgeInsets.all(13.w),
+      width: 198.w,
+      padding: EdgeInsets.all(11.w),
       decoration: BoxDecoration(
         color: cs.surface,
         borderRadius: BorderRadius.circular(16.r),
@@ -43,44 +43,47 @@ class _TravelerCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (post.user.isTransporter) ...[
             const TransporterChip(),
-            SizedBox(height: 8.h),
+            SizedBox(height: 6.h),
           ],
           Row(
             children: [
               CircleAvatar(
-                radius: 15.r,
+                radius: 13.r,
                 backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
                 child: Text(
                   post.user.name[0],
-                  style: TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700, fontSize: 13.sp),
+                  style: TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700, fontSize: 12.sp),
                 ),
               ),
-              SizedBox(width: 8.w),
+              SizedBox(width: 7.w),
               Expanded(
                 child: Text(
                   post.user.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp, color: cs.onSurface),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
                 ),
               ),
               ModeBadge(location: post.location, place: post.from, showLabel: false),
             ],
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 7.h),
           Text(
             '${post.from} → ${post.to}',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp, color: cs.onSurface),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
           ),
-          SizedBox(height: 4.h),
-          Text(shortDate(post.date), style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
-          const Spacer(),
+          SizedBox(height: 2.h),
+          Text(shortDate(post.date), style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
+          SizedBox(height: 6.h),
           Text(
             '${kg(post.remainingWeight ?? post.weight)} space left',
-            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+            style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
           ),
         ],
       ),

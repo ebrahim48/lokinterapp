@@ -113,6 +113,7 @@ class _HeroCarousel extends StatefulWidget {
 
 class _HeroCarouselState extends State<_HeroCarousel> {
   static const _clips = [
+    ('assets/animations/traveling_girl.json', Icons.public),
     ('assets/animations/loading_car.json', Icons.local_shipping_outlined),
     ('assets/animations/shopping_cart.json', Icons.shopping_cart_outlined),
   ];
