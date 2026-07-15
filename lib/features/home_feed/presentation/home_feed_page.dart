@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/utils/auth_gate.dart';
+import '../../auth/presentation/login_page.dart';
+import '../../chat/presentation/chat_conversation_page.dart';
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/widgets/lokinter_logo.dart';
 import '../../../core/widgets/section_title.dart';
@@ -41,47 +45,157 @@ class HomeFeedPage extends StatelessWidget {
           SizedBox(width: 4.w),
         ],
       ),
-      body: ListView(
-        padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 24.h),
-        children: [
-          const HomeBanner(),
-          SizedBox(height: 20.h),
-          SectionTitle(
-            title: 'Recommended Travelers',
-            onSeeAll: () => Get.to(() => const RecommendedPage()),
-          ),
-          SizedBox(height: 12.h),
-          RecommendedRail(travelers: c.recommended),
-          SizedBox(height: 20.h),
-          Row(
-            children: [
-              Expanded(
-                child: _BrowseTile(
-                  icon: Icons.inventory_2_outlined,
-                  label: 'Requests',
-                  color: AppPalette.primary,
-                  onTap: () => Get.to(() => const SearchResultsPage(), arguments: 1),
+      body: RefreshIndicator(
+        onRefresh: c.load,
+        child: ListView(
+          padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 24.h),
+          children: [
+            Obx(() => BannerCarousel(banners: c.banners.toList())),
+            SizedBox(height: 20.h),
+            SectionTitle(
+              title: 'Recommended Travelers',
+              onSeeAll: () => Get.to(() => const RecommendedPage()),
+            ),
+            SizedBox(height: 12.h),
+            Obx(() {
+              if (c.isGuest) return const _LoginNudge();
+              if (c.loading.value && c.recommended.isEmpty) return const _RailShimmer();
+              if (c.recommended.isEmpty) return const _EmptyNote(text: 'No travelers right now');
+              return RecommendedRail(travelers: c.recommended.toList());
+            }),
+            SizedBox(height: 20.h),
+            Row(
+              children: [
+                Expanded(
+                  child: _BrowseTile(
+                    icon: Icons.inventory_2_outlined,
+                    label: 'Requests',
+                    color: AppPalette.primary,
+                    onTap: () => Get.to(() => const SearchResultsPage(), arguments: 1),
+                  ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: _BrowseTile(
-                  icon: Icons.flight_takeoff,
-                  label: 'Trips',
-                  color: AppPalette.intlAccent,
-                  onTap: () => Get.to(() => const SearchResultsPage(), arguments: 0),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: _BrowseTile(
+                    icon: Icons.flight_takeoff,
+                    label: 'Trips',
+                    color: AppPalette.intlAccent,
+                    onTap: () => Get.to(() => const SearchResultsPage(), arguments: 0),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          const SectionTitle(title: 'Latest deals'),
-          SizedBox(height: 12.h),
-          for (final post in c.feed) ...[
-            PostCard(post: post, onTap: () => Get.to(() => PostDetailsPage(post: post))),
-            SizedBox(height: 14.h),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            const SectionTitle(title: 'Latest deals'),
+            SizedBox(height: 12.h),
+            Obx(() {
+              if (c.isGuest) return const SizedBox.shrink();
+              if (c.loading.value && c.feed.isEmpty) return const _RailShimmer();
+              if (c.error.value != null && c.feed.isEmpty) {
+                return _EmptyNote(text: c.error.value!);
+              }
+              if (c.feed.isEmpty) return const _EmptyNote(text: 'No deals posted yet');
+              return Column(
+                children: [
+                  for (final post in c.feed) ...[
+                    PostCard(
+                      post: post,
+                      onTap: () => Get.to(() => PostDetailsPage(post: post)),
+                      onChat: () {
+                        if (!requireLogin()) return;
+                        Get.to(() => ChatConversationPage(user: post.user, postId: post.id));
+                      },
+                    ),
+                    SizedBox(height: 14.h),
+                  ],
+                ],
+              );
+            }),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// what guests see instead of the account-only sections
+class _LoginNudge extends StatelessWidget {
+  const _LoginNudge();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.lock_outline, color: AppPalette.primary, size: 22.sp),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Text(
+              'Log in to see recommended travelers and the latest deals.',
+              style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant, height: 1.4),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Get.to(() => const LoginPage()),
+            child: const Text('Login', style: TextStyle(color: AppPalette.primary)),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _EmptyNote extends StatelessWidget {
+  final String text;
+  const _EmptyNote({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 18.h),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 12.5.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ),
+      ),
+    );
+  }
+}
+
+class _RailShimmer extends StatelessWidget {
+  const _RailShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Shimmer.fromColors(
+      baseColor: cs.surfaceContainerHighest,
+      highlightColor: cs.surface,
+      // clipped scroll view so the placeholders can never overflow the row
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
+        child: Row(
+          children: List.generate(
+            2,
+            (_) => Container(
+              width: 160.w,
+              height: 110.h,
+              margin: EdgeInsets.only(right: 12.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -168,6 +168,11 @@ class LokDropdownField extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20.w, 4.h, 20.w, 12.h),
               child: Text(label, style: Theme.of(context).textTheme.titleLarge),
             ),
+            if (options.isEmpty)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 28.h),
+                child: const Center(child: CircularProgressIndicator()),
+              ),
             for (final o in options)
               ListTile(
                 title: Text(o),

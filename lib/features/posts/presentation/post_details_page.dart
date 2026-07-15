@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/utils/auth_gate.dart';
 import '../../../core/utils/format.dart';
+import '../../chat/presentation/chat_conversation_page.dart';
 import '../data/models/post_model.dart';
 import 'widgets/mode_badge.dart';
 import 'widgets/transporter_chip.dart';
@@ -46,11 +50,17 @@ class PostDetailsPage extends StatelessWidget {
           SizedBox(height: 16.h),
           _userCard(context),
           SizedBox(height: 20.h),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.chat_bubble_outline),
-            label: Text('Chat with ${post.user.name}'),
-          ),
+          // no chat button on the user's own posts
+          if (post.user.id == 0 ||
+              post.user.id != Get.find<SessionService>().user.value?.id)
+            ElevatedButton.icon(
+              onPressed: () {
+                if (!requireLogin()) return;
+                Get.to(() => ChatConversationPage(user: post.user, postId: post.id));
+              },
+              icon: const Icon(Icons.chat_bubble_outline),
+              label: Text('Chat with ${post.user.name}'),
+            ),
         ],
       ),
     );
@@ -68,7 +78,7 @@ class PostDetailsPage extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: _end(context, 'FROM', post.from, false)),
-          ModeBadge(location: post.location, place: post.from),
+          ModeBadge(location: post.location, place: post.from, iso: post.flagIso),
           Expanded(child: _end(context, 'TO', post.to, true)),
         ],
       ),

@@ -112,6 +112,7 @@ abstract class StorageKeys {
   static const String userId = 'user_id';
   static const String userName = 'user_name';
   static const String userEmail = 'user_email';
+  static const String userJson = 'user_json';
 
   // ─── App Settings ─────────────────────────────────────────────────────────
   static const String isDarkMode = 'is_dark_mode';

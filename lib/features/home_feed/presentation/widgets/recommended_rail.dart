@@ -68,7 +68,7 @@ class _TravelerCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
                 ),
               ),
-              ModeBadge(location: post.location, place: post.from, showLabel: false),
+              ModeBadge(location: post.location, place: post.from, iso: post.flagIso, showLabel: false),
             ],
           ),
           SizedBox(height: 7.h),

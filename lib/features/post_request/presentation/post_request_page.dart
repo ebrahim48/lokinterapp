@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
 import '../../brands/presentation/brands_page.dart';
-import '../../posts/data/mock_data.dart';
 import '../../posts/data/models/post_model.dart';
 import 'controllers/post_request_controller.dart';
 
@@ -132,7 +132,7 @@ class PostRequestPage extends StatelessWidget {
                 hint: 'inside country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.insideCountry.value,
                 onChanged: (v) => c.insideCountry.value = v,
               )),
@@ -142,7 +142,7 @@ class PostRequestPage extends StatelessWidget {
                 hint: 'from city',
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
-                options: MockData.cities,
+                options: c.cityNames,
                 value: c.fromCity.value,
                 onChanged: (v) => c.fromCity.value = v,
               )),
@@ -152,7 +152,7 @@ class PostRequestPage extends StatelessWidget {
                 hint: 'to city',
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
-                options: MockData.cities,
+                options: c.cityNames,
                 value: c.toCity.value,
                 onChanged: (v) => c.toCity.value = v,
               )),
@@ -162,7 +162,7 @@ class PostRequestPage extends StatelessWidget {
                 hint: 'from country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.fromCountry.value,
                 onChanged: (v) => c.fromCountry.value = v,
               )),
@@ -172,7 +172,7 @@ class PostRequestPage extends StatelessWidget {
                 hint: 'to country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.toCountry.value,
                 onChanged: (v) => c.toCountry.value = v,
               )),
@@ -196,12 +196,28 @@ class PostRequestPage extends StatelessWidget {
           controller: c.weight,
         ),
         SizedBox(height: 16.h),
+        LokTextField(
+          label: 'Pickup location',
+          hint: 'where the item is collected',
+          icon: Icons.place_outlined,
+          required: true,
+          controller: c.pickupLocation,
+        ),
+        SizedBox(height: 16.h),
+        LokTextField(
+          label: 'Dropoff location',
+          hint: 'where it should be delivered',
+          icon: Icons.flag_outlined,
+          required: true,
+          controller: c.dropoffLocation,
+        ),
+        SizedBox(height: 16.h),
         Obx(() => LokDropdownField(
               label: 'Categories',
               hint: 'select categories',
               icon: Icons.category_outlined,
               required: true,
-              options: MockData.categories,
+              options: c.categoryNames,
               value: c.category.value,
               onChanged: (v) => c.category.value = v,
             )),
@@ -251,7 +267,7 @@ class PostRequestPage extends StatelessWidget {
               onChanged: (v) => c.acceptedTerms.value = v,
             )),
         SizedBox(height: 18.h),
-        ElevatedButton(onPressed: () {}, child: const Text('Post')),
+        LokBusyButton(busy: c.busy, label: 'Post', onPressed: c.submit),
       ],
     );
   }

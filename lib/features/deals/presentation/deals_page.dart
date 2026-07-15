@@ -30,19 +30,38 @@ class DealsPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Obx(
-              () => c.deals.isEmpty
-                  ? _empty(context)
-                  : ListView.separated(
-                      padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 24.h),
-                      itemCount: c.deals.length,
-                      separatorBuilder: (_, __) => SizedBox(height: 12.h),
-                      itemBuilder: (_, i) => DealCard(
-                        deal: c.deals[i],
-                        onTap: () => Get.to(() => DealDetailsPage(deal: c.deals[i])),
-                      ),
-                    ),
-            ),
+            child: Obx(() {
+              if (c.loading.value && c.deals.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (c.error.value != null && c.deals.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(c.error.value!,
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                      TextButton(onPressed: c.load, child: const Text('Retry')),
+                    ],
+                  ),
+                );
+              }
+              if (c.deals.isEmpty) return _empty(context);
+              return RefreshIndicator(
+                onRefresh: c.load,
+                child: ListView.separated(
+                  padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 24.h),
+                  itemCount: c.deals.length,
+                  separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                  itemBuilder: (_, i) => DealCard(
+                    deal: c.deals[i],
+                    onTap: () => Get.to(() => DealDetailsPage(deal: c.deals[i])),
+                  ),
+                ),
+              );
+            }),
           ),
         ],
       ),

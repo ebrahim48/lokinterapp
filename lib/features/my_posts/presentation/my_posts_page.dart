@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/utils/notify.dart';
 import '../../../core/widgets/lok_segmented.dart';
 import '../../post_request/presentation/post_request_page.dart';
 import '../../post_trip/presentation/post_trip_page.dart';
-import '../../posts/data/mock_data.dart';
 import '../../posts/data/models/post_model.dart';
+import '../../posts/data/posts_repository.dart';
 import '../../posts/presentation/widgets/post_card.dart';
 
 // Trips and requests the user has posted, with edit / delete.
@@ -18,11 +20,43 @@ class MyPostsPage extends StatefulWidget {
 }
 
 class _MyPostsPageState extends State<MyPostsPage> {
+  final _repo = PostsRepository();
+
   int _tab = 0; // 0 = Trips, 1 = Requests
-  late final List<Post> _trips = [...MockData.trips];
-  late final List<Post> _requests = [...MockData.requests];
+  List<Post> _trips = [];
+  List<Post> _requests = [];
+  bool _loading = true;
+  String? _error;
 
   List<Post> get _items => _tab == 0 ? _trips : _requests;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() {
+      _loading = _trips.isEmpty && _requests.isEmpty;
+      _error = null;
+    });
+    try {
+      final results = await Future.wait([_repo.myPosts('TRIP'), _repo.myPosts('DELIVER')]);
+      if (!mounted) return;
+      setState(() {
+        _trips = results[0];
+        _requests = results[1];
+        _loading = false;
+      });
+    } on AppException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        if (_items.isEmpty) _error = e.message;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +72,33 @@ class _MyPostsPageState extends State<MyPostsPage> {
               onChanged: (i) => setState(() => _tab = i),
             ),
           ),
-          Expanded(
-            child: _items.isEmpty
-                ? _empty(context)
-                : ListView.separated(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
-                    itemCount: _items.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 16.h),
-                    itemBuilder: (_, i) => _postWithActions(_items[i]),
-                  ),
-          ),
+          Expanded(child: _body()),
         ],
+      ),
+    );
+  }
+
+  Widget _body() {
+    if (_loading) return const Center(child: CircularProgressIndicator());
+    if (_error != null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(_error!, style: TextStyle(fontSize: 13.sp)),
+            TextButton(onPressed: _load, child: const Text('Retry')),
+          ],
+        ),
+      );
+    }
+    if (_items.isEmpty) return _empty(context);
+    return RefreshIndicator(
+      onRefresh: _load,
+      child: ListView.separated(
+        padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
+        itemCount: _items.length,
+        separatorBuilder: (_, __) => SizedBox(height: 16.h),
+        itemBuilder: (_, i) => _postWithActions(_items[i]),
       ),
     );
   }
@@ -95,9 +145,15 @@ class _MyPostsPageState extends State<MyPostsPage> {
         actions: [
           TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Get.back();
-              setState(() => _items.remove(post));
+              try {
+                await _repo.deletePost(post.id);
+                if (!mounted) return;
+                setState(() => _items.remove(post));
+              } on AppException catch (e) {
+                toastError(e);
+              }
             },
             child: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
           ),

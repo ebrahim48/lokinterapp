@@ -1,55 +1,72 @@
+import '../../../core/utils/media_url.dart';
 import '../../posts/data/models/post_model.dart';
 
 class ChatMessage {
+  final int id;
   final String text;
   final bool fromMe;
   final String time;
+  final String? attachmentUrl;
 
-  const ChatMessage({required this.text, required this.fromMe, required this.time});
+  const ChatMessage({
+    this.id = 0,
+    required this.text,
+    required this.fromMe,
+    required this.time,
+    this.attachmentUrl,
+  });
+
+  factory ChatMessage.fromJson(Map<String, dynamic> json, int myUserId) {
+    final senderId = json['userId'] ?? json['fromId'] ?? json['senderId'] ?? 0;
+    return ChatMessage(
+      id: json['id'] ?? 0,
+      text: json['message'] ?? '',
+      fromMe: senderId == myUserId,
+      time: (json['time'] ?? json['createdAt'] ?? json['created_at'] ?? '').toString(),
+      attachmentUrl:
+          fixMediaUrl(json['fileUrl'] ?? json['file']?['url'] ?? json['attachFile']?['url']),
+    );
+  }
 }
 
 class Conversation {
+  final int chatId;
   final PostUser user;
   final String lastMessage;
   final String time;
   final int unread;
-  final List<ChatMessage> messages;
 
   const Conversation({
+    required this.chatId,
     required this.user,
-    required this.lastMessage,
-    required this.time,
+    this.lastMessage = '',
+    this.time = '',
     this.unread = 0,
-    this.messages = const [],
   });
+
+  factory Conversation.fromJson(Map<String, dynamic> json) => Conversation(
+        chatId: json['id'] ?? 0,
+        user: PostUser.fromJson(Map<String, dynamic>.from(json['user'] ?? {})),
+        lastMessage: json['lastMessage'] ?? '',
+        time: json['lastTimeMessage'] ?? '',
+        unread: json['newMessages'] ?? 0,
+      );
 }
 
-const _thread = [
-  ChatMessage(text: 'Hi! I saw your trip to Tunis, is there space left?', fromMe: true, time: '09:31'),
-  ChatMessage(text: 'Yes, 8 kg available. What do you need to send?', fromMe: false, time: '09:33'),
-  ChatMessage(text: 'A small parcel, about 2 kg. Shein order.', fromMe: true, time: '09:34'),
-  ChatMessage(text: 'Sounds good. I can carry it for TND 50.', fromMe: false, time: '09:36'),
-  ChatMessage(text: 'Deal! I will send the agreement now.', fromMe: true, time: '09:37'),
-];
+// what the chat screen needs to know about the post being discussed
+class ChatPostContext {
+  final int id;
+  final String type; // TRIP or DELIVER
+  final String? wantTo;
 
-final mockConversations = <Conversation>[
-  const Conversation(
-    user: PostUser(name: 'Ahmed R.', verified: true, rating: 4.7),
-    lastMessage: 'Deal! I will send the agreement now.',
-    time: '2m',
-    unread: 2,
-    messages: _thread,
-  ),
-  const Conversation(
-    user: PostUser(name: 'Lina B.', verified: true, rating: 4.9),
-    lastMessage: 'Perfect, see you on the 3rd.',
-    time: '1h',
-    messages: _thread,
-  ),
-  const Conversation(
-    user: PostUser(name: 'Karim T.', rating: 4.1),
-    lastMessage: 'Can you do 1.5 kg instead?',
-    time: 'Yesterday',
-    messages: _thread,
-  ),
-];
+  const ChatPostContext({required this.id, required this.type, this.wantTo});
+
+  static ChatPostContext? fromJson(dynamic json) {
+    if (json is! Map || json['id'] == null) return null;
+    return ChatPostContext(
+      id: json['id'],
+      type: json['type'] ?? 'TRIP',
+      wantTo: json['wantTo'],
+    );
+  }
+}

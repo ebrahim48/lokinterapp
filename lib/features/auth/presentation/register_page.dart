@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
-import '../../posts/data/mock_data.dart';
-import '../../shell/presentation/main_shell.dart';
 import 'controllers/register_controller.dart';
 import 'login_page.dart';
 
@@ -60,7 +59,7 @@ class RegisterPage extends StatelessWidget {
                 hint: 'select a country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.country.value,
                 onChanged: (v) => c.country.value = v,
               )),
@@ -83,13 +82,10 @@ class RegisterPage extends StatelessWidget {
             controller: c.email,
           ),
           SizedBox(height: 16.h),
-          const LokPasswordField(),
+          LokPasswordField(controller: c.password),
           Obx(() => c.isTransporter ? _businessSection(context, c) : const SizedBox.shrink()),
           SizedBox(height: 22.h),
-          ElevatedButton(
-            onPressed: () => Get.offAll(() => const MainShell()),
-            child: const Text('Register'),
-          ),
+          LokBusyButton(busy: c.busy, label: 'Register', onPressed: c.requestOtp),
           SizedBox(height: 18.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +228,7 @@ class RegisterPage extends StatelessWidget {
               hint: 'select countries',
               icon: Icons.public,
               required: true,
-              options: MockData.countries,
+              options: c.countryNames,
               selected: c.operatingCountries.toList(),
               onChanged: (v) => c.operatingCountries.value = v,
             )),
@@ -241,16 +237,16 @@ class RegisterPage extends StatelessWidget {
         SizedBox(height: 6.h),
         Obx(() => LokUploadField(
               label: 'Upload transport license',
-              fileName: c.licenseName.value,
-              onTap: () => c.licenseName.value = 'transport-license.pdf',
+              fileName: c.licenseFile.value?.name,
+              onTap: c.pickLicense,
             )),
         SizedBox(height: 16.h),
         _docLabel(context, 'Transporter legal documents'),
         SizedBox(height: 6.h),
         Obx(() => LokUploadField(
               label: 'Upload legal documents',
-              fileName: c.documentName.value,
-              onTap: () => c.documentName.value = 'legal-documents.pdf',
+              fileName: c.legalFile.value?.name,
+              onTap: c.pickLegal,
             )),
         SizedBox(height: 10.h),
         Text(

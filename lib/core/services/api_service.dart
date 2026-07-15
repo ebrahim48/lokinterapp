@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import '../constants/api_constants.dart';
 import '../exceptions/app_exceptions.dart';
+import 'session_service.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
   late Dio _dio;
+
+  // set from app.dart — routes back to the welcome screen when a refresh fails
+  static void Function()? onSessionExpired;
 
   factory ApiService() {
     return _instance;
@@ -21,11 +26,14 @@ class ApiService {
       ),
     );
 
-    // Add interceptors for logging (only in debug mode)
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          // Request logging
+          final session = Get.isRegistered<SessionService>() ? Get.find<SessionService>() : null;
+          final token = session?.accessToken;
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
           assert(() {
             if (kDebugMode) {
               print('REQUEST[${options.method}] => PATH: ${options.path}');
@@ -35,7 +43,6 @@ class ApiService {
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          // Response logging
           assert(() {
             if (kDebugMode) {
               print(
@@ -46,8 +53,7 @@ class ApiService {
           }());
           return handler.next(response);
         },
-        onError: (error, handler) {
-          // Error logging
+        onError: (error, handler) async {
           assert(() {
             if (kDebugMode) {
               print(
@@ -56,10 +62,43 @@ class ApiService {
             }
             return true;
           }());
+
+          // expired token: refresh once and replay the request
+          if (error.response?.statusCode == 401 &&
+              !error.requestOptions.path.contains('/auth/')) {
+            final retried = await _refreshAndRetry(error.requestOptions);
+            if (retried != null) return handler.resolve(retried);
+          }
           return handler.next(error);
         },
       ),
     );
+  }
+
+  Future<Response?> _refreshAndRetry(RequestOptions failed) async {
+    final session = Get.isRegistered<SessionService>() ? Get.find<SessionService>() : null;
+    final refresh = session?.refreshToken;
+    if (session == null || refresh == null || refresh.isEmpty) return null;
+
+    try {
+      // bare client so a 401 here doesn't loop back into this interceptor;
+      // the backend wants both tokens in the body, not a bearer header
+      final res = await Dio(BaseOptions(baseUrl: ApiConstants.baseUrl)).post(
+        '/auth/refreshToken',
+        data: {'accessToken': session.accessToken, 'refreshToken': refresh},
+      );
+      final token = res.data?['data']?['token'] ?? res.data?['data'] ?? {};
+      final access = token['accessToken'] as String?;
+      if (access == null) throw Exception('no token in refresh response');
+      await session.setTokens(access, token['refreshToken'] ?? refresh);
+
+      failed.headers['Authorization'] = 'Bearer $access';
+      return await _dio.fetch(failed);
+    } catch (_) {
+      await session.clear();
+      onSessionExpired?.call();
+      return null;
+    }
   }
 
   Dio get dio => _dio;
@@ -389,7 +428,11 @@ class ApiService {
 
       case DioExceptionType.badResponse:
         final statusCode = error.response?.statusCode;
-        final message = error.response?.statusMessage ?? 'Server error';
+        // the backend puts the human-readable reason in the envelope
+        final body = error.response?.data;
+        final message = (body is Map ? body['message'] : null) ??
+            error.response?.statusMessage ??
+            'Server error';
         return ServerException(message, statusCode, error.message);
 
       case DioExceptionType.cancel:

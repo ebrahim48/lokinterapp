@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/lokinter_logo.dart';
-import '../../shell/presentation/main_shell.dart';
+import 'controllers/login_controller.dart';
 import 'forgot_password_page.dart';
 import 'register_page.dart';
 
@@ -13,6 +14,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = Get.put(LoginController());
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(),
@@ -28,15 +30,16 @@ class LoginPage extends StatelessWidget {
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 28.h),
-          const LokTextField(
+          LokTextField(
             label: 'Email',
             hint: 'you@email.com',
             icon: Icons.mail_outline,
             required: true,
             keyboardType: TextInputType.emailAddress,
+            controller: c.email,
           ),
           SizedBox(height: 16.h),
-          const LokPasswordField(),
+          LokPasswordField(controller: c.password),
           SizedBox(height: 8.h),
           Align(
             alignment: Alignment.centerRight,
@@ -49,10 +52,7 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12.h),
-          ElevatedButton(
-            onPressed: () => Get.offAll(() => const MainShell()),
-            child: const Text('Login'),
-          ),
+          LokBusyButton(busy: c.busy, label: 'Login', onPressed: c.submit),
           SizedBox(height: 18.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

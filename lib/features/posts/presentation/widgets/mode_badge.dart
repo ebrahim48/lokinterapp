@@ -9,6 +9,7 @@ import '../../data/models/post_model.dart';
 class ModeBadge extends StatelessWidget {
   final PostLocation location;
   final String? place; // country/city for the local flag
+  final String? iso; // preferred — comes straight from the API
   final bool showLabel;
   final Color? labelColor;
 
@@ -16,6 +17,7 @@ class ModeBadge extends StatelessWidget {
     super.key,
     required this.location,
     this.place,
+    this.iso,
     this.showLabel = true,
     this.labelColor,
   });
@@ -56,7 +58,7 @@ class ModeBadge extends StatelessWidget {
         ],
       ),
       child: CountryFlag.fromCountryCode(
-        countryCodeFor(place ?? ''),
+        iso ?? countryCodeFor(place ?? ''),
         height: 34.r,
         width: 34.r,
         shape: const Circle(),

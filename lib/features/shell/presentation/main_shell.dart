@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/services/session_service.dart';
+import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/utils/auth_gate.dart';
 import '../../chat/presentation/chat_inbox_page.dart';
 import '../../deals/presentation/deals_page.dart';
 import '../../home_feed/presentation/home_feed_page.dart';
@@ -18,6 +21,15 @@ class MainShell extends StatefulWidget {
 
 class _MainShellState extends State<MainShell> {
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // bring up the realtime layer once we're inside the app (login/restore)
+    if (Get.find<SessionService>().loggedIn) {
+      Get.find<SocketService>().connect();
+    }
+  }
 
   static const _pages = [
     HomeFeedPage(),
@@ -36,7 +48,10 @@ class _MainShellState extends State<MainShell> {
         backgroundColor: AppPalette.primary,
         elevation: 2,
         shape: const CircleBorder(),
-        onPressed: () => _openPostSheet(context),
+        onPressed: () {
+          if (!requireLogin()) return;
+          _openPostSheet(context);
+        },
         child: const Icon(Icons.add, color: Colors.white),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -65,7 +80,11 @@ class _MainShellState extends State<MainShell> {
     final color = active ? AppPalette.primary : cs.onSurfaceVariant;
     return Expanded(
       child: InkWell(
-        onTap: () => setState(() => _index = index),
+        onTap: () {
+          // Deals / Chat / Profile are account screens — guests get the login ask
+          if (index != 0 && !requireLogin()) return;
+          setState(() => _index = index);
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

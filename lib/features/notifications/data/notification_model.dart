@@ -4,6 +4,7 @@ import '../../../core/theme/app_palette.dart';
 enum NotifType { deal, chat, trip, request, verification }
 
 class AppNotification {
+  final String id;
   final NotifType type;
   final String title;
   final String body;
@@ -11,12 +12,35 @@ class AppNotification {
   final bool read;
 
   const AppNotification({
+    this.id = '',
     required this.type,
     required this.title,
     required this.body,
     required this.time,
     this.read = false,
   });
+
+  factory AppNotification.fromJson(Map<String, dynamic> json) {
+    final title = (json['title'] ?? '').toString();
+    return AppNotification(
+      id: (json['id'] ?? '').toString(),
+      type: _typeFor(title),
+      title: title,
+      body: json['subtitle'] ?? json['body'] ?? '',
+      time: (json['createdAt'] ?? json['created_at'] ?? '').toString(),
+      read: json['read_at'] != null || json['readAt'] != null,
+    );
+  }
+
+  // the API doesn't send a category, so the icon is guessed from the title
+  static NotifType _typeFor(String title) {
+    final t = title.toLowerCase();
+    if (t.contains('message') || t.contains('chat')) return NotifType.chat;
+    if (t.contains('trip')) return NotifType.trip;
+    if (t.contains('request')) return NotifType.request;
+    if (t.contains('identity') || t.contains('verif')) return NotifType.verification;
+    return NotifType.deal;
+  }
 }
 
 extension NotifTypeX on NotifType {
@@ -36,32 +60,3 @@ extension NotifTypeX on NotifType {
         NotifType.verification => AppPalette.localAccent,
       };
 }
-
-const mockNotifications = <AppNotification>[
-  AppNotification(
-    type: NotifType.trip,
-    title: 'New trip to Tunisia',
-    body: 'A traveler is arriving in Tunis on 12 June with 10 kg available.',
-    time: '5m',
-  ),
-  AppNotification(
-    type: NotifType.chat,
-    title: 'Ahmed R. sent a message',
-    body: 'Deal! I will send the agreement now.',
-    time: '12m',
-  ),
-  AppNotification(
-    type: NotifType.deal,
-    title: 'Agreement accepted',
-    body: 'Your agreement on LK-2041 was confirmed by both parties.',
-    time: '1h',
-    read: true,
-  ),
-  AppNotification(
-    type: NotifType.verification,
-    title: 'Identity verified',
-    body: 'Your identity documents were approved.',
-    time: 'Yesterday',
-    read: true,
-  ),
-];

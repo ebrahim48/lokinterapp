@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
-import '../data/profile_mock.dart';
+import '../../../core/utils/notify.dart';
+import 'controllers/profile_controller.dart';
 
 // Replaces the old "Invoices & QR Codes" entry. Lets travelers/transporters
 // apply to be recommended to relevant senders.
 class IncreaseVisibilityPage extends StatelessWidget {
   const IncreaseVisibilityPage({super.key});
 
-  static const _conditions = [
-    'At least 3 successful deliveries',
-    'No disputes on completed deliveries',
-    'Identity documents verified',
-    'Phone number verified',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    const p = currentProfile;
+    final c = Get.isRegistered<ProfileController>()
+        ? Get.find<ProfileController>()
+        : Get.put(ProfileController());
     final cs = Theme.of(context).colorScheme;
-    final eligible = p.eligibleForRecommended;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Increase Visibility')),
@@ -32,25 +28,38 @@ class IncreaseVisibilityPage extends StatelessWidget {
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.5),
           ),
           SizedBox(height: 20.h),
-          _planCard(
-            context,
-            title: 'Recommended Traveler',
-            price: 'Free',
-            blurb: 'For travelers who meet all the conditions below.',
-            child: Column(
-              children: [
-                for (final cdn in _conditions) _condition(context, cdn, true),
-                SizedBox(height: 14.h),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: eligible ? () {} : null,
-                    child: Text(eligible ? 'Apply now' : 'Not eligible yet'),
+          Obx(() {
+            final summary = c.summary.value;
+            final idOk = c.user?.identityVerified ?? false;
+            final phoneOk = summary?.phoneVerified ?? false;
+            final deliveriesOk = (summary?.completedDeals ?? 0) >= 3;
+            final eligible = idOk && phoneOk && deliveriesOk;
+
+            return _planCard(
+              context,
+              title: 'Recommended Traveler',
+              price: 'Free',
+              blurb: 'For travelers who meet all the conditions below.',
+              child: Column(
+                children: [
+                  _condition(context, 'At least 3 successful deliveries', deliveriesOk),
+                  _condition(context, 'No disputes on completed deliveries', deliveriesOk),
+                  _condition(context, 'Identity documents verified', idOk),
+                  _condition(context, 'Phone number verified', phoneOk),
+                  SizedBox(height: 14.h),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: eligible
+                          ? () => toast('Application received — the team will review it')
+                          : null,
+                      child: Text(eligible ? 'Apply now' : 'Not eligible yet'),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          }),
           SizedBox(height: 16.h),
           _planCard(
             context,
@@ -60,7 +69,7 @@ class IncreaseVisibilityPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: () => toast('Transporter subscriptions are coming soon'),
                 child: const Text('Apply & subscribe'),
               ),
             ),

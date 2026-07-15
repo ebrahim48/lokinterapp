@@ -1,15 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
+import '../../../core/utils/notify.dart';
+import '../../chat/presentation/chat_conversation_page.dart';
 import '../../posts/presentation/widgets/mode_badge.dart';
 import '../data/deal_model.dart';
+import '../data/deals_repository.dart';
+import 'deals_controller.dart';
 import 'widgets/status_badge.dart';
 
-class DealDetailsPage extends StatelessWidget {
+class DealDetailsPage extends StatefulWidget {
   final Deal deal;
   const DealDetailsPage({super.key, required this.deal});
+
+  @override
+  State<DealDetailsPage> createState() => _DealDetailsPageState();
+}
+
+class _DealDetailsPageState extends State<DealDetailsPage> {
+  final _repo = DealsRepository();
+  bool _busy = false;
+
+  Deal get deal => widget.deal;
+
+  // runs an action, refreshes the list behind us and pops back to it
+  Future<void> _run(Future<void> Function() action, String doneMessage) async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      await action();
+      if (Get.isRegistered<DealsController>()) Get.find<DealsController>().load();
+      toast(doneMessage);
+      Get.back();
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _withReason(String title, String status) async {
+    final reason = TextEditingController();
+    final confirmed = await Get.dialog<bool>(
+      AlertDialog(
+        title: Text(title),
+        content: TextField(
+          controller: reason,
+          maxLines: 2,
+          decoration: const InputDecoration(hintText: 'Tell the other side why'),
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(result: false), child: const Text('Back')),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: Text(title, style: const TextStyle(color: AppPalette.primary)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) {
+      await _run(
+        () => _repo.changeStatus(deal.id, status, reason: reason.text.trim()),
+        'Deal updated',
+      );
+    }
+    reason.dispose();
+  }
+
+  Future<void> _showDisputeReport() async {
+    try {
+      final report = await _repo.disputeReport(deal.id);
+      final text = report?['reason'] ?? report?['description'] ?? deal.disputeReason;
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Dispute report'),
+          content: Text(text?.toString() ?? 'No report details available.'),
+          actions: [
+            TextButton(onPressed: () => Get.back(), child: const Text('Close')),
+          ],
+        ),
+      );
+    } on AppException catch (e) {
+      toastError(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +138,7 @@ class DealDetailsPage extends StatelessWidget {
           Row(
             children: [
               Expanded(child: _stat(context, 'FROM', deal.fromCountry)),
-              ModeBadge(location: deal.location, place: deal.fromCountry),
+              ModeBadge(location: deal.location, place: deal.fromCountry, iso: deal.fromIso),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -142,7 +219,8 @@ class DealDetailsPage extends StatelessWidget {
             ),
           ),
           OutlinedButton.icon(
-            onPressed: () {},
+            onPressed: () =>
+                Get.to(() => ChatConversationPage(user: deal.counterpart)),
             style: OutlinedButton.styleFrom(minimumSize: Size(0, 40.h)),
             icon: Icon(Icons.chat_bubble_outline, size: 16.sp),
             label: const Text('Chat'),
@@ -274,16 +352,38 @@ class DealDetailsPage extends StatelessWidget {
     switch (deal.status) {
       case DealStatus.pending:
         return [
-          ElevatedButton(onPressed: () {}, child: const Text('Accept agreement')),
+          ElevatedButton(
+            onPressed: _busy
+                ? null
+                : () => _run(
+                      () => _repo.changeStatus(deal.id, 'ACCEPTED'),
+                      'Agreement accepted',
+                    ),
+            child: const Text('Accept agreement'),
+          ),
           SizedBox(height: 12.h),
-          OutlinedButton(onPressed: () {}, child: const Text('Decline')),
+          OutlinedButton(
+            onPressed: _busy ? null : () => _withReason('Decline', 'REJECTED'),
+            child: const Text('Decline'),
+          ),
         ];
       case DealStatus.accepted:
       case DealStatus.outgoing:
         return [
-          ElevatedButton(onPressed: () {}, child: const Text('Mark as delivered')),
+          ElevatedButton(
+            onPressed: _busy
+                ? null
+                : () => _run(
+                      () => _repo.markCompleted(deal.refId),
+                      'Marked as delivered',
+                    ),
+            child: const Text('Mark as delivered'),
+          ),
           SizedBox(height: 12.h),
-          OutlinedButton(onPressed: () {}, child: const Text('Cancel agreement')),
+          OutlinedButton(
+            onPressed: _busy ? null : () => _withReason('Cancel agreement', 'CANCELED'),
+            child: const Text('Cancel agreement'),
+          ),
         ];
       case DealStatus.completed:
         return [
@@ -294,7 +394,10 @@ class DealDetailsPage extends StatelessWidget {
         ];
       case DealStatus.disputes:
         return [
-          ElevatedButton(onPressed: () {}, child: const Text('View dispute report')),
+          ElevatedButton(
+            onPressed: _showDisputeReport,
+            child: const Text('View dispute report'),
+          ),
         ];
       case DealStatus.cancelled:
         return [
@@ -312,20 +415,44 @@ class DealDetailsPage extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22.r)),
       ),
-      builder: (_) => const _RateSheet(),
+      builder: (_) => _RateSheet(deal: deal),
     );
   }
 }
 
 class _RateSheet extends StatefulWidget {
-  const _RateSheet();
+  final Deal deal;
+  const _RateSheet({required this.deal});
 
   @override
   State<_RateSheet> createState() => _RateSheetState();
 }
 
 class _RateSheetState extends State<_RateSheet> {
+  final _repo = DealsRepository();
+  final _comment = TextEditingController();
   int _stars = 5;
+  bool _sending = false;
+
+  @override
+  void dispose() {
+    _comment.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit() async {
+    setState(() => _sending = true);
+    try {
+      await _repo.rate(widget.deal.id, _stars, _comment.text.trim());
+      if (!mounted) return;
+      Navigator.pop(context);
+      toast('Thanks for the review!');
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _sending = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -354,13 +481,20 @@ class _RateSheetState extends State<_RateSheet> {
             ),
             SizedBox(height: 8.h),
             TextField(
+              controller: _comment,
               maxLines: 3,
               decoration: const InputDecoration(hintText: 'Leave a comment (optional)'),
             ),
             SizedBox(height: 18.h),
             ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Submit review'),
+              onPressed: _sending ? null : _submit,
+              child: _sending
+                  ? SizedBox(
+                      width: 20.r,
+                      height: 20.r,
+                      child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    )
+                  : const Text('Submit review'),
             ),
           ],
         ),

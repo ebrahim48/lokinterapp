@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
-import 'login_page.dart';
+import 'controllers/password_reset_controller.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final c = Get.find<PasswordResetController>();
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(),
@@ -22,22 +24,19 @@ class ResetPasswordPage extends StatelessWidget {
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 28.h),
-          const LokTextField(
+          LokTextField(
             label: 'Reset code',
-            hint: '6-digit code',
+            hint: 'code from the email',
             icon: Icons.pin_outlined,
             required: true,
-            keyboardType: TextInputType.number,
+            controller: c.token,
           ),
           SizedBox(height: 16.h),
-          const LokPasswordField(label: 'New password', hint: 'new password'),
+          LokPasswordField(label: 'New password', hint: 'new password', controller: c.password),
           SizedBox(height: 16.h),
-          const LokPasswordField(label: 'Confirm password', hint: 'repeat password'),
+          LokPasswordField(label: 'Confirm password', hint: 'repeat password', controller: c.confirm),
           SizedBox(height: 20.h),
-          ElevatedButton(
-            onPressed: () => Get.offAll(() => const LoginPage()),
-            child: const Text('Reset password'),
-          ),
+          LokBusyButton(busy: c.busy, label: 'Reset password', onPressed: c.reset),
         ],
       ),
     );

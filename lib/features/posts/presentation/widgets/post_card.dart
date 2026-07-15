@@ -1,6 +1,8 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../../core/services/session_service.dart';
 import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/flags.dart';
 import '../../../../core/utils/format.dart';
@@ -28,9 +30,13 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // no chatting with yourself — hide the pill on the user's own posts
+    final myId = Get.find<SessionService>().user.value?.id;
+    final chat = showChat && !(post.user.id != 0 && post.user.id == myId);
+
     return post.isTrip
-        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat, showUser: showUser)
-        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: showChat, showUser: showUser);
+        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser)
+        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser);
   }
 }
 
@@ -148,7 +154,7 @@ class RequestCard extends StatelessWidget {
         children: [
           if (local)
             CountryFlag.fromCountryCode(
-              countryCodeFor(post.from),
+              post.flagIso ?? countryCodeFor(post.from),
               height: 22.r,
               width: 22.r,
               shape: const Circle(),
@@ -183,7 +189,12 @@ class RequestCard extends StatelessWidget {
         height: box,
         color: Colors.white.withValues(alpha: 0.16),
         child: post.imageUrl != null
-            ? Image.network(post.imageUrl!, fit: BoxFit.cover)
+            ? Image.network(
+                post.imageUrl!,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Icon(Icons.image_outlined,
+                    color: Colors.white.withValues(alpha: 0.8), size: 30.sp),
+              )
             : Icon(Icons.image_outlined, color: Colors.white.withValues(alpha: 0.8), size: 30.sp),
       ),
     );
@@ -279,7 +290,7 @@ class TripCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: _endpoint('FROM', post.from, CrossAxisAlignment.start)),
-                    ModeBadge(location: post.location, place: post.from),
+                    ModeBadge(location: post.location, place: post.from, iso: post.flagIso),
                     Expanded(child: _endpoint('TO', post.to, CrossAxisAlignment.end)),
                   ],
                 ),

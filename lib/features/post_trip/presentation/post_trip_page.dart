@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
-import '../../posts/data/mock_data.dart';
 import '../../posts/data/models/post_model.dart';
 import 'controllers/post_trip_controller.dart';
 
@@ -75,7 +75,7 @@ class PostTripPage extends StatelessWidget {
                 hint: 'inside country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.insideCountry.value,
                 onChanged: (v) => c.insideCountry.value = v,
               )),
@@ -85,7 +85,7 @@ class PostTripPage extends StatelessWidget {
                 hint: 'from city',
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
-                options: MockData.cities,
+                options: c.cityNames,
                 value: c.fromCity.value,
                 onChanged: (v) => c.fromCity.value = v,
               )),
@@ -95,7 +95,7 @@ class PostTripPage extends StatelessWidget {
                 hint: 'to city',
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
-                options: MockData.cities,
+                options: c.cityNames,
                 value: c.toCity.value,
                 onChanged: (v) => c.toCity.value = v,
               )),
@@ -105,7 +105,7 @@ class PostTripPage extends StatelessWidget {
                 hint: 'from country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.fromCountry.value,
                 onChanged: (v) => c.fromCountry.value = v,
               )),
@@ -115,7 +115,7 @@ class PostTripPage extends StatelessWidget {
                 hint: 'to country',
                 icon: Icons.public,
                 required: true,
-                options: MockData.countries,
+                options: c.countryNames,
                 value: c.toCountry.value,
                 onChanged: (v) => c.toCountry.value = v,
               )),
@@ -136,6 +136,15 @@ class PostTripPage extends StatelessWidget {
                 value: c.noSpecificDate.value,
                 onChanged: (v) => c.noSpecificDate.value = v,
               )),
+        ] else ...[
+          SizedBox(height: 16.h),
+          LokTextField(
+            label: 'Airline',
+            hint: 'e.g. Air France',
+            icon: Icons.flight_takeoff,
+            required: true,
+            controller: c.airline,
+          ),
         ],
         SizedBox(height: 16.h),
         LokTextField(
@@ -147,11 +156,27 @@ class PostTripPage extends StatelessWidget {
           controller: c.weight,
         ),
         SizedBox(height: 16.h),
+        LokTextField(
+          label: 'Pickup location',
+          hint: 'where you collect items',
+          icon: Icons.place_outlined,
+          required: true,
+          controller: c.pickupLocation,
+        ),
+        SizedBox(height: 16.h),
+        LokTextField(
+          label: 'Dropoff location',
+          hint: 'where you hand them over',
+          icon: Icons.flag_outlined,
+          required: true,
+          controller: c.dropoffLocation,
+        ),
+        SizedBox(height: 16.h),
         Obx(() => LokDropdownField(
               label: 'Rejected Categories (optional)',
               hint: 'select rejected categories',
               icon: Icons.category_outlined,
-              options: MockData.categories,
+              options: c.categoryNames,
               value: c.rejectedCategory.value,
               onChanged: (v) => c.rejectedCategory.value = v,
             )),
@@ -170,7 +195,7 @@ class PostTripPage extends StatelessWidget {
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
         SizedBox(height: 16.h),
-        ElevatedButton(onPressed: () {}, child: const Text('Post')),
+        LokBusyButton(busy: c.busy, label: 'Post', onPressed: c.submit),
       ],
     );
   }

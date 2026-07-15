@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
-import '../../auth/presentation/welcome_page.dart';
 import '../../my_posts/presentation/my_posts_page.dart';
 import '../../notifications/presentation/notifications_page.dart';
 import '../../reviews/presentation/user_reviews_page.dart';
 import '../../static/presentation/contact_us_page.dart';
 import '../../static/presentation/terms_page.dart';
-import '../data/profile_mock.dart';
 import 'basic_info_page.dart';
+import 'controllers/profile_controller.dart';
 import 'increase_visibility_page.dart';
 import 'wallet_page.dart';
 
@@ -18,7 +17,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const p = currentProfile;
+    final c = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -36,7 +35,7 @@ class ProfilePage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 28.h),
         children: [
-          _header(context, p),
+          Obx(() => _header(context, c)),
           SizedBox(height: 20.h),
           _group(context, [
             _Item(Icons.person_outline, 'Basic info', () => Get.to(() => const BasicInfoPage())),
@@ -59,16 +58,19 @@ class ProfilePage extends StatelessWidget {
           ]),
           SizedBox(height: 14.h),
           _group(context, [
-            _Item(Icons.logout, 'Log out', () => Get.offAll(() => const WelcomePage()),
-                danger: true),
+            _Item(Icons.logout, 'Log out', c.logout, danger: true),
           ]),
         ],
       ),
     );
   }
 
-  Widget _header(BuildContext context, Profile p) {
+  Widget _header(BuildContext context, ProfileController c) {
     final cs = Theme.of(context).colorScheme;
+    final user = c.user;
+    final summary = c.summary.value;
+    final name = user?.fullName ?? '';
+
     return Container(
       padding: EdgeInsets.all(18.w),
       decoration: BoxDecoration(
@@ -84,7 +86,7 @@ class ProfilePage extends StatelessWidget {
                 radius: 30.r,
                 backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
                 child: Text(
-                  p.name[0],
+                  name.isEmpty ? '?' : name[0],
                   style: TextStyle(
                       color: AppPalette.primary, fontSize: 24.sp, fontWeight: FontWeight.w800),
                 ),
@@ -94,18 +96,21 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(p.name,
+                    Text(name,
                         style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
                     SizedBox(height: 2.h),
-                    Text(p.email,
+                    Text(user?.email ?? '',
                         style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
                     SizedBox(height: 6.h),
                     Row(
                       children: [
                         Icon(Icons.star, size: 14.sp, color: Colors.amber),
                         SizedBox(width: 4.w),
-                        Text('${p.rating}  •  ${p.completedDeliveries} deliveries',
-                            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+                        Text(
+                          '${(summary?.averageStars ?? 0).toStringAsFixed(1)}'
+                          '  •  ${summary?.totalRates ?? 0} reviews',
+                          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                        ),
                       ],
                     ),
                   ],
@@ -116,9 +121,9 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: 14.h),
           Row(
             children: [
-              _verifyChip(context, 'ID verified', p.idVerified),
+              _verifyChip(context, 'ID', user?.identityVerified ?? false),
               SizedBox(width: 8.w),
-              _verifyChip(context, 'Phone verified', p.phoneVerified),
+              _verifyChip(context, 'Phone', summary?.phoneVerified ?? false),
             ],
           ),
         ],
@@ -139,7 +144,8 @@ class ProfilePage extends StatelessWidget {
         children: [
           Icon(ok ? Icons.verified : Icons.error_outline, size: 13.sp, color: color),
           SizedBox(width: 5.w),
-          Text(label, style: TextStyle(fontSize: 10.sp, color: color, fontWeight: FontWeight.w600)),
+          Text('$label ${ok ? 'verified' : 'not verified'}',
+              style: TextStyle(fontSize: 10.sp, color: color, fontWeight: FontWeight.w600)),
         ],
       ),
     );
