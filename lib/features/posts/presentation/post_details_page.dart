@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
-import '../../../core/utils/auth_gate.dart';
+import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/format.dart';
-import '../../chat/presentation/chat_conversation_page.dart';
 import '../data/models/post_model.dart';
 import 'widgets/mode_badge.dart';
 import 'widgets/transporter_chip.dart';
@@ -54,10 +53,7 @@ class PostDetailsPage extends StatelessWidget {
           if (post.user.id == 0 ||
               post.user.id != Get.find<SessionService>().user.value?.id)
             ElevatedButton.icon(
-              onPressed: () {
-                if (!requireLogin()) return;
-                Get.to(() => ChatConversationPage(user: post.user, postId: post.id));
-              },
+              onPressed: () => openChat(post.user, postId: post.id),
               icon: const Icon(Icons.chat_bubble_outline),
               label: Text('Chat with ${post.user.name}'),
             ),

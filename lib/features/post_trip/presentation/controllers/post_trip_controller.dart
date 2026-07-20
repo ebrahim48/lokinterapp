@@ -8,6 +8,12 @@ import '../../../posts/data/models/post_model.dart';
 import '../../../posts/data/posts_repository.dart';
 
 class PostTripController extends GetxController {
+  // set when the form is opened to edit an existing trip
+  final int? editId;
+  PostTripController({this.editId});
+
+  bool get isEditing => editId != null;
+
   final location = Rx<PostLocation?>(null);
 
   final insideCountry = RxnString();
@@ -42,8 +48,7 @@ class PostTripController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _lookups.countries().then(countries.assignAll).catchError((_) {});
-    _lookups.categories().then(categories.assignAll).catchError((_) {});
+    _bootstrap();
     ever(insideCountry, (name) {
       fromCity.value = null;
       toCity.value = null;
@@ -52,6 +57,43 @@ class PostTripController extends GetxController {
         _lookups.cities(country.iso2).then(cities.assignAll).catchError((_) {});
       }
     });
+  }
+
+  // lookups first, then pull the post being edited so names can be matched
+  Future<void> _bootstrap() async {
+    try {
+      countries.assignAll(await _lookups.countries());
+    } catch (_) {}
+    _lookups.categories().then(categories.assignAll).catchError((_) {});
+    if (isEditing) await _prefill();
+  }
+
+  Future<void> _prefill() async {
+    busy.value = true;
+    try {
+      final post = await _repo.getById(editId!);
+      location.value = post.location;
+      if (post.isLocal) {
+        insideCountry.value = post.fromCountry;
+        // cities load off the insideCountry watcher, so wait before selecting
+        await Future.delayed(const Duration(milliseconds: 400));
+        fromCity.value = post.fromCity;
+        toCity.value = post.toCity;
+      } else {
+        fromCountry.value = post.fromCountry;
+        toCountry.value = post.toCountry;
+      }
+      date.value = post.date;
+      weight.text = post.weight == 0 ? '' : post.weight.toStringAsFixed(0);
+      airline.text = post.airline ?? '';
+      pickupLocation.text = post.pickupLocation ?? '';
+      dropoffLocation.text = post.dropoffLocation ?? '';
+      rejectedCategory.value = post.category;
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      busy.value = false;
+    }
   }
 
   Country? _byName(String? name) =>
@@ -94,21 +136,39 @@ class PostTripController extends GetxController {
 
     busy.value = true;
     try {
-      await _repo.addTrip(
-        local: isLocal,
-        country: origin,
-        toCountry: isLocal ? origin : _byName(toCountry.value),
-        fromCity: _cityByName(fromCity.value),
-        toCity: _cityByName(toCity.value),
-        date: date.value ?? DateTime.now().add(const Duration(days: 1)),
-        airline: airline.text.trim(),
-        weight: kg,
-        pickupLocation: pickupLocation.text.trim(),
-        dropoffLocation: dropoffLocation.text.trim(),
-        rejectedCategoryIds: rejected,
-      );
-      toast('Trip posted');
-      Get.back();
+      final tripDate = date.value ?? DateTime.now().add(const Duration(days: 1));
+      if (isEditing) {
+        await _repo.updateTrip(
+          editId!,
+          local: isLocal,
+          country: origin,
+          toCountry: isLocal ? origin : _byName(toCountry.value),
+          fromCity: _cityByName(fromCity.value),
+          toCity: _cityByName(toCity.value),
+          date: tripDate,
+          airline: airline.text.trim(),
+          weight: kg,
+          pickupLocation: pickupLocation.text.trim(),
+          dropoffLocation: dropoffLocation.text.trim(),
+          rejectedCategoryIds: rejected,
+        );
+      } else {
+        await _repo.addTrip(
+          local: isLocal,
+          country: origin,
+          toCountry: isLocal ? origin : _byName(toCountry.value),
+          fromCity: _cityByName(fromCity.value),
+          toCity: _cityByName(toCity.value),
+          date: tripDate,
+          airline: airline.text.trim(),
+          weight: kg,
+          pickupLocation: pickupLocation.text.trim(),
+          dropoffLocation: dropoffLocation.text.trim(),
+          rejectedCategoryIds: rejected,
+        );
+      }
+      toast(isEditing ? 'Trip updated' : 'Trip posted');
+      Get.back(result: true);
     } on AppException catch (e) {
       toastError(e);
     } finally {

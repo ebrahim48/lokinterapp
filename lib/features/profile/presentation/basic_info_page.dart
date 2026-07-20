@@ -5,10 +5,12 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/notify.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../auth/data/auth_repository.dart';
 import '../../lookups/data/lookup_models.dart';
 import '../../lookups/data/lookups_repository.dart';
+import '../data/kyc_repository.dart';
 import '../data/profile_repository.dart';
 import 'controllers/profile_controller.dart';
 
@@ -69,6 +71,10 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
       toast('Name and email are required');
       return;
     }
+    if (!isValidEmail(_email.text)) {
+      toast('That email address does not look right');
+      return;
+    }
     setState(() => _saving = true);
     try {
       await _repo.updateProfile(
@@ -86,6 +92,34 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
       toastError(e);
     } finally {
       if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  // KYC runs on a hosted page — hand the user the link to finish it
+  Future<void> _startKyc() async {
+    try {
+      final url = await KycRepository().startVerification();
+      if (url == null) {
+        toast('Verification is not available right now');
+        return;
+      }
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Verify your identity'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Open this secure link to finish verification:'),
+              SizedBox(height: 10.h),
+              SelectableText(url, style: TextStyle(fontSize: 12.sp)),
+            ],
+          ),
+          actions: [TextButton(onPressed: () => Get.back(), child: const Text('Close'))],
+        ),
+      );
+    } on AppException catch (e) {
+      toastError(e);
     }
   }
 
@@ -204,7 +238,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                 style: TextStyle(fontSize: 12.sp, color: AppPalette.verified, fontWeight: FontWeight.w600))
           else
             TextButton(
-              onPressed: () => toast('Verification runs from the web dashboard for now'),
+              onPressed: label.startsWith('Identity') ? _startKyc : null,
               child: const Text('Verify'),
             ),
         ],

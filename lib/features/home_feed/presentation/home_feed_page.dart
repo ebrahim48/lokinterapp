@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/theme/app_palette.dart';
-import '../../../core/utils/auth_gate.dart';
+import '../../../core/utils/chat_gate.dart';
 import '../../auth/presentation/login_page.dart';
-import '../../chat/presentation/chat_conversation_page.dart';
 import '../../../core/widgets/language_selector.dart';
 import '../../../core/widgets/lokinter_logo.dart';
 import '../../../core/widgets/section_title.dart';
@@ -101,10 +100,7 @@ class HomeFeedPage extends StatelessWidget {
                     PostCard(
                       post: post,
                       onTap: () => Get.to(() => PostDetailsPage(post: post)),
-                      onChat: () {
-                        if (!requireLogin()) return;
-                        Get.to(() => ChatConversationPage(user: post.user, postId: post.id));
-                      },
+                      onChat: () => openChat(post.user, postId: post.id),
                     ),
                     SizedBox(height: 14.h),
                   ],

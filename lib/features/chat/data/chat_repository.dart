@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
@@ -61,9 +62,18 @@ class ChatRepository {
         .toList();
   }
 
-  Future<void> send(int chatId, String message) async {
-    unwrapData(await _api.post('/chats/sendMessage/$chatId', data: {
-      'message': message,
-    }));
+  // message or attachment (or both) — the API needs at least one
+  Future<void> send(
+    int chatId, {
+    String message = '',
+    String? filePath,
+    String? fileName,
+  }) async {
+    final form = FormData.fromMap({
+      if (message.isNotEmpty) 'message': message,
+      if (filePath != null)
+        'attachFile': await MultipartFile.fromFile(filePath, filename: fileName),
+    });
+    unwrapData(await _api.post('/chats/sendMessage/$chatId', data: form));
   }
 }

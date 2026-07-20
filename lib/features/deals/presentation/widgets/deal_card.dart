@@ -60,7 +60,7 @@ class DealCard extends StatelessWidget {
                 Icon(Icons.payments_outlined, size: 15.sp, color: AppPalette.verified),
                 SizedBox(width: 6.w),
                 Text(
-                  deal.profit,
+                  deal.profitLabel,
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w700,
@@ -68,7 +68,7 @@ class DealCard extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text('#${deal.refId}',
+                Text('#${deal.id}',
                     style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
               ],
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
-import 'chat_conversation_page.dart';
+import '../../../core/utils/chat_gate.dart';
 import 'controllers/chat_inbox_controller.dart';
 
 class ChatInboxPage extends StatelessWidget {
@@ -55,10 +55,7 @@ class ChatInboxPage extends StatelessWidget {
               final conv = c.conversations[i];
               return ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-                onTap: () => Get.to(() => ChatConversationPage(
-                      user: conv.user,
-                      chatId: conv.chatId,
-                    )),
+                onTap: () => openChat(conv.user, chatId: conv.chatId),
                 leading: CircleAvatar(
                   radius: 24.r,
                   backgroundColor: AppPalette.primary.withValues(alpha: 0.15),

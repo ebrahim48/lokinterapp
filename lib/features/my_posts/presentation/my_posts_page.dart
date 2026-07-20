@@ -112,8 +112,12 @@ class _MyPostsPageState extends State<MyPostsPage> {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () => Get.to(() =>
-                    post.isTrip ? const PostTripPage() : const PostRequestPage()),
+                onPressed: () async {
+                  final saved = await Get.to<bool>(() => post.isTrip
+                      ? PostTripPage(editId: post.id)
+                      : PostRequestPage(editId: post.id));
+                  if (saved == true) _load();
+                },
                 icon: Icon(Icons.edit_outlined, size: 16.sp),
                 label: const Text('Edit'),
                 style: OutlinedButton.styleFrom(minimumSize: Size(0, 42.h)),
@@ -151,6 +155,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
                 await _repo.deletePost(post.id);
                 if (!mounted) return;
                 setState(() => _items.remove(post));
+                toast('Post deleted');
               } on AppException catch (e) {
                 toastError(e);
               }

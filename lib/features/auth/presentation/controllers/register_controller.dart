@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/validators.dart';
 import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
 import '../../../shell/presentation/main_shell.dart';
@@ -92,6 +93,14 @@ class RegisterController extends GetxController {
       toast('Fill in all required fields');
       return;
     }
+    if (!isValidEmail(email.text)) {
+      toast('That email address does not look right');
+      return;
+    }
+    if (!isValidPassword(password.text)) {
+      toast('Password must be at least 8 characters');
+      return;
+    }
     if (isTransporter && operatingCountries.isEmpty) {
       toast('Pick at least one country of operation');
       return;
@@ -118,6 +127,10 @@ class RegisterController extends GetxController {
   }
 
   Future<void> verifyOtp(String otp) async {
+    if (otp.trim().isEmpty) {
+      toast('Enter the code we emailed you');
+      return;
+    }
     busy.value = true;
     try {
       await _repo.registerVerify(

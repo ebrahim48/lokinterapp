@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,11 +6,12 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
-import '../../chat/presentation/chat_conversation_page.dart';
+import '../../../core/utils/chat_gate.dart';
 import '../../posts/presentation/widgets/mode_badge.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
+import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/status_badge.dart';
 
 class DealDetailsPage extends StatefulWidget {
@@ -22,19 +24,49 @@ class DealDetailsPage extends StatefulWidget {
 
 class _DealDetailsPageState extends State<DealDetailsPage> {
   final _repo = DealsRepository();
+
+  late Deal deal = widget.deal;
   bool _busy = false;
+  bool _loading = true;
 
-  Deal get deal => widget.deal;
+  @override
+  void initState() {
+    super.initState();
+    _loadDetail();
+  }
 
-  // runs an action, refreshes the list behind us and pops back to it
-  Future<void> _run(Future<void> Function() action, String doneMessage) async {
+  // the list row is a trimmed shape — pull the full deal for this screen
+  Future<void> _loadDetail() async {
+    try {
+      final full = await _repo.getById(widget.deal.id);
+      if (!mounted) return;
+      setState(() {
+        deal = full;
+        _loading = false;
+      });
+    } on AppException catch (e) {
+      if (!mounted) return;
+      setState(() => _loading = false);
+      toastError(e);
+    }
+  }
+
+  void _refreshList() {
+    if (Get.isRegistered<DealsController>()) Get.find<DealsController>().load();
+  }
+
+  Future<void> _run(Future<void> Function() action, String done, {bool pop = true}) async {
     if (_busy) return;
     setState(() => _busy = true);
     try {
       await action();
-      if (Get.isRegistered<DealsController>()) Get.find<DealsController>().load();
-      toast(doneMessage);
-      Get.back();
+      _refreshList();
+      toast(done);
+      if (pop) {
+        Get.back();
+      } else {
+        await _loadDetail();
+      }
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -42,45 +74,74 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
-  Future<void> _withReason(String title, String status) async {
-    final reason = TextEditingController();
-    final confirmed = await Get.dialog<bool>(
-      AlertDialog(
-        title: Text(title),
-        content: TextField(
-          controller: reason,
-          maxLines: 2,
-          decoration: const InputDecoration(hintText: 'Tell the other side why'),
-        ),
-        actions: [
-          TextButton(onPressed: () => Get.back(result: false), child: const Text('Back')),
-          TextButton(
-            onPressed: () => Get.back(result: true),
-            child: Text(title, style: const TextStyle(color: AppPalette.primary)),
-          ),
-        ],
-      ),
+  Future<void> _cancel() async {
+    final reason = await CancelReasonSheet.show(context);
+    if (reason == null) return;
+    await _run(
+      () => _repo.changeStatus(deal.id, 'CANCELED', reason: reason.code),
+      'Deal cancelled',
     );
-    if (confirmed == true) {
-      await _run(
-        () => _repo.changeStatus(deal.id, status, reason: reason.text.trim()),
-        'Deal updated',
-      );
+  }
+
+  Future<void> _secureGuarantee() async {
+    await _run(() async {
+      final res = await _repo.createGuarantee(deal.id);
+      // the escrow layer may hand back a Stripe redirect we can't complete in-app
+      final url = res['url'] ?? res['checkoutUrl'] ?? res['redirectUrl'];
+      if (url != null) {
+        toast('Finish the card authorization in the browser link sent to you');
+      }
+    }, 'Guarantee secured', pop: false);
+  }
+
+  // eligibility first, then the pickup video, then flip to OUTGOING
+  Future<void> _startOutgoing() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      await _repo.checkOutgoingEligibility(deal.id);
+    } on AppException catch (e) {
+      toastError(e); // e.g. "The deal must be in ACCEPTED status."
+      if (mounted) setState(() => _busy = false);
+      return;
     }
-    reason.dispose();
+
+    FilePickerResult? picked;
+    try {
+      picked = await FilePicker.platform.pickFiles(type: FileType.video);
+    } catch (_) {}
+    final file = (picked?.files.isNotEmpty ?? false) ? picked!.files.first : null;
+    if (file?.path == null) {
+      toast('Pickup video is required to start the delivery');
+      if (mounted) setState(() => _busy = false);
+      return;
+    }
+
+    try {
+      await _repo.uploadPickupVideo(deal.id, file!.path!, file.name);
+      await _repo.changeStatus(deal.id, 'OUTGOING');
+      _refreshList();
+      toast('Pickup video uploaded — deal is now outgoing');
+      await _loadDetail();
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   Future<void> _showDisputeReport() async {
     try {
       final report = await _repo.disputeReport(deal.id);
-      final text = report?['reason'] ?? report?['description'] ?? deal.disputeReason;
+      final text = report?['reason'] ??
+          report?['description'] ??
+          deal.dispute?['reason'] ??
+          deal.cancelReasonLabel;
       Get.dialog(
         AlertDialog(
           title: const Text('Dispute report'),
           content: Text(text?.toString() ?? 'No report details available.'),
-          actions: [
-            TextButton(onPressed: () => Get.back(), child: const Text('Close')),
-          ],
+          actions: [TextButton(onPressed: () => Get.back(), child: const Text('Close'))],
         ),
       );
     } on AppException catch (e) {
@@ -91,28 +152,37 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Deal #${deal.refId}')),
-      body: ListView(
-        padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 28.h),
-        children: [
-          _summary(context),
-          SizedBox(height: 16.h),
-          _counterpart(context),
-          SizedBox(height: 16.h),
-          if (deal.status != DealStatus.pending) ...[
-            _agreement(context),
-            SizedBox(height: 16.h),
-          ],
-          if (deal.status == DealStatus.disputes)
-            _dispute(context)
-          else if (deal.status == DealStatus.completed)
-            _ratePrompt(context)
-          else
-            _qr(context),
-          SizedBox(height: 20.h),
-          ..._actions(context),
-        ],
-      ),
+      appBar: AppBar(title: Text('Deal #${deal.id}')),
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: _loadDetail,
+              child: ListView(
+                padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 28.h),
+                children: [
+                  _summary(context),
+                  SizedBox(height: 16.h),
+                  _counterpart(context),
+                  SizedBox(height: 16.h),
+                  _agreement(context),
+                  if (deal.needsGuarantee) ...[
+                    SizedBox(height: 16.h),
+                    _guaranteeCard(context),
+                  ],
+                  if (deal.status == DealStatus.disputes) ...[
+                    SizedBox(height: 16.h),
+                    _dispute(context),
+                  ],
+                  if (deal.status == DealStatus.cancelled &&
+                      deal.cancelReasonLabel != null) ...[
+                    SizedBox(height: 16.h),
+                    _cancelledNote(context),
+                  ],
+                  SizedBox(height: 20.h),
+                  ..._actions(context),
+                ],
+              ),
+            ),
     );
   }
 
@@ -138,7 +208,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           Row(
             children: [
               Expanded(child: _stat(context, 'FROM', deal.fromCountry)),
-              ModeBadge(location: deal.location, place: deal.fromCountry, iso: deal.fromIso),
+              ModeBadge(location: deal.location, place: deal.fromCountry),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -153,7 +223,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               _stat(context, 'DATE', shortDate(deal.date)),
               _stat(context, 'WEIGHT', kg(deal.weight)),
-              _stat(context, 'PROFIT', deal.profit),
+              _stat(context, 'TRAVELER PROFIT', deal.profitLabel),
             ],
           ),
           SizedBox(height: 12.h),
@@ -179,6 +249,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   Widget _counterpart(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final name = deal.counterpart.name;
     return _card(
       context,
       Row(
@@ -187,7 +258,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             radius: 22.r,
             backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
             child: Text(
-              deal.counterpart.name[0],
+              name.isEmpty ? '?' : name[0],
               style: const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700),
             ),
           ),
@@ -196,31 +267,17 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(deal.counterpart.name,
-                        style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
-                    if (deal.counterpart.verified) ...[
-                      SizedBox(width: 4.w),
-                      Icon(Icons.verified, size: 15.sp, color: AppPalette.verified),
-                    ],
-                  ],
-                ),
+                Text(name.isEmpty ? 'Counterpart' : name,
+                    style: TextStyle(
+                        fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
                 SizedBox(height: 2.h),
-                Row(
-                  children: [
-                    Icon(Icons.star, size: 13.sp, color: Colors.amber),
-                    SizedBox(width: 3.w),
-                    Text(deal.counterpart.rating.toStringAsFixed(1),
-                        style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
-                  ],
-                ),
+                Text(deal.isTraveler ? 'Sender' : 'Traveler',
+                    style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
               ],
             ),
           ),
           OutlinedButton.icon(
-            onPressed: () =>
-                Get.to(() => ChatConversationPage(user: deal.counterpart)),
+            onPressed: () => openChat(deal.counterpart),
             style: OutlinedButton.styleFrom(minimumSize: Size(0, 40.h)),
             icon: Icon(Icons.chat_bubble_outline, size: 16.sp),
             label: const Text('Chat'),
@@ -232,13 +289,6 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   Widget _agreement(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final rows = <(String, String)>[
-      ('Receiver', deal.counterpart.name),
-      ('Agreed amount', deal.profit),
-      ('Weight', deal.agreedWeight),
-      ('Trip date', shortDate(deal.date)),
-      ('Payment method', deal.paymentMethod),
-    ];
     return _card(
       context,
       Column(
@@ -249,74 +299,120 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               Icon(Icons.assignment_turned_in_outlined, size: 18.sp, color: AppPalette.primary),
               SizedBox(width: 8.w),
               Text('Agreement details',
-                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                  style: TextStyle(
+                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
             ],
           ),
-          SizedBox(height: 4.h),
-          Text('As confirmed in the chat between both parties.',
-              style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 12.h),
-          for (var i = 0; i < rows.length; i++) ...[
-            if (i > 0) Divider(height: 18.h, color: cs.outline),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(rows[i].$1, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
-                Flexible(
-                  child: Text(
-                    rows[i].$2,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface),
-                  ),
-                ),
-              ],
-            ),
-          ],
+          if (deal.sdRequired) _depositRow(context),
+          _row(context, 'Receiver name', deal.receiverName ?? '—'),
+          _row(context, 'Receiver phone', deal.receiverPhone ?? '—'),
+          _row(context, 'Traveler profit', deal.profitLabel),
+          _row(context, 'Payment method', deal.paymentLabel),
+          _row(context, 'Attachment', deal.attachUrl == null ? 'Not provided' : 'Provided'),
+          if (deal.tripDate != null) _row(context, 'Trip date', shortDate(deal.tripDate!)),
+          if (deal.arrivalDate != null)
+            _row(context, 'Arrival date', shortDate(deal.arrivalDate!)),
         ],
       ),
     );
   }
 
-  Widget _qr(BuildContext context) {
+  Widget _depositRow(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return _card(
-      context,
-      Column(
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Agreement code',
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+          Text('Security deposit',
+              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFEF9C3),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Text('Required',
+                    style: TextStyle(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF854D0E))),
+              ),
+              SizedBox(width: 8.w),
+              Text(deal.depositLabel,
+                  style: TextStyle(
+                      fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _row(BuildContext context, String label, String value) {
+    final cs = Theme.of(context).colorScheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          SizedBox(width: 12.w),
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _guaranteeCard(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
+              SizedBox(width: 8.w),
+              Text('Guarantee required',
+                  style: TextStyle(
+                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Authorize ${deal.depositLabel} on your card as guarantee for the item value.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+          ),
           SizedBox(height: 4.h),
           Text(
-            'Show this code at pickup and delivery to confirm the handover.',
+            'This is a HOLD only — released (not charged) when the deal completes.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
-          SizedBox(height: 16.h),
-          Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(Icons.qr_code_2, size: 140.sp, color: Colors.black),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _ratePrompt(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return _card(
-      context,
-      Row(
-        children: [
-          Icon(Icons.check_circle, color: AppPalette.verified, size: 22.sp),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Text(
-              'Delivery completed. How was it?',
-              style: TextStyle(fontSize: 13.sp, color: cs.onSurface),
+          SizedBox(height: 14.h),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: _busy ? null : _secureGuarantee,
+              icon: Icon(Icons.credit_card, size: 17.sp),
+              label: const Text('Secure guarantee with card'),
             ),
           ),
         ],
@@ -341,8 +437,29 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ],
           ),
           SizedBox(height: 8.h),
-          Text(deal.disputeReason ?? '',
-              style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
+          Text(
+            deal.dispute?['reason']?.toString() ??
+                'The team is reviewing this delivery.',
+            style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _cancelledNote(BuildContext context) {
+    final (bg, fg) = DealStatus.cancelled.colors;
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14.r)),
+      child: Row(
+        children: [
+          Icon(Icons.cancel_outlined, color: fg, size: 17.sp),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text('Cancelled — ${deal.cancelReasonLabel}',
+                style: TextStyle(color: fg, fontSize: 12.sp)),
+          ),
         ],
       ),
     );
@@ -355,34 +472,43 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ElevatedButton(
             onPressed: _busy
                 ? null
-                : () => _run(
-                      () => _repo.changeStatus(deal.id, 'ACCEPTED'),
-                      'Agreement accepted',
-                    ),
+                : () => _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'),
+                    'Agreement accepted', pop: false),
             child: const Text('Accept agreement'),
           ),
           SizedBox(height: 12.h),
           OutlinedButton(
-            onPressed: _busy ? null : () => _withReason('Decline', 'REJECTED'),
+            onPressed: _busy ? null : _cancel,
             child: const Text('Decline'),
           ),
         ];
       case DealStatus.accepted:
+        return [
+          // traveler films the handover, then the deal goes outgoing
+          if (deal.isTraveler)
+            ElevatedButton.icon(
+              onPressed: _busy ? null : _startOutgoing,
+              icon: Icon(Icons.upload_outlined, size: 17.sp),
+              label: const Text('Upload pickup video & start delivery'),
+            ),
+          if (deal.isTraveler) SizedBox(height: 12.h),
+          OutlinedButton(
+            onPressed: _busy ? null : _cancel,
+            child: const Text('Cancel deal'),
+          ),
+        ];
       case DealStatus.outgoing:
         return [
           ElevatedButton(
             onPressed: _busy
                 ? null
-                : () => _run(
-                      () => _repo.markCompleted(deal.refId),
-                      'Marked as delivered',
-                    ),
+                : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as delivered'),
             child: const Text('Mark as delivered'),
           ),
           SizedBox(height: 12.h),
           OutlinedButton(
-            onPressed: _busy ? null : () => _withReason('Cancel agreement', 'CANCELED'),
-            child: const Text('Cancel agreement'),
+            onPressed: _busy ? null : _cancel,
+            child: const Text('Cancel deal'),
           ),
         ];
       case DealStatus.completed:

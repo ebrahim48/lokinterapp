@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/validators.dart';
 import '../../../shell/presentation/main_shell.dart';
 import '../../data/auth_repository.dart';
 
@@ -15,6 +16,10 @@ class LoginController extends GetxController {
   Future<void> submit() async {
     if (email.text.trim().isEmpty || password.text.isEmpty) {
       toast('Enter your email and password');
+      return;
+    }
+    if (!isValidEmail(email.text)) {
+      toast('That email address does not look right');
       return;
     }
     busy.value = true;

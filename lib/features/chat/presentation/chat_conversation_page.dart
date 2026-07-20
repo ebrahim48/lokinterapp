@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -129,7 +130,7 @@ class ChatConversationPage extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => toast('Attachments are coming soon'),
+              onPressed: c.sendAttachment,
               tooltip: 'Attach file or image',
               visualDensity: VisualDensity.compact,
               icon: Icon(Icons.attach_file, color: cs.onSurfaceVariant, size: 22.sp),
@@ -332,6 +333,57 @@ class _AgreementSheetState extends State<_AgreementSheet> {
   }
 }
 
+// Images preview inline; anything else shows as a tappable file chip.
+class _Attachment extends StatelessWidget {
+  final String url;
+  final bool me;
+  const _Attachment({required this.url, required this.me});
+
+  bool get _isImage =>
+      RegExp(r'\.(png|jpe?g|gif|webp|bmp)(\?|$)', caseSensitive: false).hasMatch(url);
+
+  @override
+  Widget build(BuildContext context) {
+    final fg = me ? Colors.white : Theme.of(context).colorScheme.onSurface;
+
+    if (_isImage) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10.r),
+        child: CachedNetworkImage(
+          imageUrl: url,
+          width: 0.52.sw,
+          fit: BoxFit.cover,
+          placeholder: (_, __) => SizedBox(
+            width: 0.52.sw,
+            height: 120.h,
+            child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          ),
+          errorWidget: (_, __, ___) => _fileChip(fg, 'Image unavailable'),
+        ),
+      );
+    }
+    return _fileChip(fg, url.split('/').last.split('?').first);
+  }
+
+  Widget _fileChip(Color fg, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.insert_drive_file_outlined, size: 16.sp, color: fg),
+        SizedBox(width: 6.w),
+        Flexible(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 12.sp, color: fg, decoration: TextDecoration.underline),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _Bubble extends StatelessWidget {
   final ChatMessage message;
   const _Bubble({required this.message});
@@ -358,14 +410,19 @@ class _Bubble extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              message.text,
-              style: TextStyle(
-                fontSize: 13.sp,
-                color: me ? Colors.white : cs.onSurface,
-                height: 1.3,
+            if (message.attachmentUrl != null) ...[
+              _Attachment(url: message.attachmentUrl!, me: me),
+              if (message.text.isNotEmpty) SizedBox(height: 6.h),
+            ],
+            if (message.text.isNotEmpty)
+              Text(
+                message.text,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: me ? Colors.white : cs.onSurface,
+                  height: 1.3,
+                ),
               ),
-            ),
             SizedBox(height: 3.h),
             Text(
               message.time,

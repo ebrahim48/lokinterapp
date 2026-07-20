@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
-import '../../../core/utils/auth_gate.dart';
+import '../../../core/utils/chat_gate.dart';
 import '../../../core/widgets/lok_segmented.dart';
 import '../../auth/presentation/login_page.dart';
-import '../../chat/presentation/chat_conversation_page.dart';
 import '../../posts/presentation/post_details_page.dart';
 import '../../posts/presentation/widgets/post_card.dart';
 import '../../posts/presentation/widgets/search_filter_sheet.dart';
@@ -65,11 +64,8 @@ class SearchResultsPage extends StatelessWidget {
                     itemBuilder: (_, i) => PostCard(
                       post: c.results[i],
                       onTap: () => Get.to(() => PostDetailsPage(post: c.results[i])),
-                      onChat: () {
-                        if (!requireLogin()) return;
-                        Get.to(() => ChatConversationPage(
-                            user: c.results[i].user, postId: c.results[i].id));
-                      },
+                      onChat: () =>
+                          openChat(c.results[i].user, postId: c.results[i].id),
                     ),
                   ),
                 ),

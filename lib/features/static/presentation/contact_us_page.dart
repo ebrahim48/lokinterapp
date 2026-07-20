@@ -5,6 +5,7 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/notify.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../lookups/data/lookups_repository.dart';
 
@@ -49,6 +50,10 @@ class _ContactUsPageState extends State<ContactUsPage> {
         _email.text.trim().isEmpty ||
         _message.text.trim().isEmpty) {
       toast('Name, email and message are required');
+      return;
+    }
+    if (!isValidEmail(_email.text)) {
+      toast('That email address does not look right');
       return;
     }
     setState(() => _sending = true);

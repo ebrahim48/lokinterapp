@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/validators.dart';
 import '../../data/auth_repository.dart';
 import '../login_page.dart';
 import '../reset_password_page.dart';
@@ -17,8 +18,8 @@ class PasswordResetController extends GetxController {
   final _repo = AuthRepository();
 
   Future<void> sendCode() async {
-    if (email.text.trim().isEmpty) {
-      toast('Enter your email first');
+    if (!isValidEmail(email.text)) {
+      toast('Enter a valid email address');
       return;
     }
     busy.value = true;
@@ -36,6 +37,10 @@ class PasswordResetController extends GetxController {
   Future<void> reset() async {
     if (token.text.trim().isEmpty || password.text.isEmpty) {
       toast('Enter the code and a new password');
+      return;
+    }
+    if (!isValidPassword(password.text)) {
+      toast('Password must be at least 8 characters');
       return;
     }
     if (password.text != confirm.text) {

@@ -13,11 +13,12 @@ import 'controllers/post_request_controller.dart';
 const _currencies = ['USD', 'EUR', 'TND', 'GBP'];
 
 class PostRequestPage extends StatelessWidget {
-  const PostRequestPage({super.key});
+  final int? editId; // editing an existing request instead of posting a new one
+  const PostRequestPage({super.key, this.editId});
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(PostRequestController());
+    final c = Get.put(PostRequestController(editId: editId), tag: '${editId ?? 'new'}');
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -26,7 +27,7 @@ class PostRequestPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
         children: [
           Text(
-            'Post your delivery request',
+            editId == null ? 'Post your delivery request' : 'Edit delivery request',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           SizedBox(height: 4.h),
@@ -267,7 +268,8 @@ class PostRequestPage extends StatelessWidget {
               onChanged: (v) => c.acceptedTerms.value = v,
             )),
         SizedBox(height: 18.h),
-        LokBusyButton(busy: c.busy, label: 'Post', onPressed: c.submit),
+        LokBusyButton(
+            busy: c.busy, label: editId == null ? 'Post' : 'Save changes', onPressed: c.submit),
       ],
     );
   }

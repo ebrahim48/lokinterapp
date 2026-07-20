@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../core/utils/auth_gate.dart';
-import '../../chat/presentation/chat_conversation_page.dart';
+import '../../../core/utils/chat_gate.dart';
 import '../../home_feed/presentation/controllers/home_feed_controller.dart';
 import '../../posts/presentation/post_details_page.dart';
 import '../../posts/presentation/widgets/post_card.dart';
@@ -42,10 +41,7 @@ class RecommendedPage extends StatelessWidget {
               PostCard(
                 post: post,
                 onTap: () => Get.to(() => PostDetailsPage(post: post)),
-                onChat: () {
-                  if (!requireLogin()) return;
-                  Get.to(() => ChatConversationPage(user: post.user, postId: post.id));
-                },
+                onChat: () => openChat(post.user, postId: post.id),
               ),
               SizedBox(height: 14.h),
             ],

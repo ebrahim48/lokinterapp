@@ -11,10 +11,11 @@ class DealsRepository {
   final _api = Get.find<ApiService>();
   final _cache = CacheService();
 
-  Future<List<Deal>> list(String status) async {
+  Future<List<Deal>> list(String status, {int page = 1, int limit = 100}) async {
     final res = await _api.get('/deals/getAllDeals', queryParameters: {
       'status': status,
-      'limit': 100,
+      'limit': limit,
+      'page': page,
     });
     final data = unwrapData(res);
     if (status == 'ALL') await _cache.put('deals_all', jsonEncode(data));
@@ -31,11 +32,17 @@ class DealsRepository {
     }
   }
 
-  // the same endpoint also serves the user's posts (flag: POST) — not deals
-  List<Deal> _parse(dynamic data) => Paged.fromJson(data, Deal.fromJson)
-      .list
-      .where((d) => d.id != 0)
-      .toList();
+  // the same endpoint also serves the user's posts, flagged POST — drop those
+  List<Deal> _parse(dynamic data) {
+    final rows = data is Map ? (data['list'] as List? ?? []) : const [];
+    return rows
+        .whereType<Map>()
+        .map((e) => Map<String, dynamic>.from(e))
+        .where((e) => (e['flag'] ?? 'DEAL') == 'DEAL')
+        .map(Deal.fromListJson)
+        .where((d) => d.id != 0)
+        .toList();
+  }
 
   // sender and traveler agree in chat, then one of them locks it in here
   Future<void> create({
@@ -78,6 +85,26 @@ class DealsRepository {
       'status': status,
       if (reason != null && reason.isNotEmpty) 'cancelReason': reason,
     }));
+  }
+
+  // Traveler puts a hold on their card for the item's value before carrying it.
+  // Returns whatever the escrow layer sends back (may carry a Stripe redirect).
+  Future<Map<String, dynamic>> createGuarantee(int dealId) async {
+    final res = await _api.post('/escrow/deals/$dealId/create-guarantee');
+    final data = unwrapData(res);
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  // Throws with the server's reason when the deal can't move to OUTGOING yet.
+  Future<void> checkOutgoingEligibility(int dealId) async {
+    unwrapData(await _api.get('/deals/$dealId/checkOutgoingEligibility'));
+  }
+
+  Future<void> uploadPickupVideo(int dealId, String filePath, String fileName) async {
+    final form = FormData.fromMap({
+      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+    });
+    unwrapData(await _api.post('/deals/$dealId/uploadPickupVideo', data: form));
   }
 
   // completion goes by reference, not numeric id

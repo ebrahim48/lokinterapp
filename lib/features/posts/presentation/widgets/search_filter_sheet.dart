@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../core/utils/notify.dart';
 import '../../../../core/widgets/lok_fields.dart';
 import '../../../../core/widgets/lok_segmented.dart';
 import '../../../search_results/presentation/controllers/search_results_controller.dart';
@@ -33,14 +34,16 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
 
   int _mode = 0; // 0 = Local, 1 = International
   String? _localCountry, _fromCity, _toCity, _fromCountry, _toCountry;
+  DateTime? _beforeDate;
 
   bool get _local => _mode == 0;
 
   List<String> get _countryNames => _c.countries.map((e) => e.name).toList();
   List<String> get _cityNames => _c.cities.map((e) => e.name).toList();
 
-  int? _countryId(String? name) =>
-      _c.countries.firstWhereOrNull((e) => e.name == name)?.id;
+  // the search endpoint keys countries by ISO2 code, not the numeric id
+  String? _countryIso(String? name) =>
+      _c.countries.firstWhereOrNull((e) => e.name == name)?.iso2;
   int? _cityId(String? name) => _c.cities.firstWhereOrNull((e) => e.name == name)?.id;
 
   @override
@@ -50,16 +53,26 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
   }
 
   void _apply() {
+    final weightText = _weight.text.trim();
+    if (weightText.isNotEmpty && double.tryParse(weightText) == null) {
+      toast('Weight must be a number');
+      return;
+    }
+
     _c.applyFilters({
-      'postLocation': _local ? 'LOCAL' : 'INTERNATIONAL',
-      'fromCountryId': _countryId(_local ? _localCountry : _fromCountry),
-      'toCountryId': _local ? null : _countryId(_toCountry),
+      'searchType': _local ? 'LOCAL' : 'INTERNATIONAL',
+      'fromCountryId': _countryIso(_local ? _localCountry : _fromCountry),
+      'toCountryId': _local ? null : _countryIso(_toCountry),
       'fromCityId': _local ? _cityId(_fromCity) : null,
       'toCityId': _local ? _cityId(_toCity) : null,
-      'weight': double.tryParse(_weight.text),
+      'weight': double.tryParse(weightText),
+      'beforeDate': _beforeDate == null ? null : _ymd(_beforeDate!),
     }..removeWhere((_, v) => v == null));
     Navigator.pop(context);
   }
+
+  String _ymd(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +167,40 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 keyboardType: TextInputType.number,
                 controller: _weight,
               ),
+              SizedBox(height: 14.h),
+              LokDateField(
+                label: 'Before date',
+                hint: 'any date',
+                value: _beforeDate,
+                onChanged: (d) => setState(() => _beforeDate = d),
+              ),
               SizedBox(height: 20.h),
-              ElevatedButton(
-                onPressed: _apply,
-                child: const Text('Apply Filters'),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          _localCountry = _fromCity = _toCity = null;
+                          _fromCountry = _toCountry = null;
+                          _beforeDate = null;
+                          _weight.clear();
+                        });
+                        _c.applyFilters({});
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Clear'),
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: _apply,
+                      child: const Text('Apply Filters'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

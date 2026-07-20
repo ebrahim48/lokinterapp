@@ -9,11 +9,12 @@ import '../../posts/data/models/post_model.dart';
 import 'controllers/post_trip_controller.dart';
 
 class PostTripPage extends StatelessWidget {
-  const PostTripPage({super.key});
+  final int? editId; // editing an existing trip instead of posting a new one
+  const PostTripPage({super.key, this.editId});
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(PostTripController());
+    final c = Get.put(PostTripController(editId: editId), tag: '${editId ?? 'new'}');
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -21,7 +22,8 @@ class PostTripPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
         children: [
-          Text('Post a Trip', style: Theme.of(context).textTheme.headlineMedium),
+          Text(editId == null ? 'Post a Trip' : 'Edit Trip',
+              style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 4.h),
           Text(
             'Where are you traveling?',
@@ -195,7 +197,8 @@ class PostTripPage extends StatelessWidget {
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
         SizedBox(height: 16.h),
-        LokBusyButton(busy: c.busy, label: 'Post', onPressed: c.submit),
+        LokBusyButton(
+            busy: c.busy, label: editId == null ? 'Post' : 'Save changes', onPressed: c.submit),
       ],
     );
   }

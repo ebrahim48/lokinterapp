@@ -124,6 +124,73 @@ class PostsRepository {
     unwrapData(await _api.post('/posts/addNewPost', data: form));
   }
 
+  // same payload as addNewPost, just aimed at an existing post
+  Future<void> updateTrip(
+    int id, {
+    required bool local,
+    required Country country,
+    Country? toCountry,
+    City? fromCity,
+    City? toCity,
+    required DateTime date,
+    String? airline,
+    required double weight,
+    required String pickupLocation,
+    required String dropoffLocation,
+    List<int> rejectedCategoryIds = const [],
+  }) async {
+    final form = FormData.fromMap({
+      'postType': 'TRIP',
+      'postLocation': local ? 'LOCAL' : 'INTERNATIONAL',
+      'fromCountry': jsonEncode(country.toJson()),
+      if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
+      if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
+      if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
+      'beforeDate': _date(date),
+      if (airline != null && airline.isNotEmpty) 'airLine': airline,
+      'weight': weight,
+      'rejectedCategoriesIds': jsonEncode(rejectedCategoryIds),
+      'pickupLocation': pickupLocation,
+      'dropoffLocation': dropoffLocation,
+    });
+    unwrapData(await _api.post('/posts/updatePost/$id', data: form));
+  }
+
+  Future<void> updateRequest(
+    int id, {
+    required bool local,
+    required bool buyAndDeliver,
+    required String title,
+    required Country country,
+    Country? toCountry,
+    City? fromCity,
+    City? toCity,
+    required DateTime date,
+    required double weight,
+    required int categoryId,
+    required String pickupLocation,
+    required String dropoffLocation,
+    String? description,
+  }) async {
+    final form = FormData.fromMap({
+      'postType': 'DELIVER',
+      'postLocation': local ? 'LOCAL' : 'INTERNATIONAL',
+      'wantTo': buyAndDeliver ? 'BUY_AND_DELIVER' : 'SEND',
+      'title': title,
+      'fromCountry': jsonEncode(country.toJson()),
+      if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
+      if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
+      if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
+      'beforeDate': _date(date),
+      'weight': weight,
+      'categoryId': categoryId,
+      'pickupLocation': pickupLocation,
+      'dropoffLocation': dropoffLocation,
+      if (description != null && description.isNotEmpty) 'description': description,
+    });
+    unwrapData(await _api.post('/posts/updatePost/$id', data: form));
+  }
+
   Future<void> deletePost(int id) async {
     unwrapData(await _api.delete('/posts/deletePost/$id'));
   }

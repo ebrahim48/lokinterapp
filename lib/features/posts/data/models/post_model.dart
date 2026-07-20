@@ -52,6 +52,10 @@ class Post {
   final String? profit; // already-formatted, e.g. "TND 50.000"
   final String? imageUrl;
   final String? category;
+  final int? categoryId;
+  final String? airline;
+  final String? pickupLocation;
+  final String? dropoffLocation;
   final String? status;
   final PostUser user;
   final bool recommended;
@@ -75,6 +79,10 @@ class Post {
     this.profit,
     this.imageUrl,
     this.category,
+    this.categoryId,
+    this.airline,
+    this.pickupLocation,
+    this.dropoffLocation,
     this.status,
     required this.user,
     this.recommended = false,
@@ -100,6 +108,10 @@ class Post {
       profit: json['profit']?.toString(),
       imageUrl: fixMediaUrl(json['attachUrl'] ?? json['imageUrl'] ?? json['attachFile']?['url']),
       category: json['categoryTitle'],
+      categoryId: json['categoryId'],
+      airline: json['airLine'],
+      pickupLocation: json['pickupLocation'],
+      dropoffLocation: json['dropoffLocation'],
       status: json['status'],
       user: PostUser.fromJson(Map<String, dynamic>.from(json['user'] ?? {})),
       recommended: recommended,

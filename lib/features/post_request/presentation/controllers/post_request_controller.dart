@@ -8,6 +8,12 @@ import '../../../posts/data/models/post_model.dart';
 import '../../../posts/data/posts_repository.dart';
 
 class PostRequestController extends GetxController {
+  // set when the form is opened to edit an existing request
+  final int? editId;
+  PostRequestController({this.editId});
+
+  bool get isEditing => editId != null;
+
   final wantTo = Rx<WantTo?>(null);
   final location = Rx<PostLocation?>(null);
 
@@ -47,8 +53,7 @@ class PostRequestController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _lookups.countries().then(countries.assignAll).catchError((_) {});
-    _lookups.categories().then(categories.assignAll).catchError((_) {});
+    _bootstrap();
     ever(insideCountry, (name) {
       fromCity.value = null;
       toCity.value = null;
@@ -57,6 +62,48 @@ class PostRequestController extends GetxController {
         _lookups.cities(country.iso2).then(cities.assignAll).catchError((_) {});
       }
     });
+  }
+
+  // lookups first, then pull the post being edited so names can be matched
+  Future<void> _bootstrap() async {
+    try {
+      countries.assignAll(await _lookups.countries());
+    } catch (_) {}
+    try {
+      categories.assignAll(await _lookups.categories());
+    } catch (_) {}
+    if (isEditing) await _prefill();
+  }
+
+  Future<void> _prefill() async {
+    busy.value = true;
+    try {
+      final post = await _repo.getById(editId!);
+      wantTo.value = post.wantTo;
+      location.value = post.location;
+      if (post.isLocal) {
+        insideCountry.value = post.fromCountry;
+        // cities load off the insideCountry watcher, so wait before selecting
+        await Future.delayed(const Duration(milliseconds: 400));
+        fromCity.value = post.fromCity;
+        toCity.value = post.toCity;
+      } else {
+        fromCountry.value = post.fromCountry;
+        toCountry.value = post.toCountry;
+      }
+      beforeDate.value = post.date;
+      itemName.text = post.title ?? '';
+      weight.text = post.weight == 0 ? '' : post.weight.toStringAsFixed(0);
+      description.text = post.description ?? '';
+      pickupLocation.text = post.pickupLocation ?? '';
+      dropoffLocation.text = post.dropoffLocation ?? '';
+      category.value = post.category;
+      acceptedTerms.value = true; // already agreed when first posted
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      busy.value = false;
+    }
   }
 
   Country? _byName(String? name) =>
@@ -95,6 +142,30 @@ class PostRequestController extends GetxController {
 
     busy.value = true;
     try {
+      final title = itemName.text.trim().isEmpty
+          ? '${origin.name} delivery'
+          : itemName.text.trim();
+      if (isEditing) {
+        await _repo.updateRequest(
+          editId!,
+          local: isLocal,
+          buyAndDeliver: isBuy,
+          title: title,
+          country: origin,
+          toCountry: isLocal ? origin : _byName(toCountry.value),
+          fromCity: _cityByName(fromCity.value),
+          toCity: _cityByName(toCity.value),
+          date: beforeDate.value!,
+          weight: kg,
+          categoryId: cat.id,
+          pickupLocation: pickupLocation.text.trim(),
+          dropoffLocation: dropoffLocation.text.trim(),
+          description: description.text.trim(),
+        );
+        toast('Delivery request updated');
+        Get.back(result: true);
+        return;
+      }
       await _repo.addRequest(
         local: isLocal,
         buyAndDeliver: isBuy,
@@ -113,7 +184,7 @@ class PostRequestController extends GetxController {
         description: description.text.trim(),
       );
       toast('Delivery request posted');
-      Get.back();
+      Get.back(result: true);
     } on AppException catch (e) {
       toastError(e);
     } finally {
