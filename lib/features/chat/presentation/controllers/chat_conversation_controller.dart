@@ -10,6 +10,7 @@ import '../../../../core/utils/notify.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../data/chat_model.dart';
 import '../../data/chat_repository.dart';
+import 'chat_inbox_controller.dart';
 
 // One controller per open conversation. Live messages arrive over the
 // chatRoom Pusher channel; a slow poll reconciles in case the socket drops.
@@ -24,6 +25,8 @@ class ChatConversationController extends GetxController {
   final loading = true.obs;
   final sending = false.obs;
   final post = Rxn<ChatPostContext>();
+  // non-null once an agreement exists for this chat
+  final deal = Rxn<ChatDealRef>();
   final composer = TextEditingController();
 
   int? _chatId;
@@ -43,9 +46,10 @@ class ChatConversationController extends GetxController {
 
   Future<void> _open() async {
     try {
-      final (conv, ctx) = await _repo.details(peer.id, postId: postId);
+      final (conv, ctx, dealRef) = await _repo.details(peer.id, postId: postId);
       _chatId = (initialChatId != null && initialChatId != 0) ? initialChatId : conv.chatId;
       post.value = ctx;
+      deal.value = dealRef;
 
       await _refresh();
 
@@ -62,6 +66,25 @@ class ChatConversationController extends GetxController {
       toastError(e);
     } finally {
       loading.value = false;
+    }
+  }
+
+  // re-reads post/deal so the action bar flips to "View agreement" the moment
+  // one is confirmed, instead of going stale until the screen is reopened
+  Future<void> reloadContext() async {
+    try {
+      final (_, ctx, dealRef) = await _repo.details(peer.id, postId: postId);
+      post.value = ctx;
+      deal.value = dealRef;
+    } on AppException catch (_) {
+      // leave the current bar in place — the next open re-reads it
+    }
+  }
+
+  // keep the inbox (if it's alive) from flagging our own message as unread
+  void _notifyInbox(int chatId, String preview) {
+    if (Get.isRegistered<ChatInboxController>()) {
+      Get.find<ChatInboxController>().markSelfSent(chatId, preview);
     }
   }
 
@@ -94,6 +117,7 @@ class ChatConversationController extends GetxController {
     try {
       await _repo.send(id, message: text);
       composer.clear();
+      _notifyInbox(id, text);
       await _refresh(); // the sender is excluded from the socket broadcast
     } on AppException catch (e) {
       toastError(e);
@@ -126,6 +150,7 @@ class ChatConversationController extends GetxController {
     sending.value = true;
     try {
       await _repo.send(id, filePath: file.path, fileName: file.name);
+      _notifyInbox(id, '📎 ${file.name}');
       await _refresh();
       toast('Attachment sent');
     } on AppException catch (e) {

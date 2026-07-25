@@ -9,7 +9,8 @@ import '../../../posts/presentation/widgets/transporter_chip.dart';
 // Horizontal rail of recommended travelers shown under the banner.
 class RecommendedRail extends StatelessWidget {
   final List<Post> travelers;
-  const RecommendedRail({super.key, required this.travelers});
+  final void Function(Post)? onTap;
+  const RecommendedRail({super.key, required this.travelers, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class RecommendedRail extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         itemCount: travelers.length,
         separatorBuilder: (_, __) => SizedBox(width: 12.w),
-        itemBuilder: (_, i) => _TravelerCard(post: travelers[i]),
+        itemBuilder: (_, i) => _TravelerCard(
+          post: travelers[i],
+          onTap: onTap == null ? null : () => onTap!(travelers[i]),
+        ),
       ),
     );
   }
@@ -28,12 +32,15 @@ class RecommendedRail extends StatelessWidget {
 
 class _TravelerCard extends StatelessWidget {
   final Post post;
-  const _TravelerCard({required this.post});
+  final VoidCallback? onTap;
+  const _TravelerCard({required this.post, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       width: 198.w,
       padding: EdgeInsets.all(11.w),
       decoration: BoxDecoration(
@@ -86,6 +93,7 @@ class _TravelerCard extends StatelessWidget {
             style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
           ),
         ],
+      ),
       ),
     );
   }

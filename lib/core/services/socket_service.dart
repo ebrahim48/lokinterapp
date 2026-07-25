@@ -83,18 +83,38 @@ class SocketService extends GetxService {
   }
 
   Future<dynamic> _authorize(String channelName, String socketId, dynamic options) async {
-    final res = await Dio().post(
-      _authUrl,
-      data: {'socket_id': socketId, 'channel_name': channelName},
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer ${_session.accessToken}',
-          'Accept': 'application/json',
-        },
-        contentType: Headers.formUrlEncodedContentType,
-      ),
-    );
-    return res.data; // { "auth": "key:signature" }
+    // The native plugin (fetchAuthValue) does `authData as! [String:String]`
+    // then `["auth"]!` when this returns non-null, but calls back gracefully
+    // when it returns null. So return a Map ONLY with a valid string `auth`,
+    // otherwise return null — never throw, never a partial map, or iOS aborts
+    // (dynamic-cast failure / nil-unwrap).
+    try {
+      final res = await Dio().post(
+        _authUrl,
+        data: {'socket_id': socketId, 'channel_name': channelName},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${_session.accessToken}',
+            'Accept': 'application/json',
+          },
+          contentType: Headers.formUrlEncodedContentType,
+        ),
+      );
+      var data = res.data; // { "auth": "key:signature", ... }
+      if (data is String && data.isNotEmpty) data = jsonDecode(data);
+      if (data is Map && data['auth'] is String) {
+        // native casts to [String:String] — stringify, drop null-valued keys
+        return {
+          for (final e in data.entries)
+            if (e.value != null) '${e.key}': '${e.value}',
+        };
+      }
+      return null;
+    } catch (e) {
+      // fail the subscription cleanly (onSubscriptionError) instead of crashing
+      if (kDebugMode) print('socket auth failed: $e');
+      return null;
+    }
   }
 
   void _onEvent(PusherEvent event) {

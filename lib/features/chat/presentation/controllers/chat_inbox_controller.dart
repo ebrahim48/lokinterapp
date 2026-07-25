@@ -15,6 +15,10 @@ class ChatInboxController extends GetxController {
   final _socket = Get.find<SocketService>();
   StreamSubscription<Map<String, dynamic>>? _sub;
 
+  // chats we just sent to — the server echoes our own message back on this
+  // channel with a phantom unread count, so suppress it briefly
+  final _selfSent = <int, DateTime>{};
+
   @override
   void onInit() {
     super.onInit();
@@ -40,9 +44,29 @@ class ChatInboxController extends GetxController {
     }
   }
 
+  // called when the current user sends into a chat, so the echoed-back list
+  // event doesn't render our own message as an unread incoming one
+  void markSelfSent(int chatId, String preview) {
+    _selfSent[chatId] = DateTime.now();
+    final i = conversations.indexWhere((c) => c.chatId == chatId);
+    if (i != -1) {
+      final updated = conversations[i].copyWith(lastMessage: preview, unread: 0);
+      conversations
+        ..removeAt(i)
+        ..insert(0, updated);
+    }
+  }
+
   void _onListEvent(Map<String, dynamic> payload) {
-    final conv = Conversation.fromJson(payload);
+    var conv = Conversation.fromJson(payload);
     if (conv.chatId == 0) return;
+    // the first list event right after we send is our own message echoed back —
+    // drop its phantom unread, but consume the marker so a later genuine reply
+    // still counts
+    final sentAt = _selfSent.remove(conv.chatId);
+    if (sentAt != null && DateTime.now().difference(sentAt) < const Duration(seconds: 10)) {
+      conv = conv.copyWith(unread: 0);
+    }
     conversations
       ..removeWhere((c) => c.chatId == conv.chatId)
       ..insert(0, conv);

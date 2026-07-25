@@ -95,7 +95,9 @@ class Post {
       location: json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
       wantTo: json['wantTo'] == 'BUY_AND_DELIVER' ? WantTo.buyAndDeliver : WantTo.send,
       title: json['title'],
-      description: json['description'],
+      // the API persists the request's item description in deliveryPoints
+      // (website convention); older payloads may still use description
+      description: json['description'] ?? json['deliveryPoints'],
       fromCountry: _name(json['fromCountry']),
       toCountry: _name(json['toCountry']),
       fromIso: _iso(json['fromCountry']),
@@ -128,7 +130,7 @@ class Post {
         fromCountry: _name(json['from']),
         toCountry: _name(json['to']),
         date: _parseDate(json['beforeDate']),
-        weight: 0, // not included in this shape
+        weight: _num(json['weight']), // arrives as a string ("20")
         user: const PostUser(name: ''),
       );
 

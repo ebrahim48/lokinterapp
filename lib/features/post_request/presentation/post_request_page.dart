@@ -63,6 +63,36 @@ class PostRequestPage extends StatelessWidget {
               ],
             ),
           ),
+          Obx(() => c.lookupFailed.value
+              ? Padding(
+                  padding: EdgeInsets.only(top: 16.h),
+                  child: Container(
+                    padding: EdgeInsets.all(14.w),
+                    decoration: BoxDecoration(
+                      color: AppPalette.primary.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(14.r),
+                      border: Border.all(color: AppPalette.primary.withValues(alpha: 0.3)),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.wifi_off, color: AppPalette.primary, size: 20.sp),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Text(
+                            "Couldn't load countries, so the form can't be filled in.",
+                            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: c.loadLookups,
+                          child: const Text('Retry',
+                              style: TextStyle(color: AppPalette.primary)),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink()),
           Obx(() => c.wantTo.value == null
               ? const SizedBox.shrink()
               : _locationStep(context, c)),
@@ -225,7 +255,7 @@ class PostRequestPage extends StatelessWidget {
         SizedBox(height: 16.h),
         Obx(() => LokUploadField(
               fileName: c.pictureName.value,
-              onTap: () => c.pictureName.value = 'product.jpg',
+              onTap: c.pickProductPicture,
             )),
         SizedBox(height: 16.h),
         LokTextField(

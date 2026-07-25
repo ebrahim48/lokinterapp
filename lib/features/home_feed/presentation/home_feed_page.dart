@@ -60,7 +60,10 @@ class HomeFeedPage extends StatelessWidget {
               if (c.isGuest) return const _LoginNudge();
               if (c.loading.value && c.recommended.isEmpty) return const _RailShimmer();
               if (c.recommended.isEmpty) return const _EmptyNote(text: 'No travelers right now');
-              return RecommendedRail(travelers: c.recommended.toList());
+              return RecommendedRail(
+                travelers: c.recommended.toList(),
+                onTap: (post) => Get.to(() => PostDetailsPage(post: post)),
+              );
             }),
             SizedBox(height: 20.h),
             Row(

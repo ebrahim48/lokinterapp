@@ -32,6 +32,7 @@ class PostTripController extends GetxController {
   final dropoffLocation = TextEditingController();
 
   final busy = false.obs;
+  final lookupFailed = false.obs; // countries/categories couldn't be loaded
   final countries = <Country>[].obs;
   final cities = <City>[].obs;
   final categories = <Category>[].obs;
@@ -60,10 +61,16 @@ class PostTripController extends GetxController {
   }
 
   // lookups first, then pull the post being edited so names can be matched
+  Future<void> loadLookups() => _bootstrap();
+
   Future<void> _bootstrap() async {
+    lookupFailed.value = false;
     try {
       countries.assignAll(await _lookups.countries());
-    } catch (_) {}
+      if (countries.isEmpty) lookupFailed.value = true;
+    } catch (_) {
+      lookupFailed.value = true;
+    }
     _lookups.categories().then(categories.assignAll).catchError((_) {});
     if (isEditing) await _prefill();
   }

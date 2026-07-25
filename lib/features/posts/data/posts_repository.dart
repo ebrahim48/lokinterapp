@@ -5,6 +5,7 @@ import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
+import '../../../core/services/data_bus.dart';
 import '../../lookups/data/lookup_models.dart';
 import 'models/post_model.dart';
 
@@ -49,13 +50,23 @@ class PostsRepository {
   }
 
   // the user's own posts — the backend serves these through the deals listing
-  // as stripped-down rows flagged POST
+  // as stripped-down rows flagged POST; agreements (flag DEAL) come back on the
+  // same endpoint and must not show up as posts
   Future<List<Post>> myPosts(String type) async {
     final res = await _api.get('/deals/getAllDeals', queryParameters: {
       'status': type, // TRIP or DELIVER
       'limit': 100,
+      'page': 1,
     });
-    return Paged.fromJson(unwrapData(res), Post.fromOwnPostJson).list;
+    final data = unwrapData(res);
+    final rows = data is Map ? (data['list'] as List? ?? []) : const [];
+    return rows
+        .whereType<Map>()
+        .map((e) => Map<String, dynamic>.from(e))
+        .where((e) => (e['flag'] ?? 'POST') == 'POST')
+        .map(Post.fromOwnPostJson)
+        .where((p) => p.id != 0)
+        .toList();
   }
 
   Future<void> addTrip({
@@ -80,13 +91,16 @@ class PostsRepository {
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
       if (airline != null && airline.isNotEmpty) 'airLine': airline,
-      'weight': weight,
+      // the API validates weight as an integer — a double serialises to "10.0"
+      // in multipart and gets rejected
+      'weight': weight.round(),
       // required by the backend even when empty
       'rejectedCategoriesIds': jsonEncode(rejectedCategoryIds),
       'pickupLocation': pickupLocation,
       'dropoffLocation': dropoffLocation,
     });
     unwrapData(await _api.post('/posts/addNewPost', data: form));
+    DataBus.changed(DataTopic.posts);
   }
 
   Future<void> addRequest({
@@ -103,6 +117,7 @@ class PostsRepository {
     required String pickupLocation,
     required String dropoffLocation,
     String? description,
+    String? attachFilePath,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -114,14 +129,22 @@ class PostsRepository {
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
-      'weight': weight,
+      // the API validates weight as an integer — a double serialises to "10.0"
+      // in multipart and gets rejected
+      'weight': weight.round(),
       'categoryId': categoryId,
       'pickupLocation': pickupLocation,
       'dropoffLocation': dropoffLocation,
-      // stored nowhere yet — sent anyway so it lights up when the API adds it
-      if (description != null && description.isNotEmpty) 'description': description,
+      // the website stores the item description in `deliveryPoints` —
+      // that's the field the API actually persists and returns
+      if (description != null && description.isNotEmpty)
+        'deliveryPoints': description,
+      if (attachFilePath != null)
+        'attachFile': await MultipartFile.fromFile(attachFilePath,
+            filename: attachFilePath.split('/').last),
     });
     unwrapData(await _api.post('/posts/addNewPost', data: form));
+    DataBus.changed(DataTopic.posts);
   }
 
   // same payload as addNewPost, just aimed at an existing post
@@ -148,12 +171,15 @@ class PostsRepository {
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
       if (airline != null && airline.isNotEmpty) 'airLine': airline,
-      'weight': weight,
+      // the API validates weight as an integer — a double serialises to "10.0"
+      // in multipart and gets rejected
+      'weight': weight.round(),
       'rejectedCategoriesIds': jsonEncode(rejectedCategoryIds),
       'pickupLocation': pickupLocation,
       'dropoffLocation': dropoffLocation,
     });
     unwrapData(await _api.post('/posts/updatePost/$id', data: form));
+    DataBus.changed(DataTopic.posts);
   }
 
   Future<void> updateRequest(
@@ -171,6 +197,7 @@ class PostsRepository {
     required String pickupLocation,
     required String dropoffLocation,
     String? description,
+    String? attachFilePath,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -182,17 +209,25 @@ class PostsRepository {
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
-      'weight': weight,
+      // the API validates weight as an integer — a double serialises to "10.0"
+      // in multipart and gets rejected
+      'weight': weight.round(),
       'categoryId': categoryId,
       'pickupLocation': pickupLocation,
       'dropoffLocation': dropoffLocation,
-      if (description != null && description.isNotEmpty) 'description': description,
+      if (description != null && description.isNotEmpty)
+        'deliveryPoints': description,
+      if (attachFilePath != null)
+        'attachFile': await MultipartFile.fromFile(attachFilePath,
+            filename: attachFilePath.split('/').last),
     });
     unwrapData(await _api.post('/posts/updatePost/$id', data: form));
+    DataBus.changed(DataTopic.posts);
   }
 
   Future<void> deletePost(int id) async {
     unwrapData(await _api.delete('/posts/deletePost/$id'));
+    DataBus.changed(DataTopic.posts);
   }
 
   String _date(DateTime d) =>

@@ -5,9 +5,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
+    <!-- flutter_stripe validates the theme on the application context too, not
+         just the activity — without this it fails to initialise on Android -->
     <application
         android:label="flutter_task"
         android:name="${applicationName}"
+        android:theme="@style/NormalTheme"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

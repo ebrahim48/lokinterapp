@@ -17,7 +17,7 @@ class KycStatus {
   String get message => switch (status) {
         'pending' => 'Your identity check is still being reviewed.',
         'declined' => 'Your identity check was declined. Please try again.',
-        _ => 'Verify your identity before you can start chatting.',
+        _ => 'Verify your identity before you can create a deal.',
       };
 }
 

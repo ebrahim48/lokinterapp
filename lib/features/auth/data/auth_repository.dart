@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile, Response;
@@ -29,38 +31,59 @@ class AuthRepository {
     String otp, {
     bool isTransporter = false,
     List<String> operatingCountries = const [],
-    List<PlatformFile> documents = const [],
+    String? legalName,
+    String? address,
+    PlatformFile? transportLicense,
+    List<PlatformFile> businessDocuments = const [],
   }) async {
-    dynamic body;
-    // files force multipart; the array fields switch to bracket-indexed keys
-    if (documents.isNotEmpty) {
-      final map = <String, dynamic>{
-        'step': 2,
-        ...fields,
-        'otp': otp,
-        'isTransporter': isTransporter ? 1 : 0,
-        for (var i = 0; i < operatingCountries.length; i++)
-          'operatingCountries[$i]': operatingCountries[i],
-      };
-      for (var i = 0; i < documents.length; i++) {
-        final f = documents[i];
-        if (f.path != null) {
-          map['businessDocuments[$i]'] =
-              await MultipartFile.fromFile(f.path!, filename: f.name);
-        }
-      }
-      body = FormData.fromMap(map);
-    } else {
-      body = {
-        'step': 2,
-        ...fields,
-        'otp': otp,
-        'isTransporter': isTransporter,
-        if (operatingCountries.isNotEmpty) 'operatingCountries': operatingCountries,
-      };
-    }
+    final dynamic body = isTransporter
+        ? await transporterStep2(
+            fields: fields,
+            otp: otp,
+            operatingCountries: operatingCountries,
+            legalName: legalName,
+            address: address,
+            transportLicense: transportLicense,
+            businessDocuments: businessDocuments,
+          )
+        : {'step': 2, ...fields, 'otp': otp, 'isTransporter': false};
     final res = await _api.post('/auth/register', data: body);
     await _session.saveLogin(Map<String, dynamic>.from(unwrapData(res)));
+  }
+
+  // Step-2 transporter multipart body. Multipart so the license/legal docs ride
+  // along; operatingCountries goes as a JSON string and isTransporter as the
+  // text "true", per the API spec. Static + pure so the payload is testable.
+  static Future<FormData> transporterStep2({
+    required Map<String, dynamic> fields,
+    required String otp,
+    List<String> operatingCountries = const [],
+    String? legalName,
+    String? address,
+    PlatformFile? transportLicense,
+    List<PlatformFile> businessDocuments = const [],
+  }) async {
+    final map = <String, dynamic>{
+      'step': 2,
+      ...fields,
+      'otp': otp,
+      'isTransporter': 'true',
+      if (operatingCountries.isNotEmpty) 'operatingCountries': jsonEncode(operatingCountries),
+      if (legalName != null && legalName.trim().isNotEmpty) 'legalName': legalName.trim(),
+      if (address != null && address.trim().isNotEmpty) 'address': address.trim(),
+    };
+    if (transportLicense?.path != null) {
+      map['transportLicense'] =
+          await MultipartFile.fromFile(transportLicense!.path!, filename: transportLicense.name);
+    }
+    for (var i = 0; i < businessDocuments.length; i++) {
+      final f = businessDocuments[i];
+      if (f.path != null) {
+        map['businessDocuments[$i]'] =
+            await MultipartFile.fromFile(f.path!, filename: f.name);
+      }
+    }
+    return FormData.fromMap(map);
   }
 
   Future<AuthUser> me() async {
@@ -102,11 +125,13 @@ class AuthRepository {
     }));
   }
 
+  // NB: this endpoint's field names differ from resetPassword — it wants
+  // newPassword/confirmPassword (matches the website's authApi payload).
   Future<void> changePassword(String current, String next) async {
     unwrapData(await _api.post('/auth/changePassword', data: {
       'currentPassword': current,
-      'password': next,
-      'passwordConfirmation': next,
+      'newPassword': next,
+      'confirmPassword': next,
     }));
   }
 }

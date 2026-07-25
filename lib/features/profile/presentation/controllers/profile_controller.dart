@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
+import '../../../../core/services/data_bus.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../../core/services/socket_service.dart';
 import '../../../auth/data/auth_repository.dart';
@@ -16,9 +19,13 @@ class ProfileController extends GetxController {
 
   AuthUser? get user => session.user.value;
 
+  StreamSubscription<DataTopic>? _busSub;
+
   @override
   void onInit() {
     super.onInit();
+    // a write elsewhere in the app invalidates what's on screen
+    _busSub = DataBus.on({DataTopic.profile, DataTopic.deals}).listen((_) => load());
     load();
   }
 
@@ -38,5 +45,11 @@ class ProfileController extends GetxController {
     await Get.find<SocketService>().disconnect();
     await _auth.logout();
     Get.offAll(() => const WelcomePage());
+  }
+
+  @override
+  void onClose() {
+    _busSub?.cancel();
+    super.onClose();
   }
 }

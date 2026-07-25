@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/utils/notify.dart';
 import '../data/mock_brands.dart';
 
 class BrandsPage extends StatelessWidget {
@@ -62,12 +63,7 @@ class _BrandCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return GestureDetector(
-      onTap: () => Get.snackbar(
-        brand.name,
-        'Opening ${brand.url}',
-        snackPosition: SnackPosition.BOTTOM,
-        margin: EdgeInsets.all(12.w),
-      ),
+      onTap: () => toast('Opening ${brand.url}'),
       child: Container(
         decoration: BoxDecoration(
           color: cs.surface,

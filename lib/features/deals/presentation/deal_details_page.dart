@@ -1,17 +1,21 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
 import '../../../core/utils/chat_gate.dart';
+import '../../../core/utils/verify_gate.dart';
 import '../../posts/presentation/widgets/mode_badge.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
 import 'widgets/cancel_reason_sheet.dart';
+import 'widgets/open_dispute_sheet.dart';
 import 'widgets/status_badge.dart';
 
 class DealDetailsPage extends StatefulWidget {
@@ -74,24 +78,154 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
-  Future<void> _cancel() async {
+  // declining a pending deal is REJECTED; walking away later is CANCELED
+  Future<void> _changeWithReason(String status, String done) async {
     final reason = await CancelReasonSheet.show(context);
     if (reason == null) return;
     await _run(
-      () => _repo.changeStatus(deal.id, 'CANCELED', reason: reason.code),
-      'Deal cancelled',
+      () => _repo.changeStatus(deal.id, status, reason: reason.code),
+      done,
     );
   }
 
+  Future<void> _cancel() => _changeWithReason('CANCELED', 'Deal cancelled');
+  Future<void> _reject() => _changeWithReason('REJECTED', 'Deal rejected');
+
+  // accepting is entering the agreement, so identity verification is required
+  Future<void> _acceptDeal() async {
+    if (!await requireVerified()) return;
+    await _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'), 'Deal accepted', pop: false);
+  }
+
+  // Traveler guarantee: card HOLD for the item value. Same two-step the
+  // website runs — create the intent, confirm the card in Stripe's sheet,
+  // then tell the backend so it flips travelerGuaranteeHeld.
   Future<void> _secureGuarantee() async {
-    await _run(() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
       final res = await _repo.createGuarantee(deal.id);
-      // the escrow layer may hand back a Stripe redirect we can't complete in-app
-      final url = res['url'] ?? res['checkoutUrl'] ?? res['redirectUrl'];
-      if (url != null) {
-        toast('Finish the card authorization in the browser link sent to you');
+      final clientSecret = '${res['clientSecret'] ?? ''}';
+      final intentId = '${res['paymentIntentId'] ?? ''}';
+      if (clientSecret.isEmpty) {
+        toast('Could not start the guarantee — try again');
+        return;
       }
-    }, 'Guarantee secured', pop: false);
+      final ok = await _presentStripeSheet(clientSecret);
+      if (!ok) return;
+      await _repo.confirmGuarantee(deal.id, intentId);
+      _refreshList();
+      toast('Guarantee secured — this is a hold, not a charge');
+      await _loadDetail();
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  // Sender escrow payment. Shows the fee breakdown the API returns before
+  // opening the card sheet (item cost + profit + Lokinter fee = total).
+  Future<void> _payNow() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      final res = await _repo.createPayment(deal.id);
+      final clientSecret = '${res['clientSecret'] ?? ''}';
+      final intentId = '${res['paymentIntentId'] ?? ''}';
+      if (clientSecret.isEmpty) {
+        toast('Could not start the payment — try again');
+        return;
+      }
+      final breakdown = res['breakdown'] is Map
+          ? Map<String, dynamic>.from(res['breakdown'])
+          : null;
+      if (breakdown != null) {
+        final proceed = await _confirmBreakdown(breakdown);
+        if (proceed != true) return;
+      }
+      final ok = await _presentStripeSheet(clientSecret);
+      if (!ok) return;
+      await _repo.confirmPayment(deal.id, intentId);
+      _refreshList();
+      toast('Payment secured in escrow');
+      await _loadDetail();
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<bool?> _confirmBreakdown(Map<String, dynamic> b) {
+    String money(dynamic v) => '\$${double.tryParse('$v')?.toStringAsFixed(2) ?? '$v'}';
+    final cs = Theme.of(context).colorScheme;
+    Widget line(String label, dynamic v, {bool bold = false}) => Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      color: bold ? cs.onSurface : cs.onSurfaceVariant,
+                      fontWeight: bold ? FontWeight.w700 : FontWeight.w400)),
+              Text(money(v),
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: bold ? FontWeight.w800 : FontWeight.w600,
+                      color: cs.onSurface)),
+            ],
+          ),
+        );
+    return Get.dialog<bool>(
+      AlertDialog(
+        title: const Text('Payment breakdown'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (b['itemCost'] != null && double.tryParse('${b['itemCost']}') != 0)
+              line('Item cost', b['itemCost']),
+            if (b['profit'] != null) line('Traveler profit', b['profit']),
+            if (b['lokinterFee'] != null) line('Lokinter fee', b['lokinterFee']),
+            Divider(height: 16.h),
+            line('Total', b['total'], bold: true),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(result: false), child: const Text('Cancel')),
+          ElevatedButton(
+              onPressed: () => Get.back(result: true), child: const Text('Continue')),
+        ],
+      ),
+    );
+  }
+
+  /// Opens Stripe's native payment sheet for [clientSecret]. Returns true
+  /// when the card was confirmed (hold placed), false on cancel/failure.
+  Future<bool> _presentStripeSheet(String clientSecret) async {
+    try {
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: clientSecret,
+          merchantDisplayName: 'Lokinter',
+          style: ThemeMode.light,
+        ),
+      );
+      await Stripe.instance.presentPaymentSheet();
+      return true;
+    } on StripeException catch (e) {
+      if (e.error.code != FailureCode.Canceled) {
+        toast(e.error.localizedMessage ?? 'Card confirmation failed');
+      }
+      return false;
+    } catch (e) {
+      // anything else (native SDK not configured, plugin channel) would
+      // otherwise escape and leave the button looking dead
+      debugPrint('stripe sheet failed: $e');
+      toast('Could not open the payment sheet — try again');
+      return false;
+    }
   }
 
   // eligibility first, then the pickup video, then flip to OUTGOING
@@ -130,6 +264,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
+  Future<void> _openDispute() async {
+    final filed = await OpenDisputeSheet.show(context, deal.id);
+    if (filed == true) {
+      _refreshList();
+      await _loadDetail();
+    }
+  }
+
   Future<void> _showDisputeReport() async {
     try {
       final report = await _repo.disputeReport(deal.id);
@@ -165,9 +307,28 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   _counterpart(context),
                   SizedBox(height: 16.h),
                   _agreement(context),
+                  // the sender shares this QR with the receiver throughout the
+                  // live deal, not just once it's outgoing
+                  if (deal.showsReceiverQr) ...[
+                    SizedBox(height: 16.h),
+                    _qrCard(context),
+                  ],
                   if (deal.needsGuarantee) ...[
                     SizedBox(height: 16.h),
                     _guaranteeCard(context),
+                  ],
+                  if (deal.needsPayment) ...[
+                    SizedBox(height: 16.h),
+                    _paymentCard(context),
+                  ],
+                  // traveler can't proceed until the sender's escrow is funded
+                  if (deal.travelerWaitingOnPayment) ...[
+                    SizedBox(height: 16.h),
+                    _waitingOnPayment(context),
+                  ],
+                  if (deal.status == DealStatus.outgoing) ...[
+                    SizedBox(height: 16.h),
+                    _ongoing(context),
                   ],
                   if (deal.status == DealStatus.disputes) ...[
                     SizedBox(height: 16.h),
@@ -304,12 +465,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ],
           ),
           SizedBox(height: 12.h),
-          if (deal.sdRequired) _depositRow(context),
+          _depositRow(context),
           _row(context, 'Receiver name', deal.receiverName ?? '—'),
           _row(context, 'Receiver phone', deal.receiverPhone ?? '—'),
           _row(context, 'Traveler profit', deal.profitLabel),
           _row(context, 'Payment method', deal.paymentLabel),
-          _row(context, 'Attachment', deal.attachUrl == null ? 'Not provided' : 'Provided'),
+          if (deal.attachUrl == null)
+            _row(context, 'Attachment', 'Not provided')
+          else
+            _attachmentRow(context),
           if (deal.tripDate != null) _row(context, 'Trip date', shortDate(deal.tripDate!)),
           if (deal.arrivalDate != null)
             _row(context, 'Arrival date', shortDate(deal.arrivalDate!)),
@@ -320,6 +484,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   Widget _depositRow(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final required = deal.sdRequired;
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
       child: Row(
@@ -332,20 +497,54 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFEF9C3),
+                  color: required ? const Color(0xFFFEF9C3) : cs.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: Text('Required',
+                child: Text(required ? 'Required' : 'Not required',
                     style: TextStyle(
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF854D0E))),
+                        color: required ? const Color(0xFF854D0E) : cs.onSurfaceVariant)),
               ),
-              SizedBox(width: 8.w),
-              Text(deal.depositLabel,
-                  style: TextStyle(
-                      fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              if (required) ...[
+                SizedBox(width: 8.w),
+                Text(deal.depositLabel,
+                    style: TextStyle(
+                        fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              ],
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _attachmentRow(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Attachment', style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          TextButton.icon(
+            onPressed: () => Get.dialog(
+              Dialog(
+                child: InteractiveViewer(
+                  child: Image.network(
+                    deal.attachUrl!,
+                    errorBuilder: (_, __, ___) => Padding(
+                      padding: EdgeInsets.all(24.w),
+                      child: SelectableText(deal.attachUrl!,
+                          style: TextStyle(fontSize: 12.sp)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            icon: Icon(Icons.attachment, size: 15.sp, color: AppPalette.primary),
+            label: Text('Open attachment',
+                style: TextStyle(fontSize: 12.sp, color: AppPalette.primary)),
           ),
         ],
       ),
@@ -420,6 +619,153 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     );
   }
 
+  // sender side of the escrow flow — mirrors the web "Payment Required" panel
+  Widget _paymentCard(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
+              SizedBox(width: 8.w),
+              Text('Payment required',
+                  style: TextStyle(
+                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Pay now to secure this deal. Funds are held until delivery is confirmed.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            'Your payment is auto-captured within 6 days, or when the traveler picks up the item.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
+          ),
+          // the Pay now button lives with the other actions at the bottom
+        ],
+      ),
+    );
+  }
+
+  // traveler is held back until the sender funds the escrow (live app parity)
+  Widget _waitingOnPayment(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: AppPalette.primary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppPalette.primary.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline, color: AppPalette.primary, size: 18.sp),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Cannot proceed',
+                    style: TextStyle(
+                        fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                SizedBox(height: 4.h),
+                Text(
+                  'Waiting for the sender to complete payment before you can proceed.',
+                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // in-flight: the parcel is with the traveler until delivery is confirmed
+  Widget _ongoing(BuildContext context) {
+    final (bg, fg) = DealStatus.outgoing.colors;
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16.r)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.local_shipping_outlined, color: fg, size: 18.sp),
+              SizedBox(width: 8.w),
+              Text('On the way',
+                  style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            deal.isTraveler
+                ? 'You have the parcel. Mark it delivered once the receiver has it.'
+                : 'The traveler has picked up the parcel and is on the way.',
+            style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
+          ),
+          if (deal.arrivalDate != null) ...[
+            SizedBox(height: 6.h),
+            Text('Expected arrival ${shortDate(deal.arrivalDate!)}',
+                style: TextStyle(color: fg, fontSize: 11.sp)),
+          ],
+        ],
+      ),
+    );
+  }
+
+  // The receiver scans this to confirm delivery on the website's public
+  // deal page (deal-details/{refId}) — no app or account needed.
+  Widget _qrCard(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final link = deal.confirmationLink;
+    return _card(
+      context,
+      Column(
+        children: [
+          Text('Receiver confirmation',
+              style: TextStyle(
+                  fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+          SizedBox(height: 6.h),
+          Text(
+            'Have the receiver scan this code when the parcel arrives — '
+            'it confirms the delivery and releases the deal.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+          ),
+          SizedBox(height: 14.h),
+          Container(
+            padding: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: cs.outline),
+            ),
+            child: QrImageView(
+              data: link,
+              size: 180.r,
+              backgroundColor: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _dispute(BuildContext context) {
     final (bg, fg) = DealStatus.disputes.colors;
     return Container(
@@ -469,53 +815,90 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     switch (deal.status) {
       case DealStatus.pending:
         return [
-          ElevatedButton(
-            onPressed: _busy
-                ? null
-                : () => _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'),
-                    'Agreement accepted', pop: false),
-            child: const Text('Accept agreement'),
-          ),
-          SizedBox(height: 12.h),
+          // the side that proposed the agreement can only withdraw it
+          if (!deal.isProposer) ...[
+            ElevatedButton(
+              onPressed: _busy ? null : _acceptDeal,
+              child: const Text('Accept deal'),
+            ),
+            SizedBox(height: 12.h),
+          ],
           OutlinedButton(
-            onPressed: _busy ? null : _cancel,
-            child: const Text('Decline'),
+            onPressed: _busy ? null : _reject,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppPalette.primary,
+              side: const BorderSide(color: AppPalette.primary),
+            ),
+            child: const Text('Reject deal'),
           ),
         ];
       case DealStatus.accepted:
         return [
-          // traveler films the handover, then the deal goes outgoing
-          if (deal.isTraveler)
+          // sender funds the escrow; traveler films the handover
+          if (deal.needsPayment) ...[
             ElevatedButton.icon(
-              onPressed: _busy ? null : _startOutgoing,
-              icon: Icon(Icons.upload_outlined, size: 17.sp),
-              label: const Text('Upload pickup video & start delivery'),
+              onPressed: _busy ? null : _payNow,
+              icon: Icon(Icons.credit_card, size: 17.sp),
+              label: const Text('Pay now'),
             ),
-          if (deal.isTraveler) SizedBox(height: 12.h),
+            SizedBox(height: 12.h),
+          ],
+          // the traveler can only start once the sender has paid and their own
+          // guarantee (if required) is secured
+          if (deal.isTraveler) ...[
+            ElevatedButton.icon(
+              onPressed: (_busy || !deal.travelerCanStart) ? null : _startOutgoing,
+              icon: Icon(Icons.upload_outlined, size: 17.sp),
+              label: const Text('Upload Purchase Video & Check As Ongoing'),
+            ),
+            SizedBox(height: 12.h),
+          ],
           OutlinedButton(
             onPressed: _busy ? null : _cancel,
             child: const Text('Cancel deal'),
           ),
         ];
       case DealStatus.outgoing:
+        // once the parcel is moving, walking away is a dispute, not a
+        // cancel (website: cancel is only offered while ACCEPTED)
         return [
-          ElevatedButton(
-            onPressed: _busy
-                ? null
-                : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as delivered'),
-            child: const Text('Mark as delivered'),
-          ),
-          SizedBox(height: 12.h),
-          OutlinedButton(
-            onPressed: _busy ? null : _cancel,
-            child: const Text('Cancel deal'),
+          if (!deal.isTraveler) ...[
+            ElevatedButton(
+              onPressed: _busy
+                  ? null
+                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as delivered'),
+              child: const Text('Mark as delivered'),
+            ),
+            SizedBox(height: 12.h),
+          ],
+          OutlinedButton.icon(
+            onPressed: _busy ? null : _openDispute,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppPalette.primary,
+              side: const BorderSide(color: AppPalette.primary),
+            ),
+            icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
+            label: const Text('Open a dispute'),
           ),
         ];
       case DealStatus.completed:
+        // only the sender reviews the deal (website: isDealReviewable)
         return [
-          ElevatedButton(
-            onPressed: () => _openRateSheet(context),
-            child: const Text('Rate this deal'),
+          if (!deal.isTraveler) ...[
+            ElevatedButton(
+              onPressed: () => _openRateSheet(context),
+              child: const Text('Rate this deal'),
+            ),
+            SizedBox(height: 12.h),
+          ],
+          OutlinedButton.icon(
+            onPressed: _busy ? null : _openDispute,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppPalette.primary,
+              side: const BorderSide(color: AppPalette.primary),
+            ),
+            icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
+            label: const Text('Open a dispute'),
           ),
         ];
       case DealStatus.disputes:

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import '../constants/api_constants.dart';
 import '../exceptions/app_exceptions.dart';
+import '../utils/notify.dart';
 import 'session_service.dart';
 
 class ApiService {
@@ -51,13 +52,15 @@ class ApiService {
             }
             return true;
           }());
+          _apiToast(response.requestOptions, response.data, failed: false);
           return handler.next(response);
         },
         onError: (error, handler) async {
           assert(() {
             if (kDebugMode) {
               print(
-                'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}',
+                'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path} '
+                '=> ${error.response?.data}',
               );
             }
             return true;
@@ -69,10 +72,33 @@ class ApiService {
             final retried = await _refreshAndRetry(error.requestOptions);
             if (retried != null) return handler.resolve(retried);
           }
+          _apiToast(error.requestOptions, error.response?.data, failed: true);
           return handler.next(error);
         },
       ),
     );
+  }
+
+  // write methods carry a user action worth confirming; GETs load silently
+  static const _writeMethods = {'POST', 'PUT', 'PATCH', 'DELETE'};
+  // a success toast on every sent message would be noise
+  static const _silentSuccess = ['/chats/sendMessage'];
+
+  // Surfaces the backend's own `message` for button-driven writes — success in
+  // green, failures in red — so every action reports its result app-wide. Only
+  // fires when the envelope actually carries a message; bodyless transport
+  // errors are left to the screen (which knows the better "no internet" text).
+  void _apiToast(RequestOptions req, dynamic body, {required bool failed}) {
+    if (!_writeMethods.contains(req.method.toUpperCase())) return;
+    final msg = body is Map && body['message'] is String ? body['message'] as String : null;
+    if (msg == null || msg.trim().isEmpty) return;
+    final ok = !failed && body is Map && body['status'] == true;
+    if (ok) {
+      if (_silentSuccess.any(req.path.contains)) return;
+      toastSuccess(msg);
+    } else {
+      toastError(msg);
+    }
   }
 
   Future<Response?> _refreshAndRetry(RequestOptions failed) async {

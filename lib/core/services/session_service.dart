@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import '../../features/auth/data/models/auth_user.dart';
 import 'cache_service.dart';
@@ -50,14 +52,24 @@ class SessionService extends GetxService {
     await _storage.setString(StorageKeys.userJson, jsonEncode(u.toJson()));
   }
 
+  // wipes every trace of the account so nothing leaks into the next login
   Future<void> clear() async {
     accessToken = null;
     refreshToken = null;
     user.value = null;
-    await _storage.remove(StorageKeys.authToken);
-    await _storage.remove(StorageKeys.refreshToken);
-    await _storage.remove(StorageKeys.userJson);
-    await _storage.setBool(StorageKeys.isLoggedIn, false);
-    await CacheService().clear(); // don't leak one account's data into the next
+    await _storage.clearAccountData(); // all account prefs (tokens, user, …)
+    await CacheService().clear(); // Hive: deals, posts, chat inbox, home feed
+    await _clearImageCache(); // cached avatars / item photos
+  }
+
+  Future<void> _clearImageCache() async {
+    try {
+      PaintingBinding.instance.imageCache
+        ..clear()
+        ..clearLiveImages();
+      await DefaultCacheManager().emptyCache(); // on-disk cached images
+    } catch (_) {
+      // never let cache cleanup block a logout
+    }
   }
 }

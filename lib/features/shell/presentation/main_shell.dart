@@ -5,6 +5,7 @@ import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/auth_gate.dart';
+import '../../../core/utils/kyc_gate.dart';
 import '../../chat/presentation/chat_inbox_page.dart';
 import '../../deals/presentation/deals_page.dart';
 import '../../home_feed/presentation/home_feed_page.dart';
@@ -113,17 +114,22 @@ class _MainShellState extends State<MainShell> {
             ListTile(
               leading: const Icon(Icons.flight_takeoff, color: AppPalette.intlAccent),
               title: const Text('Post a Trip'),
-              onTap: () {
+              onTap: () async {
                 Get.back();
-                Get.to(() => const PostTripPage());
+                // website gates posting behind identity verification
+                if (await requireIdentityVerified(action: 'post a trip')) {
+                  Get.to(() => const PostTripPage());
+                }
               },
             ),
             ListTile(
               leading: const Icon(Icons.inventory_2_outlined, color: AppPalette.primary),
               title: const Text('Post a delivery request'),
-              onTap: () {
+              onTap: () async {
                 Get.back();
-                Get.to(() => const PostRequestPage());
+                if (await requireIdentityVerified(action: 'post a delivery request')) {
+                  Get.to(() => const PostRequestPage());
+                }
               },
             ),
             SizedBox(height: 8.h),

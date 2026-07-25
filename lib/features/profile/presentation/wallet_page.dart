@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,9 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/notify.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../data/wallet_repository.dart';
+import 'payout_methods_page.dart';
+import 'wallet_activity_page.dart';
+import '../../../core/services/data_bus.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -24,6 +29,16 @@ class _WalletPageState extends State<WalletPage> {
   void initState() {
     super.initState();
     _load();
+    // a write elsewhere invalidates this list
+    _busSub = DataBus.on({DataTopic.wallet, DataTopic.deals}).listen((_) => _load());
+  }
+
+  StreamSubscription<DataTopic>? _busSub;
+
+  @override
+  void dispose() {
+    _busSub?.cancel();
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -70,9 +85,20 @@ class _WalletPageState extends State<WalletPage> {
                       SizedBox(height: 22.h),
                       _payoutAccount(context, _data!),
                       SizedBox(height: 22.h),
-                      Text('Recent activity',
-                          style: TextStyle(
-                              fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Recent activity',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: cs.onSurface)),
+                          TextButton(
+                            onPressed: () => Get.to(() => const WalletActivityPage()),
+                            child: const Text('See all'),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 8.h),
                       if (_data!.recent.isEmpty)
                         Padding(
@@ -185,7 +211,10 @@ class _WalletPageState extends State<WalletPage> {
             ),
           ),
           TextButton(
-            onPressed: () => toast('Payout methods are managed from the web dashboard for now'),
+            onPressed: () async {
+              await Get.to(() => const PayoutMethodsPage());
+              _load(); // the linked account may have changed
+            },
             child: const Text('Manage'),
           ),
         ],
@@ -244,6 +273,10 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   String? _method;
   bool _sending = false;
 
+  // live fee preview (website: quote before submit)
+  PayoutQuote? _quote;
+  bool _quoting = false;
+
   @override
   void initState() {
     super.initState();
@@ -251,12 +284,34 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
       if (!mounted) return;
       setState(() => _methods = list);
     }).catchError((_) {});
+    _amount.addListener(_refreshQuote);
   }
 
   @override
   void dispose() {
     _amount.dispose();
     super.dispose();
+  }
+
+  Future<void> _refreshQuote() async {
+    final amount = double.tryParse(_amount.text);
+    final method = _methods.firstWhereOrNull((m) => m.label == _method);
+    if (amount == null || amount <= 0 || method == null) {
+      if (_quote != null && mounted) setState(() => _quote = null);
+      return;
+    }
+    setState(() => _quoting = true);
+    try {
+      final q = await _repo.quotePayout(method.id, amount, widget.currency);
+      // ignore stale responses for an amount the user has already edited
+      if (mounted && double.tryParse(_amount.text) == amount) {
+        setState(() => _quote = q);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _quote = null);
+    } finally {
+      if (mounted) setState(() => _quoting = false);
+    }
   }
 
   Future<void> _submit() async {
@@ -307,7 +362,10 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                 icon: Icons.account_balance_outlined,
                 options: _methods.map((m) => m.label).toList(),
                 value: _method,
-                onChanged: (v) => setState(() => _method = v),
+                onChanged: (v) {
+                  setState(() => _method = v);
+                  _refreshQuote();
+                },
               ),
               SizedBox(height: 14.h),
               LokTextField(
@@ -317,6 +375,37 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                 keyboardType: TextInputType.number,
                 controller: _amount,
               ),
+              if (_quoting || _quote != null) ...[
+                SizedBox(height: 10.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    color: cs.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: _quoting
+                      ? Row(
+                          children: [
+                            SizedBox(
+                                width: 14.r,
+                                height: 14.r,
+                                child: const CircularProgressIndicator(strokeWidth: 2)),
+                            SizedBox(width: 10.w),
+                            Text('Calculating fees...',
+                                style:
+                                    TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+                          ],
+                        )
+                      : Text(
+                          'Fee ${widget.currency} ${_quote!.feeAmount.toStringAsFixed(2)} — '
+                          'you receive ${widget.currency} ${_quote!.netAmount.toStringAsFixed(2)}',
+                          style: TextStyle(
+                              fontSize: 12.5.sp,
+                              fontWeight: FontWeight.w600,
+                              color: cs.onSurface),
+                        ),
+                ),
+              ],
               SizedBox(height: 18.h),
               ElevatedButton(
                 onPressed: _sending || _methods.isEmpty ? null : _submit,

@@ -32,7 +32,8 @@ class ChatRepository {
   }
 
   // opens (or creates) the conversation with a user; also returns post context
-  Future<(Conversation, ChatPostContext?)> details(int receiverId, {int? postId}) async {
+  Future<(Conversation, ChatPostContext?, ChatDealRef?)> details(int receiverId,
+      {int? postId}) async {
     final res = await _api.get(
       '/chats/getChatDetails/$receiverId',
       queryParameters: postId != null ? {'postId': postId} : null,
@@ -44,7 +45,11 @@ class ChatRepository {
       lastMessage: data['chat']?['lastMessage'] ?? '',
       unread: data['chat']?['newMessages'] ?? 0,
     );
-    return (conv, ChatPostContext.fromJson(data['post']));
+    return (
+      conv,
+      ChatPostContext.fromJson(data['post']),
+      ChatDealRef.fromJson(data['deal']),
+    );
   }
 
   Future<List<ChatMessage>> messages(int chatId) async {

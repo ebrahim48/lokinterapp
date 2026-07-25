@@ -43,9 +43,9 @@ class RegisterController extends GetxController {
       .whereType<String>()
       .toList();
 
-  // license + legal docs both go into businessDocuments[] (backend accepts up to 5)
-  List<PlatformFile> get documents =>
-      [licenseFile.value, legalFile.value].whereType<PlatformFile>().toList();
+  // legal docs go into businessDocuments[]; the transport license is its own field
+  List<PlatformFile> get businessDocuments =>
+      [legalFile.value].whereType<PlatformFile>().toList();
 
   @override
   void onInit() {
@@ -101,9 +101,15 @@ class RegisterController extends GetxController {
       toast('Password must be at least 8 characters');
       return;
     }
-    if (isTransporter && operatingCountries.isEmpty) {
-      toast('Pick at least one country of operation');
-      return;
+    if (isTransporter) {
+      if (businessName.text.trim().isEmpty || address.text.trim().isEmpty) {
+        toast('Add your legal name and business address');
+        return;
+      }
+      if (operatingCountries.isEmpty) {
+        toast('Pick at least one country of operation');
+        return;
+      }
     }
     if (await _sendOtp()) Get.to(() => const OtpPage());
   }
@@ -138,7 +144,10 @@ class RegisterController extends GetxController {
         otp,
         isTransporter: isTransporter,
         operatingCountries: operatingCountriesIso,
-        documents: documents,
+        legalName: businessName.text.trim(),
+        address: address.text.trim(),
+        transportLicense: licenseFile.value,
+        businessDocuments: businessDocuments,
       );
       Get.offAll(() => const MainShell());
     } on AppException catch (e) {

@@ -43,6 +43,12 @@ android {
     }
 }
 
+dependencies {
+    // the styles above extend Theme.MaterialComponents, which flutter_stripe's
+    // payment sheet needs — pull the library in explicitly so it always resolves
+    implementation("com.google.android.material:material:1.12.0")
+}
+
 flutter {
     source = "../.."
 }

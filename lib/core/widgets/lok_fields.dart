@@ -37,6 +37,7 @@ class LokTextField extends StatelessWidget {
   final int maxLines;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
+  final bool readOnly;
 
   const LokTextField({
     super.key,
@@ -47,6 +48,7 @@ class LokTextField extends StatelessWidget {
     this.maxLines = 1,
     this.keyboardType,
     this.controller,
+    this.readOnly = false,
   });
 
   @override
@@ -59,6 +61,10 @@ class LokTextField extends StatelessWidget {
           controller: controller,
           maxLines: maxLines,
           keyboardType: keyboardType,
+          readOnly: readOnly,
+          style: readOnly
+              ? TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)
+              : null,
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: icon == null ? null : Icon(icon, size: 18.sp),

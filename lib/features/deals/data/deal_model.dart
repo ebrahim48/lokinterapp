@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/constants/api_constants.dart';
 import '../../../core/utils/media_url.dart';
 import '../../posts/data/models/post_model.dart';
 
@@ -101,9 +102,11 @@ class Deal {
   // Full detail from /deals/getById/{id}
   factory Deal.fromJson(Map<String, dynamic> json) {
     final isTraveler = json['isTraveler'] ?? false;
-    // show whoever is on the other side of the agreement
+    // whoever is on the other side of the agreement — the id matters as much as
+    // the name, it's what opens the chat (getChatDetails/{receiver_id})
     final otherName =
         (isTraveler ? json['senderName'] : json['travelerName'])?.toString() ?? '';
+    final otherId = isTraveler ? json['senderId'] : json['travelerId'];
 
     return Deal(
       id: json['id'] ?? 0,
@@ -116,7 +119,10 @@ class Deal {
       weight: _num(json['weight']) ?? 0,
       profitAmount: _num(json['cost']),
       status: _status(json['status']),
-      counterpart: PostUser(name: otherName),
+      counterpart: PostUser(
+        id: otherId is int ? otherId : int.tryParse('$otherId') ?? 0,
+        name: otherName,
+      ),
       isSender: json['isSender'] ?? false,
       isTraveler: isTraveler,
       paymentMethod: json['paymentMethod'] ?? '',
@@ -144,9 +150,50 @@ class Deal {
   String get depositLabel =>
       itemEstimatedCost == null ? '—' : _money(itemEstimatedCost!);
 
+  // Whoever confirmed the agreement in chat proposed this deal, so they can
+  // only withdraw it — accepting is the other side's call. The API has no
+  // "createdBy", but the proposer always ends up on a fixed side: on a trip
+  // post they're the sender, on a delivery request they're the traveler.
+  bool get isProposer => type == PostType.trip ? isSender : isTraveler;
+
+  // the receiver scans this at handover — it opens the website's public
+  // confirmation page for this deal (getByReferenceId under the hood)
+  String get confirmationLink => '${ApiConstants.webBaseUrl}/deal-details/$refId';
+
   // the traveler must put up a card hold before the item moves
   bool get needsGuarantee =>
       sdRequired && isTraveler && !travelerGuaranteeHeld && status == DealStatus.accepted;
+
+  // the sender funds the deal once the traveler has accepted
+  bool get needsPayment =>
+      isSender &&
+      !senderFundsHeld &&
+      status == DealStatus.accepted &&
+      paymentMethod.toUpperCase() == 'STRIPE';
+
+  // COD deals need no escrow, so they count as already paid; STRIPE deals wait
+  // for the sender's hold before the traveler can move things on
+  bool get senderHasPaid => senderFundsHeld || paymentMethod.toUpperCase() != 'STRIPE';
+
+  // the sender shares the receiver's QR while the deal is live (pending →
+  // outgoing), matching the live app — not only once it's outgoing
+  bool get showsReceiverQr =>
+      isSender &&
+      refId.isNotEmpty &&
+      (status == DealStatus.pending ||
+          status == DealStatus.accepted ||
+          status == DealStatus.outgoing);
+
+  // at ACCEPTED the traveler can't start until the sender's payment clears
+  bool get travelerWaitingOnPayment =>
+      isTraveler && status == DealStatus.accepted && !senderHasPaid;
+
+  // ...and their own guarantee (if required) is in place
+  bool get travelerCanStart =>
+      isTraveler &&
+      status == DealStatus.accepted &&
+      senderHasPaid &&
+      (!sdRequired || travelerGuaranteeHeld);
 
   String get paymentLabel => switch (paymentMethod.toUpperCase()) {
         'STRIPE' => 'Pay Online',
@@ -169,9 +216,10 @@ class Deal {
   static double? _num(dynamic v) =>
       v == null ? null : (v is num ? v.toDouble() : double.tryParse(v.toString()));
 
+  // the API says OUTGOING in filters but has also sent ONGOING on rows
   static DealStatus _status(dynamic raw) => switch (raw?.toString().toUpperCase()) {
         'ACCEPTED' => DealStatus.accepted,
-        'OUTGOING' => DealStatus.outgoing,
+        'OUTGOING' || 'ONGOING' => DealStatus.outgoing,
         'COMPLETED' => DealStatus.completed,
         'CANCELED' || 'CANCELLED' || 'REJECTED' => DealStatus.cancelled,
         'DISPUTES' || 'DISPUTE' || 'DISPUTED' => DealStatus.disputes,

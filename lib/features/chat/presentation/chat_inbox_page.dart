@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
+import '../../../core/utils/format.dart';
 import 'controllers/chat_inbox_controller.dart';
 
 class ChatInboxPage extends StatelessWidget {
@@ -92,7 +93,7 @@ class ChatInboxPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(conv.time,
+                    Text(chatTime(conv.time),
                         style: TextStyle(fontSize: 10.sp, color: cs.onSurfaceVariant)),
                     SizedBox(height: 6.h),
                     if (conv.unread > 0)

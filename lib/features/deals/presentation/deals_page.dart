@@ -15,7 +15,33 @@ class DealsPage extends StatelessWidget {
     final c = Get.put(DealsController());
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Deals')),
+      appBar: AppBar(
+        title: const Text('Deals'),
+        actions: [
+          Obx(() => IconButton(
+                tooltip: 'Filter',
+                onPressed: () => _openFilter(context, c),
+                icon: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    const Icon(Icons.filter_list),
+                    // a dot marks that a non-"All" filter is active
+                    if (c.filter.value != null)
+                      Positioned(
+                        right: -1,
+                        top: -1,
+                        child: Container(
+                          width: 8.r,
+                          height: 8.r,
+                          decoration: const BoxDecoration(
+                              color: AppPalette.primary, shape: BoxShape.circle),
+                        ),
+                      ),
+                  ],
+                ),
+              )),
+        ],
+      ),
       body: Column(
         children: [
           SizedBox(
@@ -64,6 +90,56 @@ class DealsPage extends StatelessWidget {
             }),
           ),
         ],
+      ),
+    );
+  }
+
+  void _openFilter(BuildContext context, DealsController c) {
+    final cs = Theme.of(context).colorScheme;
+    final options = <(DealStatus?, String)>[
+      (null, 'All'),
+      for (final s in DealStatus.values) (s, s.label),
+    ];
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: cs.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 8.h),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Filter deals',
+                    style: TextStyle(
+                        fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              ),
+            ),
+            for (final (status, label) in options)
+              Obx(() {
+                final active = c.filter.value == status;
+                return ListTile(
+                  onTap: () {
+                    c.filter.value = status;
+                    Navigator.pop(context);
+                  },
+                  title: Text(label,
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          color: active ? AppPalette.primary : cs.onSurface,
+                          fontWeight: active ? FontWeight.w700 : FontWeight.w500)),
+                  trailing: active
+                      ? const Icon(Icons.check, color: AppPalette.primary)
+                      : null,
+                );
+              }),
+            SizedBox(height: 8.h),
+          ],
+        ),
       ),
     );
   }

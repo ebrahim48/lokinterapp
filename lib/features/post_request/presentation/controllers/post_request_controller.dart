@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
 import '../../../lookups/data/lookup_models.dart';
@@ -25,6 +26,7 @@ class PostRequestController extends GetxController {
   final beforeDate = Rxn<DateTime>();
   final category = RxnString();
   final pictureName = RxnString();
+  final picturePath = RxnString(); // local file uploaded as attachFile
   final currency = 'USD'.obs;
   final acceptedTerms = false.obs;
 
@@ -36,6 +38,7 @@ class PostRequestController extends GetxController {
   final dropoffLocation = TextEditingController();
 
   final busy = false.obs;
+  final lookupFailed = false.obs; // countries/categories couldn't be loaded
   final countries = <Country>[].obs;
   final cities = <City>[].obs;
   final categories = <Category>[].obs;
@@ -65,10 +68,16 @@ class PostRequestController extends GetxController {
   }
 
   // lookups first, then pull the post being edited so names can be matched
+  Future<void> loadLookups() => _bootstrap();
+
   Future<void> _bootstrap() async {
+    lookupFailed.value = false;
     try {
       countries.assignAll(await _lookups.countries());
-    } catch (_) {}
+      if (countries.isEmpty) lookupFailed.value = true;
+    } catch (_) {
+      lookupFailed.value = true;
+    }
     try {
       categories.assignAll(await _lookups.categories());
     } catch (_) {}
@@ -109,6 +118,23 @@ class PostRequestController extends GetxController {
   Country? _byName(String? name) =>
       countries.firstWhereOrNull((e) => e.name == name);
   City? _cityByName(String? name) => cities.firstWhereOrNull((e) => e.name == name);
+
+  /// Product picture — gallery pick, ≤5MB (API limit, same as the website).
+  Future<void> pickProductPicture() async {
+    final img = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1920,
+      imageQuality: 85,
+    );
+    if (img == null) return;
+    final bytes = await img.length();
+    if (bytes > 5 * 1024 * 1024) {
+      toast('Please pick an image under 5MB');
+      return;
+    }
+    picturePath.value = img.path;
+    pictureName.value = img.name;
+  }
 
   Future<void> submit() async {
     final origin = _byName(isLocal ? insideCountry.value : fromCountry.value);
@@ -161,6 +187,7 @@ class PostRequestController extends GetxController {
           pickupLocation: pickupLocation.text.trim(),
           dropoffLocation: dropoffLocation.text.trim(),
           description: description.text.trim(),
+          attachFilePath: picturePath.value,
         );
         toast('Delivery request updated');
         Get.back(result: true);
@@ -182,6 +209,7 @@ class PostRequestController extends GetxController {
         pickupLocation: pickupLocation.text.trim(),
         dropoffLocation: dropoffLocation.text.trim(),
         description: description.text.trim(),
+        attachFilePath: picturePath.value,
       );
       toast('Delivery request posted');
       Get.back(result: true);

@@ -86,6 +86,21 @@ validation:
    with the docs' numbers.
 5. **Empty relations returned as `[]`.** `fromCity`/`toCity` are `[]` when
    unset (instead of `null`), which reads as "empty list" not "no city".
+6. **`POST /deals/addNewDeal` requires `receiverName` and `receiverPhone`.**
+   Both are listed as optional in the guide, but omitting them 422s. The
+   agreement sheet now marks them required. Confirm whether they should stay
+   mandatory for a TRIP-side agreement, where the sender may not know the
+   receiver yet.
+7. **`GET /deals/getById/{id}` has no "who proposed this deal" field.** The
+   party who confirmed the agreement must not be offered "Accept deal" on their
+   own proposal. With no `createdBy`/`proposedBy` in the payload the app infers
+   it from the post type (sender proposes on a TRIP, traveler on a DELIVER),
+   which holds only because the app is the sole creator of deals. Please add an
+   explicit creator id so this doesn't have to be derived.
+8. **`itemEstimatedCost` and `sdRequired` are accepted but not persisted.**
+   `GET /deals/getById/{id}` returns `itemEstimatedCost: null` on a deal that
+   was created with a value. The escrow breakdown depends on it, so it needs
+   to be stored.
 
 ---
 

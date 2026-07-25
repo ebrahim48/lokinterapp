@@ -1,12 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
+import '../../../core/utils/format.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/review_model.dart';
 
+/// Own reviews (no args) or another user's public profile
+/// ([userId] set) — the website's `user-reviews/:id` page.
 class UserReviewsPage extends StatefulWidget {
-  const UserReviewsPage({super.key});
+  final int? userId;
+  final String? userName;
+  const UserReviewsPage({super.key, this.userId, this.userName});
 
   @override
   State<UserReviewsPage> createState() => _UserReviewsPageState();
@@ -15,6 +21,7 @@ class UserReviewsPage extends StatefulWidget {
 class _UserReviewsPageState extends State<UserReviewsPage> {
   final _repo = ProfileRepository();
   List<Review> _reviews = [];
+  RatingSummary? _summaryInfo;
   bool _loading = true;
   String? _error;
 
@@ -30,10 +37,14 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
 
   Future<void> _load() async {
     try {
-      final reviews = await _repo.myReviews();
+      final results = await Future.wait([
+        _repo.reviews(widget.userId),
+        _repo.userInfo(widget.userId).then<RatingSummary?>((s) => s).catchError((_) => null),
+      ]);
       if (!mounted) return;
       setState(() {
-        _reviews = reviews;
+        _reviews = results[0] as List<Review>;
+        _summaryInfo = results[1] as RatingSummary?;
         _loading = false;
       });
     } on AppException catch (e) {
@@ -48,8 +59,15 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final title = widget.userId == null
+        ? 'Reviews'
+        : (widget.userName?.isNotEmpty ?? false)
+            ? widget.userName!
+            : (_summaryInfo?.userName.isNotEmpty ?? false)
+                ? _summaryInfo!.userName
+                : 'Profile';
     return Scaffold(
-      appBar: AppBar(title: const Text('Reviews')),
+      appBar: AppBar(title: Text(title)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
@@ -62,38 +80,240 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
                     ],
                   ),
                 )
-              : _reviews.isEmpty
-                  ? Center(
-                      child: Text('No reviews yet',
-                          style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                    )
-                  : ListView(
-                      padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
-                      children: [
-                        Row(
-                          children: [
-                            Text(_average.toStringAsFixed(1),
-                                style: TextStyle(
-                                    fontSize: 40.sp, fontWeight: FontWeight.w800, color: cs.onSurface)),
-                            SizedBox(width: 14.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _stars(_average.round()),
-                                SizedBox(height: 4.h),
-                                Text('${_reviews.length} reviews',
-                                    style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
-                              ],
-                            ),
-                          ],
-                        ),
+              : RefreshIndicator(
+                  onRefresh: _load,
+                  child: ListView(
+                    padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
+                    children: [
+                      if (_summaryInfo != null) ...[
+                        _profileHeader(context, _summaryInfo!),
+                        SizedBox(height: 14.h),
+                      ],
+                      if (_reviews.isEmpty)
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32.h),
+                          child: Center(
+                            child: Text('No reviews yet',
+                                style:
+                                    TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
+                          ),
+                        )
+                      else ...[
+                        _summary(context),
                         SizedBox(height: 20.h),
                         for (final r in _reviews) ...[
                           _reviewCard(context, r),
                           SizedBox(height: 12.h),
                         ],
                       ],
+                    ],
+                  ),
+                ),
+    );
+  }
+
+  // website public profile: avatar + authoritative overall rating, then
+  // role-split averages, activity counts, and verification badges
+  Widget _profileHeader(BuildContext context, RatingSummary s) {
+    final cs = Theme.of(context).colorScheme;
+    final name = s.userName.isNotEmpty
+        ? s.userName
+        : (widget.userName ?? '').isNotEmpty
+            ? widget.userName!
+            : 'User';
+
+    Widget chip(String label, bool ok) => Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+          decoration: BoxDecoration(
+            color: ok
+                ? AppPalette.verified.withValues(alpha: 0.12)
+                : cs.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(ok ? Icons.verified : Icons.remove_circle_outline,
+                  size: 13.sp, color: ok ? AppPalette.verified : cs.onSurfaceVariant),
+              SizedBox(width: 4.w),
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 10.5.sp,
+                      fontWeight: FontWeight.w600,
+                      color: ok ? AppPalette.verified : cs.onSurfaceVariant)),
+            ],
+          ),
+        );
+
+    Widget stat(String label, String value) => Expanded(
+          child: Column(
+            children: [
+              Text(value,
+                  style: TextStyle(
+                      fontSize: 16.sp, fontWeight: FontWeight.w800, color: cs.onSurface)),
+              SizedBox(height: 2.h),
+              Text(label,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.sp, color: cs.onSurfaceVariant)),
+            ],
+          ),
+        );
+
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 28.r,
+                backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
+                backgroundImage: s.avatarUrl != null
+                    ? CachedNetworkImageProvider(s.avatarUrl!)
+                    : null,
+                child: s.avatarUrl != null
+                    ? null
+                    : Text(name[0].toUpperCase(),
+                        style: TextStyle(
+                            color: AppPalette.primary,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800)),
+              ),
+              SizedBox(width: 14.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w800,
+                            color: cs.onSurface)),
+                    SizedBox(height: 4.h),
+                    Row(
+                      children: [
+                        _stars(s.averageStars.round()),
+                        SizedBox(width: 6.w),
+                        Text(
+                          s.averageStars == 0
+                              ? 'No ratings yet'
+                              : '${s.averageStars.toStringAsFixed(1)} · ${s.totalRates} review${s.totalRates == 1 ? '' : 's'}',
+                          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                        ),
+                      ],
                     ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Divider(height: 22.h, color: cs.outline),
+          Row(
+            children: [
+              stat('As traveler',
+                  s.averageStarsAsTraveler == 0 ? '—' : s.averageStarsAsTraveler.toStringAsFixed(1)),
+              stat('As sender',
+                  s.averageStarsAsSender == 0 ? '—' : s.averageStarsAsSender.toStringAsFixed(1)),
+              stat('Trips', '${s.totalTrips}'),
+              stat('Requests', '${s.totalRequests}'),
+              stat('Delivers', '${s.totalDelivers}'),
+            ],
+          ),
+          SizedBox(height: 12.h),
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 6.h,
+            children: [
+              chip('ID verified', s.identityVerified),
+              chip('Phone verified', s.phoneVerified),
+              chip('Email verified', s.emailVerified),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // big average on the left, star-count breakdown on the right
+  Widget _summary(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final counts = <int, int>{for (var s = 1; s <= 5; s++) s: 0};
+    for (final r in _reviews) {
+      counts[r.rating.clamp(1, 5)] = (counts[r.rating.clamp(1, 5)] ?? 0) + 1;
+    }
+
+    return Container(
+      padding: EdgeInsets.all(18.w),
+      decoration: BoxDecoration(
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              Text(_average.toStringAsFixed(1),
+                  style: TextStyle(
+                      fontSize: 38.sp, fontWeight: FontWeight.w800, color: cs.onSurface)),
+              _stars(_average.round()),
+              SizedBox(height: 4.h),
+              Text('${_reviews.length} review${_reviews.length == 1 ? '' : 's'}',
+                  style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+            ],
+          ),
+          SizedBox(width: 20.w),
+          Expanded(
+            child: Column(
+              children: [
+                for (var s = 5; s >= 1; s--) _bar(context, s, counts[s] ?? 0),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _bar(BuildContext context, int stars, int count) {
+    final cs = Theme.of(context).colorScheme;
+    final ratio = _reviews.isEmpty ? 0.0 : count / _reviews.length;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 2.h),
+      child: Row(
+        children: [
+          Text('$stars', style: TextStyle(fontSize: 10.sp, color: cs.onSurfaceVariant)),
+          SizedBox(width: 4.w),
+          Icon(Icons.star, size: 11.sp, color: Colors.amber),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.r),
+              child: LinearProgressIndicator(
+                value: ratio,
+                minHeight: 6.h,
+                backgroundColor: cs.surfaceContainerHighest,
+                valueColor: const AlwaysStoppedAnimation(Colors.amber),
+              ),
+            ),
+          ),
+          SizedBox(width: 8.w),
+          SizedBox(
+            width: 18.w,
+            child: Text('$count',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: 10.sp, color: cs.onSurfaceVariant)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -121,24 +341,35 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
           Row(
             children: [
               CircleAvatar(
-                radius: 16.r,
+                radius: 18.r,
                 backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
                 child: Text(r.reviewer.isEmpty ? '?' : r.reviewer[0],
                     style: const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700)),
               ),
               SizedBox(width: 10.w),
               Expanded(
-                child: Text(r.reviewer,
-                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(r.reviewer,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                    SizedBox(height: 3.h),
+                    _stars(r.rating),
+                  ],
+                ),
               ),
-              Text(r.date, style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+              Text(chatTime(r.date),
+                  style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
             ],
           ),
-          SizedBox(height: 8.h),
-          _stars(r.rating),
-          SizedBox(height: 8.h),
-          Text(r.comment,
-              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4)),
+          if (r.comment.isNotEmpty) ...[
+            SizedBox(height: 10.h),
+            Text(r.comment,
+                style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant, height: 1.45)),
+          ],
         ],
       ),
     );

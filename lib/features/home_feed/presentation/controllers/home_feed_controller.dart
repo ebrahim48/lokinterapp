@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
+import '../../../../core/services/data_bus.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
@@ -19,9 +22,13 @@ class HomeFeedController extends GetxController {
 
   bool get isGuest => _session.isGuest;
 
+  StreamSubscription<DataTopic>? _busSub;
+
   @override
   void onInit() {
     super.onInit();
+    // a write elsewhere in the app invalidates what's on screen
+    _busSub = DataBus.on({DataTopic.posts, DataTopic.deals}).listen((_) => load());
     load();
   }
 
@@ -56,5 +63,11 @@ class HomeFeedController extends GetxController {
     banners.assignAll(data.banners);
     recommended.assignAll(data.recommended);
     feed.assignAll(data.latestDeals);
+  }
+
+  @override
+  void onClose() {
+    _busSub?.cancel();
+    super.onClose();
   }
 }

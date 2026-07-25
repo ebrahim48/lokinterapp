@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
+import '../../../core/services/data_bus.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
@@ -11,9 +14,13 @@ class DealsController extends GetxController {
 
   final _repo = DealsRepository();
 
+  StreamSubscription<DataTopic>? _busSub;
+
   @override
   void onInit() {
     super.onInit();
+    // a write elsewhere in the app invalidates what's on screen
+    _busSub = DataBus.on({DataTopic.deals, DataTopic.posts}).listen((_) => load());
     ever(filter, (_) => load());
     load();
   }
@@ -40,5 +47,11 @@ class DealsController extends GetxController {
     } finally {
       loading.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    _busSub?.cancel();
+    super.onClose();
   }
 }

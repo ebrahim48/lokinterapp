@@ -3,12 +3,40 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/notify.dart';
+import '../../lookups/data/lookups_repository.dart';
 import 'controllers/profile_controller.dart';
 
 // Replaces the old "Invoices & QR Codes" entry. Lets travelers/transporters
 // apply to be recommended to relevant senders.
-class IncreaseVisibilityPage extends StatelessWidget {
+//
+// NOTE: subscriptions are feature-flagged OFF on the website build
+// (`subscriptionFeatureEnabled=false`), so "Apply & subscribe" stays a
+// notice here too — but the plan price is now the live one from
+// /lookups/getAllPlans instead of a hardcoded figure.
+class IncreaseVisibilityPage extends StatefulWidget {
   const IncreaseVisibilityPage({super.key});
+
+  @override
+  State<IncreaseVisibilityPage> createState() => _IncreaseVisibilityPageState();
+}
+
+class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
+  String? _planPrice;
+
+  @override
+  void initState() {
+    super.initState();
+    LookupsRepository().plans().then((plans) {
+      if (!mounted || plans.isEmpty) return;
+      // first paid plan drives the transporter card's price line
+      final paid = plans.firstWhereOrNull(
+          (p) => (double.tryParse('${p['price'] ?? 0}') ?? 0) > 0);
+      if (paid != null) {
+        final unit = (paid['unit'] ?? 'month').toString().toLowerCase();
+        setState(() => _planPrice = 'USD ${paid['price']} / $unit');
+      }
+    }).catchError((_) {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +92,7 @@ class IncreaseVisibilityPage extends StatelessWidget {
           _planCard(
             context,
             title: 'Recommended Transporter',
-            price: 'USD 22.99 / month',
+            price: _planPrice ?? 'USD 22.99 / month',
             blurb: 'For transporters who want premium placement while subscribed.',
             child: SizedBox(
               width: double.infinity,

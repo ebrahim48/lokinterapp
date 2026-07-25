@@ -84,6 +84,38 @@ class StorageService {
   /// Removes all stored data. Use with caution.
   Future<bool> clear() => _prefs.clear();
 
+  /// App-level preferences that outlive a logout (not tied to the account).
+  static const _keepOnLogout = <String>{
+    StorageKeys.isDarkMode,
+    StorageKeys.selectedLanguage,
+    StorageKeys.isFirstLaunch,
+  };
+
+  /// Wipes everything tied to the signed-in account, keeping only the app-level
+  /// settings above — so no account leaks into the next login, and future keys
+  /// are cleared automatically without having to list them here.
+  Future<void> clearAccountData() async {
+    final preserved = <String, Object?>{
+      for (final k in _keepOnLogout)
+        if (_prefs.containsKey(k)) k: _prefs.get(k),
+    };
+    await _prefs.clear();
+    for (final e in preserved.entries) {
+      final v = e.value;
+      if (v is String) {
+        await _prefs.setString(e.key, v);
+      } else if (v is bool) {
+        await _prefs.setBool(e.key, v);
+      } else if (v is int) {
+        await _prefs.setInt(e.key, v);
+      } else if (v is double) {
+        await _prefs.setDouble(e.key, v);
+      } else if (v is List<String>) {
+        await _prefs.setStringList(e.key, v);
+      }
+    }
+  }
+
   /// Returns every key currently stored.
   Set<String> getKeys() => _prefs.getKeys();
 }

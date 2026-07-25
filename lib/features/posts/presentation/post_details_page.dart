@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/format.dart';
+import '../../../core/utils/notify.dart';
+import '../../post_request/presentation/post_request_page.dart';
+import '../../post_trip/presentation/post_trip_page.dart';
+import '../../reviews/presentation/user_reviews_page.dart';
 import '../data/models/post_model.dart';
+import '../data/posts_repository.dart';
 import 'widgets/mode_badge.dart';
 import 'widgets/transporter_chip.dart';
 
@@ -49,14 +55,68 @@ class PostDetailsPage extends StatelessWidget {
           SizedBox(height: 16.h),
           _userCard(context),
           SizedBox(height: 20.h),
-          // no chat button on the user's own posts
-          if (post.user.id == 0 ||
-              post.user.id != Get.find<SessionService>().user.value?.id)
-            ElevatedButton.icon(
-              onPressed: () => openChat(post.user, postId: post.id),
-              icon: const Icon(Icons.chat_bubble_outline),
-              label: Text('Chat with ${post.user.name}'),
-            ),
+          ..._actions(context),
+        ],
+      ),
+    );
+  }
+
+  // Own posts get manage actions; everyone else's get the chat CTA, so the
+  // screen always ends in something actionable.
+  List<Widget> _actions(BuildContext context) {
+    final myId = Get.find<SessionService>().user.value?.id;
+    final isMine = post.user.id != 0 && post.user.id == myId;
+
+    if (isMine) {
+      return [
+        ElevatedButton.icon(
+          onPressed: () => Get.to(() => post.isTrip
+              ? PostTripPage(editId: post.id)
+              : PostRequestPage(editId: post.id)),
+          icon: const Icon(Icons.edit_outlined),
+          label: Text(post.isTrip ? 'Edit this trip' : 'Edit this request'),
+        ),
+        SizedBox(height: 12.h),
+        OutlinedButton.icon(
+          onPressed: () => _confirmDelete(context),
+          icon: Icon(Icons.delete_outline, size: 18.sp, color: AppPalette.primary),
+          label: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+          style: OutlinedButton.styleFrom(side: const BorderSide(color: AppPalette.primary)),
+        ),
+      ];
+    }
+
+    return [
+      ElevatedButton.icon(
+        onPressed: () => openChat(post.user, postId: post.id),
+        icon: const Icon(Icons.chat_bubble_outline),
+        label: Text(post.isTrip
+            ? 'Chat with ${post.user.name}'
+            : 'Chat about this request'),
+      ),
+    ];
+  }
+
+  void _confirmDelete(BuildContext context) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Delete post?'),
+        content: const Text('This will remove it from search results.'),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () async {
+              Get.back();
+              try {
+                await PostsRepository().deletePost(post.id);
+                Get.back(); // leave the details screen too
+                toast('Post deleted');
+              } on AppException catch (e) {
+                toastError(e);
+              }
+            },
+            child: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+          ),
         ],
       ),
     );
@@ -127,7 +187,13 @@ class PostDetailsPage extends StatelessWidget {
 
   Widget _userCard(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return Container(
+    // tapping opens the public profile — reviews, role averages, badges
+    return GestureDetector(
+      onTap: post.user.id == 0
+          ? null
+          : () => Get.to(() =>
+              UserReviewsPage(userId: post.user.id, userName: post.user.name)),
+      child: Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: cs.surface,
@@ -188,6 +254,7 @@ class PostDetailsPage extends StatelessWidget {
                   style: TextStyle(fontSize: 9.sp, color: AppPalette.primary, fontWeight: FontWeight.w600)),
             ),
         ],
+      ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import '../../post_trip/presentation/post_trip_page.dart';
 import '../../posts/data/models/post_model.dart';
 import '../../posts/data/posts_repository.dart';
 import '../../posts/presentation/widgets/post_card.dart';
+import '../../../core/services/data_bus.dart';
 
 // Trips and requests the user has posted, with edit / delete.
 class MyPostsPage extends StatefulWidget {
@@ -34,6 +37,16 @@ class _MyPostsPageState extends State<MyPostsPage> {
   void initState() {
     super.initState();
     _load();
+    // a write elsewhere invalidates this list
+    _busSub = DataBus.on({DataTopic.posts, DataTopic.deals}).listen((_) => _load());
+  }
+
+  StreamSubscription<DataTopic>? _busSub;
+
+  @override
+  void dispose() {
+    _busSub?.cancel();
+    super.dispose();
   }
 
   Future<void> _load() async {

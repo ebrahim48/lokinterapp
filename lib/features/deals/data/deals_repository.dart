@@ -5,6 +5,7 @@ import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
+import '../../../core/services/data_bus.dart';
 import 'deal_model.dart';
 
 class DealsRepository {
@@ -44,17 +45,28 @@ class DealsRepository {
         .toList();
   }
 
-  // sender and traveler agree in chat, then one of them locks it in here
+  // sender and traveler agree in chat, then one of them locks it in here.
+  // itemEstimatedCost / arrivalDate / sdRequired are part of the escrow terms
+  // and the endpoint expects them alongside the basics. Website parity:
+  // itemName is required for BUY_AND_DELIVER, itemLink/itemDescription are
+  // optional context, attachFiles carry item photos.
   Future<void> create({
     required int senderId,
     required int travelerId,
     required int postId,
     required String wantTo,
     required double cost,
+    required double itemEstimatedCost,
     required double weight,
     required DateTime tripDate,
+    required DateTime arrivalDate,
+    required bool sdRequired,
+    String? itemName,
+    String? itemLink,
+    String? itemDescription,
     String? receiverName,
     String? receiverPhone,
+    List<String> attachFilePaths = const [],
     String paymentMethod = 'COD',
   }) async {
     final form = FormData.fromMap({
@@ -62,14 +74,30 @@ class DealsRepository {
       'travelerId': travelerId,
       'postId': postId,
       'wantTo': wantTo,
-      'cost': cost,
-      'weight': weight,
+      // the API validates cost as an integer, same as weight
+      'cost': cost.round(),
+      'itemEstimatedCost': itemEstimatedCost,
+      // same as posts: a double serialises to "10.0" and fails integer validation
+      'weight': weight.round(),
       'tripDate': _ymd(tripDate),
+      'arrivalDate': _ymd(arrivalDate),
+      'sdRequired': sdRequired ? 1 : 0,
+      if (itemName != null && itemName.isNotEmpty) 'itemName': itemName,
+      if (itemLink != null && itemLink.isNotEmpty) 'itemLink': itemLink,
+      if (itemDescription != null && itemDescription.isNotEmpty)
+        'itemDescription': itemDescription,
       if (receiverName != null && receiverName.isNotEmpty) 'receiverName': receiverName,
       if (receiverPhone != null && receiverPhone.isNotEmpty) 'receiverPhone': receiverPhone,
       'paymentMethod': paymentMethod,
     });
+    for (final path in attachFilePaths) {
+      form.files.add(MapEntry(
+        'attachFiles[]',
+        await MultipartFile.fromFile(path, filename: path.split('/').last),
+      ));
+    }
     unwrapData(await _api.post('/deals/addNewDeal', data: form));
+    DataBus.changed(DataTopic.deals);
   }
 
   String _ymd(DateTime d) =>
@@ -80,19 +108,51 @@ class DealsRepository {
     return Deal.fromJson(Map<String, dynamic>.from(unwrapData(res)));
   }
 
+  // the QR encodes /deal-details/{referenceId}; this resolves that code back
+  // to a deal (same endpoint the website's public confirmation page hits)
+  Future<Deal> getByReferenceId(String referenceId) async {
+    final res = await _api.get('/deals/getByReferenceId/$referenceId');
+    return Deal.fromJson(Map<String, dynamic>.from(unwrapData(res)));
+  }
+
   Future<void> changeStatus(int id, String status, {String? reason}) async {
     unwrapData(await _api.post('/deals/changeStatus/$id', data: {
       'status': status,
       if (reason != null && reason.isNotEmpty) 'cancelReason': reason,
     }));
+    DataBus.changed(DataTopic.deals);
   }
 
   // Traveler puts a hold on their card for the item's value before carrying it.
-  // Returns whatever the escrow layer sends back (may carry a Stripe redirect).
+  // Returns `{clientSecret, paymentIntentId}` for the in-app Stripe confirm.
   Future<Map<String, dynamic>> createGuarantee(int dealId) async {
     final res = await _api.post('/escrow/deals/$dealId/create-guarantee');
     final data = unwrapData(res);
     return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  // Sender pays into escrow; funds are held until delivery is confirmed.
+  // Returns `{clientSecret, paymentIntentId, breakdown{itemCost, profit,
+  // lokinterFee, total}}` for the in-app Stripe confirm + fee display.
+  Future<Map<String, dynamic>> createPayment(int dealId) async {
+    final res = await _api.post('/escrow/deals/$dealId/create-payment');
+    final data = unwrapData(res);
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  // After Stripe confirms the card, tell the backend so it flips the
+  // held flags and posts the escrow system message — same two-step the
+  // website does (confirmCardPayment → escrow/confirm-*).
+  Future<void> confirmPayment(int dealId, String paymentIntentId) async {
+    unwrapData(await _api.post('/escrow/deals/$dealId/confirm-payment',
+        data: {'paymentIntentId': paymentIntentId}));
+    DataBus.changed(DataTopic.deals);
+  }
+
+  Future<void> confirmGuarantee(int dealId, String paymentIntentId) async {
+    unwrapData(await _api.post('/escrow/deals/$dealId/confirm-guarantee',
+        data: {'paymentIntentId': paymentIntentId}));
+    DataBus.changed(DataTopic.deals);
   }
 
   // Throws with the server's reason when the deal can't move to OUTGOING yet.
@@ -105,11 +165,13 @@ class DealsRepository {
       'video': await MultipartFile.fromFile(filePath, filename: fileName),
     });
     unwrapData(await _api.post('/deals/$dealId/uploadPickupVideo', data: form));
+    DataBus.changed(DataTopic.deals);
   }
 
   // completion goes by reference, not numeric id
   Future<void> markCompleted(String referenceId) async {
     unwrapData(await _api.post('/deals/markAsCompleted/$referenceId'));
+    DataBus.changed(DataTopic.deals);
   }
 
   Future<void> rate(int dealId, int stars, String comment) async {
@@ -124,5 +186,46 @@ class DealsRepository {
     final res = await _api.get('/disputes/deal/$dealId');
     final data = unwrapData(res);
     return data is Map ? Map<String, dynamic>.from(data) : null;
+  }
+
+  // ---- dispute creation (website: open-dispute dialog in chat/deal) ----
+
+  /// Contextual reasons for this deal's state — e.g. ghosting reasons are
+  /// only offered while OUTGOING. Each entry: `{value, label}`-ish map.
+  Future<List<Map<String, dynamic>>> disputeReasons(int dealId) async {
+    final res = await _api
+        .get('/disputes/reasons', queryParameters: {'deal_id': dealId});
+    final data = unwrapData(res);
+    final list = data is List ? data : (data is Map ? data['reasons'] : null);
+    return (list as List? ?? const [])
+        .whereType<Map>()
+        .map((e) => Map<String, dynamic>.from(e))
+        .toList();
+  }
+
+  /// Dispute window info: `{canDispute, remainingSeconds, windowHours...}`.
+  Future<Map<String, dynamic>> disputeWindow(int dealId) async {
+    final res = await _api.get('/disputes/deal/$dealId/window');
+    final data = unwrapData(res);
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  /// ITEM_DAMAGED / WRONG_ITEM require photo/video evidence — enforced
+  /// server-side, mirrored in the sheet before calling this.
+  Future<void> createDispute(
+    int dealId, {
+    required String reason,
+    String? description,
+    String? attachmentPath,
+  }) async {
+    final form = FormData.fromMap({
+      'reason': reason,
+      if (description != null && description.isNotEmpty)
+        'description': description,
+      if (attachmentPath != null)
+        'attachment': await MultipartFile.fromFile(attachmentPath,
+            filename: attachmentPath.split('/').last),
+    });
+    unwrapData(await _api.post('/disputes/deal/$dealId', data: form));
   }
 }

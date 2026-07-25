@@ -55,6 +55,8 @@ class ProfilePage extends StatelessWidget {
             _Item(Icons.mail_outline, 'Contact us', () => Get.to(() => const ContactUsPage())),
             _Item(Icons.description_outlined, 'Terms & conditions',
                 () => Get.to(() => const TermsPage())),
+            _Item(Icons.privacy_tip_outlined, 'Privacy policy',
+                () => Get.to(() => const TermsPage(slug: 'privacyPolicy'))),
           ]),
           SizedBox(height: 14.h),
           _group(context, [
