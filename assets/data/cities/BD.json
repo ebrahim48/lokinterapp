@@ -1,0 +1,550 @@
+[
+    {
+        "id":  8763,
+        "name":  "Āshuganj City"
+    },
+    {
+        "id":  8793,
+        "name":  "Azimpur"
+    },
+    {
+        "id":  8729,
+        "name":  "Badarganj"
+    },
+    {
+        "id":  8728,
+        "name":  "Bagerhat"
+    },
+    {
+        "id":  8727,
+        "name":  "Bājitpur"
+    },
+    {
+        "id":  8724,
+        "name":  "Bāndarban"
+    },
+    {
+        "id":  8726,
+        "name":  "Baniachang"
+    },
+    {
+        "id":  8768,
+        "name":  "Barishal"
+    },
+    {
+        "id":  8761,
+        "name":  "Bera"
+    },
+    {
+        "id":  8723,
+        "name":  "Bhairab Bāzār"
+    },
+    {
+        "id":  8782,
+        "name":  "Bhāndāria"
+    },
+    {
+        "id":  8760,
+        "name":  "Bhātāra"
+    },
+    {
+        "id":  8721,
+        "name":  "Bhātpāra Abhaynagar"
+    },
+    {
+        "id":  8722,
+        "name":  "Bherāmāra"
+    },
+    {
+        "id":  8767,
+        "name":  "Bhola"
+    },
+    {
+        "id":  8783,
+        "name":  "Bibir Hat"
+    },
+    {
+        "id":  8773,
+        "name":  "Bogra"
+    },
+    {
+        "id":  8762,
+        "name":  "Burhānuddin"
+    },
+    {
+        "id":  8759,
+        "name":  "Char Bhadrāsan"
+    },
+    {
+        "id":  8758,
+        "name":  "Chattogram"
+    },
+    {
+        "id":  8717,
+        "name":  "Chhāgalnāiya"
+    },
+    {
+        "id":  8720,
+        "name":  "Chhātak"
+    },
+    {
+        "id":  8716,
+        "name":  "Chilmāri"
+    },
+    {
+        "id":  8701,
+        "name":  "Comilla"
+    },
+    {
+        "id":  8765,
+        "name":  "Cox’s Bāzār"
+    },
+    {
+        "id":  8715,
+        "name":  "Dhaka"
+    },
+    {
+        "id":  8791,
+        "name":  "Dhanmondi"
+    },
+    {
+        "id":  8756,
+        "name":  "Dinajpur"
+    },
+    {
+        "id":  8671,
+        "name":  "Dohār"
+    },
+    {
+        "id":  8755,
+        "name":  "Dohazāri"
+    },
+    {
+        "id":  8754,
+        "name":  "Dukuria"
+    },
+    {
+        "id":  8753,
+        "name":  "Farīdpur"
+    },
+    {
+        "id":  8711,
+        "name":  "Feni"
+    },
+    {
+        "id":  8710,
+        "name":  "Gafargaon"
+    },
+    {
+        "id":  8794,
+        "name":  "Gaibandha"
+    },
+    {
+        "id":  8709,
+        "name":  "Gaurnadi"
+    },
+    {
+        "id":  8750,
+        "name":  "Gazipur"
+    },
+    {
+        "id":  8798,
+        "name":  "Green Model Town"
+    },
+    {
+        "id":  8708,
+        "name":  "Habiganj"
+    },
+    {
+        "id":  8752,
+        "name":  "Hājīganj"
+    },
+    {
+        "id":  8780,
+        "name":  "Hāthazāri"
+    },
+    {
+        "id":  8707,
+        "name":  "Ishwardi"
+    },
+    {
+        "id":  8751,
+        "name":  "Jahedpur"
+    },
+    {
+        "id":  8672,
+        "name":  "Jamālpur"
+    },
+    {
+        "id":  8770,
+        "name":  "Jessore"
+    },
+    {
+        "id":  8705,
+        "name":  "Jhingergācha"
+    },
+    {
+        "id":  8706,
+        "name":  "Joypur Hāt"
+    },
+    {
+        "id":  8749,
+        "name":  "Kāfrul"
+    },
+    {
+        "id":  8725,
+        "name":  "Kālia"
+    },
+    {
+        "id":  8704,
+        "name":  "Kālīganj"
+    },
+    {
+        "id":  8796,
+        "name":  "Karnaphuli"
+    },
+    {
+        "id":  8748,
+        "name":  "Kesabpur"
+    },
+    {
+        "id":  8719,
+        "name":  "Khagrachhari"
+    },
+    {
+        "id":  8802,
+        "name":  "Khanbaniara"
+    },
+    {
+        "id":  8766,
+        "name":  "Khulna"
+    },
+    {
+        "id":  8778,
+        "name":  "Kishorganj"
+    },
+    {
+        "id":  8703,
+        "name":  "Kushtia"
+    },
+    {
+        "id":  8700,
+        "name":  "Lākshām"
+    },
+    {
+        "id":  8747,
+        "name":  "Lakshmīpur"
+    },
+    {
+        "id":  8718,
+        "name":  "Lālmohan"
+    },
+    {
+        "id":  8699,
+        "name":  "Lalmonirhat"
+    },
+    {
+        "id":  8776,
+        "name":  "Madaripur"
+    },
+    {
+        "id":  8790,
+        "name":  "Magura"
+    },
+    {
+        "id":  8797,
+        "name":  "Mahasthangarh"
+    },
+    {
+        "id":  8781,
+        "name":  "Manikchari"
+    },
+    {
+        "id":  8698,
+        "name":  "Mathba"
+    },
+    {
+        "id":  8746,
+        "name":  "Mātuail"
+    },
+    {
+        "id":  8695,
+        "name":  "Maulavi Bāzār"
+    },
+    {
+        "id":  8697,
+        "name":  "Mehendiganj"
+    },
+    {
+        "id":  8800,
+        "name":  "Mirpur Model Thana"
+    },
+    {
+        "id":  8694,
+        "name":  "Mirzāpur"
+    },
+    {
+        "id":  8745,
+        "name":  "Mohāmmadpur"
+    },
+    {
+        "id":  8696,
+        "name":  "Morrelgonj"
+    },
+    {
+        "id":  8693,
+        "name":  "Muktāgācha"
+    },
+    {
+        "id":  8692,
+        "name":  "Mymensingh"
+    },
+    {
+        "id":  8743,
+        "name":  "Nabīnagar"
+    },
+    {
+        "id":  8742,
+        "name":  "Nagar Naluākot"
+    },
+    {
+        "id":  8690,
+        "name":  "Nāgarpur"
+    },
+    {
+        "id":  8691,
+        "name":  "Nageswari"
+    },
+    {
+        "id":  8689,
+        "name":  "Nālchiti"
+    },
+    {
+        "id":  8730,
+        "name":  "Narail"
+    },
+    {
+        "id":  8688,
+        "name":  "Nārāyanganj"
+    },
+    {
+        "id":  8678,
+        "name":  "Narsingdi"
+    },
+    {
+        "id":  8786,
+        "name":  "Natore"
+    },
+    {
+        "id":  8741,
+        "name":  "Nawāb Char"
+    },
+    {
+        "id":  8775,
+        "name":  "Nawābganj"
+    },
+    {
+        "id":  8677,
+        "name":  "Netrakona"
+    },
+    {
+        "id":  8789,
+        "name":  "Nilphamari"
+    },
+    {
+        "id":  8788,
+        "name":  "Nowlamary"
+    },
+    {
+        "id":  8771,
+        "name":  "Pābna"
+    },
+    {
+        "id":  8739,
+        "name":  "Pālang"
+    },
+    {
+        "id":  8792,
+        "name":  "Pallabi"
+    },
+    {
+        "id":  8799,
+        "name":  "Paltan"
+    },
+    {
+        "id":  8685,
+        "name":  "Panchagarh"
+    },
+    {
+        "id":  8795,
+        "name":  "Paotana Hat"
+    },
+    {
+        "id":  8740,
+        "name":  "Pār Naogaon"
+    },
+    {
+        "id":  8687,
+        "name":  "Parbatipur"
+    },
+    {
+        "id":  8686,
+        "name":  "Patiya"
+    },
+    {
+        "id":  8738,
+        "name":  "Phultala"
+    },
+    {
+        "id":  8774,
+        "name":  "Pīrgaaj"
+    },
+    {
+        "id":  8684,
+        "name":  "Pirojpur"
+    },
+    {
+        "id":  8683,
+        "name":  "Purbadhala"
+    },
+    {
+        "id":  8785,
+        "name":  "Puthia"
+    },
+    {
+        "id":  8712,
+        "name":  "Rāipur"
+    },
+    {
+        "id":  8682,
+        "name":  "Rajshahi"
+    },
+    {
+        "id":  8681,
+        "name":  "Rāmganj"
+    },
+    {
+        "id":  8714,
+        "name":  "Ramna Maidan"
+    },
+    {
+        "id":  8744,
+        "name":  "Ramnagar"
+    },
+    {
+        "id":  8769,
+        "name":  "Rāngāmāti"
+    },
+    {
+        "id":  8702,
+        "name":  "Rangpur"
+    },
+    {
+        "id":  8737,
+        "name":  "Raojān"
+    },
+    {
+        "id":  8784,
+        "name":  "Saidpur"
+    },
+    {
+        "id":  8736,
+        "name":  "Sakhipur"
+    },
+    {
+        "id":  8735,
+        "name":  "Samonta Bazar"
+    },
+    {
+        "id":  8679,
+        "name":  "Sandwīp"
+    },
+    {
+        "id":  8713,
+        "name":  "Sarankhola"
+    },
+    {
+        "id":  8734,
+        "name":  "Sarishābāri"
+    },
+    {
+        "id":  8764,
+        "name":  "Sātkania"
+    },
+    {
+        "id":  8675,
+        "name":  "Sātkhira"
+    },
+    {
+        "id":  8779,
+        "name":  "Savar"
+    },
+    {
+        "id":  8803,
+        "name":  "Sayani"
+    },
+    {
+        "id":  8733,
+        "name":  "Shāhbāzpur Town"
+    },
+    {
+        "id":  8680,
+        "name":  "Shāhzādpur"
+    },
+    {
+        "id":  8777,
+        "name":  "Sherpur"
+    },
+    {
+        "id":  8674,
+        "name":  "Shibganj"
+    },
+    {
+        "id":  8673,
+        "name":  "Shibganj"
+    },
+    {
+        "id":  8801,
+        "name":  "Singair"
+    },
+    {
+        "id":  8676,
+        "name":  "Sirajganj"
+    },
+    {
+        "id":  8732,
+        "name":  "Sonārgaon"
+    },
+    {
+        "id":  8670,
+        "name":  "Sylhet"
+    },
+    {
+        "id":  8772,
+        "name":  "Tāngāil"
+    },
+    {
+        "id":  8668,
+        "name":  "Teknāf"
+    },
+    {
+        "id":  8667,
+        "name":  "Thākurgaon"
+    },
+    {
+        "id":  8669,
+        "name":  "Tungi"
+    },
+    {
+        "id":  8731,
+        "name":  "Tungipāra"
+    },
+    {
+        "id":  8787,
+        "name":  "Ujalpur"
+    },
+    {
+        "id":  8757,
+        "name":  "Uttar Char Fasson"
+    }
+]

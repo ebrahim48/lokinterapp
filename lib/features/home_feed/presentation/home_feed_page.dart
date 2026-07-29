@@ -16,6 +16,7 @@ import '../../search_results/presentation/search_results_page.dart';
 import 'controllers/home_feed_controller.dart';
 import 'widgets/home_banner.dart';
 import 'widgets/recommended_rail.dart';
+import '../../notifications/presentation/notifications_badge_controller.dart';
 
 class HomeFeedPage extends StatelessWidget {
   const HomeFeedPage({super.key});
@@ -23,6 +24,7 @@ class HomeFeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(HomeFeedController());
+    final nb = Get.put(NotificationsBadgeController(), permanent: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -35,11 +37,45 @@ class HomeFeedPage extends StatelessWidget {
             ),
             icon: Icon(Get.isDarkMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
           ),
-          IconButton(
-            tooltip: 'Notifications',
-            onPressed: () => Get.to(() => const NotificationsPage()),
-            icon: const Icon(Icons.notifications_none),
-          ),
+          // bell carries the unread count so new activity is visible at a glance
+          Obx(() {
+            final n = nb.unread.value;
+            return IconButton(
+              tooltip: 'Notifications',
+              onPressed: () async {
+                await Get.to(() => const NotificationsPage());
+                nb.refreshCount();
+              },
+              icon: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const Icon(Icons.notifications_none),
+                  if (n > 0)
+                    Positioned(
+                      right: -3.w,
+                      top: -3.h,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                        constraints: BoxConstraints(minWidth: 14.w),
+                        decoration: BoxDecoration(
+                          color: AppPalette.primary,
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Text(
+                          n > 99 ? '99+' : '$n',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          }),
           const LanguageSelector(compact: true),
           SizedBox(width: 4.w),
         ],
@@ -88,18 +124,19 @@ class HomeFeedPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.h),
-            const SectionTitle(title: 'Latest deals'),
+            const SectionTitle(title: 'Latest posts'),
             SizedBox(height: 12.h),
             Obx(() {
               if (c.isGuest) return const SizedBox.shrink();
-              if (c.loading.value && c.feed.isEmpty) return const _RailShimmer();
-              if (c.error.value != null && c.feed.isEmpty) {
+              final posts = c.visibleFeed;
+              if (c.loading.value && posts.isEmpty) return const _RailShimmer();
+              if (c.error.value != null && posts.isEmpty) {
                 return _EmptyNote(text: c.error.value!);
               }
-              if (c.feed.isEmpty) return const _EmptyNote(text: 'No deals posted yet');
+              if (posts.isEmpty) return const _EmptyNote(text: 'Nothing posted yet');
               return Column(
                 children: [
-                  for (final post in c.feed) ...[
+                  for (final post in posts) ...[
                     PostCard(
                       post: post,
                       onTap: () => Get.to(() => PostDetailsPage(post: post)),
@@ -238,3 +275,4 @@ class _BrowseTile extends StatelessWidget {
     );
   }
 }
+

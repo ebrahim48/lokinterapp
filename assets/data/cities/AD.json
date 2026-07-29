@@ -1,0 +1,50 @@
+[
+    {
+        "id":  12,
+        "name":  "Aixirivall"
+    },
+    {
+        "id":  11,
+        "name":  "Andorra la Vella"
+    },
+    {
+        "id":  10,
+        "name":  "Anyós"
+    },
+    {
+        "id":  9,
+        "name":  "Arinsal"
+    },
+    {
+        "id":  8,
+        "name":  "Canillo"
+    },
+    {
+        "id":  1,
+        "name":  "El Tarter"
+    },
+    {
+        "id":  7,
+        "name":  "Encamp"
+    },
+    {
+        "id":  6,
+        "name":  "la Massana"
+    },
+    {
+        "id":  5,
+        "name":  "les Escaldes"
+    },
+    {
+        "id":  4,
+        "name":  "Ordino"
+    },
+    {
+        "id":  3,
+        "name":  "Pas de la Casa"
+    },
+    {
+        "id":  2,
+        "name":  "Sant Julià de Lòria"
+    }
+]

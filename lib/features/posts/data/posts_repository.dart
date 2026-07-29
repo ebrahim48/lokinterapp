@@ -10,6 +10,11 @@ import '../../lookups/data/lookup_models.dart';
 import 'models/post_model.dart';
 
 class PostsRepository {
+  // the website posts these fixed values for fields it doesn't show but the
+  // API still validates as required
+  static const _defaultAirline = 'Cairo Airport';
+  static const _noPlace = '-';
+
   final _api = Get.find<ApiService>();
   final _cache = CacheService();
 
@@ -81,6 +86,7 @@ class PostsRepository {
     required String pickupLocation,
     required String dropoffLocation,
     List<int> rejectedCategoryIds = const [],
+    String? notes,
   }) async {
     final form = FormData.fromMap({
       'postType': 'TRIP',
@@ -90,14 +96,18 @@ class PostsRepository {
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
-      if (airline != null && airline.isNotEmpty) 'airLine': airline,
+      // the API requires an airline on international trips; live mode hides the
+      // field and posts a fixed default, so mirror that instead of asking
+      'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
       // required by the backend even when empty
       'rejectedCategoriesIds': jsonEncode(rejectedCategoryIds),
-      'pickupLocation': pickupLocation,
-      'dropoffLocation': dropoffLocation,
+      // free-text trip notes live in pickupPoints, same as the website
+      if (notes != null && notes.isNotEmpty) 'pickupPoints': notes,
+      'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
+      'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
     });
     unwrapData(await _api.post('/posts/addNewPost', data: form));
     DataBus.changed(DataTopic.posts);
@@ -133,8 +143,8 @@ class PostsRepository {
       // in multipart and gets rejected
       'weight': weight.round(),
       'categoryId': categoryId,
-      'pickupLocation': pickupLocation,
-      'dropoffLocation': dropoffLocation,
+      'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
+      'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       // the website stores the item description in `deliveryPoints` —
       // that's the field the API actually persists and returns
       if (description != null && description.isNotEmpty)
@@ -161,6 +171,7 @@ class PostsRepository {
     required String pickupLocation,
     required String dropoffLocation,
     List<int> rejectedCategoryIds = const [],
+    String? notes,
   }) async {
     final form = FormData.fromMap({
       'postType': 'TRIP',
@@ -170,13 +181,17 @@ class PostsRepository {
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       'beforeDate': _date(date),
-      if (airline != null && airline.isNotEmpty) 'airLine': airline,
+      // the API requires an airline on international trips; live mode hides the
+      // field and posts a fixed default, so mirror that instead of asking
+      'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
       'rejectedCategoriesIds': jsonEncode(rejectedCategoryIds),
-      'pickupLocation': pickupLocation,
-      'dropoffLocation': dropoffLocation,
+      // free-text trip notes live in pickupPoints, same as the website
+      if (notes != null && notes.isNotEmpty) 'pickupPoints': notes,
+      'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
+      'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
     });
     unwrapData(await _api.post('/posts/updatePost/$id', data: form));
     DataBus.changed(DataTopic.posts);
@@ -213,8 +228,8 @@ class PostsRepository {
       // in multipart and gets rejected
       'weight': weight.round(),
       'categoryId': categoryId,
-      'pickupLocation': pickupLocation,
-      'dropoffLocation': dropoffLocation,
+      'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
+      'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       if (description != null && description.isNotEmpty)
         'deliveryPoints': description,
       if (attachFilePath != null)

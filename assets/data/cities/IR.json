@@ -1,0 +1,1954 @@
+[
+    {
+        "id":  63978,
+        "name":  "‘Abdollāhābād"
+    },
+    {
+        "id":  64364,
+        "name":  "‘Anbarābād"
+    },
+    {
+        "id":  64390,
+        "name":  "Abadan"
+    },
+    {
+        "id":  64389,
+        "name":  "Abadeh"
+    },
+    {
+        "id":  64004,
+        "name":  "Ābādeh"
+    },
+    {
+        "id":  64388,
+        "name":  "Abarkūh"
+    },
+    {
+        "id":  64386,
+        "name":  "\u0027Abās Ābād"
+    },
+    {
+        "id":  64387,
+        "name":  "Ābbar"
+    },
+    {
+        "id":  64385,
+        "name":  "Ābdānān"
+    },
+    {
+        "id":  64384,
+        "name":  "Abhar"
+    },
+    {
+        "id":  64414,
+        "name":  "Abrīsham"
+    },
+    {
+        "id":  64383,
+        "name":  "Ābyek"
+    },
+    {
+        "id":  64382,
+        "name":  "Ābyek"
+    },
+    {
+        "id":  64441,
+        "name":  "Adīmī"
+    },
+    {
+        "id":  64381,
+        "name":  "Aghajari"
+    },
+    {
+        "id":  64380,
+        "name":  "Ahar"
+    },
+    {
+        "id":  64379,
+        "name":  "Ahram"
+    },
+    {
+        "id":  64378,
+        "name":  "Ahvaz"
+    },
+    {
+        "id":  64377,
+        "name":  "Ajab Shīr"
+    },
+    {
+        "id":  64376,
+        "name":  "Ākand"
+    },
+    {
+        "id":  64375,
+        "name":  "Akbarābād"
+    },
+    {
+        "id":  64374,
+        "name":  "Akhand"
+    },
+    {
+        "id":  64372,
+        "name":  "Alavijeh"
+    },
+    {
+        "id":  64373,
+        "name":  "Aleshtar"
+    },
+    {
+        "id":  64371,
+        "name":  "Aliabad-e Katul"
+    },
+    {
+        "id":  64370,
+        "name":  "Alīgūdarz"
+    },
+    {
+        "id":  64368,
+        "name":  "Alvand"
+    },
+    {
+        "id":  63981,
+        "name":  "Alvand"
+    },
+    {
+        "id":  64367,
+        "name":  "Amlash"
+    },
+    {
+        "id":  64366,
+        "name":  "Āmol"
+    },
+    {
+        "id":  64365,
+        "name":  "Anār"
+    },
+    {
+        "id":  64363,
+        "name":  "Andīmeshk"
+    },
+    {
+        "id":  64362,
+        "name":  "Anūch"
+    },
+    {
+        "id":  64455,
+        "name":  "Āq Qalā"
+    },
+    {
+        "id":  63998,
+        "name":  "Āq Qāyeh"
+    },
+    {
+        "id":  64361,
+        "name":  "Ārādān"
+    },
+    {
+        "id":  64360,
+        "name":  "Arāk"
+    },
+    {
+        "id":  64109,
+        "name":  "Arakvāz-e Malekshāhī"
+    },
+    {
+        "id":  64359,
+        "name":  "Ārān Bīdgol"
+    },
+    {
+        "id":  64358,
+        "name":  "Ardabīl"
+    },
+    {
+        "id":  64357,
+        "name":  "Ardakān"
+    },
+    {
+        "id":  64356,
+        "name":  "Ardal"
+    },
+    {
+        "id":  64355,
+        "name":  "Ardāq"
+    },
+    {
+        "id":  64354,
+        "name":  "Ardestān"
+    },
+    {
+        "id":  64353,
+        "name":  "Arsanjān"
+    },
+    {
+        "id":  64351,
+        "name":  "Asadābād"
+    },
+    {
+        "id":  64350,
+        "name":  "Asadīyeh"
+    },
+    {
+        "id":  64348,
+        "name":  "Āshkhāneh"
+    },
+    {
+        "id":  64347,
+        "name":  "Āshtīān"
+    },
+    {
+        "id":  64346,
+        "name":  "Āstāneh-ye Ashrafīyeh"
+    },
+    {
+        "id":  64345,
+        "name":  "Āstārā"
+    },
+    {
+        "id":  64344,
+        "name":  "Āvaj"
+    },
+    {
+        "id":  64006,
+        "name":  "Āzādshahr"
+    },
+    {
+        "id":  63982,
+        "name":  "Āzādshahr"
+    },
+    {
+        "id":  64445,
+        "name":  "Āz̄arshahr"
+    },
+    {
+        "id":  64341,
+        "name":  "Aznā"
+    },
+    {
+        "id":  64340,
+        "name":  "Aznā"
+    },
+    {
+        "id":  64339,
+        "name":  "Bābol"
+    },
+    {
+        "id":  64338,
+        "name":  "Bābolsar"
+    },
+    {
+        "id":  64399,
+        "name":  "Badreh"
+    },
+    {
+        "id":  64337,
+        "name":  "Bāfq"
+    },
+    {
+        "id":  64336,
+        "name":  "Bāft"
+    },
+    {
+        "id":  64335,
+        "name":  "Bāgh-e Malek"
+    },
+    {
+        "id":  64463,
+        "name":  "Bahābād"
+    },
+    {
+        "id":  64334,
+        "name":  "Bahār"
+    },
+    {
+        "id":  64333,
+        "name":  "Bajestān"
+    },
+    {
+        "id":  64332,
+        "name":  "Bam"
+    },
+    {
+        "id":  64331,
+        "name":  "Bandar Abbas"
+    },
+    {
+        "id":  64349,
+        "name":  "Bandar-e ‘Asalūyah"
+    },
+    {
+        "id":  64330,
+        "name":  "Bandar-e Anzalī"
+    },
+    {
+        "id":  64329,
+        "name":  "Bandar-e Deylam"
+    },
+    {
+        "id":  64456,
+        "name":  "Bandar-e Emam Khomeyni"
+    },
+    {
+        "id":  64328,
+        "name":  "Bandar-e Gaz"
+    },
+    {
+        "id":  64248,
+        "name":  "Bandar-e Genāveh"
+    },
+    {
+        "id":  64198,
+        "name":  "Bandar-e Khamīr"
+    },
+    {
+        "id":  64327,
+        "name":  "Bandar-e Lengeh"
+    },
+    {
+        "id":  64326,
+        "name":  "Bandar-e Māhshahr"
+    },
+    {
+        "id":  64325,
+        "name":  "Bandar-e Torkaman"
+    },
+    {
+        "id":  64324,
+        "name":  "Bāneh"
+    },
+    {
+        "id":  64323,
+        "name":  "Bardaskan"
+    },
+    {
+        "id":  64153,
+        "name":  "Bardsīr"
+    },
+    {
+        "id":  64322,
+        "name":  "Bāsht"
+    },
+    {
+        "id":  64321,
+        "name":  "Bastak"
+    },
+    {
+        "id":  64319,
+        "name":  "Behbahān"
+    },
+    {
+        "id":  64318,
+        "name":  "Behshahr"
+    },
+    {
+        "id":  64317,
+        "name":  "Ben"
+    },
+    {
+        "id":  64315,
+        "name":  "Bījār"
+    },
+    {
+        "id":  64314,
+        "name":  "Bīleh Savār"
+    },
+    {
+        "id":  64313,
+        "name":  "Bīrjand"
+    },
+    {
+        "id":  64312,
+        "name":  "Bojnūrd"
+    },
+    {
+        "id":  64316,
+        "name":  "Bonāb"
+    },
+    {
+        "id":  64310,
+        "name":  "Borāzjān"
+    },
+    {
+        "id":  64309,
+        "name":  "Borūjen"
+    },
+    {
+        "id":  64308,
+        "name":  "Borūjerd"
+    },
+    {
+        "id":  64459,
+        "name":  "Boshrūyeh"
+    },
+    {
+        "id":  63985,
+        "name":  "Bostānābād"
+    },
+    {
+        "id":  64307,
+        "name":  "Bozbāz"
+    },
+    {
+        "id":  64306,
+        "name":  "Bū’īn Zahrā"
+    },
+    {
+        "id":  64305,
+        "name":  "Būkān"
+    },
+    {
+        "id":  64304,
+        "name":  "Bushehr"
+    },
+    {
+        "id":  64440,
+        "name":  "Chabahar"
+    },
+    {
+        "id":  64303,
+        "name":  "Chādegān"
+    },
+    {
+        "id":  64302,
+        "name":  "Chālūs"
+    },
+    {
+        "id":  64301,
+        "name":  "Chaqābol"
+    },
+    {
+        "id":  64300,
+        "name":  "Charām"
+    },
+    {
+        "id":  64299,
+        "name":  "Chelgard"
+    },
+    {
+        "id":  64298,
+        "name":  "Chenārān"
+    },
+    {
+        "id":  64453,
+        "name":  "Dalgān"
+    },
+    {
+        "id":  64297,
+        "name":  "Damāvand"
+    },
+    {
+        "id":  64296,
+        "name":  "Dāmghān"
+    },
+    {
+        "id":  64295,
+        "name":  "Dārāb"
+    },
+    {
+        "id":  64294,
+        "name":  "Dārān"
+    },
+    {
+        "id":  64293,
+        "name":  "Dargaz"
+    },
+    {
+        "id":  64292,
+        "name":  "Darreh Shahr"
+    },
+    {
+        "id":  64290,
+        "name":  "Dāvarzan"
+    },
+    {
+        "id":  64289,
+        "name":  "Dehāqān"
+    },
+    {
+        "id":  64286,
+        "name":  "Dehdasht"
+    },
+    {
+        "id":  64285,
+        "name":  "Dehgolān"
+    },
+    {
+        "id":  64284,
+        "name":  "Dehlorān"
+    },
+    {
+        "id":  64283,
+        "name":  "Dehnow"
+    },
+    {
+        "id":  64282,
+        "name":  "Delījān"
+    },
+    {
+        "id":  64281,
+        "name":  "Deyhūk"
+    },
+    {
+        "id":  64280,
+        "name":  "Deyr"
+    },
+    {
+        "id":  64279,
+        "name":  "Dezful"
+    },
+    {
+        "id":  64278,
+        "name":  "Dīvāndarreh"
+    },
+    {
+        "id":  64277,
+        "name":  "Dogonbadan"
+    },
+    {
+        "id":  64413,
+        "name":  "Dorcheh Pīāz"
+    },
+    {
+        "id":  64276,
+        "name":  "Dorūd"
+    },
+    {
+        "id":  64275,
+        "name":  "Dowlatābād"
+    },
+    {
+        "id":  64412,
+        "name":  "Dowlatābād"
+    },
+    {
+        "id":  64439,
+        "name":  "Dūst Moḩammad Khān"
+    },
+    {
+        "id":  64398,
+        "name":  "Eqbālīyeh"
+    },
+    {
+        "id":  64273,
+        "name":  "Eqlīd"
+    },
+    {
+        "id":  64272,
+        "name":  "Esfarāyen"
+    },
+    {
+        "id":  64271,
+        "name":  "Eshtehārd"
+    },
+    {
+        "id":  64270,
+        "name":  "Eslāmābād-e Gharb"
+    },
+    {
+        "id":  64415,
+        "name":  "Eslamshahr"
+    },
+    {
+        "id":  64269,
+        "name":  "Estahbān"
+    },
+    {
+        "id":  64214,
+        "name":  "Eyvān"
+    },
+    {
+        "id":  64268,
+        "name":  "Fahraj"
+    },
+    {
+        "id":  64410,
+        "name":  "Falāvarjān"
+    },
+    {
+        "id":  64450,
+        "name":  "Famast"
+    },
+    {
+        "id":  64267,
+        "name":  "Fāmenīn"
+    },
+    {
+        "id":  64265,
+        "name":  "Fannūj"
+    },
+    {
+        "id":  64014,
+        "name":  "Fardīs"
+    },
+    {
+        "id":  64264,
+        "name":  "Farīmān"
+    },
+    {
+        "id":  64263,
+        "name":  "Farmahīn"
+    },
+    {
+        "id":  64262,
+        "name":  "Farrāshband"
+    },
+    {
+        "id":  64110,
+        "name":  "Farrokh Shahr"
+    },
+    {
+        "id":  64261,
+        "name":  "Fārsān"
+    },
+    {
+        "id":  64260,
+        "name":  "Fārūj"
+    },
+    {
+        "id":  64259,
+        "name":  "Fāryāb"
+    },
+    {
+        "id":  64258,
+        "name":  "Fasā"
+    },
+    {
+        "id":  64257,
+        "name":  "Ferdows"
+    },
+    {
+        "id":  64256,
+        "name":  "Fereydūn Kenār"
+    },
+    {
+        "id":  64255,
+        "name":  "Fereydūnshahr"
+    },
+    {
+        "id":  64254,
+        "name":  "Feyẕābād"
+    },
+    {
+        "id":  64253,
+        "name":  "Fīrūzābād"
+    },
+    {
+        "id":  63989,
+        "name":  "Fīrūzeh"
+    },
+    {
+        "id":  64252,
+        "name":  "Fīrūzkūh"
+    },
+    {
+        "id":  64251,
+        "name":  "Fūman"
+    },
+    {
+        "id":  64250,
+        "name":  "Gālīkesh"
+    },
+    {
+        "id":  64249,
+        "name":  "Galūgāh"
+    },
+    {
+        "id":  64247,
+        "name":  "Garmeh"
+    },
+    {
+        "id":  64245,
+        "name":  "Garmsār"
+    },
+    {
+        "id":  64243,
+        "name":  "Gāvbandī"
+    },
+    {
+        "id":  64242,
+        "name":  "Gerāsh"
+    },
+    {
+        "id":  64246,
+        "name":  "Germī"
+    },
+    {
+        "id":  64241,
+        "name":  "Gīlān-e Gharb"
+    },
+    {
+        "id":  64461,
+        "name":  "Gīvī"
+    },
+    {
+        "id":  63993,
+        "name":  "Golestān"
+    },
+    {
+        "id":  64240,
+        "name":  "Golpāyegān"
+    },
+    {
+        "id":  63999,
+        "name":  "Gomīshān"
+    },
+    {
+        "id":  64239,
+        "name":  "Gonābād"
+    },
+    {
+        "id":  64238,
+        "name":  "Gonbad-e Kāvūs"
+    },
+    {
+        "id":  64237,
+        "name":  "Gorgān"
+    },
+    {
+        "id":  64244,
+        "name":  "Gotvand"
+    },
+    {
+        "id":  64236,
+        "name":  "Haftkel"
+    },
+    {
+        "id":  64235,
+        "name":  "Ḩājjīābād"
+    },
+    {
+        "id":  64234,
+        "name":  "Ḩājjīābād"
+    },
+    {
+        "id":  64438,
+        "name":  "Ḩājjīābād"
+    },
+    {
+        "id":  64233,
+        "name":  "Hamadān"
+    },
+    {
+        "id":  64232,
+        "name":  "Ḩamīdīyeh"
+    },
+    {
+        "id":  64231,
+        "name":  "Harsīn"
+    },
+    {
+        "id":  64230,
+        "name":  "Hashtgerd"
+    },
+    {
+        "id":  64021,
+        "name":  "Hashtpar"
+    },
+    {
+        "id":  64342,
+        "name":  "Hashtrūd"
+    },
+    {
+        "id":  64229,
+        "name":  "Hendījān"
+    },
+    {
+        "id":  64228,
+        "name":  "Herīs"
+    },
+    {
+        "id":  64227,
+        "name":  "Hoveyzeh"
+    },
+    {
+        "id":  64226,
+        "name":  "Īlām"
+    },
+    {
+        "id":  64437,
+        "name":  "Iranshahr"
+    },
+    {
+        "id":  64411,
+        "name":  "Isfahan"
+    },
+    {
+        "id":  63991,
+        "name":  "Īstgāh-e Rāh Āhan-e Garmsār"
+    },
+    {
+        "id":  64225,
+        "name":  "Īz̄eh"
+    },
+    {
+        "id":  64224,
+        "name":  "Jahrom"
+    },
+    {
+        "id":  64223,
+        "name":  "Jājarm"
+    },
+    {
+        "id":  64222,
+        "name":  "Jam"
+    },
+    {
+        "id":  64220,
+        "name":  "Jask"
+    },
+    {
+        "id":  63988,
+        "name":  "Javānrūd"
+    },
+    {
+        "id":  64219,
+        "name":  "Javānrūd"
+    },
+    {
+        "id":  64448,
+        "name":  "Jīroft"
+    },
+    {
+        "id":  64217,
+        "name":  "Joghtāy"
+    },
+    {
+        "id":  64221,
+        "name":  "Jongīyeh"
+    },
+    {
+        "id":  64216,
+        "name":  "Julfa"
+    },
+    {
+        "id":  64215,
+        "name":  "Jūybār"
+    },
+    {
+        "id":  64213,
+        "name":  "Kabūdarāhang"
+    },
+    {
+        "id":  64451,
+        "name":  "Kahnūj"
+    },
+    {
+        "id":  63986,
+        "name":  "Kahrīz"
+    },
+    {
+        "id":  64211,
+        "name":  "Kalāleh"
+    },
+    {
+        "id":  63979,
+        "name":  "Kalārdasht"
+    },
+    {
+        "id":  63990,
+        "name":  "Kalāt-e Nāderī"
+    },
+    {
+        "id":  64210,
+        "name":  "Kaleybar"
+    },
+    {
+        "id":  64209,
+        "name":  "Kāmyārān"
+    },
+    {
+        "id":  64208,
+        "name":  "Kangān"
+    },
+    {
+        "id":  64207,
+        "name":  "Kangāvar"
+    },
+    {
+        "id":  64206,
+        "name":  "Karaj"
+    },
+    {
+        "id":  64447,
+        "name":  "Kāshān"
+    },
+    {
+        "id":  64205,
+        "name":  "Kāshmar"
+    },
+    {
+        "id":  64003,
+        "name":  "Kavār"
+    },
+    {
+        "id":  64204,
+        "name":  "Kāzerūn"
+    },
+    {
+        "id":  64409,
+        "name":  "Kelīshād va Sūdarjān"
+    },
+    {
+        "id":  64203,
+        "name":  "Kerend-e Gharb"
+    },
+    {
+        "id":  64202,
+        "name":  "Kerman"
+    },
+    {
+        "id":  64201,
+        "name":  "Kermanshah"
+    },
+    {
+        "id":  64200,
+        "name":  "Khalīlābād"
+    },
+    {
+        "id":  64199,
+        "name":  "Khalkhāl"
+    },
+    {
+        "id":  64218,
+        "name":  "Khārk"
+    },
+    {
+        "id":  64436,
+        "name":  "Khāsh"
+    },
+    {
+        "id":  64197,
+        "name":  "Kherāmeh"
+    },
+    {
+        "id":  64196,
+        "name":  "Khomārlū"
+    },
+    {
+        "id":  64195,
+        "name":  "Khomeyn"
+    },
+    {
+        "id":  64408,
+        "name":  "Khomeynī Shahr"
+    },
+    {
+        "id":  64194,
+        "name":  "Khondāb"
+    },
+    {
+        "id":  64193,
+        "name":  "Khonj"
+    },
+    {
+        "id":  64192,
+        "name":  "Khorramabad"
+    },
+    {
+        "id":  64001,
+        "name":  "Khorramdarreh"
+    },
+    {
+        "id":  64191,
+        "name":  "Khorramshahr"
+    },
+    {
+        "id":  64187,
+        "name":  "Khowrmūj"
+    },
+    {
+        "id":  64186,
+        "name":  "Khowy"
+    },
+    {
+        "id":  64188,
+        "name":  "Khūr"
+    },
+    {
+        "id":  64190,
+        "name":  "Khūsf"
+    },
+    {
+        "id":  64435,
+        "name":  "Khvāf"
+    },
+    {
+        "id":  64189,
+        "name":  "Khvānsār"
+    },
+    {
+        "id":  64185,
+        "name":  "Kīā Kolā"
+    },
+    {
+        "id":  64184,
+        "name":  "Kīsh"
+    },
+    {
+        "id":  64183,
+        "name":  "Komījān"
+    },
+    {
+        "id":  64434,
+        "name":  "Konārak"
+    },
+    {
+        "id":  64182,
+        "name":  "Kord Kūy"
+    },
+    {
+        "id":  64391,
+        "name":  "Kūh Sefīd"
+    },
+    {
+        "id":  64181,
+        "name":  "Kūhbanān"
+    },
+    {
+        "id":  64180,
+        "name":  "Kūhdasht"
+    },
+    {
+        "id":  64212,
+        "name":  "Kujuvar"
+    },
+    {
+        "id":  64179,
+        "name":  "Kūt-e ‘Abdollāh"
+    },
+    {
+        "id":  64178,
+        "name":  "Lāhījān"
+    },
+    {
+        "id":  64177,
+        "name":  "Lālī"
+    },
+    {
+        "id":  64176,
+        "name":  "Lamerd"
+    },
+    {
+        "id":  64172,
+        "name":  "Landeh"
+    },
+    {
+        "id":  64175,
+        "name":  "Langarūd"
+    },
+    {
+        "id":  64173,
+        "name":  "Laţīfī"
+    },
+    {
+        "id":  64171,
+        "name":  "Līkak"
+    },
+    {
+        "id":  64170,
+        "name":  "Lordegān"
+    },
+    {
+        "id":  64395,
+        "name":  "Lūmār"
+    },
+    {
+        "id":  64169,
+        "name":  "Mahābād"
+    },
+    {
+        "id":  64168,
+        "name":  "Maḩallāt"
+    },
+    {
+        "id":  64452,
+        "name":  "Mahdishahr"
+    },
+    {
+        "id":  64167,
+        "name":  "Maḩmūdābād"
+    },
+    {
+        "id":  64166,
+        "name":  "Māhneshān"
+    },
+    {
+        "id":  64149,
+        "name":  "Mahrīz"
+    },
+    {
+        "id":  64165,
+        "name":  "Maku"
+    },
+    {
+        "id":  64164,
+        "name":  "Malārd"
+    },
+    {
+        "id":  64163,
+        "name":  "Malāyer"
+    },
+    {
+        "id":  64162,
+        "name":  "Malekān"
+    },
+    {
+        "id":  64443,
+        "name":  "Māmūnīyeh"
+    },
+    {
+        "id":  64161,
+        "name":  "Manjīl"
+    },
+    {
+        "id":  64160,
+        "name":  "Manūjān"
+    },
+    {
+        "id":  64158,
+        "name":  "Marāgheh"
+    },
+    {
+        "id":  64159,
+        "name":  "Marāgheh"
+    },
+    {
+        "id":  64157,
+        "name":  "Marand"
+    },
+    {
+        "id":  64138,
+        "name":  "Marāveh Tappeh"
+    },
+    {
+        "id":  64156,
+        "name":  "Marīvān"
+    },
+    {
+        "id":  64155,
+        "name":  "Marvdasht"
+    },
+    {
+        "id":  64320,
+        "name":  "Māsāl"
+    },
+    {
+        "id":  64154,
+        "name":  "Mashhad"
+    },
+    {
+        "id":  64152,
+        "name":  "Maşīrī"
+    },
+    {
+        "id":  64151,
+        "name":  "Masjed Soleymān"
+    },
+    {
+        "id":  64150,
+        "name":  "Mehrān"
+    },
+    {
+        "id":  64148,
+        "name":  "Meshgīn Shahr"
+    },
+    {
+        "id":  64147,
+        "name":  "Meybod"
+    },
+    {
+        "id":  64146,
+        "name":  "Mīāndasht"
+    },
+    {
+        "id":  64145,
+        "name":  "Mīāndoāb"
+    },
+    {
+        "id":  64144,
+        "name":  "Mīāneh"
+    },
+    {
+        "id":  64143,
+        "name":  "Mīnāb"
+    },
+    {
+        "id":  64142,
+        "name":  "Mīnūdasht"
+    },
+    {
+        "id":  64433,
+        "name":  "Mīrjāveh"
+    },
+    {
+        "id":  64407,
+        "name":  "Mobārakeh"
+    },
+    {
+        "id":  64141,
+        "name":  "Moḩammadābād"
+    },
+    {
+        "id":  64432,
+        "name":  "Moḩammadābād"
+    },
+    {
+        "id":  64140,
+        "name":  "Mohr"
+    },
+    {
+        "id":  64139,
+        "name":  "Mollās̄ānī"
+    },
+    {
+        "id":  64136,
+        "name":  "Nā’īn"
+    },
+    {
+        "id":  64137,
+        "name":  "Nahāvand"
+    },
+    {
+        "id":  64406,
+        "name":  "Najafābād"
+    },
+    {
+        "id":  64135,
+        "name":  "Namīn"
+    },
+    {
+        "id":  64134,
+        "name":  "Naqadeh"
+    },
+    {
+        "id":  64082,
+        "name":  "Narmāshīr"
+    },
+    {
+        "id":  64133,
+        "name":  "Nashtārūd"
+    },
+    {
+        "id":  64132,
+        "name":  "Naţanz"
+    },
+    {
+        "id":  64131,
+        "name":  "Naz̧arābād"
+    },
+    {
+        "id":  64431,
+        "name":  "Nehbandān"
+    },
+    {
+        "id":  64130,
+        "name":  "Nekā"
+    },
+    {
+        "id":  64129,
+        "name":  "Neqāb"
+    },
+    {
+        "id":  64128,
+        "name":  "Neyrīz"
+    },
+    {
+        "id":  64127,
+        "name":  "Neyshābūr"
+    },
+    {
+        "id":  64430,
+        "name":  "Nīkshahr"
+    },
+    {
+        "id":  63983,
+        "name":  "Nīr"
+    },
+    {
+        "id":  64126,
+        "name":  "Noşratābād"
+    },
+    {
+        "id":  64125,
+        "name":  "Nowshahr"
+    },
+    {
+        "id":  64034,
+        "name":  "Nūr"
+    },
+    {
+        "id":  64124,
+        "name":  "Nūrābād"
+    },
+    {
+        "id":  63987,
+        "name":  "Nūrābād"
+    },
+    {
+        "id":  63996,
+        "name":  "Omīdcheh"
+    },
+    {
+        "id":  64123,
+        "name":  "Omīdīyeh"
+    },
+    {
+        "id":  64122,
+        "name":  "Orūmīyeh"
+    },
+    {
+        "id":  64352,
+        "name":  "Orzū’īyeh"
+    },
+    {
+        "id":  64121,
+        "name":  "Oshnavīyeh"
+    },
+    {
+        "id":  64120,
+        "name":  "Oskū"
+    },
+    {
+        "id":  64000,
+        "name":  "Pā’īn-e Bāzār-e Rūdbār"
+    },
+    {
+        "id":  64002,
+        "name":  "Pādegān-e Manjīl"
+    },
+    {
+        "id":  64458,
+        "name":  "Pākdasht"
+    },
+    {
+        "id":  64266,
+        "name":  "pamas"
+    },
+    {
+        "id":  64444,
+        "name":  "Pardīs"
+    },
+    {
+        "id":  64119,
+        "name":  "Pārsābād"
+    },
+    {
+        "id":  64394,
+        "name":  "Pāsārgād"
+    },
+    {
+        "id":  64464,
+        "name":  "Pasragad Branch"
+    },
+    {
+        "id":  64118,
+        "name":  "Pāveh"
+    },
+    {
+        "id":  64117,
+        "name":  "Piranshahr"
+    },
+    {
+        "id":  64116,
+        "name":  "Pīshvā"
+    },
+    {
+        "id":  64115,
+        "name":  "Poldasht"
+    },
+    {
+        "id":  64114,
+        "name":  "Poldokhtar"
+    },
+    {
+        "id":  64113,
+        "name":  "Pol-e Sefīd"
+    },
+    {
+        "id":  64457,
+        "name":  "Qā’em Shahr"
+    },
+    {
+        "id":  64111,
+        "name":  "Qā’en"
+    },
+    {
+        "id":  64405,
+        "name":  "Qahderījān"
+    },
+    {
+        "id":  64106,
+        "name":  "Qal‘eh Ganj"
+    },
+    {
+        "id":  64108,
+        "name":  "Qal‘eh-ye Khvājeh"
+    },
+    {
+        "id":  63984,
+        "name":  "Qarah Āghāj"
+    },
+    {
+        "id":  63997,
+        "name":  "Qarah Qāshlī"
+    },
+    {
+        "id":  64104,
+        "name":  "Qarah Ẕīā’ od Dīn"
+    },
+    {
+        "id":  63992,
+        "name":  "Qarchak"
+    },
+    {
+        "id":  64103,
+        "name":  "Qarnābād"
+    },
+    {
+        "id":  64429,
+        "name":  "Qaşr-e Qand"
+    },
+    {
+        "id":  64428,
+        "name":  "Qaşr-e Qand"
+    },
+    {
+        "id":  64102,
+        "name":  "Qaşr-e Shīrīn"
+    },
+    {
+        "id":  64101,
+        "name":  "Qazvin"
+    },
+    {
+        "id":  64100,
+        "name":  "Qeshm"
+    },
+    {
+        "id":  64099,
+        "name":  "Qīr"
+    },
+    {
+        "id":  64098,
+        "name":  "Qohūrd-e ‘Olyā"
+    },
+    {
+        "id":  64097,
+        "name":  "Qom"
+    },
+    {
+        "id":  64096,
+        "name":  "Qorveh"
+    },
+    {
+        "id":  64095,
+        "name":  "Qūchān"
+    },
+    {
+        "id":  64094,
+        "name":  "Rābor"
+    },
+    {
+        "id":  64093,
+        "name":  "Rafsanjān"
+    },
+    {
+        "id":  64092,
+        "name":  "Rāmhormoz"
+    },
+    {
+        "id":  64091,
+        "name":  "Rāmīān"
+    },
+    {
+        "id":  64075,
+        "name":  "Rāmsar"
+    },
+    {
+        "id":  64090,
+        "name":  "Rāmshīr"
+    },
+    {
+        "id":  64427,
+        "name":  "Rāsak"
+    },
+    {
+        "id":  64089,
+        "name":  "Rasht"
+    },
+    {
+        "id":  64088,
+        "name":  "Ravānsar"
+    },
+    {
+        "id":  64087,
+        "name":  "Rāvar"
+    },
+    {
+        "id":  64086,
+        "name":  "Razan"
+    },
+    {
+        "id":  64403,
+        "name":  "Rehnān"
+    },
+    {
+        "id":  64462,
+        "name":  "Rey"
+    },
+    {
+        "id":  64085,
+        "name":  "Reẕvānshahr"
+    },
+    {
+        "id":  64084,
+        "name":  "Robāţ Karīm"
+    },
+    {
+        "id":  64083,
+        "name":  "Roshtkhvār"
+    },
+    {
+        "id":  64107,
+        "name":  "Rūdān"
+    },
+    {
+        "id":  64449,
+        "name":  "Rūdbār"
+    },
+    {
+        "id":  64081,
+        "name":  "Rūdsar"
+    },
+    {
+        "id":  64080,
+        "name":  "Sa‘ādat Shahr"
+    },
+    {
+        "id":  64079,
+        "name":  "Sabzevar"
+    },
+    {
+        "id":  64288,
+        "name":  "Şafāshahr"
+    },
+    {
+        "id":  64078,
+        "name":  "Şaḩneh"
+    },
+    {
+        "id":  64073,
+        "name":  "Salmās"
+    },
+    {
+        "id":  64072,
+        "name":  "Sāmān"
+    },
+    {
+        "id":  64071,
+        "name":  "Sanandaj"
+    },
+    {
+        "id":  64070,
+        "name":  "Sankhvāst"
+    },
+    {
+        "id":  64069,
+        "name":  "Saqqez"
+    },
+    {
+        "id":  64068,
+        "name":  "Sarāb"
+    },
+    {
+        "id":  64067,
+        "name":  "Sarāb-e Dūreh"
+    },
+    {
+        "id":  64066,
+        "name":  "Sarābleh"
+    },
+    {
+        "id":  64426,
+        "name":  "Sarakhs"
+    },
+    {
+        "id":  64425,
+        "name":  "Sarāvān"
+    },
+    {
+        "id":  64065,
+        "name":  "Sarāyān"
+    },
+    {
+        "id":  64424,
+        "name":  "Sarbāz"
+    },
+    {
+        "id":  64064,
+        "name":  "Sarbīsheh"
+    },
+    {
+        "id":  64061,
+        "name":  "Sardasht"
+    },
+    {
+        "id":  64063,
+        "name":  "Sardasht"
+    },
+    {
+        "id":  64062,
+        "name":  "Sardasht-e Zeydūn"
+    },
+    {
+        "id":  64060,
+        "name":  "Sari"
+    },
+    {
+        "id":  64112,
+        "name":  "Sarpol-e Z̄ahāb"
+    },
+    {
+        "id":  64059,
+        "name":  "Sarvābād"
+    },
+    {
+        "id":  64058,
+        "name":  "Sarvestān"
+    },
+    {
+        "id":  64057,
+        "name":  "Sāveh"
+    },
+    {
+        "id":  64056,
+        "name":  "sedeyen-e Yek"
+    },
+    {
+        "id":  64055,
+        "name":  "Semīrom"
+    },
+    {
+        "id":  64054,
+        "name":  "Semnan"
+    },
+    {
+        "id":  64397,
+        "name":  "Sepīdān"
+    },
+    {
+        "id":  64053,
+        "name":  "Seyah Cheshmeh"
+    },
+    {
+        "id":  64052,
+        "name":  "Shabestar"
+    },
+    {
+        "id":  64051,
+        "name":  "Shādegān"
+    },
+    {
+        "id":  64050,
+        "name":  "Shaft"
+    },
+    {
+        "id":  64076,
+        "name":  "Shāhīn Dezh"
+    },
+    {
+        "id":  64400,
+        "name":  "Shāhīn Shahr"
+    },
+    {
+        "id":  64416,
+        "name":  "Shahrak-e Bākharz"
+    },
+    {
+        "id":  63994,
+        "name":  "Shahrak-e Emām Ḩasan"
+    },
+    {
+        "id":  64311,
+        "name":  "Shahrak-e Kūlūrī"
+    },
+    {
+        "id":  64396,
+        "name":  "Shahrak-e Pābedānā"
+    },
+    {
+        "id":  64392,
+        "name":  "Shahrak-e Qīāmdasht"
+    },
+    {
+        "id":  64049,
+        "name":  "Shahr-e Bābak"
+    },
+    {
+        "id":  64026,
+        "name":  "Shahr-e Herāt"
+    },
+    {
+        "id":  63995,
+        "name":  "Shahre Jadide Andisheh"
+    },
+    {
+        "id":  64048,
+        "name":  "Shahr-e Kord"
+    },
+    {
+        "id":  64174,
+        "name":  "Shahr-e Qadīm-e Lār"
+    },
+    {
+        "id":  64105,
+        "name":  "Shahr-e Qods"
+    },
+    {
+        "id":  64404,
+        "name":  "Shahreẕā"
+    },
+    {
+        "id":  64369,
+        "name":  "Shahrīār"
+    },
+    {
+        "id":  64274,
+        "name":  "Shahrud"
+    },
+    {
+        "id":  64047,
+        "name":  "Shalamzār"
+    },
+    {
+        "id":  64454,
+        "name":  "Shālāsh"
+    },
+    {
+        "id":  64046,
+        "name":  "Sharīfābād"
+    },
+    {
+        "id":  64343,
+        "name":  "Shāzand"
+    },
+    {
+        "id":  64442,
+        "name":  "Sheybān"
+    },
+    {
+        "id":  64044,
+        "name":  "Shīr Gāh"
+    },
+    {
+        "id":  64045,
+        "name":  "Shiraz"
+    },
+    {
+        "id":  64043,
+        "name":  "Shīrvān"
+    },
+    {
+        "id":  64393,
+        "name":  "Showţ"
+    },
+    {
+        "id":  64042,
+        "name":  "Shūsh"
+    },
+    {
+        "id":  64041,
+        "name":  "Shūshtar"
+    },
+    {
+        "id":  64040,
+        "name":  "Sīāhkal"
+    },
+    {
+        "id":  64039,
+        "name":  "Sirjan"
+    },
+    {
+        "id":  64287,
+        "name":  "Sīsakht"
+    },
+    {
+        "id":  64074,
+        "name":  "Soleh Bon"
+    },
+    {
+        "id":  64038,
+        "name":  "Solţānābād"
+    },
+    {
+        "id":  64077,
+        "name":  "Solţānīyeh"
+    },
+    {
+        "id":  64037,
+        "name":  "Sonqor"
+    },
+    {
+        "id":  64036,
+        "name":  "Sorkheh"
+    },
+    {
+        "id":  64035,
+        "name":  "Şowme‘eh Sarā"
+    },
+    {
+        "id":  64033,
+        "name":  "Sūrak"
+    },
+    {
+        "id":  64423,
+        "name":  "Sūrān"
+    },
+    {
+        "id":  64032,
+        "name":  "Surian"
+    },
+    {
+        "id":  64291,
+        "name":  "Sūsangerd"
+    },
+    {
+        "id":  64031,
+        "name":  "Tabas"
+    },
+    {
+        "id":  64030,
+        "name":  "Ţabl"
+    },
+    {
+        "id":  64029,
+        "name":  "Tabriz"
+    },
+    {
+        "id":  64028,
+        "name":  "Tafresh"
+    },
+    {
+        "id":  64460,
+        "name":  "Taft"
+    },
+    {
+        "id":  64027,
+        "name":  "Taft"
+    },
+    {
+        "id":  64025,
+        "name":  "Tajrīsh"
+    },
+    {
+        "id":  64024,
+        "name":  "Takāb"
+    },
+    {
+        "id":  64023,
+        "name":  "Tākestān"
+    },
+    {
+        "id":  63977,
+        "name":  "Takht-e Qeyşar"
+    },
+    {
+        "id":  64022,
+        "name":  "Ţāleb ābād"
+    },
+    {
+        "id":  63980,
+        "name":  "Ţāleqān"
+    },
+    {
+        "id":  64422,
+        "name":  "Tāybād"
+    },
+    {
+        "id":  64446,
+        "name":  "Tāzehābād"
+    },
+    {
+        "id":  64020,
+        "name":  "Tehran"
+    },
+    {
+        "id":  64402,
+        "name":  "Tīrān"
+    },
+    {
+        "id":  64019,
+        "name":  "Tonekābon"
+    },
+    {
+        "id":  64018,
+        "name":  "Torbat-e Ḩeydarīyeh"
+    },
+    {
+        "id":  64421,
+        "name":  "Torbat-e Jām"
+    },
+    {
+        "id":  64017,
+        "name":  "Ţorqabeh"
+    },
+    {
+        "id":  64016,
+        "name":  "Tūyserkān"
+    },
+    {
+        "id":  64015,
+        "name":  "Varāmīn"
+    },
+    {
+        "id":  64013,
+        "name":  "Varazqān"
+    },
+    {
+        "id":  64012,
+        "name":  "Vasīān"
+    },
+    {
+        "id":  64005,
+        "name":  "Yasuj"
+    },
+    {
+        "id":  64011,
+        "name":  "Yazd"
+    },
+    {
+        "id":  64417,
+        "name":  "Zābol"
+    },
+    {
+        "id":  64420,
+        "name":  "Zābolī"
+    },
+    {
+        "id":  64418,
+        "name":  "Zahedan"
+    },
+    {
+        "id":  64010,
+        "name":  "Zanjan"
+    },
+    {
+        "id":  64009,
+        "name":  "Zarand"
+    },
+    {
+        "id":  64401,
+        "name":  "Zarrīn Shahr"
+    },
+    {
+        "id":  64008,
+        "name":  "Zarrīnābād"
+    },
+    {
+        "id":  64419,
+        "name":  "Zehak"
+    },
+    {
+        "id":  64007,
+        "name":  "Ziabar (Gaskar)"
+    }
+]

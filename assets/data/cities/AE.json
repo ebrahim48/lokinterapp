@@ -1,0 +1,406 @@
+[
+    {
+        "id":  41,
+        "name":  "Abu Dhabi"
+    },
+    {
+        "id":  42,
+        "name":  "Abū Hayl"
+    },
+    {
+        "id":  40,
+        "name":  "Adh Dhayd"
+    },
+    {
+        "id":  39,
+        "name":  "Ajman City"
+    },
+    {
+        "id":  38,
+        "name":  "Al Ain City"
+    },
+    {
+        "id":  94,
+        "name":  "Al Bada\u0027a"
+    },
+    {
+        "id":  90,
+        "name":  "Al Faqaa"
+    },
+    {
+        "id":  37,
+        "name":  "Al Fujairah City"
+    },
+    {
+        "id":  101,
+        "name":  "Al Furjan"
+    },
+    {
+        "id":  47,
+        "name":  "Al Ḩamīdīyah"
+    },
+    {
+        "id":  35,
+        "name":  "Al Ḩamrīyah"
+    },
+    {
+        "id":  53,
+        "name":  "Al Hudaiba"
+    },
+    {
+        "id":  26,
+        "name":  "Al Jazīrah al Ḩamrā’"
+    },
+    {
+        "id":  77,
+        "name":  "Al Jurf"
+    },
+    {
+        "id":  52,
+        "name":  "Al Karama"
+    },
+    {
+        "id":  105,
+        "name":  "Al Khabaisi"
+    },
+    {
+        "id":  106,
+        "name":  "Al Khawaneej 1"
+    },
+    {
+        "id":  45,
+        "name":  "Al Lusaylī"
+    },
+    {
+        "id":  110,
+        "name":  "Al Madam"
+    },
+    {
+        "id":  78,
+        "name":  "Al Majaz"
+    },
+    {
+        "id":  34,
+        "name":  "Al Manāmah"
+    },
+    {
+        "id":  96,
+        "name":  "Al Mizhar First"
+    },
+    {
+        "id":  97,
+        "name":  "Al Mizhar Second"
+    },
+    {
+        "id":  66,
+        "name":  "Al Murar al Qadīm"
+    },
+    {
+        "id":  95,
+        "name":  "Al Muteena"
+    },
+    {
+        "id":  103,
+        "name":  "Al Qusais 1"
+    },
+    {
+        "id":  51,
+        "name":  "Al Qusais Second"
+    },
+    {
+        "id":  111,
+        "name":  "Al Raafah"
+    },
+    {
+        "id":  74,
+        "name":  "Al Safa"
+    },
+    {
+        "id":  108,
+        "name":  "Al Sajaah"
+    },
+    {
+        "id":  87,
+        "name":  "Al Shamkhah City"
+    },
+    {
+        "id":  73,
+        "name":  "Al Sufouh"
+    },
+    {
+        "id":  104,
+        "name":  "Al Twar 3"
+    },
+    {
+        "id":  49,
+        "name":  "Al Twar First"
+    },
+    {
+        "id":  50,
+        "name":  "AL Twar Second"
+    },
+    {
+        "id":  48,
+        "name":  "Al Waheda"
+    },
+    {
+        "id":  68,
+        "name":  "Al Warqaa"
+    },
+    {
+        "id":  89,
+        "name":  "Al Wiqan"
+    },
+    {
+        "id":  17,
+        "name":  "Ar Rāshidīyah"
+    },
+    {
+        "id":  67,
+        "name":  "Ar Riqqah"
+    },
+    {
+        "id":  75,
+        "name":  "Ar Rumaylah"
+    },
+    {
+        "id":  33,
+        "name":  "Ar Ruways"
+    },
+    {
+        "id":  43,
+        "name":  "As Saţwah"
+    },
+    {
+        "id":  79,
+        "name":  "As Saţwah Sharq"
+    },
+    {
+        "id":  32,
+        "name":  "Ash Sha‘m"
+    },
+    {
+        "id":  85,
+        "name":  "Bani Yas City"
+    },
+    {
+        "id":  58,
+        "name":  "Bur Dubai"
+    },
+    {
+        "id":  64,
+        "name":  "Būr Sa‘īd"
+    },
+    {
+        "id":  102,
+        "name":  "Business Bay"
+    },
+    {
+        "id":  100,
+        "name":  "DAMAC Hills"
+    },
+    {
+        "id":  30,
+        "name":  "Dayrah"
+    },
+    {
+        "id":  28,
+        "name":  "Dibba Al-Fujairah"
+    },
+    {
+        "id":  29,
+        "name":  "Dibba Al-Hisn"
+    },
+    {
+        "id":  82,
+        "name":  "Downtown Dubai"
+    },
+    {
+        "id":  27,
+        "name":  "Dubai"
+    },
+    {
+        "id":  80,
+        "name":  "Dubai Festival City"
+    },
+    {
+        "id":  81,
+        "name":  "Dubai International Financial Centre"
+    },
+    {
+        "id":  72,
+        "name":  "Dubai Internet City"
+    },
+    {
+        "id":  83,
+        "name":  "Dubai Investments Park"
+    },
+    {
+        "id":  70,
+        "name":  "Dubai Marina"
+    },
+    {
+        "id":  99,
+        "name":  "Dubai Motor City"
+    },
+    {
+        "id":  98,
+        "name":  "Dubai Silicon Oasis"
+    },
+    {
+        "id":  71,
+        "name":  "Dubai Sports City"
+    },
+    {
+        "id":  107,
+        "name":  "Halwan"
+    },
+    {
+        "id":  36,
+        "name":  "Ḩattā"
+    },
+    {
+        "id":  62,
+        "name":  "Hawr al ‘Anz"
+    },
+    {
+        "id":  69,
+        "name":  "International City"
+    },
+    {
+        "id":  84,
+        "name":  "Jebel Ali"
+    },
+    {
+        "id":  25,
+        "name":  "Jumayrā"
+    },
+    {
+        "id":  24,
+        "name":  "Kalbā"
+    },
+    {
+        "id":  59,
+        "name":  "Khalifah A City"
+    },
+    {
+        "id":  23,
+        "name":  "Khawr Fakkān"
+    },
+    {
+        "id":  54,
+        "name":  "Knowledge Village"
+    },
+    {
+        "id":  109,
+        "name":  "Lahbab"
+    },
+    {
+        "id":  63,
+        "name":  "Mankhūl"
+    },
+    {
+        "id":  113,
+        "name":  "Masdar City"
+    },
+    {
+        "id":  21,
+        "name":  "Maşfūţ"
+    },
+    {
+        "id":  61,
+        "name":  "Mirdif"
+    },
+    {
+        "id":  112,
+        "name":  "Mohammed Bin Zayed City"
+    },
+    {
+        "id":  20,
+        "name":  "Murbaḩ"
+    },
+    {
+        "id":  86,
+        "name":  "Musaffah"
+    },
+    {
+        "id":  76,
+        "name":  "Mushayrif"
+    },
+    {
+        "id":  19,
+        "name":  "Muzayri‘"
+    },
+    {
+        "id":  44,
+        "name":  "Nadd al Ḩumr"
+    },
+    {
+        "id":  65,
+        "name":  "Nāyf"
+    },
+    {
+        "id":  57,
+        "name":  "Oud Metha"
+    },
+    {
+        "id":  18,
+        "name":  "Ras Al Khaimah City"
+    },
+    {
+        "id":  88,
+        "name":  "Reef Al Fujairah City"
+    },
+    {
+        "id":  91,
+        "name":  "Sha\u0027biyyat Al Hiyar"
+    },
+    {
+        "id":  92,
+        "name":  "Sha\u0027biyyat Milе̄hah"
+    },
+    {
+        "id":  60,
+        "name":  "Shakhbout City"
+    },
+    {
+        "id":  31,
+        "name":  "Sharjah"
+    },
+    {
+        "id":  46,
+        "name":  "Suwayḩān"
+    },
+    {
+        "id":  16,
+        "name":  "Ţarīf Kalbā"
+    },
+    {
+        "id":  55,
+        "name":  "The Palm Jumeirah"
+    },
+    {
+        "id":  15,
+        "name":  "Umm Al Quwain City"
+    },
+    {
+        "id":  93,
+        "name":  "Umm Al Sheif"
+    },
+    {
+        "id":  14,
+        "name":  "Umm Suqaym"
+    },
+    {
+        "id":  13,
+        "name":  "Warīsān"
+    },
+    {
+        "id":  56,
+        "name":  "Za\u0027abeel"
+    },
+    {
+        "id":  22,
+        "name":  "Zayed City"
+    }
+]

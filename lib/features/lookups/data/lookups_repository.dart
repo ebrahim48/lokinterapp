@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
@@ -12,11 +13,21 @@ class LookupsRepository {
   final _api = Get.find<ApiService>();
   final _cache = CacheService();
 
+  // v2: the model now carries phonecode, so old cache is ignored on upgrade
+  static const _countriesKey = 'lookup_countries_v2';
+
   Future<List<Country>> countries() async {
-    final cached = _readList('lookup_countries', Country.fromJson);
+    final cached = _readList(_countriesKey, Country.fromJson);
     if (cached.isNotEmpty) {
       _refreshCountries(); // fire and forget
       return cached;
+    }
+    // like the website: a bundled list first for reliability (and it carries
+    // the phone codes), API only as a fallback
+    final bundled = await _bundledList('assets/data/countries.json', Country.fromJson);
+    if (bundled.isNotEmpty) {
+      await _writeList(_countriesKey, bundled.map((e) => e.toJson()).toList());
+      return bundled;
     }
     return _refreshCountries();
   }
@@ -24,19 +35,44 @@ class LookupsRepository {
   Future<List<Country>> _refreshCountries() async {
     final res = await _api.get('/countries/getAllCountries');
     final list = _asList(unwrapData(res)).map(Country.fromJson).toList();
-    await _writeList('lookup_countries', list.map((e) => e.toJson()).toList());
+    await _writeList(_countriesKey, list.map((e) => e.toJson()).toList());
     return list;
   }
 
   Future<List<City>> cities(String countryIso) async {
-    final key = 'lookup_cities_$countryIso';
+    final iso = countryIso.toUpperCase();
+    final key = 'lookup_cities_$iso';
     final cached = _readList(key, City.fromJson);
     if (cached.isNotEmpty) return cached;
 
-    final res = await _api.get('/countries/getCitiesByCountryIso/$countryIso');
+    // the cities API is empty on the backend, so — exactly like the website —
+    // cities ship as a per-country bundled asset; the API is only a fallback
+    final bundled = await _bundledList('assets/data/cities/$iso.json', City.fromJson);
+    if (bundled.isNotEmpty) {
+      await _writeList(key, bundled.map((e) => e.toJson()).toList());
+      return bundled;
+    }
+
+    final res = await _api.get('/countries/getCitiesByCountryIso/$iso');
     final list = _asList(unwrapData(res)).map(City.fromJson).toList();
-    await _writeList(key, list.map((e) => e.toJson()).toList());
+    if (list.isNotEmpty) {
+      await _writeList(key, list.map((e) => e.toJson()).toList());
+    }
     return list;
+  }
+
+  // reads a bundled JSON array asset; returns [] if it's missing or unparsable
+  Future<List<T>> _bundledList<T>(
+      String assetPath, T Function(Map<String, dynamic>) fromJson) async {
+    try {
+      final raw = await rootBundle.loadString(assetPath);
+      return (jsonDecode(raw) as List)
+          .whereType<Map>()
+          .map((e) => fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (_) {
+      return [];
+    }
   }
 
   Future<List<Category>> categories() async {
@@ -106,6 +142,12 @@ class LookupsRepository {
   /// Newsletter signup from the marketing footer.
   Future<void> addNewsletter(String email) async {
     unwrapData(await _api.post('/lookups/addNewsletter', data: {'email': email}));
+  }
+
+  /// Supported app languages for the Settings picker — [{code, name}].
+  Future<List<Map<String, dynamic>>> languages() async {
+    final res = await _api.get('/lookups/getLanguages');
+    return _asList(unwrapData(res));
   }
 
   // lists sometimes come bare and sometimes wrapped in {totalRecords, list}

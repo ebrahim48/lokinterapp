@@ -9,6 +9,7 @@ class AuthUser {
   final String? imageUrl;
   final bool identityVerified;
   final int notificationsCount;
+  final String? lang; // en | fr — restores the app language on cold start
 
   const AuthUser({
     required this.id,
@@ -21,6 +22,7 @@ class AuthUser {
     this.imageUrl,
     this.identityVerified = false,
     this.notificationsCount = 0,
+    this.lang,
   });
 
   factory AuthUser.fromJson(Map<String, dynamic> json) => AuthUser(
@@ -34,6 +36,7 @@ class AuthUser {
         imageUrl: json['imageUrl'] ?? json['avatarUrl'],
         identityVerified: json['identityVerified'] ?? false,
         notificationsCount: json['notificationsCount'] ?? 0,
+        lang: json['lang'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,5 +50,6 @@ class AuthUser {
         'imageUrl': imageUrl,
         'identityVerified': identityVerified,
         'notificationsCount': notificationsCount,
+        'lang': lang,
       };
 }

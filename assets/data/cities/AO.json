@@ -1,0 +1,554 @@
+[
+    {
+        "id":  1322,
+        "name":  "Alto Hama"
+    },
+    {
+        "id":  1318,
+        "name":  "Ambriz"
+    },
+    {
+        "id":  1287,
+        "name":  "Ambrizette"
+    },
+    {
+        "id":  1388,
+        "name":  "Andulo"
+    },
+    {
+        "id":  1387,
+        "name":  "Baía Farta"
+    },
+    {
+        "id":  1317,
+        "name":  "Bailundo"
+    },
+    {
+        "id":  1386,
+        "name":  "Balombo"
+    },
+    {
+        "id":  1316,
+        "name":  "Banza Damba"
+    },
+    {
+        "id":  1315,
+        "name":  "Barra do Dande"
+    },
+    {
+        "id":  1314,
+        "name":  "Belize"
+    },
+    {
+        "id":  1385,
+        "name":  "Benguela"
+    },
+    {
+        "id":  1384,
+        "name":  "Bibala"
+    },
+    {
+        "id":  1383,
+        "name":  "Bocoio"
+    },
+    {
+        "id":  1320,
+        "name":  "Buco"
+    },
+    {
+        "id":  1313,
+        "name":  "Buco Zau"
+    },
+    {
+        "id":  1382,
+        "name":  "Caála"
+    },
+    {
+        "id":  1312,
+        "name":  "Cabinda"
+    },
+    {
+        "id":  1381,
+        "name":  "Cacolo"
+    },
+    {
+        "id":  1380,
+        "name":  "Caconda"
+    },
+    {
+        "id":  1311,
+        "name":  "Cacongo"
+    },
+    {
+        "id":  1310,
+        "name":  "Cacuso"
+    },
+    {
+        "id":  1390,
+        "name":  "Cafunfo"
+    },
+    {
+        "id":  1379,
+        "name":  "Cahama"
+    },
+    {
+        "id":  1378,
+        "name":  "Caimbambo"
+    },
+    {
+        "id":  1377,
+        "name":  "Calai"
+    },
+    {
+        "id":  1376,
+        "name":  "Calandula"
+    },
+    {
+        "id":  1309,
+        "name":  "Calandula"
+    },
+    {
+        "id":  1398,
+        "name":  "Calonamba"
+    },
+    {
+        "id":  1375,
+        "name":  "Calucinga"
+    },
+    {
+        "id":  1374,
+        "name":  "Calulo"
+    },
+    {
+        "id":  1373,
+        "name":  "Caluquembe"
+    },
+    {
+        "id":  1308,
+        "name":  "Camabatela"
+    },
+    {
+        "id":  1372,
+        "name":  "Camacupa"
+    },
+    {
+        "id":  1278,
+        "name":  "Camanongue"
+    },
+    {
+        "id":  1397,
+        "name":  "Camboio"
+    },
+    {
+        "id":  1393,
+        "name":  "Cambundi"
+    },
+    {
+        "id":  1389,
+        "name":  "Cambundi"
+    },
+    {
+        "id":  1371,
+        "name":  "Cambundi Catembo"
+    },
+    {
+        "id":  1274,
+        "name":  "Cameia"
+    },
+    {
+        "id":  1370,
+        "name":  "Camucuio"
+    },
+    {
+        "id":  1307,
+        "name":  "Cangandala"
+    },
+    {
+        "id":  1369,
+        "name":  "Capunda"
+    },
+    {
+        "id":  1266,
+        "name":  "Cassanguidi"
+    },
+    {
+        "id":  1368,
+        "name":  "Catabola"
+    },
+    {
+        "id":  1346,
+        "name":  "Catchiungo"
+    },
+    {
+        "id":  1367,
+        "name":  "Catumbela"
+    },
+    {
+        "id":  1306,
+        "name":  "Caxito"
+    },
+    {
+        "id":  1277,
+        "name":  "Cazaji"
+    },
+    {
+        "id":  1305,
+        "name":  "Cazombo"
+    },
+    {
+        "id":  1276,
+        "name":  "Cazombo"
+    },
+    {
+        "id":  1366,
+        "name":  "Cela"
+    },
+    {
+        "id":  1395,
+        "name":  "Chela"
+    },
+    {
+        "id":  1365,
+        "name":  "Chibia"
+    },
+    {
+        "id":  1364,
+        "name":  "Chicomba"
+    },
+    {
+        "id":  1363,
+        "name":  "Chinguar"
+    },
+    {
+        "id":  1396,
+        "name":  "Chinjenje"
+    },
+    {
+        "id":  1362,
+        "name":  "Chipindo"
+    },
+    {
+        "id":  1361,
+        "name":  "Chissamba"
+    },
+    {
+        "id":  1265,
+        "name":  "Chitato"
+    },
+    {
+        "id":  1360,
+        "name":  "Chitembo"
+    },
+    {
+        "id":  1359,
+        "name":  "Chongoroi"
+    },
+    {
+        "id":  1358,
+        "name":  "Conda"
+    },
+    {
+        "id":  1304,
+        "name":  "Cuango-Luzamba"
+    },
+    {
+        "id":  1357,
+        "name":  "Cubal"
+    },
+    {
+        "id":  1356,
+        "name":  "Cuchi"
+    },
+    {
+        "id":  1355,
+        "name":  "Cuemba"
+    },
+    {
+        "id":  1303,
+        "name":  "Cuilo"
+    },
+    {
+        "id":  1302,
+        "name":  "Cuímba"
+    },
+    {
+        "id":  1345,
+        "name":  "Cuíto"
+    },
+    {
+        "id":  1297,
+        "name":  "Cunda diá Baze"
+    },
+    {
+        "id":  1354,
+        "name":  "Cunhinga"
+    },
+    {
+        "id":  1353,
+        "name":  "Dala"
+    },
+    {
+        "id":  1275,
+        "name":  "Dala"
+    },
+    {
+        "id":  1301,
+        "name":  "Damba"
+    },
+    {
+        "id":  1352,
+        "name":  "Dombe Grande"
+    },
+    {
+        "id":  1299,
+        "name":  "Dondo"
+    },
+    {
+        "id":  1300,
+        "name":  "Dondo"
+    },
+    {
+        "id":  1264,
+        "name":  "Dundo"
+    },
+    {
+        "id":  1351,
+        "name":  "Ebo"
+    },
+    {
+        "id":  1350,
+        "name":  "Ecunna"
+    },
+    {
+        "id":  1349,
+        "name":  "Gabela"
+    },
+    {
+        "id":  1319,
+        "name":  "Gama"
+    },
+    {
+        "id":  1348,
+        "name":  "Ganda"
+    },
+    {
+        "id":  1298,
+        "name":  "Golungo Alto"
+    },
+    {
+        "id":  1347,
+        "name":  "Huambo"
+    },
+    {
+        "id":  1273,
+        "name":  "Jamba"
+    },
+    {
+        "id":  1272,
+        "name":  "Léua"
+    },
+    {
+        "id":  1344,
+        "name":  "Lobito"
+    },
+    {
+        "id":  1343,
+        "name":  "Londuimbali"
+    },
+    {
+        "id":  1342,
+        "name":  "Longonjo"
+    },
+    {
+        "id":  1296,
+        "name":  "Luanda"
+    },
+    {
+        "id":  1271,
+        "name":  "Luau"
+    },
+    {
+        "id":  1295,
+        "name":  "Lubalo"
+    },
+    {
+        "id":  1341,
+        "name":  "Lubango"
+    },
+    {
+        "id":  1294,
+        "name":  "Lucala"
+    },
+    {
+        "id":  1263,
+        "name":  "Lucapa"
+    },
+    {
+        "id":  1340,
+        "name":  "Luena"
+    },
+    {
+        "id":  1270,
+        "name":  "Lumbala"
+    },
+    {
+        "id":  1269,
+        "name":  "Lumeji"
+    },
+    {
+        "id":  1339,
+        "name":  "Luquembo"
+    },
+    {
+        "id":  1293,
+        "name":  "Malanje"
+    },
+    {
+        "id":  1292,
+        "name":  "Maquela do Zombo"
+    },
+    {
+        "id":  1338,
+        "name":  "Matala"
+    },
+    {
+        "id":  1268,
+        "name":  "Mavinga"
+    },
+    {
+        "id":  1291,
+        "name":  "Mbanza Kongo"
+    },
+    {
+        "id":  1337,
+        "name":  "Menongue"
+    },
+    {
+        "id":  1335,
+        "name":  "Mossamedes"
+    },
+    {
+        "id":  1267,
+        "name":  "Muconda"
+    },
+    {
+        "id":  1336,
+        "name":  "Mungo"
+    },
+    {
+        "id":  1290,
+        "name":  "Mussende"
+    },
+    {
+        "id":  1289,
+        "name":  "N\u0027dalatando"
+    },
+    {
+        "id":  1288,
+        "name":  "Negage"
+    },
+    {
+        "id":  1334,
+        "name":  "Nharêa"
+    },
+    {
+        "id":  1279,
+        "name":  "Nzagi"
+    },
+    {
+        "id":  1333,
+        "name":  "Ondjiva"
+    },
+    {
+        "id":  1332,
+        "name":  "Porto Amboim"
+    },
+    {
+        "id":  1394,
+        "name":  "Praia Bebe"
+    },
+    {
+        "id":  1286,
+        "name":  "Puri"
+    },
+    {
+        "id":  1331,
+        "name":  "Quibala"
+    },
+    {
+        "id":  1285,
+        "name":  "Quibaxe"
+    },
+    {
+        "id":  1330,
+        "name":  "Quilenda"
+    },
+    {
+        "id":  1329,
+        "name":  "Quipungo"
+    },
+    {
+        "id":  1392,
+        "name":  "Quissecula"
+    },
+    {
+        "id":  1391,
+        "name":  "Santa Clara"
+    },
+    {
+        "id":  1284,
+        "name":  "Sanza Pombo"
+    },
+    {
+        "id":  1262,
+        "name":  "Saurimo"
+    },
+    {
+        "id":  1283,
+        "name":  "Songo"
+    },
+    {
+        "id":  1282,
+        "name":  "Soyo"
+    },
+    {
+        "id":  1328,
+        "name":  "Sumbe"
+    },
+    {
+        "id":  1281,
+        "name":  "Tombôco"
+    },
+    {
+        "id":  1327,
+        "name":  "Tômbua"
+    },
+    {
+        "id":  1323,
+        "name":  "Uacu Cungo"
+    },
+    {
+        "id":  1326,
+        "name":  "Ucu Seles"
+    },
+    {
+        "id":  1325,
+        "name":  "Ucuma"
+    },
+    {
+        "id":  1280,
+        "name":  "Uíge"
+    },
+    {
+        "id":  1324,
+        "name":  "Virei"
+    },
+    {
+        "id":  1321,
+        "name":  "Xangongo"
+    },
+    {
+        "id":  1399,
+        "name":  "Zone (Zona) E"
+    }
+]

@@ -1,0 +1,498 @@
+[
+    {
+        "id":  77830,
+        "name":  "Akademija (Kaunas)"
+    },
+    {
+        "id":  77824,
+        "name":  "Akmenė"
+    },
+    {
+        "id":  77823,
+        "name":  "Aleksotas"
+    },
+    {
+        "id":  77822,
+        "name":  "Alytus"
+    },
+    {
+        "id":  77821,
+        "name":  "Antakalnis"
+    },
+    {
+        "id":  77820,
+        "name":  "Anykščiai"
+    },
+    {
+        "id":  77819,
+        "name":  "Ariogala"
+    },
+    {
+        "id":  77818,
+        "name":  "Baltoji Vokė"
+    },
+    {
+        "id":  77817,
+        "name":  "Birštonas"
+    },
+    {
+        "id":  77816,
+        "name":  "Birzai"
+    },
+    {
+        "id":  77739,
+        "name":  "Būgai"
+    },
+    {
+        "id":  77825,
+        "name":  "Dainava (Kaunas)"
+    },
+    {
+        "id":  77815,
+        "name":  "Daugai"
+    },
+    {
+        "id":  77814,
+        "name":  "Druskininkai"
+    },
+    {
+        "id":  77829,
+        "name":  "Eiguliai"
+    },
+    {
+        "id":  77813,
+        "name":  "Eišiškės"
+    },
+    {
+        "id":  77812,
+        "name":  "Elektrėnai"
+    },
+    {
+        "id":  77811,
+        "name":  "Ežerėlis"
+    },
+    {
+        "id":  77772,
+        "name":  "Fabijoniškės"
+    },
+    {
+        "id":  77810,
+        "name":  "Gargždai"
+    },
+    {
+        "id":  77809,
+        "name":  "Garliava"
+    },
+    {
+        "id":  77808,
+        "name":  "Gelgaudiškis"
+    },
+    {
+        "id":  77807,
+        "name":  "Grigiškės"
+    },
+    {
+        "id":  77806,
+        "name":  "Ignalina"
+    },
+    {
+        "id":  77805,
+        "name":  "Jieznas"
+    },
+    {
+        "id":  77804,
+        "name":  "Jonava"
+    },
+    {
+        "id":  77803,
+        "name":  "Joniškis"
+    },
+    {
+        "id":  77802,
+        "name":  "Juodupė"
+    },
+    {
+        "id":  77801,
+        "name":  "Jurbarkas"
+    },
+    {
+        "id":  77834,
+        "name":  "Justiniškės"
+    },
+    {
+        "id":  77800,
+        "name":  "Kaišiadorys"
+    },
+    {
+        "id":  77799,
+        "name":  "Kalvarija"
+    },
+    {
+        "id":  77798,
+        "name":  "Karmėlava"
+    },
+    {
+        "id":  77827,
+        "name":  "Karoliniškės"
+    },
+    {
+        "id":  77797,
+        "name":  "Kaunas"
+    },
+    {
+        "id":  77796,
+        "name":  "Kazlų Rūda"
+    },
+    {
+        "id":  77795,
+        "name":  "Kėdainiai"
+    },
+    {
+        "id":  77794,
+        "name":  "Kelmė"
+    },
+    {
+        "id":  77793,
+        "name":  "Klaipėda"
+    },
+    {
+        "id":  77792,
+        "name":  "Kretinga"
+    },
+    {
+        "id":  77791,
+        "name":  "Kudirkos Naumiestis"
+    },
+    {
+        "id":  77790,
+        "name":  "Kulautuva"
+    },
+    {
+        "id":  77789,
+        "name":  "Kupiskis"
+    },
+    {
+        "id":  77788,
+        "name":  "Kuršėnai"
+    },
+    {
+        "id":  77787,
+        "name":  "Kybartai"
+    },
+    {
+        "id":  77786,
+        "name":  "Lazdijai"
+    },
+    {
+        "id":  77836,
+        "name":  "Lazdynai"
+    },
+    {
+        "id":  77785,
+        "name":  "Lentvaris"
+    },
+    {
+        "id":  77784,
+        "name":  "Linkuva"
+    },
+    {
+        "id":  77783,
+        "name":  "Marijampolė"
+    },
+    {
+        "id":  77831,
+        "name":  "Mastaiciai"
+    },
+    {
+        "id":  77782,
+        "name":  "Matuizos"
+    },
+    {
+        "id":  77781,
+        "name":  "Mazeikiai"
+    },
+    {
+        "id":  77780,
+        "name":  "Molėtai"
+    },
+    {
+        "id":  77838,
+        "name":  "Naujamiestis"
+    },
+    {
+        "id":  77826,
+        "name":  "Naujininkai"
+    },
+    {
+        "id":  77779,
+        "name":  "Naujoji Akmene"
+    },
+    {
+        "id":  77778,
+        "name":  "Naujoji Vilnia"
+    },
+    {
+        "id":  77777,
+        "name":  "Nemenčinė"
+    },
+    {
+        "id":  77776,
+        "name":  "Nemėžis"
+    },
+    {
+        "id":  77775,
+        "name":  "Neringa"
+    },
+    {
+        "id":  77774,
+        "name":  "Nida"
+    },
+    {
+        "id":  77773,
+        "name":  "Obeliai"
+    },
+    {
+        "id":  77771,
+        "name":  "Pabradė"
+    },
+    {
+        "id":  77770,
+        "name":  "Pagėgiai"
+    },
+    {
+        "id":  77769,
+        "name":  "Pakruojis"
+    },
+    {
+        "id":  77768,
+        "name":  "Palanga"
+    },
+    {
+        "id":  77767,
+        "name":  "Panevėžys"
+    },
+    {
+        "id":  77832,
+        "name":  "Pašilaičiai"
+    },
+    {
+        "id":  77766,
+        "name":  "Pasvalys"
+    },
+    {
+        "id":  77765,
+        "name":  "Pervalka"
+    },
+    {
+        "id":  77833,
+        "name":  "Pilaitė"
+    },
+    {
+        "id":  77764,
+        "name":  "Plateliai"
+    },
+    {
+        "id":  77763,
+        "name":  "Plunge"
+    },
+    {
+        "id":  77762,
+        "name":  "Priekulė"
+    },
+    {
+        "id":  77761,
+        "name":  "Prienai"
+    },
+    {
+        "id":  77760,
+        "name":  "Radviliskis"
+    },
+    {
+        "id":  77759,
+        "name":  "Ramučiai"
+    },
+    {
+        "id":  77758,
+        "name":  "Ramygala"
+    },
+    {
+        "id":  77757,
+        "name":  "Raseiniai"
+    },
+    {
+        "id":  77839,
+        "name":  "Rasos"
+    },
+    {
+        "id":  77756,
+        "name":  "Rietavas"
+    },
+    {
+        "id":  77755,
+        "name":  "Rokiškis"
+    },
+    {
+        "id":  77754,
+        "name":  "Rūdiškės"
+    },
+    {
+        "id":  77753,
+        "name":  "Rusnė"
+    },
+    {
+        "id":  77752,
+        "name":  "Šakiai"
+    },
+    {
+        "id":  77751,
+        "name":  "Salantai"
+    },
+    {
+        "id":  77750,
+        "name":  "Šalčininkai"
+    },
+    {
+        "id":  77749,
+        "name":  "Sargėnai"
+    },
+    {
+        "id":  77748,
+        "name":  "Seda"
+    },
+    {
+        "id":  77747,
+        "name":  "Šeduva"
+    },
+    {
+        "id":  77746,
+        "name":  "Senieji Trakai"
+    },
+    {
+        "id":  77835,
+        "name":  "Šeškinė"
+    },
+    {
+        "id":  77745,
+        "name":  "Šiauliai"
+    },
+    {
+        "id":  77828,
+        "name":  "Šilainiai"
+    },
+    {
+        "id":  77744,
+        "name":  "Šilalė"
+    },
+    {
+        "id":  77743,
+        "name":  "Silute"
+    },
+    {
+        "id":  77742,
+        "name":  "Simnas"
+    },
+    {
+        "id":  77741,
+        "name":  "Širvintos"
+    },
+    {
+        "id":  77740,
+        "name":  "Skaidiškės"
+    },
+    {
+        "id":  77738,
+        "name":  "Skuodas"
+    },
+    {
+        "id":  77737,
+        "name":  "Švenčionėliai"
+    },
+    {
+        "id":  77736,
+        "name":  "Švenčionys"
+    },
+    {
+        "id":  77735,
+        "name":  "Šventoji"
+    },
+    {
+        "id":  77734,
+        "name":  "Taurage"
+    },
+    {
+        "id":  77733,
+        "name":  "Telsiai"
+    },
+    {
+        "id":  77732,
+        "name":  "Trakai"
+    },
+    {
+        "id":  77731,
+        "name":  "Tytuvėnėliai"
+    },
+    {
+        "id":  77730,
+        "name":  "Ukmerge"
+    },
+    {
+        "id":  77729,
+        "name":  "Utena"
+    },
+    {
+        "id":  77728,
+        "name":  "Varėna"
+    },
+    {
+        "id":  77727,
+        "name":  "Veisiejai"
+    },
+    {
+        "id":  77726,
+        "name":  "Venta"
+    },
+    {
+        "id":  77725,
+        "name":  "Viekšniai"
+    },
+    {
+        "id":  77724,
+        "name":  "Vievis"
+    },
+    {
+        "id":  77723,
+        "name":  "Vilkaviskis"
+    },
+    {
+        "id":  77722,
+        "name":  "Vilkija"
+    },
+    {
+        "id":  77837,
+        "name":  "Vilkpėdė"
+    },
+    {
+        "id":  77721,
+        "name":  "Vilnius"
+    },
+    {
+        "id":  77720,
+        "name":  "Visaginas"
+    },
+    {
+        "id":  77719,
+        "name":  "Žagarė"
+    },
+    {
+        "id":  77718,
+        "name":  "Zarasai"
+    },
+    {
+        "id":  77717,
+        "name":  "Žemaičių Naumiestis"
+    },
+    {
+        "id":  77716,
+        "name":  "Žiežmariai"
+    }
+]

@@ -12,6 +12,7 @@ import '../../home_feed/presentation/home_feed_page.dart';
 import '../../post_request/presentation/post_request_page.dart';
 import '../../post_trip/presentation/post_trip_page.dart';
 import '../../profile/presentation/profile_page.dart';
+import '../../chat/presentation/controllers/chat_inbox_controller.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -64,18 +65,20 @@ class _MainShellState extends State<MainShell> {
         padding: EdgeInsets.zero,
         child: Row(
           children: [
-            _tab(0, Icons.home_outlined, Icons.home, 'Home'),
-            _tab(1, Icons.handshake_outlined, Icons.handshake, 'Deals'),
+            _tab(0, Icons.home_outlined, Icons.home, 'nav.home'.tr),
+            _tab(1, Icons.handshake_outlined, Icons.handshake, 'nav.deals'.tr),
             SizedBox(width: 56.w), // notch gap for the FAB
-            _tab(2, Icons.chat_bubble_outline, Icons.chat_bubble, 'Chat'),
-            _tab(3, Icons.person_outline, Icons.person, 'Profile'),
+            _tab(2, Icons.chat_bubble_outline, Icons.chat_bubble, 'nav.chat'.tr,
+                badge: true),
+            _tab(3, Icons.person_outline, Icons.person, 'nav.profile'.tr),
           ],
         ),
       ),
     );
   }
 
-  Widget _tab(int index, IconData icon, IconData activeIcon, String label) {
+  Widget _tab(int index, IconData icon, IconData activeIcon, String label,
+      {bool badge = false}) {
     final cs = Theme.of(context).colorScheme;
     final active = _index == index;
     final color = active ? AppPalette.primary : cs.onSurfaceVariant;
@@ -89,12 +92,51 @@ class _MainShellState extends State<MainShell> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(active ? activeIcon : icon, color: color, size: 22.sp),
+            badge
+                ? Obx(() => _badged(
+                      Icon(active ? activeIcon : icon, color: color, size: 22.sp),
+                      Get.isRegistered<ChatInboxController>()
+                          ? Get.find<ChatInboxController>().unreadTotal
+                          : 0,
+                    ))
+                : Icon(active ? activeIcon : icon, color: color, size: 22.sp),
             SizedBox(height: 2.h),
             Text(label, style: TextStyle(fontSize: 10.sp, color: color)),
           ],
         ),
       ),
+    );
+  }
+
+  // unread pill over the chat icon, so a new message is visible from any tab
+  Widget _badged(Widget child, int count) {
+    if (count <= 0) return child;
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        child,
+        Positioned(
+          right: -6.w,
+          top: -4.h,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+            constraints: BoxConstraints(minWidth: 16.w),
+            decoration: BoxDecoration(
+              color: AppPalette.primary,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Text(
+              count > 99 ? '99+' : '$count',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 9.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

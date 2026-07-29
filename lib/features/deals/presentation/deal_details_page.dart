@@ -1,8 +1,9 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
@@ -17,6 +18,7 @@ import 'deals_controller.dart';
 import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/status_badge.dart';
+import '../../../core/widgets/image_viewer.dart';
 
 class DealDetailsPage extends StatefulWidget {
   final Deal deal;
@@ -45,7 +47,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       final full = await _repo.getById(widget.deal.id);
       if (!mounted) return;
       setState(() {
-        deal = full;
+        // getById doesn't echo the item name/notes, so keep what the list row
+        // already gave us instead of blanking them out
+        deal = full.withItemDetailsFrom(widget.deal);
         _loading = false;
       });
     } on AppException catch (e) {
@@ -228,7 +232,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
-  // eligibility first, then the pickup video, then flip to OUTGOING
+  // eligibility first, then the pickup video (record or choose a file),
+  // uploaded with a live progress bar, then flip to OUTGOING
   Future<void> _startOutgoing() async {
     if (_busy) return;
     setState(() => _busy = true);
@@ -240,28 +245,104 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       return;
     }
 
-    FilePickerResult? picked;
-    try {
-      picked = await FilePicker.platform.pickFiles(type: FileType.video);
-    } catch (_) {}
-    final file = (picked?.files.isNotEmpty ?? false) ? picked!.files.first : null;
-    if (file?.path == null) {
-      toast('Pickup video is required to start the delivery');
+    final pick = await _pickVideo();
+    if (pick == null) {
+      toast('Record the pickup video to start the delivery');
       if (mounted) setState(() => _busy = false);
       return;
     }
 
+    final progress = ValueNotifier<double>(0);
+    _showUploadProgress(progress);
+    var uploaded = false;
     try {
-      await _repo.uploadPickupVideo(deal.id, file!.path!, file.name);
+      await _repo.uploadPickupVideo(
+        deal.id,
+        pick.$1,
+        pick.$2,
+        onProgress: (sent, total) {
+          if (total > 0) progress.value = sent / total;
+        },
+      );
       await _repo.changeStatus(deal.id, 'OUTGOING');
-      _refreshList();
-      toast('Pickup video uploaded — deal is now outgoing');
-      await _loadDetail();
+      uploaded = true;
     } on AppException catch (e) {
       toastError(e);
     } finally {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop(); // close dialog
+      progress.dispose();
       if (mounted) setState(() => _busy = false);
     }
+
+    if (uploaded) {
+      _refreshList();
+      toast('Pickup video uploaded — deal is now outgoing');
+      await _loadDetail();
+    }
+  }
+
+  // Live mode records the handover on the spot — the camera opens directly and
+  // caps at 30s. Picking a ready-made file is deliberately not offered, so the
+  // video can't be anything but the actual pickup.
+  Future<(String path, String name)?> _pickVideo() async {
+    try {
+      final x = await ImagePicker().pickVideo(
+        source: ImageSource.camera,
+        maxDuration: const Duration(seconds: 30),
+        preferredCameraDevice: CameraDevice.rear,
+      );
+      return x == null ? null : (x.path, x.name);
+    } on PlatformException catch (e) {
+      // no camera (emulator without one) or permission refused
+      toast(e.message ?? 'Could not open the camera');
+      return null;
+    }
+  }
+
+  void _showUploadProgress(ValueNotifier<double> progress) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.cloud_upload_outlined,
+                    color: AppPalette.primary, size: 20.sp),
+                SizedBox(width: 10.w),
+                Text('Uploading video…',
+                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
+              ],
+            ),
+            SizedBox(height: 18.h),
+            ValueListenableBuilder<double>(
+              valueListenable: progress,
+              builder: (_, v, __) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: LinearProgressIndicator(
+                      value: v == 0 ? null : v, // indeterminate until first bytes
+                      minHeight: 8.h,
+                      backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    v == 0 ? 'Preparing…' : '${(v * 100).round()}%',
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _openDispute() async {
@@ -470,13 +551,65 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           _row(context, 'Receiver phone', deal.receiverPhone ?? '—'),
           _row(context, 'Traveler profit', deal.profitLabel),
           _row(context, 'Payment method', deal.paymentLabel),
-          if (deal.attachUrl == null)
+          // item details the sender filled in — the traveler needs these
+          if ((deal.itemName ?? '').isNotEmpty)
+            _row(context, 'Item name', deal.itemName!),
+          if ((deal.itemLink ?? '').isNotEmpty)
+            _row(context, 'Item link', deal.itemLink!),
+          if ((deal.notes ?? '').isNotEmpty)
+            _row(context, 'Notes', deal.notes!),
+          if (deal.attachUrls.isNotEmpty)
+            _attachmentGallery(context)
+          else if (deal.attachUrl == null)
             _row(context, 'Attachment', 'Not provided')
           else
             _attachmentRow(context),
           if (deal.tripDate != null) _row(context, 'Trip date', shortDate(deal.tripDate!)),
           if (deal.arrivalDate != null)
             _row(context, 'Arrival date', shortDate(deal.arrivalDate!)),
+        ],
+      ),
+    );
+  }
+
+  // every attached picture, not just the first — tap any to zoom
+  Widget _attachmentGallery(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Attachments (${deal.attachUrls.length})',
+              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          SizedBox(height: 8.h),
+          SizedBox(
+            height: 84.r,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: deal.attachUrls.length,
+              separatorBuilder: (_, __) => SizedBox(width: 8.w),
+              itemBuilder: (_, i) => GestureDetector(
+                onTap: () => ImageViewerPage.open(context, deal.attachUrls[i]),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: Image.network(
+                    deal.attachUrls[i],
+                    width: 84.r,
+                    height: 84.r,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      width: 84.r,
+                      height: 84.r,
+                      color: cs.surfaceContainerHighest,
+                      child: Icon(Icons.broken_image_outlined,
+                          size: 22.sp, color: cs.onSurfaceVariant),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -814,15 +947,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   List<Widget> _actions(BuildContext context) {
     switch (deal.status) {
       case DealStatus.pending:
+        // website: only the traveler (non-sender) accepts or rejects a pending
+        // deal; the sender who proposed it just waits
+        if (deal.isSender) return const [];
         return [
-          // the side that proposed the agreement can only withdraw it
-          if (!deal.isProposer) ...[
-            ElevatedButton(
-              onPressed: _busy ? null : _acceptDeal,
-              child: const Text('Accept deal'),
-            ),
-            SizedBox(height: 12.h),
-          ],
+          ElevatedButton(
+            onPressed: _busy ? null : _acceptDeal,
+            child: const Text('Accept deal'),
+          ),
+          SizedBox(height: 12.h),
           OutlinedButton(
             onPressed: _busy ? null : _reject,
             style: OutlinedButton.styleFrom(
@@ -866,8 +999,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ElevatedButton(
               onPressed: _busy
                   ? null
-                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as delivered'),
-              child: const Text('Mark as delivered'),
+                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
+              child: const Text('Mark as completed'),
             ),
             SizedBox(height: 12.h),
           ],
@@ -902,8 +1035,19 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
         ];
       case DealStatus.disputes:
+        // website: the sender can still complete a disputed deal (isDealCompletable
+        // includes DISPUTED) unless both sides disputed and it's locked for admin
         return [
-          ElevatedButton(
+          if (deal.isSender && !deal.fundsLockedForDispute) ...[
+            ElevatedButton(
+              onPressed: _busy
+                  ? null
+                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
+              child: const Text('Mark as completed'),
+            ),
+            SizedBox(height: 12.h),
+          ],
+          OutlinedButton(
             onPressed: _showDisputeReport,
             child: const Text('View dispute report'),
           ),

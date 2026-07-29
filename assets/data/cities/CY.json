@@ -1,0 +1,394 @@
+[
+    {
+        "id":  22582,
+        "name":  "Acherítou"
+    },
+    {
+        "id":  22574,
+        "name":  "Áchna"
+    },
+    {
+        "id":  22571,
+        "name":  "Ágios Dométios"
+    },
+    {
+        "id":  22570,
+        "name":  "Ágios Týchon"
+    },
+    {
+        "id":  22563,
+        "name":  "Aglantziá"
+    },
+    {
+        "id":  22583,
+        "name":  "Akáki"
+    },
+    {
+        "id":  22581,
+        "name":  "Alámpra"
+    },
+    {
+        "id":  22579,
+        "name":  "Aradíppou"
+    },
+    {
+        "id":  22580,
+        "name":  "Aredioú"
+    },
+    {
+        "id":  22578,
+        "name":  "Argáka"
+    },
+    {
+        "id":  22576,
+        "name":  "Astromerítis"
+    },
+    {
+        "id":  22575,
+        "name":  "Athíenou"
+    },
+    {
+        "id":  22573,
+        "name":  "Avgórou"
+    },
+    {
+        "id":  22572,
+        "name":  "Ayia Napa"
+    },
+    {
+        "id":  22556,
+        "name":  "Chlórakas"
+    },
+    {
+        "id":  22569,
+        "name":  "Dáli"
+    },
+    {
+        "id":  22568,
+        "name":  "Derýneia"
+    },
+    {
+        "id":  22567,
+        "name":  "Dhromolaxia"
+    },
+    {
+        "id":  22565,
+        "name":  "Égkomi"
+    },
+    {
+        "id":  22566,
+        "name":  "Emba"
+    },
+    {
+        "id":  22577,
+        "name":  "Ergátes"
+    },
+    {
+        "id":  22564,
+        "name":  "Erími"
+    },
+    {
+        "id":  22562,
+        "name":  "Famagusta"
+    },
+    {
+        "id":  22514,
+        "name":  "Frénaros"
+    },
+    {
+        "id":  22493,
+        "name":  "Géri"
+    },
+    {
+        "id":  22492,
+        "name":  "Germasógeia"
+    },
+    {
+        "id":  22585,
+        "name":  "Geroskipou"
+    },
+    {
+        "id":  22491,
+        "name":  "Geroskípou (quarter)"
+    },
+    {
+        "id":  22561,
+        "name":  "Kakopetriá"
+    },
+    {
+        "id":  22560,
+        "name":  "Káto Defterá"
+    },
+    {
+        "id":  22559,
+        "name":  "Káto Lakatámeia"
+    },
+    {
+        "id":  22558,
+        "name":  "Káto Polemídia"
+    },
+    {
+        "id":  22557,
+        "name":  "Káto Pýrgos"
+    },
+    {
+        "id":  22555,
+        "name":  "Kissonerga"
+    },
+    {
+        "id":  22554,
+        "name":  "Kíti"
+    },
+    {
+        "id":  22553,
+        "name":  "Klírou"
+    },
+    {
+        "id":  22548,
+        "name":  "Kofínou"
+    },
+    {
+        "id":  22552,
+        "name":  "Kokkinotrimithiá"
+    },
+    {
+        "id":  22551,
+        "name":  "Koloni"
+    },
+    {
+        "id":  22550,
+        "name":  "Kolossi"
+    },
+    {
+        "id":  22549,
+        "name":  "Konia"
+    },
+    {
+        "id":  22547,
+        "name":  "Kórnos"
+    },
+    {
+        "id":  22546,
+        "name":  "Kyperoúnta"
+    },
+    {
+        "id":  22545,
+        "name":  "Kyrenia"
+    },
+    {
+        "id":  22544,
+        "name":  "Lápithos"
+    },
+    {
+        "id":  22543,
+        "name":  "Larnaca"
+    },
+    {
+        "id":  22542,
+        "name":  "Léfka"
+    },
+    {
+        "id":  22541,
+        "name":  "Lefkónoiko"
+    },
+    {
+        "id":  22540,
+        "name":  "Leonárisso"
+    },
+    {
+        "id":  22539,
+        "name":  "Limassol"
+    },
+    {
+        "id":  22538,
+        "name":  "Liopétri"
+    },
+    {
+        "id":  22537,
+        "name":  "Livádia"
+    },
+    {
+        "id":  22536,
+        "name":  "Lýmpia"
+    },
+    {
+        "id":  22535,
+        "name":  "Lythrodóntas"
+    },
+    {
+        "id":  22534,
+        "name":  "Mámmari"
+    },
+    {
+        "id":  22533,
+        "name":  "Meládeia"
+    },
+    {
+        "id":  22532,
+        "name":  "Meneou"
+    },
+    {
+        "id":  22584,
+        "name":  "Méniko"
+    },
+    {
+        "id":  22531,
+        "name":  "Mesógi"
+    },
+    {
+        "id":  22530,
+        "name":  "Mórfou"
+    },
+    {
+        "id":  22529,
+        "name":  "Mosfilotí"
+    },
+    {
+        "id":  22528,
+        "name":  "Mouttagiáka"
+    },
+    {
+        "id":  22527,
+        "name":  "Nicosia"
+    },
+    {
+        "id":  22526,
+        "name":  "Páchna"
+    },
+    {
+        "id":  22525,
+        "name":  "Páno Defterá"
+    },
+    {
+        "id":  22524,
+        "name":  "Páno Polemídia"
+    },
+    {
+        "id":  22523,
+        "name":  "Paphos"
+    },
+    {
+        "id":  22522,
+        "name":  "Paralímni"
+    },
+    {
+        "id":  22521,
+        "name":  "Parekklisha"
+    },
+    {
+        "id":  22515,
+        "name":  "Pégeia"
+    },
+    {
+        "id":  22520,
+        "name":  "Peléndri"
+    },
+    {
+        "id":  22519,
+        "name":  "Péra"
+    },
+    {
+        "id":  22518,
+        "name":  "Pérgamos"
+    },
+    {
+        "id":  22517,
+        "name":  "Peristeróna"
+    },
+    {
+        "id":  22516,
+        "name":  "Perivólia"
+    },
+    {
+        "id":  22513,
+        "name":  "Pissoúri"
+    },
+    {
+        "id":  22512,
+        "name":  "Polémi"
+    },
+    {
+        "id":  22511,
+        "name":  "Pólis"
+    },
+    {
+        "id":  22489,
+        "name":  "Protaras"
+    },
+    {
+        "id":  22510,
+        "name":  "Psevdás"
+    },
+    {
+        "id":  22509,
+        "name":  "Psimolofou"
+    },
+    {
+        "id":  22508,
+        "name":  "Pýla"
+    },
+    {
+        "id":  22507,
+        "name":  "Pyrgos"
+    },
+    {
+        "id":  22506,
+        "name":  "Rizokárpaso"
+    },
+    {
+        "id":  22505,
+        "name":  "Sotíra"
+    },
+    {
+        "id":  22504,
+        "name":  "Stróvolos"
+    },
+    {
+        "id":  22503,
+        "name":  "Tála"
+    },
+    {
+        "id":  22502,
+        "name":  "Tersefánou"
+    },
+    {
+        "id":  22501,
+        "name":  "Tríkomo"
+    },
+    {
+        "id":  22500,
+        "name":  "Tróodos"
+    },
+    {
+        "id":  22499,
+        "name":  "Troúlloi"
+    },
+    {
+        "id":  22498,
+        "name":  "Tsáda"
+    },
+    {
+        "id":  22586,
+        "name":  "Tsada - Tremithousa - Tala (Borders)"
+    },
+    {
+        "id":  22496,
+        "name":  "Tséri"
+    },
+    {
+        "id":  22497,
+        "name":  "Voróklini"
+    },
+    {
+        "id":  22495,
+        "name":  "Xylofágou"
+    },
+    {
+        "id":  22494,
+        "name":  "Xylotymbou"
+    },
+    {
+        "id":  22490,
+        "name":  "Ýpsonas"
+    }
+]

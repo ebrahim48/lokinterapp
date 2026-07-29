@@ -14,6 +14,7 @@ import '../data/models/post_model.dart';
 import '../data/posts_repository.dart';
 import 'widgets/mode_badge.dart';
 import 'widgets/transporter_chip.dart';
+import '../../../core/widgets/image_viewer.dart';
 
 class PostDetailsPage extends StatelessWidget {
   final Post post;
@@ -29,15 +30,31 @@ class PostDetailsPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
+          // the request's item picture — tap to open it full screen
           if (!post.isTrip)
-            Container(
-              height: 180.h,
-              decoration: BoxDecoration(
-                color: cs.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: cs.outline),
+            GestureDetector(
+              onTap: post.imageUrl == null
+                  ? null
+                  : () => ImageViewerPage.open(context, post.imageUrl!,
+                      title: post.title),
+              child: Container(
+                height: 180.h,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: cs.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(color: cs.outline),
+                ),
+                child: post.imageUrl == null
+                    ? Icon(Icons.image_outlined, size: 56.sp, color: cs.onSurfaceVariant)
+                    : Image.network(
+                        post.imageUrl!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (_, __, ___) => Icon(Icons.image_outlined,
+                            size: 56.sp, color: cs.onSurfaceVariant),
+                      ),
               ),
-              child: Icon(Icons.image_outlined, size: 56.sp, color: cs.onSurfaceVariant),
             ),
           if (!post.isTrip) SizedBox(height: 16.h),
           _routeCard(context),
@@ -156,11 +173,18 @@ class PostDetailsPage extends StatelessWidget {
 
   Widget _metaList(BuildContext context) {
     final rows = <(IconData, String, String)>[
-      (Icons.event_outlined, post.isTrip ? 'Trip date' : 'Before', shortDate(post.date)),
+      (Icons.event_outlined, post.isTrip ? 'Trip date' : 'Before', post.dateText),
       (Icons.luggage_outlined, 'Weight', kg(post.remainingWeight ?? post.weight)),
-      if (!post.isTrip) (Icons.category_outlined, 'Category', 'Electronics'),
+      if (!post.isTrip && (post.category ?? '').isNotEmpty)
+        (Icons.category_outlined, 'Category', post.category!),
+      // trips list what they won't carry
+      if (post.isTrip && post.rejectedCategories.isNotEmpty)
+        (Icons.block_outlined, 'Not carried', post.rejectedCategories.join(', ')),
       if (!post.isTrip && post.profit != null)
         (Icons.payments_outlined, 'Traveler profit', post.profit!),
+      // whatever the poster typed in the notes box
+      if ((post.notes ?? '').isNotEmpty)
+        (Icons.notes_outlined, 'Notes', post.notes!),
     ];
     final cs = Theme.of(context).colorScheme;
     return Container(
@@ -173,11 +197,29 @@ class PostDetailsPage extends StatelessWidget {
         children: [
           for (var i = 0; i < rows.length; i++) ...[
             if (i > 0) Divider(height: 1, color: cs.outline),
-            ListTile(
-              leading: Icon(rows[i].$1, color: cs.onSurfaceVariant, size: 20.sp),
-              title: Text(rows[i].$2, style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-              trailing: Text(rows[i].$3,
-                  style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(rows[i].$1, color: cs.onSurfaceVariant, size: 20.sp),
+                  SizedBox(width: 14.w),
+                  Text(rows[i].$2,
+                      style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
+                  SizedBox(width: 12.w),
+                  // notes can run long, so the value wraps instead of clipping
+                  Expanded(
+                    child: Text(
+                      rows[i].$3,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: cs.onSurface),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ],

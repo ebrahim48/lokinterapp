@@ -10,6 +10,7 @@ import '../../data/models/post_model.dart';
 import 'corner_ribbon.dart';
 import 'mode_badge.dart';
 import 'transporter_chip.dart';
+import '../../../../core/widgets/image_viewer.dart';
 
 // Picks the right card for a post: coral for delivery requests, white for trips.
 class PostCard extends StatelessWidget {
@@ -105,7 +106,7 @@ class RequestCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 12.w),
-                _image(),
+                _image(context),
               ],
             ),
             if (post.description != null) ...[
@@ -122,7 +123,7 @@ class RequestCard extends StatelessWidget {
               children: [
                 _meta(Icons.card_giftcard, 'PROFIT', post.profit ?? '-'),
                 _meta(Icons.shopping_bag_outlined, 'WEIGHT', kg(post.weight)),
-                _meta(Icons.event_outlined, 'BEFORE', dayMonth(post.date)),
+                _meta(Icons.event_outlined, 'BEFORE', post.shortDateText),
               ],
             ),
             if (showUser || showChat) ...[
@@ -152,13 +153,15 @@ class RequestCard extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (local)
+          if (local && (post.flagIso ?? countryCodeFor(post.from)) != null)
             CountryFlag.fromCountryCode(
-              post.flagIso ?? countryCodeFor(post.from),
+              (post.flagIso ?? countryCodeFor(post.from))!,
               height: 22.r,
               width: 22.r,
               shape: const Circle(),
             )
+          else if (local)
+            Icon(Icons.location_on, color: AppPalette.localAccent, size: 16.sp)
           else
             Icon(Icons.flight, color: AppPalette.intlAccent, size: 16.sp),
           SizedBox(width: 7.w),
@@ -180,9 +183,9 @@ class RequestCard extends StatelessWidget {
     );
   }
 
-  Widget _image() {
+  Widget _image(BuildContext context) {
     final box = 84.r;
-    return ClipRRect(
+    final thumb = ClipRRect(
       borderRadius: BorderRadius.circular(14.r),
       child: Container(
         width: box,
@@ -197,6 +200,12 @@ class RequestCard extends StatelessWidget {
               )
             : Icon(Icons.image_outlined, color: Colors.white.withValues(alpha: 0.8), size: 30.sp),
       ),
+    );
+    if (post.imageUrl == null) return thumb;
+    // the item picture opens full screen and zooms, like the live results
+    return GestureDetector(
+      onTap: () => ImageViewerPage.open(context, post.imageUrl!, title: post.title),
+      child: thumb,
     );
   }
 
@@ -299,7 +308,7 @@ class TripCard extends StatelessWidget {
                 SizedBox(height: 12.h),
                 Row(
                   children: [
-                    _meta(Icons.event_outlined, 'DATE', shortDate(post.date)),
+                    _meta(Icons.event_outlined, 'DATE', post.dateText),
                     _meta(Icons.luggage_outlined, 'WEIGHT', kg(post.remainingWeight ?? post.weight),
                         alignEnd: true),
                   ],

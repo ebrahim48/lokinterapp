@@ -31,7 +31,16 @@ class SearchResultsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (Get.arguments is int) tab.value = Get.arguments as int;
+    // int = just the tab; Map = tab + prebuilt filters from the home search form
+    final args = Get.arguments;
+    if (args is int) {
+      tab.value = args;
+    } else if (args is Map) {
+      if (args['tab'] is int) tab.value = args['tab'] as int;
+      if (args['filters'] is Map) {
+        filters.addAll(Map<String, dynamic>.from(args['filters'] as Map));
+      }
+    }
     ever(tab, (_) => load());
     _lookups.countries().then(countries.assignAll).catchError((_) {});
     load();

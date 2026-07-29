@@ -1,0 +1,1362 @@
+[
+    {
+        "id":  114679,
+        "name":  "Abrahám"
+    },
+    {
+        "id":  114678,
+        "name":  "Báhoň"
+    },
+    {
+        "id":  114677,
+        "name":  "Bajč"
+    },
+    {
+        "id":  114676,
+        "name":  "Bánovce nad Bebravou"
+    },
+    {
+        "id":  114675,
+        "name":  "Banská Bystrica"
+    },
+    {
+        "id":  114674,
+        "name":  "Banská Štiavnica"
+    },
+    {
+        "id":  114404,
+        "name":  "Bardejov"
+    },
+    {
+        "id":  114425,
+        "name":  "Bátorove Kosihy"
+    },
+    {
+        "id":  114673,
+        "name":  "Beladice"
+    },
+    {
+        "id":  114672,
+        "name":  "Bernolákovo"
+    },
+    {
+        "id":  114671,
+        "name":  "Biely Kostol"
+    },
+    {
+        "id":  114670,
+        "name":  "Bíňa"
+    },
+    {
+        "id":  114669,
+        "name":  "Blatné"
+    },
+    {
+        "id":  114668,
+        "name":  "Bohdanovce nad Trnavou"
+    },
+    {
+        "id":  114667,
+        "name":  "Bojnice"
+    },
+    {
+        "id":  114666,
+        "name":  "Boleráz"
+    },
+    {
+        "id":  114664,
+        "name":  "Borský Mikuláš"
+    },
+    {
+        "id":  114665,
+        "name":  "Borský Svätý Jur"
+    },
+    {
+        "id":  114663,
+        "name":  "Bratislava"
+    },
+    {
+        "id":  114625,
+        "name":  "Bratislava - Vajnory"
+    },
+    {
+        "id":  114662,
+        "name":  "Brezno"
+    },
+    {
+        "id":  114661,
+        "name":  "Brezová pod Bradlom"
+    },
+    {
+        "id":  114660,
+        "name":  "Brodské"
+    },
+    {
+        "id":  114659,
+        "name":  "Budmerice"
+    },
+    {
+        "id":  114658,
+        "name":  "Bytča"
+    },
+    {
+        "id":  114657,
+        "name":  "Cabaj-Čápor"
+    },
+    {
+        "id":  114656,
+        "name":  "Čachtice"
+    },
+    {
+        "id":  114655,
+        "name":  "Čadca"
+    },
+    {
+        "id":  114654,
+        "name":  "Čalovec"
+    },
+    {
+        "id":  114653,
+        "name":  "Čáry"
+    },
+    {
+        "id":  114652,
+        "name":  "Častá"
+    },
+    {
+        "id":  114651,
+        "name":  "Čata"
+    },
+    {
+        "id":  114650,
+        "name":  "Čataj"
+    },
+    {
+        "id":  114649,
+        "name":  "Čenkovce"
+    },
+    {
+        "id":  114648,
+        "name":  "Cerová"
+    },
+    {
+        "id":  114403,
+        "name":  "Chlmec"
+    },
+    {
+        "id":  114647,
+        "name":  "Chorvátský Grob"
+    },
+    {
+        "id":  114646,
+        "name":  "Číčov"
+    },
+    {
+        "id":  114402,
+        "name":  "Čierna nad Tisou"
+    },
+    {
+        "id":  114645,
+        "name":  "Čierna Voda"
+    },
+    {
+        "id":  114644,
+        "name":  "Čierne"
+    },
+    {
+        "id":  114643,
+        "name":  "Čierny Balog"
+    },
+    {
+        "id":  114642,
+        "name":  "Cífer"
+    },
+    {
+        "id":  114641,
+        "name":  "Čilizská Radvaň"
+    },
+    {
+        "id":  114640,
+        "name":  "Dedinka pri Dunaji"
+    },
+    {
+        "id":  114639,
+        "name":  "Detva"
+    },
+    {
+        "id":  114684,
+        "name":  "Devínska Nová Ves"
+    },
+    {
+        "id":  114638,
+        "name":  "Diakovce"
+    },
+    {
+        "id":  114691,
+        "name":  "Dlhé diely"
+    },
+    {
+        "id":  114401,
+        "name":  "Dobšiná"
+    },
+    {
+        "id":  114637,
+        "name":  "Dojč"
+    },
+    {
+        "id":  114636,
+        "name":  "Dolná Streda"
+    },
+    {
+        "id":  114635,
+        "name":  "Dolné Orešany"
+    },
+    {
+        "id":  114634,
+        "name":  "Dolný Kubín"
+    },
+    {
+        "id":  114633,
+        "name":  "Dolný Štál"
+    },
+    {
+        "id":  114632,
+        "name":  "Domaša"
+    },
+    {
+        "id":  114631,
+        "name":  "Dubnica nad Váhom"
+    },
+    {
+        "id":  114630,
+        "name":  "Dúbravka"
+    },
+    {
+        "id":  114629,
+        "name":  "Dudince"
+    },
+    {
+        "id":  114628,
+        "name":  "Dulovce"
+    },
+    {
+        "id":  114627,
+        "name":  "Dunajov"
+    },
+    {
+        "id":  114688,
+        "name":  "Dunajská Lužná"
+    },
+    {
+        "id":  114626,
+        "name":  "Dunajská Streda"
+    },
+    {
+        "id":  114624,
+        "name":  "Dvory nad Žitavou"
+    },
+    {
+        "id":  114623,
+        "name":  "Farná"
+    },
+    {
+        "id":  114622,
+        "name":  "Fiľakovo"
+    },
+    {
+        "id":  114621,
+        "name":  "Gabčíkovo"
+    },
+    {
+        "id":  114683,
+        "name":  "Gajary"
+    },
+    {
+        "id":  114620,
+        "name":  "Galanta"
+    },
+    {
+        "id":  114619,
+        "name":  "Gbelce"
+    },
+    {
+        "id":  114618,
+        "name":  "Gbely"
+    },
+    {
+        "id":  114400,
+        "name":  "Gelnica"
+    },
+    {
+        "id":  114399,
+        "name":  "Giraltovce"
+    },
+    {
+        "id":  114617,
+        "name":  "Hamuliakovo"
+    },
+    {
+        "id":  114616,
+        "name":  "Handlová"
+    },
+    {
+        "id":  114614,
+        "name":  "Hlohovec"
+    },
+    {
+        "id":  114613,
+        "name":  "Holíč"
+    },
+    {
+        "id":  114612,
+        "name":  "Holice"
+    },
+    {
+        "id":  114611,
+        "name":  "Horná Potôň"
+    },
+    {
+        "id":  114610,
+        "name":  "Horné Orešany"
+    },
+    {
+        "id":  114609,
+        "name":  "Horný Bar"
+    },
+    {
+        "id":  114608,
+        "name":  "Hriňová"
+    },
+    {
+        "id":  114607,
+        "name":  "Hrochoť"
+    },
+    {
+        "id":  114606,
+        "name":  "Hrubá Borša"
+    },
+    {
+        "id":  114605,
+        "name":  "Hrubý Šúr"
+    },
+    {
+        "id":  114398,
+        "name":  "Humenné"
+    },
+    {
+        "id":  114604,
+        "name":  "Hurbanovo"
+    },
+    {
+        "id":  114603,
+        "name":  "Hybe"
+    },
+    {
+        "id":  114602,
+        "name":  "Ilava"
+    },
+    {
+        "id":  114601,
+        "name":  "Imeľ"
+    },
+    {
+        "id":  114600,
+        "name":  "Ivanka pri Dunaji"
+    },
+    {
+        "id":  114599,
+        "name":  "Iža"
+    },
+    {
+        "id":  114598,
+        "name":  "Jarovce"
+    },
+    {
+        "id":  114597,
+        "name":  "Jelka"
+    },
+    {
+        "id":  114397,
+        "name":  "Jelšava"
+    },
+    {
+        "id":  114596,
+        "name":  "Kalinkovo"
+    },
+    {
+        "id":  114595,
+        "name":  "Kálna"
+    },
+    {
+        "id":  114594,
+        "name":  "Kameničná"
+    },
+    {
+        "id":  114593,
+        "name":  "Kamenín"
+    },
+    {
+        "id":  114592,
+        "name":  "Kamenný Most"
+    },
+    {
+        "id":  114591,
+        "name":  "Kanianka"
+    },
+    {
+        "id":  114590,
+        "name":  "Karlova Ves"
+    },
+    {
+        "id":  114396,
+        "name":  "Kavečany"
+    },
+    {
+        "id":  114395,
+        "name":  "Kežmarok"
+    },
+    {
+        "id":  114589,
+        "name":  "Kľačno"
+    },
+    {
+        "id":  114394,
+        "name":  "Klokočov"
+    },
+    {
+        "id":  114588,
+        "name":  "Kolárovo"
+    },
+    {
+        "id":  114587,
+        "name":  "Kolta"
+    },
+    {
+        "id":  114585,
+        "name":  "Komárno"
+    },
+    {
+        "id":  114586,
+        "name":  "Komárno"
+    },
+    {
+        "id":  114584,
+        "name":  "Komjatice"
+    },
+    {
+        "id":  114583,
+        "name":  "Komjatná"
+    },
+    {
+        "id":  114393,
+        "name":  "Košice"
+    },
+    {
+        "id":  114682,
+        "name":  "Kostolište"
+    },
+    {
+        "id":  114582,
+        "name":  "Kostolné Kračany"
+    },
+    {
+        "id":  114581,
+        "name":  "Kováčová"
+    },
+    {
+        "id":  114686,
+        "name":  "Kráľová"
+    },
+    {
+        "id":  114580,
+        "name":  "Kráľovičove Kračany"
+    },
+    {
+        "id":  114579,
+        "name":  "Krasňany"
+    },
+    {
+        "id":  114578,
+        "name":  "Krásno nad Kysucou"
+    },
+    {
+        "id":  114577,
+        "name":  "Kremnica"
+    },
+    {
+        "id":  114392,
+        "name":  "Krompachy"
+    },
+    {
+        "id":  114576,
+        "name":  "Krupina"
+    },
+    {
+        "id":  114575,
+        "name":  "Kuchyňa"
+    },
+    {
+        "id":  114574,
+        "name":  "Kútniky"
+    },
+    {
+        "id":  114573,
+        "name":  "Kúty"
+    },
+    {
+        "id":  114572,
+        "name":  "Kvetoslavov"
+    },
+    {
+        "id":  114571,
+        "name":  "Kysucké Nové Mesto"
+    },
+    {
+        "id":  114681,
+        "name":  "Láb"
+    },
+    {
+        "id":  114570,
+        "name":  "Lamač"
+    },
+    {
+        "id":  114569,
+        "name":  "Lazany"
+    },
+    {
+        "id":  114568,
+        "name":  "Lehnice"
+    },
+    {
+        "id":  114439,
+        "name":  "Lehota pod Vtáčnikom"
+    },
+    {
+        "id":  114567,
+        "name":  "Leopoldov"
+    },
+    {
+        "id":  114566,
+        "name":  "Levice"
+    },
+    {
+        "id":  114391,
+        "name":  "Levoča"
+    },
+    {
+        "id":  114615,
+        "name":  "Limbach"
+    },
+    {
+        "id":  114390,
+        "name":  "Lipany"
+    },
+    {
+        "id":  114565,
+        "name":  "Liptovský Hrádok"
+    },
+    {
+        "id":  114564,
+        "name":  "Liptovský Mikuláš"
+    },
+    {
+        "id":  114389,
+        "name":  "Ľubica"
+    },
+    {
+        "id":  114563,
+        "name":  "Lučenec"
+    },
+    {
+        "id":  114562,
+        "name":  "Lúčky"
+    },
+    {
+        "id":  114561,
+        "name":  "Lužianky"
+    },
+    {
+        "id":  114560,
+        "name":  "Majcichov"
+    },
+    {
+        "id":  114559,
+        "name":  "Makov"
+    },
+    {
+        "id":  114557,
+        "name":  "Malá Maňa"
+    },
+    {
+        "id":  114558,
+        "name":  "Malacky"
+    },
+    {
+        "id":  114556,
+        "name":  "Malinovo"
+    },
+    {
+        "id":  114555,
+        "name":  "Marcelová"
+    },
+    {
+        "id":  114554,
+        "name":  "Marianka"
+    },
+    {
+        "id":  114553,
+        "name":  "Martin"
+    },
+    {
+        "id":  114388,
+        "name":  "Medzev"
+    },
+    {
+        "id":  114387,
+        "name":  "Medzilaborce"
+    },
+    {
+        "id":  114386,
+        "name":  "Michalovce"
+    },
+    {
+        "id":  114552,
+        "name":  "Miloslavov"
+    },
+    {
+        "id":  114551,
+        "name":  "Moča"
+    },
+    {
+        "id":  114550,
+        "name":  "Močenok"
+    },
+    {
+        "id":  114549,
+        "name":  "Modra"
+    },
+    {
+        "id":  114548,
+        "name":  "Modrany"
+    },
+    {
+        "id":  114547,
+        "name":  "Mojmírovce"
+    },
+    {
+        "id":  114385,
+        "name":  "Moldava nad Bodvou"
+    },
+    {
+        "id":  114546,
+        "name":  "Most pri Bratislave"
+    },
+    {
+        "id":  114545,
+        "name":  "Mužla"
+    },
+    {
+        "id":  114544,
+        "name":  "Myjava"
+    },
+    {
+        "id":  114543,
+        "name":  "Námestovo"
+    },
+    {
+        "id":  114542,
+        "name":  "Nána"
+    },
+    {
+        "id":  114541,
+        "name":  "Nedožery - Brezany"
+    },
+    {
+        "id":  114540,
+        "name":  "Nemšová"
+    },
+    {
+        "id":  114539,
+        "name":  "Nesvady"
+    },
+    {
+        "id":  114538,
+        "name":  "Nitra"
+    },
+    {
+        "id":  114537,
+        "name":  "Nitrianske Pravno"
+    },
+    {
+        "id":  114536,
+        "name":  "Nižná"
+    },
+    {
+        "id":  114535,
+        "name":  "Nová Baňa"
+    },
+    {
+        "id":  114534,
+        "name":  "Nová Bystrica"
+    },
+    {
+        "id":  114533,
+        "name":  "Nová Dubnica"
+    },
+    {
+        "id":  114384,
+        "name":  "Nová Lesná"
+    },
+    {
+        "id":  114532,
+        "name":  "Nováky"
+    },
+    {
+        "id":  114531,
+        "name":  "Nové Mesto nad Váhom"
+    },
+    {
+        "id":  114530,
+        "name":  "Nové Zámky"
+    },
+    {
+        "id":  114529,
+        "name":  "Obid"
+    },
+    {
+        "id":  114528,
+        "name":  "Ohrady"
+    },
+    {
+        "id":  114527,
+        "name":  "Okoč"
+    },
+    {
+        "id":  114526,
+        "name":  "Okoličná na Ostrove"
+    },
+    {
+        "id":  114525,
+        "name":  "Olešná"
+    },
+    {
+        "id":  114685,
+        "name":  "Oravská Lesná"
+    },
+    {
+        "id":  114524,
+        "name":  "Oravský Podzámok"
+    },
+    {
+        "id":  114523,
+        "name":  "Orechová Potôň"
+    },
+    {
+        "id":  114522,
+        "name":  "Oščadnica"
+    },
+    {
+        "id":  114521,
+        "name":  "Partizánske"
+    },
+    {
+        "id":  114520,
+        "name":  "Pata"
+    },
+    {
+        "id":  114519,
+        "name":  "Petrova Ves"
+    },
+    {
+        "id":  114518,
+        "name":  "Pezinok"
+    },
+    {
+        "id":  114517,
+        "name":  "Piešťany"
+    },
+    {
+        "id":  114516,
+        "name":  "Plavecký Štvrtok"
+    },
+    {
+        "id":  114383,
+        "name":  "Podolínec"
+    },
+    {
+        "id":  114515,
+        "name":  "Podunajské Biskupice"
+    },
+    {
+        "id":  114514,
+        "name":  "Podvysoká"
+    },
+    {
+        "id":  114513,
+        "name":  "Pohronský Ruskov"
+    },
+    {
+        "id":  114512,
+        "name":  "Poltár"
+    },
+    {
+        "id":  114382,
+        "name":  "Poprad"
+    },
+    {
+        "id":  114511,
+        "name":  "Poruba"
+    },
+    {
+        "id":  114510,
+        "name":  "Považská Bystrica"
+    },
+    {
+        "id":  114509,
+        "name":  "Pravenec"
+    },
+    {
+        "id":  114381,
+        "name":  "Prešov"
+    },
+    {
+        "id":  114508,
+        "name":  "Pribeta"
+    },
+    {
+        "id":  114507,
+        "name":  "Pribylina"
+    },
+    {
+        "id":  114506,
+        "name":  "Prievidza"
+    },
+    {
+        "id":  114505,
+        "name":  "Púchov"
+    },
+    {
+        "id":  114504,
+        "name":  "Pusté Úľany"
+    },
+    {
+        "id":  114503,
+        "name":  "Radošovce"
+    },
+    {
+        "id":  114502,
+        "name":  "Rajec"
+    },
+    {
+        "id":  114501,
+        "name":  "Raková"
+    },
+    {
+        "id":  114500,
+        "name":  "Rastice"
+    },
+    {
+        "id":  114380,
+        "name":  "Revúca"
+    },
+    {
+        "id":  114379,
+        "name":  "Rimavská Sobota"
+    },
+    {
+        "id":  114499,
+        "name":  "Rohovce"
+    },
+    {
+        "id":  114498,
+        "name":  "Rohožník"
+    },
+    {
+        "id":  114497,
+        "name":  "Rovinka"
+    },
+    {
+        "id":  114378,
+        "name":  "Rožňava"
+    },
+    {
+        "id":  114496,
+        "name":  "Rusovce"
+    },
+    {
+        "id":  114495,
+        "name":  "Ružindol"
+    },
+    {
+        "id":  114494,
+        "name":  "Ružomberok"
+    },
+    {
+        "id":  114377,
+        "name":  "Sabinov"
+    },
+    {
+        "id":  114493,
+        "name":  "Šahy"
+    },
+    {
+        "id":  114492,
+        "name":  "Šajdíkove Humence"
+    },
+    {
+        "id":  114491,
+        "name":  "Šaľa"
+    },
+    {
+        "id":  114490,
+        "name":  "Šamorín"
+    },
+    {
+        "id":  114689,
+        "name":  "Šaštín-Stráže"
+    },
+    {
+        "id":  114376,
+        "name":  "Sečovce"
+    },
+    {
+        "id":  114489,
+        "name":  "Sekule"
+    },
+    {
+        "id":  114488,
+        "name":  "Senec"
+    },
+    {
+        "id":  114487,
+        "name":  "Senica"
+    },
+    {
+        "id":  114486,
+        "name":  "Skalica"
+    },
+    {
+        "id":  114485,
+        "name":  "Skalité"
+    },
+    {
+        "id":  114484,
+        "name":  "Sládkovičovo"
+    },
+    {
+        "id":  114483,
+        "name":  "Sliač"
+    },
+    {
+        "id":  114482,
+        "name":  "Slovenský Grob"
+    },
+    {
+        "id":  114481,
+        "name":  "Smolenice"
+    },
+    {
+        "id":  114375,
+        "name":  "Snina"
+    },
+    {
+        "id":  114374,
+        "name":  "Sobrance"
+    },
+    {
+        "id":  114480,
+        "name":  "Sokolce"
+    },
+    {
+        "id":  114479,
+        "name":  "Sološnica"
+    },
+    {
+        "id":  114373,
+        "name":  "Spišská Belá"
+    },
+    {
+        "id":  114372,
+        "name":  "Spišská Nová Ves"
+    },
+    {
+        "id":  114687,
+        "name":  "Spisska Sobota"
+    },
+    {
+        "id":  114371,
+        "name":  "Spišské Podhradie"
+    },
+    {
+        "id":  114478,
+        "name":  "Stará Bystrica"
+    },
+    {
+        "id":  114370,
+        "name":  "Stará Ľubovňa"
+    },
+    {
+        "id":  114477,
+        "name":  "Stará Turá"
+    },
+    {
+        "id":  114476,
+        "name":  "Staré Mesto"
+    },
+    {
+        "id":  114475,
+        "name":  "Staškov"
+    },
+    {
+        "id":  114474,
+        "name":  "Štefanov"
+    },
+    {
+        "id":  114369,
+        "name":  "Strážske"
+    },
+    {
+        "id":  114368,
+        "name":  "Štrba"
+    },
+    {
+        "id":  114473,
+        "name":  "Strekov"
+    },
+    {
+        "id":  114367,
+        "name":  "Stropkov"
+    },
+    {
+        "id":  114472,
+        "name":  "Studienka"
+    },
+    {
+        "id":  114471,
+        "name":  "Stupava"
+    },
+    {
+        "id":  114470,
+        "name":  "Štúrovo"
+    },
+    {
+        "id":  114469,
+        "name":  "Štvrtok na Ostrove"
+    },
+    {
+        "id":  114468,
+        "name":  "Suchá nad Parnou"
+    },
+    {
+        "id":  114467,
+        "name":  "Šurany"
+    },
+    {
+        "id":  114466,
+        "name":  "Svätý Anton"
+    },
+    {
+        "id":  114465,
+        "name":  "Svätý Jur"
+    },
+    {
+        "id":  114464,
+        "name":  "Svätý Michal"
+    },
+    {
+        "id":  114463,
+        "name":  "Svätý Peter"
+    },
+    {
+        "id":  114366,
+        "name":  "Svidník"
+    },
+    {
+        "id":  114365,
+        "name":  "Svit"
+    },
+    {
+        "id":  114462,
+        "name":  "Svodín"
+    },
+    {
+        "id":  114461,
+        "name":  "Svrčinovec"
+    },
+    {
+        "id":  114460,
+        "name":  "Tekovské Lužany"
+    },
+    {
+        "id":  114459,
+        "name":  "Terchová"
+    },
+    {
+        "id":  114458,
+        "name":  "Tešedíkovo"
+    },
+    {
+        "id":  114457,
+        "name":  "Tisovec"
+    },
+    {
+        "id":  114456,
+        "name":  "Tlmače"
+    },
+    {
+        "id":  114455,
+        "name":  "Tomášov"
+    },
+    {
+        "id":  114454,
+        "name":  "Topoľčany"
+    },
+    {
+        "id":  114453,
+        "name":  "Topoľníky"
+    },
+    {
+        "id":  114364,
+        "name":  "Tornaľa"
+    },
+    {
+        "id":  114363,
+        "name":  "Trebišov"
+    },
+    {
+        "id":  114452,
+        "name":  "Trenčianske Teplice"
+    },
+    {
+        "id":  114451,
+        "name":  "Trenčín"
+    },
+    {
+        "id":  114450,
+        "name":  "Trhová Hradská"
+    },
+    {
+        "id":  114362,
+        "name":  "Trhovište"
+    },
+    {
+        "id":  114449,
+        "name":  "Trnava"
+    },
+    {
+        "id":  114448,
+        "name":  "Trstená"
+    },
+    {
+        "id":  114447,
+        "name":  "Trstice"
+    },
+    {
+        "id":  114446,
+        "name":  "Trstín"
+    },
+    {
+        "id":  114445,
+        "name":  "Turčianske Teplice"
+    },
+    {
+        "id":  114444,
+        "name":  "Tureň"
+    },
+    {
+        "id":  114361,
+        "name":  "Turňa nad Bodvou"
+    },
+    {
+        "id":  114443,
+        "name":  "Turzovka"
+    },
+    {
+        "id":  114442,
+        "name":  "Tužina"
+    },
+    {
+        "id":  114441,
+        "name":  "Tvrdošín"
+    },
+    {
+        "id":  114440,
+        "name":  "Unín"
+    },
+    {
+        "id":  114438,
+        "name":  "Veľké Blahovo"
+    },
+    {
+        "id":  114437,
+        "name":  "Veľké Čaníkovce"
+    },
+    {
+        "id":  114436,
+        "name":  "Veľké Dvorníky"
+    },
+    {
+        "id":  114360,
+        "name":  "Veľké Kapušany"
+    },
+    {
+        "id":  114435,
+        "name":  "Veľké Leváre"
+    },
+    {
+        "id":  114434,
+        "name":  "Veľké Ludince"
+    },
+    {
+        "id":  114433,
+        "name":  "Veľké Úľany"
+    },
+    {
+        "id":  114432,
+        "name":  "Veľké Zálužie"
+    },
+    {
+        "id":  114431,
+        "name":  "Veľký Biel"
+    },
+    {
+        "id":  114430,
+        "name":  "Veľký Krtíš"
+    },
+    {
+        "id":  114429,
+        "name":  "Veľký Meder"
+    },
+    {
+        "id":  114428,
+        "name":  "Viničné"
+    },
+    {
+        "id":  114359,
+        "name":  "Vinné"
+    },
+    {
+        "id":  114690,
+        "name":  "Vinosady"
+    },
+    {
+        "id":  114427,
+        "name":  "Vištuk"
+    },
+    {
+        "id":  114426,
+        "name":  "Voderady"
+    },
+    {
+        "id":  114424,
+        "name":  "Vozokany"
+    },
+    {
+        "id":  114423,
+        "name":  "Vráble"
+    },
+    {
+        "id":  114422,
+        "name":  "Vrakúň"
+    },
+    {
+        "id":  114421,
+        "name":  "Vrakuňa"
+    },
+    {
+        "id":  114358,
+        "name":  "Vranov nad Topľou"
+    },
+    {
+        "id":  114357,
+        "name":  "Vrbov"
+    },
+    {
+        "id":  114420,
+        "name":  "Vrbové"
+    },
+    {
+        "id":  114419,
+        "name":  "Vrútky"
+    },
+    {
+        "id":  114418,
+        "name":  "Vydrany"
+    },
+    {
+        "id":  114356,
+        "name":  "Vyšné Ružbachy"
+    },
+    {
+        "id":  114417,
+        "name":  "Vysoká nad Kysucou"
+    },
+    {
+        "id":  114355,
+        "name":  "Vysoké Tatry"
+    },
+    {
+        "id":  114416,
+        "name":  "Zákopčie"
+    },
+    {
+        "id":  114354,
+        "name":  "Zálesie"
+    },
+    {
+        "id":  114415,
+        "name":  "Žarnovica"
+    },
+    {
+        "id":  114414,
+        "name":  "Závod"
+    },
+    {
+        "id":  114413,
+        "name":  "Zbehy"
+    },
+    {
+        "id":  114412,
+        "name":  "Zborov nad Bystricou"
+    },
+    {
+        "id":  114353,
+        "name":  "Ždiar"
+    },
+    {
+        "id":  114352,
+        "name":  "Žehra"
+    },
+    {
+        "id":  114411,
+        "name":  "Želiezovce"
+    },
+    {
+        "id":  114410,
+        "name":  "Zemianska Olča"
+    },
+    {
+        "id":  114409,
+        "name":  "Zemné"
+    },
+    {
+        "id":  114408,
+        "name":  "Žiar nad Hronom"
+    },
+    {
+        "id":  114407,
+        "name":  "Žilina"
+    },
+    {
+        "id":  114406,
+        "name":  "Zlaté Moravce"
+    },
+    {
+        "id":  114680,
+        "name":  "Zohor"
+    },
+    {
+        "id":  114405,
+        "name":  "Zvolen"
+    }
+]

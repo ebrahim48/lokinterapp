@@ -1,0 +1,274 @@
+[
+    {
+        "id":  78796,
+        "name":  "Attard"
+    },
+    {
+        "id":  78795,
+        "name":  "Balzan"
+    },
+    {
+        "id":  78794,
+        "name":  "Birkirkara"
+    },
+    {
+        "id":  78793,
+        "name":  "Birżebbuġa"
+    },
+    {
+        "id":  78792,
+        "name":  "Cospicua"
+    },
+    {
+        "id":  78791,
+        "name":  "Dingli"
+    },
+    {
+        "id":  78790,
+        "name":  "Fgura"
+    },
+    {
+        "id":  78782,
+        "name":  "Floriana"
+    },
+    {
+        "id":  78798,
+        "name":  "Fontana"
+    },
+    {
+        "id":  78789,
+        "name":  "Għajnsielem"
+    },
+    {
+        "id":  78788,
+        "name":  "Għarb"
+    },
+    {
+        "id":  78786,
+        "name":  "Għaxaq"
+    },
+    {
+        "id":  78785,
+        "name":  "Gudja"
+    },
+    {
+        "id":  78781,
+        "name":  "Gżira"
+    },
+    {
+        "id":  78787,
+        "name":  "Hal Gharghur"
+    },
+    {
+        "id":  78784,
+        "name":  "Ħamrun"
+    },
+    {
+        "id":  78736,
+        "name":  "Haz-Zebbug"
+    },
+    {
+        "id":  78770,
+        "name":  "Imdina"
+    },
+    {
+        "id":  78768,
+        "name":  "Imġarr"
+    },
+    {
+        "id":  78764,
+        "name":  "Imsida"
+    },
+    {
+        "id":  78763,
+        "name":  "Imtarfa"
+    },
+    {
+        "id":  78779,
+        "name":  "Kalkara"
+    },
+    {
+        "id":  78778,
+        "name":  "Kerċem"
+    },
+    {
+        "id":  78777,
+        "name":  "Kirkop"
+    },
+    {
+        "id":  78776,
+        "name":  "Lija"
+    },
+    {
+        "id":  78775,
+        "name":  "L-Iklin"
+    },
+    {
+        "id":  78773,
+        "name":  "Luqa"
+    },
+    {
+        "id":  78772,
+        "name":  "Marsa"
+    },
+    {
+        "id":  78771,
+        "name":  "Marsaskala"
+    },
+    {
+        "id":  78732,
+        "name":  "Marsaxlokk"
+    },
+    {
+        "id":  78769,
+        "name":  "Mellieħa"
+    },
+    {
+        "id":  78767,
+        "name":  "Mġarr"
+    },
+    {
+        "id":  78766,
+        "name":  "Mosta"
+    },
+    {
+        "id":  78765,
+        "name":  "Mqabba"
+    },
+    {
+        "id":  78762,
+        "name":  "Munxar"
+    },
+    {
+        "id":  78761,
+        "name":  "Nadur"
+    },
+    {
+        "id":  78760,
+        "name":  "Naxxar"
+    },
+    {
+        "id":  78753,
+        "name":  "Paola"
+    },
+    {
+        "id":  78799,
+        "name":  "Pembroke"
+    },
+    {
+        "id":  78759,
+        "name":  "Pietà"
+    },
+    {
+        "id":  78758,
+        "name":  "Qala"
+    },
+    {
+        "id":  78757,
+        "name":  "Qormi"
+    },
+    {
+        "id":  78756,
+        "name":  "Qrendi"
+    },
+    {
+        "id":  78755,
+        "name":  "Rabat"
+    },
+    {
+        "id":  78752,
+        "name":  "Safi"
+    },
+    {
+        "id":  78751,
+        "name":  "San Ġiljan"
+    },
+    {
+        "id":  78797,
+        "name":  "San Ġwann"
+    },
+    {
+        "id":  78750,
+        "name":  "San Lawrenz"
+    },
+    {
+        "id":  78748,
+        "name":  "San Pawl il-Baħar"
+    },
+    {
+        "id":  78749,
+        "name":  "Sannat"
+    },
+    {
+        "id":  78747,
+        "name":  "Santa Luċija"
+    },
+    {
+        "id":  78746,
+        "name":  "Santa Venera"
+    },
+    {
+        "id":  78774,
+        "name":  "Senglea"
+    },
+    {
+        "id":  78745,
+        "name":  "Siġġiewi"
+    },
+    {
+        "id":  78744,
+        "name":  "Sliema"
+    },
+    {
+        "id":  78780,
+        "name":  "Swieqi"
+    },
+    {
+        "id":  78742,
+        "name":  "Ta’ Xbiex"
+    },
+    {
+        "id":  78743,
+        "name":  "Tarxien"
+    },
+    {
+        "id":  78741,
+        "name":  "Valletta"
+    },
+    {
+        "id":  78754,
+        "name":  "Victoria"
+    },
+    {
+        "id":  78783,
+        "name":  "Vittoriosa"
+    },
+    {
+        "id":  78740,
+        "name":  "Xagħra"
+    },
+    {
+        "id":  78739,
+        "name":  "Xewkija"
+    },
+    {
+        "id":  78738,
+        "name":  "Xgħajra"
+    },
+    {
+        "id":  78737,
+        "name":  "Żabbar"
+    },
+    {
+        "id":  78735,
+        "name":  "Żebbuġ"
+    },
+    {
+        "id":  78734,
+        "name":  "Żejtun"
+    },
+    {
+        "id":  78733,
+        "name":  "Żurrieq"
+    }
+]

@@ -85,6 +85,11 @@ class Conversation {
 
 // getChatDetails returns the agreement alongside the post once one exists —
 // the chat screen swaps "Confirm agreement" for a link to it
+// deal statuses that count as closed, so the sender can start a fresh
+// agreement (website EDealStatus: CANCELED / REJECTED — the double-L spelling
+// is tolerated in case the API ever sends it)
+const dealClosedStatuses = ['CANCELED', 'CANCELLED', 'REJECTED'];
+
 class ChatDealRef {
   final int id;
   final String status;
@@ -107,6 +112,12 @@ class ChatPostContext {
   final String from;
   final String to;
   final String? beforeDate;
+  // who owns the post — decides who is the "sender" and thus who may propose
+  // the deal (deliver-post owner, or the non-owner on a trip post)
+  final int ownerId;
+
+  // DELIVER posts label the pill "Before {date}"; trips show the date bare
+  bool get isDeliver => type == 'DELIVER';
 
   const ChatPostContext({
     required this.id,
@@ -115,23 +126,49 @@ class ChatPostContext {
     this.from = '',
     this.to = '',
     this.beforeDate,
+    this.ownerId = 0,
   });
+
+  // on a TRIP post the sender is the OTHER party; on a delivery request the
+  // owner is the sender. Falls back to the trip-post assumption when the owner
+  // id is unknown.
+  bool isSender(int myId) {
+    if (ownerId == 0) return type == 'TRIP';
+    return type == 'TRIP' ? ownerId != myId : ownerId == myId;
+  }
+
+  // website canRequestDeal: the sender may propose while no deal is live —
+  // none yet, or the last one closed as canceled/rejected
+  bool canRequestDeal(int myId, String? dealStatus) =>
+      isSender(myId) &&
+      (dealStatus == null ||
+          dealStatus.isEmpty ||
+          dealClosedStatuses.contains(dealStatus));
 
   static ChatPostContext? fromJson(dynamic json) {
     if (json is! Map || json['id'] == null) return null;
+    final owner = json['user'];
+    // website (from-to component): a local post reads cities, otherwise countries
+    final local = '${json['location'] ?? ''}'.toUpperCase() == 'LOCAL';
     return ChatPostContext(
       id: json['id'],
       type: json['type'] ?? 'TRIP',
       wantTo: json['wantTo'],
-      from: _place(json['fromCity'], json['fromCountry']),
-      to: _place(json['toCity'], json['toCountry']),
+      from: local
+          ? _place(json['fromCity'], json['fromCountry'])
+          : _place(json['fromCountry'], json['fromCity']),
+      to: local
+          ? _place(json['toCity'], json['toCountry'])
+          : _place(json['toCountry'], json['toCity']),
       beforeDate: json['beforeDate'],
+      ownerId: owner is Map ? (owner['id'] is int ? owner['id'] : int.tryParse('${owner['id']}') ?? 0) : 0,
     );
   }
 
-  // city wins when set; both come as objects, and empty relations arrive as []
-  static String _place(dynamic city, dynamic country) {
-    for (final v in [city, country]) {
+  // preferred source first, the other as a fallback; both come as objects,
+  // and empty relations arrive as []
+  static String _place(dynamic preferred, dynamic fallback) {
+    for (final v in [preferred, fallback]) {
       if (v is Map && (v['name'] ?? '').toString().isNotEmpty) return v['name'];
       if (v is String && v.isNotEmpty) return v;
     }

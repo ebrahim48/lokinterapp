@@ -66,7 +66,9 @@ void main() {
     expect(senderAt('PENDING').showsReceiverQr, isTrue);
     expect(senderAt('ACCEPTED').showsReceiverQr, isTrue);
     expect(senderAt('OUTGOING').showsReceiverQr, isTrue);
+    expect(senderAt('DISPUTES').showsReceiverQr, isTrue); // website: shown while disputed
     expect(senderAt('COMPLETED').showsReceiverQr, isFalse);
+    expect(senderAt('CANCELED').showsReceiverQr, isFalse);
     // the traveler never shows the QR — they scan it, not share it
     expect(Deal.fromJson(jsonDecode(_detail)).showsReceiverQr, isFalse);
   });
@@ -109,25 +111,18 @@ void main() {
     expect(d.confirmationLink, contains('/deal-details/eyJ')); // the encrypted ref id
   });
 
-  // whoever confirmed the agreement can only withdraw it — they must not be
-  // offered "Accept deal" on their own proposal
-  test('the proposer cannot accept their own deal', () {
-    final trip = Map<String, dynamic>.from(jsonDecode(_detail))
-      ..['type'] = 'TRIP'
-      ..['isSender'] = true
-      ..['isTraveler'] = false;
-    expect(Deal.fromJson(trip).isProposer, isTrue); // sender proposes on a trip
-
-    final tripOther = Map<String, dynamic>.from(trip)
-      ..['isSender'] = false
-      ..['isTraveler'] = true;
-    expect(Deal.fromJson(tripOther).isProposer, isFalse); // traveler accepts
-
-    final req = Map<String, dynamic>.from(trip)
-      ..['type'] = 'DELIVER'
-      ..['isSender'] = false
-      ..['isTraveler'] = true;
-    expect(Deal.fromJson(req).isProposer, isTrue); // traveler proposes on a request
+  // website: the deal's SENDER is always the proposer — on a trip and on a
+  // delivery request alike — and only the traveler accepts/rejects
+  test('the proposer is the sender, regardless of post type', () {
+    Deal deal(String type, bool iAmSender) =>
+        Deal.fromJson(Map<String, dynamic>.from(jsonDecode(_detail))
+          ..['type'] = type
+          ..['isSender'] = iAmSender
+          ..['isTraveler'] = !iAmSender);
+    expect(deal('TRIP', true).isProposer, isTrue); // sender proposes
+    expect(deal('TRIP', false).isProposer, isFalse); // traveler accepts
+    expect(deal('DELIVER', true).isProposer, isTrue); // sender proposes here too
+    expect(deal('DELIVER', false).isProposer, isFalse); // traveler accepts
   });
 
   test('deal detail parses, including escrow fields', () {
@@ -214,6 +209,22 @@ void main() {
     expect(m.attachmentName, 'Screenshot_20260719-135609_LinkedIn.png');
     // the url alone gives no hint — it ends in "stream"
     expect(m.attachmentUrl, endsWith('/stream'));
+  });
+
+  // only the sender may propose a deal (website canRequestDeal): the sender is
+  // the delivery-request owner, or the non-owner on a trip post
+  test('post context resolves who the sender is', () {
+    ChatPostContext ctx(String type, int ownerId) =>
+        ChatPostContext.fromJson({'id': 5, 'type': type, 'user': {'id': ownerId}})!;
+    // trip post: owner is the traveler, the other party is the sender
+    expect(ctx('TRIP', 9).isSender(1), isTrue); // I (1) don't own it → sender
+    expect(ctx('TRIP', 1).isSender(1), isFalse); // I own the trip → traveler
+    // delivery request: the owner is the sender
+    expect(ctx('DELIVER', 1).isSender(1), isTrue); // I own the request → sender
+    expect(ctx('DELIVER', 9).isSender(1), isFalse); // not mine → I'm the traveler
+    // owner unknown → fall back to the trip-post assumption
+    final noOwner = ChatPostContext.fromJson({'id': 5, 'type': 'TRIP'})!;
+    expect(noOwner.isSender(1), isTrue);
   });
 
   test('chat details deal ref drives the Show Deal bar', () {

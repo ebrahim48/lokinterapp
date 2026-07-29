@@ -1,0 +1,1262 @@
+[
+    {
+        "id":  368,
+        "name":  "‘Alāqahdārī Aṯghar"
+    },
+    {
+        "id":  382,
+        "name":  "‘Alāqahdārī Dīshū"
+    },
+    {
+        "id":  297,
+        "name":  "‘Alāqahdārī Gēlān"
+    },
+    {
+        "id":  401,
+        "name":  "‘Alāqahdārī Saṟōbī"
+    },
+    {
+        "id":  158,
+        "name":  "‘Alāqahdārī Shāh Jōy"
+    },
+    {
+        "id":  381,
+        "name":  "‘Alāqahdārī Yōsuf Khēl"
+    },
+    {
+        "id":  377,
+        "name":  "‘Alāqahdārī-ye Almār"
+    },
+    {
+        "id":  380,
+        "name":  "‘Alī Khēl"
+    },
+    {
+        "id":  378,
+        "name":  "‘Alī Shēr ‘Alāqahdārī"
+    },
+    {
+        "id":  420,
+        "name":  "‘Alīābād"
+    },
+    {
+        "id":  374,
+        "name":  "’Unābah"
+    },
+    {
+        "id":  387,
+        "name":  "Āb-e Kamarī"
+    },
+    {
+        "id":  386,
+        "name":  "Adraskan"
+    },
+    {
+        "id":  385,
+        "name":  "Āfāqī"
+    },
+    {
+        "id":  175,
+        "name":  "Aībak"
+    },
+    {
+        "id":  383,
+        "name":  "Alah Sāy"
+    },
+    {
+        "id":  376,
+        "name":  "Amānzī"
+    },
+    {
+        "id":  375,
+        "name":  "Anār Darah"
+    },
+    {
+        "id":  373,
+        "name":  "Andkhōy"
+    },
+    {
+        "id":  121,
+        "name":  "Āq Kupruk"
+    },
+    {
+        "id":  372,
+        "name":  "Āqchah"
+    },
+    {
+        "id":  367,
+        "name":  "Ārt Khwājah"
+    },
+    {
+        "id":  371,
+        "name":  "Asadābād"
+    },
+    {
+        "id":  370,
+        "name":  "Ashkāsham"
+    },
+    {
+        "id":  369,
+        "name":  "Āsmār"
+    },
+    {
+        "id":  409,
+        "name":  "Bābā Şāḩib"
+    },
+    {
+        "id":  395,
+        "name":  "Bāgh-e Maīdān"
+    },
+    {
+        "id":  365,
+        "name":  "Baghlān"
+    },
+    {
+        "id":  364,
+        "name":  "Bagrāmī"
+    },
+    {
+        "id":  363,
+        "name":  "Bahārak"
+    },
+    {
+        "id":  354,
+        "name":  "Bal Chirāgh"
+    },
+    {
+        "id":  223,
+        "name":  "Bala Murghab"
+    },
+    {
+        "id":  362,
+        "name":  "Balkh"
+    },
+    {
+        "id":  361,
+        "name":  "Bāmyān"
+    },
+    {
+        "id":  360,
+        "name":  "Banū"
+    },
+    {
+        "id":  359,
+        "name":  "Baraki Barak"
+    },
+    {
+        "id":  358,
+        "name":  "Barg-e Matāl"
+    },
+    {
+        "id":  119,
+        "name":  "Bati"
+    },
+    {
+        "id":  398,
+        "name":  "Bāzārak"
+    },
+    {
+        "id":  355,
+        "name":  "Bāzār-e Tālah"
+    },
+    {
+        "id":  139,
+        "name":  "Bāzār-e Tashkān"
+    },
+    {
+        "id":  131,
+        "name":  "Bāzār-e Yakāwlang"
+    },
+    {
+        "id":  353,
+        "name":  "Bulōlah"
+    },
+    {
+        "id":  357,
+        "name":  "Būrkah"
+    },
+    {
+        "id":  351,
+        "name":  "Chāh Āb"
+    },
+    {
+        "id":  266,
+        "name":  "Chahār Bāgh"
+    },
+    {
+        "id":  350,
+        "name":  "Chahār Burj"
+    },
+    {
+        "id":  349,
+        "name":  "Chahār Qal‘ah"
+    },
+    {
+        "id":  348,
+        "name":  "Chākarān"
+    },
+    {
+        "id":  347,
+        "name":  "Chakaray"
+    },
+    {
+        "id":  410,
+        "name":  "Chandal Bā’ī"
+    },
+    {
+        "id":  343,
+        "name":  "Charikar"
+    },
+    {
+        "id":  342,
+        "name":  "Charkh"
+    },
+    {
+        "id":  341,
+        "name":  "Chimtāl"
+    },
+    {
+        "id":  340,
+        "name":  "Chinār"
+    },
+    {
+        "id":  338,
+        "name":  "Chīras"
+    },
+    {
+        "id":  339,
+        "name":  "Chisht-e Sharīf"
+    },
+    {
+        "id":  405,
+        "name":  "Chowṉêy"
+    },
+    {
+        "id":  411,
+        "name":  "Dahan-e Jarf"
+    },
+    {
+        "id":  335,
+        "name":  "Ḏanḏar"
+    },
+    {
+        "id":  334,
+        "name":  "Dāngām"
+    },
+    {
+        "id":  333,
+        "name":  "Darāyim"
+    },
+    {
+        "id":  332,
+        "name":  "Darqad"
+    },
+    {
+        "id":  330,
+        "name":  "Darzāb"
+    },
+    {
+        "id":  329,
+        "name":  "Dasht-e Archī"
+    },
+    {
+        "id":  328,
+        "name":  "Dasht-e Qal‘ah"
+    },
+    {
+        "id":  327,
+        "name":  "Dasht-e Qal‘ah"
+    },
+    {
+        "id":  321,
+        "name":  "Dê Nārkhēl Kêlay"
+    },
+    {
+        "id":  255,
+        "name":  "Deh Khwāhān"
+    },
+    {
+        "id":  325,
+        "name":  "Dehdādī"
+    },
+    {
+        "id":  324,
+        "name":  "Deh-e Now"
+    },
+    {
+        "id":  323,
+        "name":  "Deh-e Şalāḩ"
+    },
+    {
+        "id":  322,
+        "name":  "Dehī"
+    },
+    {
+        "id":  314,
+        "name":  "Dōshī"
+    },
+    {
+        "id":  316,
+        "name":  "Dowlat Shāh"
+    },
+    {
+        "id":  318,
+        "name":  "Dowlatābād"
+    },
+    {
+        "id":  317,
+        "name":  "Dowlatābād"
+    },
+    {
+        "id":  315,
+        "name":  "Dowlatyār"
+    },
+    {
+        "id":  344,
+        "name":  "Dowr-e Rabāţ"
+    },
+    {
+        "id":  413,
+        "name":  "Dū Laīnah"
+    },
+    {
+        "id":  319,
+        "name":  "Dū Qal‘ah"
+    },
+    {
+        "id":  320,
+        "name":  "Dūāb"
+    },
+    {
+        "id":  326,
+        "name":  "Dwah Manḏay"
+    },
+    {
+        "id":  311,
+        "name":  "Eslam Qaleh"
+    },
+    {
+        "id":  305,
+        "name":  "Faīẕābād"
+    },
+    {
+        "id":  309,
+        "name":  "Farah"
+    },
+    {
+        "id":  308,
+        "name":  "Farkhār"
+    },
+    {
+        "id":  352,
+        "name":  "Fayrōz Kōh"
+    },
+    {
+        "id":  304,
+        "name":  "Fayzabad"
+    },
+    {
+        "id":  306,
+        "name":  "Fayẕābād"
+    },
+    {
+        "id":  303,
+        "name":  "Gardez"
+    },
+    {
+        "id":  302,
+        "name":  "Gereshk"
+    },
+    {
+        "id":  301,
+        "name":  "Ghazni"
+    },
+    {
+        "id":  298,
+        "name":  "Ghōriyān"
+    },
+    {
+        "id":  299,
+        "name":  "Ghormach"
+    },
+    {
+        "id":  389,
+        "name":  "Ghulām ‘Alī"
+    },
+    {
+        "id":  300,
+        "name":  "Ghurayd Gharamē"
+    },
+    {
+        "id":  296,
+        "name":  "Gōmal Kêlay"
+    },
+    {
+        "id":  295,
+        "name":  "Gōshtah"
+    },
+    {
+        "id":  294,
+        "name":  "Guz̄arah"
+    },
+    {
+        "id":  292,
+        "name":  "Ḩāfiz̧ Moghul"
+    },
+    {
+        "id":  293,
+        "name":  "Ḩāfiz̧ān"
+    },
+    {
+        "id":  291,
+        "name":  "Ḩājī Khēl"
+    },
+    {
+        "id":  290,
+        "name":  "Herāt"
+    },
+    {
+        "id":  221,
+        "name":  "Ḩukūmat-e Nād ‘Alī"
+    },
+    {
+        "id":  289,
+        "name":  "Ḩukūmat-e Shīnkaī"
+    },
+    {
+        "id":  366,
+        "name":  "Ḩukūmatī Azrah"
+    },
+    {
+        "id":  336,
+        "name":  "Ḩukūmatī Dahanah-ye Ghōrī"
+    },
+    {
+        "id":  396,
+        "name":  "Ibrāhīm Khān"
+    },
+    {
+        "id":  313,
+        "name":  "Imām Şāḩib"
+    },
+    {
+        "id":  312,
+        "name":  "Injīl"
+    },
+    {
+        "id":  310,
+        "name":  "Istālif"
+    },
+    {
+        "id":  288,
+        "name":  "Jabal os Saraj"
+    },
+    {
+        "id":  287,
+        "name":  "Jalālābād"
+    },
+    {
+        "id":  286,
+        "name":  "Jalrēz"
+    },
+    {
+        "id":  285,
+        "name":  "Jānī Khēl"
+    },
+    {
+        "id":  284,
+        "name":  "Jawand"
+    },
+    {
+        "id":  283,
+        "name":  "Jurm"
+    },
+    {
+        "id":  281,
+        "name":  "Kā’ī"
+    },
+    {
+        "id":  282,
+        "name":  "Kabul"
+    },
+    {
+        "id":  280,
+        "name":  "Kajrān"
+    },
+    {
+        "id":  279,
+        "name":  "Kalafgān"
+    },
+    {
+        "id":  278,
+        "name":  "Kalakān"
+    },
+    {
+        "id":  277,
+        "name":  "Kalān Deh"
+    },
+    {
+        "id":  276,
+        "name":  "Kandahār"
+    },
+    {
+        "id":  275,
+        "name":  "Kanḏay"
+    },
+    {
+        "id":  407,
+        "name":  "Karbōṟī"
+    },
+    {
+        "id":  274,
+        "name":  "Karukh"
+    },
+    {
+        "id":  272,
+        "name":  "Kaz̲h̲ah"
+    },
+    {
+        "id":  388,
+        "name":  "Khadīr"
+    },
+    {
+        "id":  271,
+        "name":  "Khākirān"
+    },
+    {
+        "id":  270,
+        "name":  "Khamyāb"
+    },
+    {
+        "id":  264,
+        "name":  "Khān Neshīn"
+    },
+    {
+        "id":  269,
+        "name":  "Khanabad"
+    },
+    {
+        "id":  265,
+        "name":  "Khānaqāh"
+    },
+    {
+        "id":  268,
+        "name":  "Khānaqāh"
+    },
+    {
+        "id":  267,
+        "name":  "Khandūd"
+    },
+    {
+        "id":  263,
+        "name":  "Khāsh"
+    },
+    {
+        "id":  404,
+        "name":  "Khayr Kōṯ"
+    },
+    {
+        "id":  262,
+        "name":  "Khinj"
+    },
+    {
+        "id":  261,
+        "name":  "Khinjān"
+    },
+    {
+        "id":  252,
+        "name":  "Khōshāmand"
+    },
+    {
+        "id":  251,
+        "name":  "Khōshī"
+    },
+    {
+        "id":  258,
+        "name":  "Khōst"
+    },
+    {
+        "id":  260,
+        "name":  "Khudāydād Khēl"
+    },
+    {
+        "id":  257,
+        "name":  "Khūgyāṉī"
+    },
+    {
+        "id":  256,
+        "name":  "Khulbisāt"
+    },
+    {
+        "id":  259,
+        "name":  "Khulm"
+    },
+    {
+        "id":  254,
+        "name":  "Khwājah Dū Kōh"
+    },
+    {
+        "id":  253,
+        "name":  "Khwājah Ghār"
+    },
+    {
+        "id":  400,
+        "name":  "Kirāmān"
+    },
+    {
+        "id":  273,
+        "name":  "Kishk-e Nakhūd"
+    },
+    {
+        "id":  247,
+        "name":  "Kōṯowāl"
+    },
+    {
+        "id":  116,
+        "name":  "Kuhsān"
+    },
+    {
+        "id":  250,
+        "name":  "Kunduz"
+    },
+    {
+        "id":  249,
+        "name":  "Kuran wa Munjan"
+    },
+    {
+        "id":  245,
+        "name":  "Kushk"
+    },
+    {
+        "id":  403,
+        "name":  "Kushkak"
+    },
+    {
+        "id":  248,
+        "name":  "Kushk-e Kuhnah"
+    },
+    {
+        "id":  244,
+        "name":  "La‘l"
+    },
+    {
+        "id":  416,
+        "name":  "Lab-Sar"
+    },
+    {
+        "id":  394,
+        "name":  "Langar"
+    },
+    {
+        "id":  243,
+        "name":  "Larkird"
+    },
+    {
+        "id":  117,
+        "name":  "Lāsh"
+    },
+    {
+        "id":  242,
+        "name":  "Lāsh-e Juwayn"
+    },
+    {
+        "id":  241,
+        "name":  "Lashkar Gāh"
+    },
+    {
+        "id":  231,
+        "name":  "Maīdān Khūlah"
+    },
+    {
+        "id":  240,
+        "name":  "Māmā Khēl"
+    },
+    {
+        "id":  239,
+        "name":  "Mandōl"
+    },
+    {
+        "id":  424,
+        "name":  "Māṉōgay"
+    },
+    {
+        "id":  418,
+        "name":  "March"
+    },
+    {
+        "id":  238,
+        "name":  "Mardīān"
+    },
+    {
+        "id":  331,
+        "name":  "Markaz-e Ḩukūmat-e Darwēshān"
+    },
+    {
+        "id":  144,
+        "name":  "Markaz-e Ḩukūmat-e Sulţān-e Bakwāh"
+    },
+    {
+        "id":  160,
+        "name":  "Markaz-e Sayyidābād"
+    },
+    {
+        "id":  423,
+        "name":  "Markaz-e Woluswalī-ye Āchīn"
+    },
+    {
+        "id":  237,
+        "name":  "Mashhad"
+    },
+    {
+        "id":  412,
+        "name":  "Maydanshakhr"
+    },
+    {
+        "id":  230,
+        "name":  "Maymana"
+    },
+    {
+        "id":  235,
+        "name":  "Māymay"
+    },
+    {
+        "id":  428,
+        "name":  "Mazad"
+    },
+    {
+        "id":  234,
+        "name":  "Mazār-e Sharīf"
+    },
+    {
+        "id":  233,
+        "name":  "Mehtar Lām"
+    },
+    {
+        "id":  232,
+        "name":  "Mingajik"
+    },
+    {
+        "id":  227,
+        "name":  "Mīr Bachah Kōṯ"
+    },
+    {
+        "id":  229,
+        "name":  "Mīrābād"
+    },
+    {
+        "id":  228,
+        "name":  "Mīrān"
+    },
+    {
+        "id":  120,
+        "name":  "Mīray"
+    },
+    {
+        "id":  226,
+        "name":  "Mīzān ‘Alāqahdārī"
+    },
+    {
+        "id":  225,
+        "name":  "Muḩammad Āghah Wuluswālī"
+    },
+    {
+        "id":  356,
+        "name":  "Muhmand Dara"
+    },
+    {
+        "id":  224,
+        "name":  "Muqêr"
+    },
+    {
+        "id":  222,
+        "name":  "Mūsá Qal‘ah"
+    },
+    {
+        "id":  236,
+        "name":  "Mutā Khān"
+    },
+    {
+        "id":  220,
+        "name":  "Nahrīn"
+    },
+    {
+        "id":  218,
+        "name":  "Narang"
+    },
+    {
+        "id":  217,
+        "name":  "Nāṟay"
+    },
+    {
+        "id":  213,
+        "name":  "Nayak"
+    },
+    {
+        "id":  214,
+        "name":  "Nāyak"
+    },
+    {
+        "id":  219,
+        "name":  "Nīkêh"
+    },
+    {
+        "id":  212,
+        "name":  "Nīlī"
+    },
+    {
+        "id":  215,
+        "name":  "Now Dahānak"
+    },
+    {
+        "id":  211,
+        "name":  "Now Zād"
+    },
+    {
+        "id":  210,
+        "name":  "Nūrgal"
+    },
+    {
+        "id":  209,
+        "name":  "Nūsay"
+    },
+    {
+        "id":  206,
+        "name":  "Ōbêh"
+    },
+    {
+        "id":  216,
+        "name":  "Ōkak"
+    },
+    {
+        "id":  205,
+        "name":  "Ōmnah"
+    },
+    {
+        "id":  384,
+        "name":  "Pachīr wa Āgām"
+    },
+    {
+        "id":  204,
+        "name":  "Paghmān"
+    },
+    {
+        "id":  203,
+        "name":  "Panjāb"
+    },
+    {
+        "id":  197,
+        "name":  "Pārūn"
+    },
+    {
+        "id":  421,
+        "name":  "Pas Pul"
+    },
+    {
+        "id":  202,
+        "name":  "Pasāband"
+    },
+    {
+        "id":  201,
+        "name":  "Pāshmūl"
+    },
+    {
+        "id":  200,
+        "name":  "Pasnay"
+    },
+    {
+        "id":  199,
+        "name":  "Pul-e ‘Alam"
+    },
+    {
+        "id":  415,
+        "name":  "Pul-e Ḩişār"
+    },
+    {
+        "id":  198,
+        "name":  "Pul-e Khumrī"
+    },
+    {
+        "id":  393,
+        "name":  "Pul-e Sangī"
+    },
+    {
+        "id":  196,
+        "name":  "Qādis"
+    },
+    {
+        "id":  183,
+        "name":  "Qaīşār"
+    },
+    {
+        "id":  307,
+        "name":  "Qal‘ah-ye Fārsī"
+    },
+    {
+        "id":  191,
+        "name":  "Qal‘ah-ye Kūf"
+    },
+    {
+        "id":  192,
+        "name":  "Qal‘ah-ye Kuhnah"
+    },
+    {
+        "id":  422,
+        "name":  "Qal‘ah-ye Na‘īm"
+    },
+    {
+        "id":  195,
+        "name":  "Qal‘ah-ye Shāhī"
+    },
+    {
+        "id":  193,
+        "name":  "Qal‘ah-ye Shahr"
+    },
+    {
+        "id":  190,
+        "name":  "Qala i Naw"
+    },
+    {
+        "id":  194,
+        "name":  "Qalāt"
+    },
+    {
+        "id":  188,
+        "name":  "Qarah Bāgh"
+    },
+    {
+        "id":  189,
+        "name":  "Qarah Bāgh"
+    },
+    {
+        "id":  390,
+        "name":  "Qarah Bāgh Bāzār"
+    },
+    {
+        "id":  414,
+        "name":  "Qaram Qōl"
+    },
+    {
+        "id":  397,
+        "name":  "Qaranghū Tōghaī"
+    },
+    {
+        "id":  187,
+        "name":  "Qarāwul"
+    },
+    {
+        "id":  186,
+        "name":  "Qarchī Gak"
+    },
+    {
+        "id":  185,
+        "name":  "Qarghah’ī"
+    },
+    {
+        "id":  184,
+        "name":  "Qarqīn"
+    },
+    {
+        "id":  152,
+        "name":  "Qāshqāl"
+    },
+    {
+        "id":  182,
+        "name":  "Quchanghī"
+    },
+    {
+        "id":  181,
+        "name":  "Qurghān"
+    },
+    {
+        "id":  179,
+        "name":  "Rabāţ-e Sangī-ye Pā’īn"
+    },
+    {
+        "id":  180,
+        "name":  "Rāmak"
+    },
+    {
+        "id":  246,
+        "name":  "Rāẕay Balochi"
+    },
+    {
+        "id":  177,
+        "name":  "Rūdbār"
+    },
+    {
+        "id":  178,
+        "name":  "Rustāq"
+    },
+    {
+        "id":  176,
+        "name":  "Rū-ye Sang"
+    },
+    {
+        "id":  427,
+        "name":  "Salām Khēl"
+    },
+    {
+        "id":  173,
+        "name":  "Sang Atesh"
+    },
+    {
+        "id":  174,
+        "name":  "Sangar Sarāy"
+    },
+    {
+        "id":  172,
+        "name":  "Sang-e Chārak"
+    },
+    {
+        "id":  171,
+        "name":  "Sang-e Māshah"
+    },
+    {
+        "id":  170,
+        "name":  "Sangīn"
+    },
+    {
+        "id":  169,
+        "name":  "Sar Chakān"
+    },
+    {
+        "id":  166,
+        "name":  "Sar Kāṉī"
+    },
+    {
+        "id":  168,
+        "name":  "Sar-e Pul"
+    },
+    {
+        "id":  164,
+        "name":  "Sar-e Tayghān"
+    },
+    {
+        "id":  167,
+        "name":  "Sarfirāz Kalā"
+    },
+    {
+        "id":  165,
+        "name":  "Sarōbī"
+    },
+    {
+        "id":  161,
+        "name":  "Şayād"
+    },
+    {
+        "id":  163,
+        "name":  "Sāyagaz"
+    },
+    {
+        "id":  157,
+        "name":  "Shahrak"
+    },
+    {
+        "id":  156,
+        "name":  "Shahrān"
+    },
+    {
+        "id":  155,
+        "name":  "Shahr-e Şafā"
+    },
+    {
+        "id":  426,
+        "name":  "Sharan"
+    },
+    {
+        "id":  151,
+        "name":  "Shaykh Amīr Kêlay"
+    },
+    {
+        "id":  399,
+        "name":  "Shērwānī-ye Bālā"
+    },
+    {
+        "id":  149,
+        "name":  "S̲h̲ēwah"
+    },
+    {
+        "id":  153,
+        "name":  "Shibirghān"
+    },
+    {
+        "id":  150,
+        "name":  "Shīnḏanḏ"
+    },
+    {
+        "id":  154,
+        "name":  "Shwāk"
+    },
+    {
+        "id":  162,
+        "name":  "Sidqābād"
+    },
+    {
+        "id":  148,
+        "name":  "Siyāhgird"
+    },
+    {
+        "id":  147,
+        "name":  "Sōzmah Qal‘ah"
+    },
+    {
+        "id":  146,
+        "name":  "Spērah"
+    },
+    {
+        "id":  145,
+        "name":  "Spīn Bōldak"
+    },
+    {
+        "id":  425,
+        "name":  "Stêr Giyān"
+    },
+    {
+        "id":  408,
+        "name":  "Sulţānpūr-e ‘Ulyā"
+    },
+    {
+        "id":  392,
+        "name":  "Surkh Bilandī"
+    },
+    {
+        "id":  143,
+        "name":  "Tagāb"
+    },
+    {
+        "id":  142,
+        "name":  "Tagāw-Bāy"
+    },
+    {
+        "id":  141,
+        "name":  "Taloqan"
+    },
+    {
+        "id":  417,
+        "name":  "Ţāqchah Khānah"
+    },
+    {
+        "id":  140,
+        "name":  "Tarinkot"
+    },
+    {
+        "id":  138,
+        "name":  "Taywarah"
+    },
+    {
+        "id":  137,
+        "name":  "Tīr Pul"
+    },
+    {
+        "id":  136,
+        "name":  "Tītān"
+    },
+    {
+        "id":  134,
+        "name":  "Tōrmay"
+    },
+    {
+        "id":  346,
+        "name":  "Tsamkanī"
+    },
+    {
+        "id":  345,
+        "name":  "Tsapêraī"
+    },
+    {
+        "id":  337,
+        "name":  "Tsowkêy"
+    },
+    {
+        "id":  118,
+        "name":  "Tukzār"
+    },
+    {
+        "id":  135,
+        "name":  "Tūlak"
+    },
+    {
+        "id":  208,
+        "name":  "Urgun"
+    },
+    {
+        "id":  207,
+        "name":  "Uruzgān"
+    },
+    {
+        "id":  133,
+        "name":  "Wāshēr"
+    },
+    {
+        "id":  115,
+        "name":  "Wulêswālī Bihsūd"
+    },
+    {
+        "id":  159,
+        "name":  "Wulêswālī Sayyid Karam"
+    },
+    {
+        "id":  379,
+        "name":  "Wuluswālī ‘Alīngār"
+    },
+    {
+        "id":  406,
+        "name":  "Wuṯahpūr"
+    },
+    {
+        "id":  132,
+        "name":  "Yaḩyá Khēl"
+    },
+    {
+        "id":  130,
+        "name":  "Yangī Qal‘ah"
+    },
+    {
+        "id":  129,
+        "name":  "Zamtō Kêlay"
+    },
+    {
+        "id":  127,
+        "name":  "Zaṟah Sharan"
+    },
+    {
+        "id":  128,
+        "name":  "Zaranj"
+    },
+    {
+        "id":  391,
+        "name":  "Zargarān"
+    },
+    {
+        "id":  126,
+        "name":  "Zarghūn Shahr"
+    },
+    {
+        "id":  123,
+        "name":  "Zaybāk"
+    },
+    {
+        "id":  124,
+        "name":  "Zīārat-e Shāh Maqşūd"
+    },
+    {
+        "id":  125,
+        "name":  "Zindah Jān"
+    },
+    {
+        "id":  419,
+        "name":  "Zīrakī"
+    },
+    {
+        "id":  402,
+        "name":  "Zīṟūk ‘Alāqahdārī"
+    },
+    {
+        "id":  114,
+        "name":  "Zōr Kōṯ"
+    },
+    {
+        "id":  122,
+        "name":  "Zurmat"
+    }
+]

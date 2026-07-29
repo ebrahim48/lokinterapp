@@ -1,0 +1,466 @@
+[
+    {
+        "id":  114024,
+        "name":  "Admiralty"
+    },
+    {
+        "id":  113986,
+        "name":  "Alexandra Estate"
+    },
+    {
+        "id":  114049,
+        "name":  "Anak Bukit"
+    },
+    {
+        "id":  114013,
+        "name":  "Ang Mo Kio New Town"
+    },
+    {
+        "id":  114034,
+        "name":  "Bangkit"
+    },
+    {
+        "id":  114015,
+        "name":  "Bedok New Town"
+    },
+    {
+        "id":  114042,
+        "name":  "Bencoolen"
+    },
+    {
+        "id":  113987,
+        "name":  "Bishan New Town"
+    },
+    {
+        "id":  113985,
+        "name":  "Boon Lay"
+    },
+    {
+        "id":  113984,
+        "name":  "Braddell Heights Estate"
+    },
+    {
+        "id":  113983,
+        "name":  "Brickworks Estate"
+    },
+    {
+        "id":  114023,
+        "name":  "Bugis"
+    },
+    {
+        "id":  113988,
+        "name":  "Bukit Batok New Town"
+    },
+    {
+        "id":  113989,
+        "name":  "Bukit Ho Swee Estate"
+    },
+    {
+        "id":  113982,
+        "name":  "Bukit Mandai Village"
+    },
+    {
+        "id":  113981,
+        "name":  "Bukit Merah Estate"
+    },
+    {
+        "id":  114014,
+        "name":  "Bukit Panjang New Town"
+    },
+    {
+        "id":  113980,
+        "name":  "Bukit Timah Estate"
+    },
+    {
+        "id":  113979,
+        "name":  "Bulim"
+    },
+    {
+        "id":  113978,
+        "name":  "Changi Village"
+    },
+    {
+        "id":  114020,
+        "name":  "Choa Chu Kang New Town"
+    },
+    {
+        "id":  114016,
+        "name":  "Clementi Housing Estate"
+    },
+    {
+        "id":  114045,
+        "name":  "Dairy Farm"
+    },
+    {
+        "id":  114035,
+        "name":  "Dover"
+    },
+    {
+        "id":  114022,
+        "name":  "Eunos"
+    },
+    {
+        "id":  114007,
+        "name":  "Faber Hills"
+    },
+    {
+        "id":  114032,
+        "name":  "Fajar"
+    },
+    {
+        "id":  114044,
+        "name":  "Farrer Park"
+    },
+    {
+        "id":  113977,
+        "name":  "Geylang"
+    },
+    {
+        "id":  114008,
+        "name":  "Ghim Moh"
+    },
+    {
+        "id":  114028,
+        "name":  "HarbourFront"
+    },
+    {
+        "id":  113990,
+        "name":  "Henderson Estate"
+    },
+    {
+        "id":  114005,
+        "name":  "Hillcrest Park"
+    },
+    {
+        "id":  114036,
+        "name":  "Holland Drive"
+    },
+    {
+        "id":  113976,
+        "name":  "Holland Village"
+    },
+    {
+        "id":  113975,
+        "name":  "Hong Kah"
+    },
+    {
+        "id":  113991,
+        "name":  "Hougang New Town"
+    },
+    {
+        "id":  114039,
+        "name":  "Institution Hill"
+    },
+    {
+        "id":  114046,
+        "name":  "Jelebu"
+    },
+    {
+        "id":  113992,
+        "name":  "Jurong East"
+    },
+    {
+        "id":  113993,
+        "name":  "Jurong Town"
+    },
+    {
+        "id":  113994,
+        "name":  "Jurong West"
+    },
+    {
+        "id":  113995,
+        "name":  "Kaki Bukit Estate"
+    },
+    {
+        "id":  113974,
+        "name":  "Kallang"
+    },
+    {
+        "id":  113973,
+        "name":  "Kampong Java Teban"
+    },
+    {
+        "id":  113971,
+        "name":  "Kampong Loyang"
+    },
+    {
+        "id":  113970,
+        "name":  "Kampong Pasir Ris"
+    },
+    {
+        "id":  113969,
+        "name":  "Kampong Potong Pasir"
+    },
+    {
+        "id":  113967,
+        "name":  "Kampong Ubi"
+    },
+    {
+        "id":  113966,
+        "name":  "Kampong Ulu Pandan"
+    },
+    {
+        "id":  114004,
+        "name":  "Kangkar"
+    },
+    {
+        "id":  113965,
+        "name":  "Keat Hong Village"
+    },
+    {
+        "id":  113972,
+        "name":  "Kembangan"
+    },
+    {
+        "id":  113964,
+        "name":  "Kent Ridge"
+    },
+    {
+        "id":  113963,
+        "name":  "Lam San Village"
+    },
+    {
+        "id":  114025,
+        "name":  "Lavender"
+    },
+    {
+        "id":  113962,
+        "name":  "Leedon Park"
+    },
+    {
+        "id":  114040,
+        "name":  "Leonie Hill"
+    },
+    {
+        "id":  113961,
+        "name":  "Loyang"
+    },
+    {
+        "id":  114011,
+        "name":  "Lucky Hills"
+    },
+    {
+        "id":  113996,
+        "name":  "MacPherson"
+    },
+    {
+        "id":  114037,
+        "name":  "Margaret Drive"
+    },
+    {
+        "id":  114029,
+        "name":  "Marina Bay"
+    },
+    {
+        "id":  114012,
+        "name":  "Marine Parade"
+    },
+    {
+        "id":  113960,
+        "name":  "Marsiling"
+    },
+    {
+        "id":  113959,
+        "name":  "Matilda Estate"
+    },
+    {
+        "id":  114010,
+        "name":  "Mount Emily Park"
+    },
+    {
+        "id":  113940,
+        "name":  "Mount Vernon"
+    },
+    {
+        "id":  114048,
+        "name":  "Nature Reserve"
+    },
+    {
+        "id":  114026,
+        "name":  "Newton"
+    },
+    {
+        "id":  114021,
+        "name":  "Novena"
+    },
+    {
+        "id":  114038,
+        "name":  "One North"
+    },
+    {
+        "id":  114009,
+        "name":  "One Tree Hill"
+    },
+    {
+        "id":  113997,
+        "name":  "Outram Park"
+    },
+    {
+        "id":  114041,
+        "name":  "Oxley"
+    },
+    {
+        "id":  114006,
+        "name":  "Pandan Valley"
+    },
+    {
+        "id":  113958,
+        "name":  "Pasir Panjang"
+    },
+    {
+        "id":  114017,
+        "name":  "Pasir Ris New Town"
+    },
+    {
+        "id":  113957,
+        "name":  "Paya Lebar"
+    },
+    {
+        "id":  114050,
+        "name":  "Peng Siang"
+    },
+    {
+        "id":  113956,
+        "name":  "Punggol"
+    },
+    {
+        "id":  114018,
+        "name":  "Queenstown Estate"
+    },
+    {
+        "id":  113968,
+        "name":  "Radin Mas"
+    },
+    {
+        "id":  114031,
+        "name":  "River Valley"
+    },
+    {
+        "id":  114043,
+        "name":  "Rochor"
+    },
+    {
+        "id":  114033,
+        "name":  "Saujana"
+    },
+    {
+        "id":  113955,
+        "name":  "Sembawang Estate"
+    },
+    {
+        "id":  113954,
+        "name":  "Sembawang Hills Estate"
+    },
+    {
+        "id":  114027,
+        "name":  "Sengkang New Town"
+    },
+    {
+        "id":  114047,
+        "name":  "Senja"
+    },
+    {
+        "id":  113953,
+        "name":  "Sennett Estate"
+    },
+    {
+        "id":  114030,
+        "name":  "Sentosa"
+    },
+    {
+        "id":  113952,
+        "name":  "Serangoon"
+    },
+    {
+        "id":  113951,
+        "name":  "Serangoon Garden"
+    },
+    {
+        "id":  113998,
+        "name":  "Serangoon New Town"
+    },
+    {
+        "id":  113999,
+        "name":  "Simei New Town"
+    },
+    {
+        "id":  113950,
+        "name":  "Singapore"
+    },
+    {
+        "id":  113949,
+        "name":  "Somapah"
+    },
+    {
+        "id":  113948,
+        "name":  "Sungai Simpang"
+    },
+    {
+        "id":  113947,
+        "name":  "Tai Seng"
+    },
+    {
+        "id":  113946,
+        "name":  "Tampines Estate"
+    },
+    {
+        "id":  114000,
+        "name":  "Tampines New Town"
+    },
+    {
+        "id":  113945,
+        "name":  "Tanglin"
+    },
+    {
+        "id":  114001,
+        "name":  "Tanglin Halt"
+    },
+    {
+        "id":  114051,
+        "name":  "Teck Whye"
+    },
+    {
+        "id":  114019,
+        "name":  "Telok Blangah"
+    },
+    {
+        "id":  113944,
+        "name":  "Thomson"
+    },
+    {
+        "id":  113943,
+        "name":  "Tiong Bahru Estate"
+    },
+    {
+        "id":  113942,
+        "name":  "Toa Payoh New Town"
+    },
+    {
+        "id":  113941,
+        "name":  "Ulu Bedok"
+    },
+    {
+        "id":  113939,
+        "name":  "West Coast Village"
+    },
+    {
+        "id":  114003,
+        "name":  "Woodlands"
+    },
+    {
+        "id":  114052,
+        "name":  "Woodlands North Coast"
+    },
+    {
+        "id":  113938,
+        "name":  "Yew Tee"
+    },
+    {
+        "id":  113937,
+        "name":  "Yio Chu Kang"
+    },
+    {
+        "id":  114002,
+        "name":  "Yishun New Town"
+    }
+]

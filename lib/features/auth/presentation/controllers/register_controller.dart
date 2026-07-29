@@ -51,6 +51,19 @@ class RegisterController extends GetxController {
   void onInit() {
     super.onInit();
     _lookups.countries().then(countries.assignAll).catchError((_) {});
+    // live mode: picking the country of residence fills in its dial code
+    ever(country, (name) {
+      final c = countries.firstWhereOrNull((e) => e.name == name);
+      if (c == null || c.phoneCode.isEmpty) return;
+      final prefix = '+${c.phoneCode}';
+      // keep whatever the user already typed after the old prefix
+      final rest = phone.text.startsWith('+')
+          ? phone.text.replaceFirst(RegExp(r'^\+\d{1,4}'), '')
+          : phone.text;
+      phone.text = '$prefix$rest';
+      phone.selection =
+          TextSelection.fromPosition(TextPosition(offset: phone.text.length));
+    });
   }
 
   // The basics go out in both steps; transporter extras ride along on step 2.

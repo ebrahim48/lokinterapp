@@ -1,0 +1,602 @@
+[
+    {
+        "id":  63949,
+        "name":  "‘Afak"
+    },
+    {
+        "id":  63931,
+        "name":  "‘Alī al Gharbī"
+    },
+    {
+        "id":  63966,
+        "name":  "‘Anah"
+    },
+    {
+        "id":  63912,
+        "name":  "‘Anat al Qadīmah"
+    },
+    {
+        "id":  63908,
+        "name":  "‘Aqrah"
+    },
+    {
+        "id":  63838,
+        "name":  "‘Ayn Tamr"
+    },
+    {
+        "id":  63894,
+        "name":  "‘Aynkāwah"
+    },
+    {
+        "id":  63954,
+        "name":  "Abī al Khaşīb"
+    },
+    {
+        "id":  63955,
+        "name":  "Abū Ghurayb"
+    },
+    {
+        "id":  63952,
+        "name":  "Ad Dawr"
+    },
+    {
+        "id":  63951,
+        "name":  "Ad Dīwānīyah"
+    },
+    {
+        "id":  63950,
+        "name":  "Ad Dujayl"
+    },
+    {
+        "id":  63864,
+        "name":  "Al ‘Abbāsī"
+    },
+    {
+        "id":  63948,
+        "name":  "Al ‘Amādīyah"
+    },
+    {
+        "id":  63947,
+        "name":  "Al ‘Amārah"
+    },
+    {
+        "id":  63946,
+        "name":  "Al ‘Awjah"
+    },
+    {
+        "id":  63945,
+        "name":  "Al ‘Azīzīyah"
+    },
+    {
+        "id":  63943,
+        "name":  "Al Ba‘āj"
+    },
+    {
+        "id":  63957,
+        "name":  "Al Başrah al Qadīmah"
+    },
+    {
+        "id":  63942,
+        "name":  "Al Fallūjah"
+    },
+    {
+        "id":  63941,
+        "name":  "Al Fāw"
+    },
+    {
+        "id":  63938,
+        "name":  "Al Ḩaḑar"
+    },
+    {
+        "id":  63937,
+        "name":  "Al Ḩamzah"
+    },
+    {
+        "id":  63868,
+        "name":  "Al Ḩaqlānīyah"
+    },
+    {
+        "id":  63936,
+        "name":  "Al Hārithah"
+    },
+    {
+        "id":  63935,
+        "name":  "Al Hāshimīyah"
+    },
+    {
+        "id":  63958,
+        "name":  "Al Ḩawījah"
+    },
+    {
+        "id":  63934,
+        "name":  "Al Ḩayy"
+    },
+    {
+        "id":  63933,
+        "name":  "Al Ḩillah"
+    },
+    {
+        "id":  63932,
+        "name":  "Al Hindīyah"
+    },
+    {
+        "id":  63880,
+        "name":  "Al Jabāyish"
+    },
+    {
+        "id":  63929,
+        "name":  "Al Kaḩlā’"
+    },
+    {
+        "id":  63927,
+        "name":  "Al Khāliş"
+    },
+    {
+        "id":  63925,
+        "name":  "Al Kūt"
+    },
+    {
+        "id":  63924,
+        "name":  "Al Madīnah"
+    },
+    {
+        "id":  63923,
+        "name":  "Al Maḩāwīl"
+    },
+    {
+        "id":  63922,
+        "name":  "Al Maḩmūdīyah"
+    },
+    {
+        "id":  63953,
+        "name":  "Al Manādhirah"
+    },
+    {
+        "id":  63920,
+        "name":  "Al Mawşil al Jadīdah"
+    },
+    {
+        "id":  63919,
+        "name":  "Al Maymūnah"
+    },
+    {
+        "id":  63918,
+        "name":  "Al Miqdādīyah"
+    },
+    {
+        "id":  63917,
+        "name":  "Al Mishkhāb"
+    },
+    {
+        "id":  63916,
+        "name":  "Al Musayyib"
+    },
+    {
+        "id":  63848,
+        "name":  "Al Qā’im"
+    },
+    {
+        "id":  63914,
+        "name":  "Al Qayyārah"
+    },
+    {
+        "id":  63913,
+        "name":  "Al Qurnah"
+    },
+    {
+        "id":  63849,
+        "name":  "Al-Hamdaniya"
+    },
+    {
+        "id":  63915,
+        "name":  "al-Qasim"
+    },
+    {
+        "id":  63973,
+        "name":  "AlZwya"
+    },
+    {
+        "id":  63909,
+        "name":  "An Nu‘mānīyah"
+    },
+    {
+        "id":  63906,
+        "name":  "Ar Rifā‘ī"
+    },
+    {
+        "id":  63905,
+        "name":  "Ar Riyāḑ"
+    },
+    {
+        "id":  63904,
+        "name":  "Ar Rumaythah"
+    },
+    {
+        "id":  63903,
+        "name":  "Ar Ruţbah"
+    },
+    {
+        "id":  63899,
+        "name":  "As Salmān"
+    },
+    {
+        "id":  63898,
+        "name":  "As Samawah"
+    },
+    {
+        "id":  63897,
+        "name":  "As Sulaymānīyah"
+    },
+    {
+        "id":  63896,
+        "name":  "Aş Şuwayrah"
+    },
+    {
+        "id":  63902,
+        "name":  "Ash Shāmīyah"
+    },
+    {
+        "id":  63839,
+        "name":  "Ash Sharqāt"
+    },
+    {
+        "id":  63901,
+        "name":  "Ash Shaţrah"
+    },
+    {
+        "id":  63893,
+        "name":  "Ash Shaykhān"
+    },
+    {
+        "id":  63895,
+        "name":  "Aţ Ţārmīyah"
+    },
+    {
+        "id":  63892,
+        "name":  "Az Zubayr"
+    },
+    {
+        "id":  63891,
+        "name":  "Badrah"
+    },
+    {
+        "id":  63890,
+        "name":  "Baghdad"
+    },
+    {
+        "id":  63888,
+        "name":  "Balad"
+    },
+    {
+        "id":  63887,
+        "name":  "Baladrūz"
+    },
+    {
+        "id":  63886,
+        "name":  "Bāmarnī"
+    },
+    {
+        "id":  63884,
+        "name":  "Baqubah"
+    },
+    {
+        "id":  63889,
+        "name":  "Barkah"
+    },
+    {
+        "id":  63883,
+        "name":  "Barţalah"
+    },
+    {
+        "id":  63944,
+        "name":  "Basrah"
+    },
+    {
+        "id":  63882,
+        "name":  "Batifa"
+    },
+    {
+        "id":  63881,
+        "name":  "Bayjī"
+    },
+    {
+        "id":  63885,
+        "name":  "Baynjiwayn"
+    },
+    {
+        "id":  63963,
+        "name":  "Choman"
+    },
+    {
+        "id":  63877,
+        "name":  "Chwarta"
+    },
+    {
+        "id":  63832,
+        "name":  "Dāqūq"
+    },
+    {
+        "id":  63960,
+        "name":  "Dare Tû"
+    },
+    {
+        "id":  63956,
+        "name":  "Derbendîxan"
+    },
+    {
+        "id":  63876,
+        "name":  "Derkar"
+    },
+    {
+        "id":  63875,
+        "name":  "Dibis"
+    },
+    {
+        "id":  63874,
+        "name":  "Dihok"
+    },
+    {
+        "id":  63872,
+        "name":  "Dukan"
+    },
+    {
+        "id":  63865,
+        "name":  "Erbil"
+    },
+    {
+        "id":  63879,
+        "name":  "Gundê Çê"
+    },
+    {
+        "id":  63870,
+        "name":  "Ḩadīthah"
+    },
+    {
+        "id":  63962,
+        "name":  "Hajiawa"
+    },
+    {
+        "id":  63869,
+        "name":  "Ḩalabja"
+    },
+    {
+        "id":  63965,
+        "name":  "Halshaw"
+    },
+    {
+        "id":  63974,
+        "name":  "Hawe Ben Alean"
+    },
+    {
+        "id":  63972,
+        "name":  "Hayraw"
+    },
+    {
+        "id":  63975,
+        "name":  "Hetit"
+    },
+    {
+        "id":  63867,
+        "name":  "Hīrān"
+    },
+    {
+        "id":  63866,
+        "name":  "Hīt"
+    },
+    {
+        "id":  63967,
+        "name":  "Ibrāhīm al Khalīl"
+    },
+    {
+        "id":  63878,
+        "name":  "Jamjamāl"
+    },
+    {
+        "id":  63862,
+        "name":  "Kānī Māsī"
+    },
+    {
+        "id":  63861,
+        "name":  "Karbala"
+    },
+    {
+        "id":  63961,
+        "name":  "Kasnazān Ismā‘īl"
+    },
+    {
+        "id":  63863,
+        "name":  "Kelar"
+    },
+    {
+        "id":  63928,
+        "name":  "Khāliş"
+    },
+    {
+        "id":  63859,
+        "name":  "Khānaqīn"
+    },
+    {
+        "id":  63858,
+        "name":  "Kifrī"
+    },
+    {
+        "id":  63860,
+        "name":  "Kirkuk"
+    },
+    {
+        "id":  63857,
+        "name":  "Koysinceq"
+    },
+    {
+        "id":  63976,
+        "name":  "Kuchka"
+    },
+    {
+        "id":  63926,
+        "name":  "Kufa"
+    },
+    {
+        "id":  63855,
+        "name":  "Mandalī"
+    },
+    {
+        "id":  63854,
+        "name":  "Mawet"
+    },
+    {
+        "id":  63853,
+        "name":  "Mêrgasur"
+    },
+    {
+        "id":  63856,
+        "name":  "Mexmur"
+    },
+    {
+        "id":  63921,
+        "name":  "Mosul"
+    },
+    {
+        "id":  63970,
+        "name":  "Nāḩiyat ‘Atbah"
+    },
+    {
+        "id":  63940,
+        "name":  "Nāḩiyat al Fuhūd"
+    },
+    {
+        "id":  63930,
+        "name":  "Nāḩiyat al Iskandarīyah"
+    },
+    {
+        "id":  63971,
+        "name":  "Nāḩiyat Alī ash Sharqī"
+    },
+    {
+        "id":  63900,
+        "name":  "Nāḩiyat ash Shināfīyah"
+    },
+    {
+        "id":  63969,
+        "name":  "Nāḩiyat Baḩār"
+    },
+    {
+        "id":  63939,
+        "name":  "Nahiyat Ghammas"
+    },
+    {
+        "id":  63968,
+        "name":  "Nāḩiyat Hīrān"
+    },
+    {
+        "id":  63844,
+        "name":  "Nāḩīyat Saddat al Hindīyah"
+    },
+    {
+        "id":  63911,
+        "name":  "Najaf"
+    },
+    {
+        "id":  63910,
+        "name":  "Nasiriyah"
+    },
+    {
+        "id":  63851,
+        "name":  "Qal‘at Şāliḩ"
+    },
+    {
+        "id":  63852,
+        "name":  "Qeładizê"
+    },
+    {
+        "id":  63850,
+        "name":  "Qeredagh"
+    },
+    {
+        "id":  63959,
+        "name":  "Qushtepe"
+    },
+    {
+        "id":  63907,
+        "name":  "Ramadi"
+    },
+    {
+        "id":  63847,
+        "name":  "Ṟaniye"
+    },
+    {
+        "id":  63846,
+        "name":  "Rāwah"
+    },
+    {
+        "id":  63845,
+        "name":  "Ṟuwandiz"
+    },
+    {
+        "id":  63843,
+        "name":  "Sāmarrā’"
+    },
+    {
+        "id":  63841,
+        "name":  "Seyid Sadiq"
+    },
+    {
+        "id":  63840,
+        "name":  "Shaqlāwah"
+    },
+    {
+        "id":  63837,
+        "name":  "Sīnah"
+    },
+    {
+        "id":  63964,
+        "name":  "Sinjār"
+    },
+    {
+        "id":  63873,
+        "name":  "Soran"
+    },
+    {
+        "id":  63836,
+        "name":  "Sumayl"
+    },
+    {
+        "id":  63835,
+        "name":  "Sūq ash Shuyūkh"
+    },
+    {
+        "id":  63834,
+        "name":  "Tall ‘Afar"
+    },
+    {
+        "id":  63833,
+        "name":  "Tallkayf"
+    },
+    {
+        "id":  63842,
+        "name":  "Taxa Cheya"
+    },
+    {
+        "id":  63831,
+        "name":  "Tikrīt"
+    },
+    {
+        "id":  63830,
+        "name":  "Ţūz Khūrmātū"
+    },
+    {
+        "id":  63829,
+        "name":  "Umm Qaşr"
+    },
+    {
+        "id":  63871,
+        "name":  "Xebat"
+    },
+    {
+        "id":  63827,
+        "name":  "Zāwītah"
+    },
+    {
+        "id":  63828,
+        "name":  "Zaxo"
+    }
+]

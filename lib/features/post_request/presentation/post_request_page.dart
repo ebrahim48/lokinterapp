@@ -226,22 +226,25 @@ class PostRequestPage extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: c.weight,
         ),
-        SizedBox(height: 16.h),
-        LokTextField(
-          label: 'Pickup location',
-          hint: 'where the item is collected',
-          icon: Icons.place_outlined,
-          required: true,
-          controller: c.pickupLocation,
-        ),
-        SizedBox(height: 16.h),
-        LokTextField(
-          label: 'Dropoff location',
-          hint: 'where it should be delivered',
-          icon: Icons.flag_outlined,
-          required: true,
-          controller: c.dropoffLocation,
-        ),
+        // live mode only asks for these on a local request
+        if (c.isLocal) ...[
+          SizedBox(height: 16.h),
+          LokTextField(
+            label: 'Pickup location',
+            hint: 'where the item is collected',
+            icon: Icons.place_outlined,
+            required: true,
+            controller: c.pickupLocation,
+          ),
+          SizedBox(height: 16.h),
+          LokTextField(
+            label: 'Dropoff location',
+            hint: 'where it should be delivered',
+            icon: Icons.flag_outlined,
+            required: true,
+            controller: c.dropoffLocation,
+          ),
+        ],
         SizedBox(height: 16.h),
         Obx(() => LokDropdownField(
               label: 'Categories',

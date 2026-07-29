@@ -1,0 +1,442 @@
+[
+    {
+        "id":  113093,
+        "name":  "Abu Jibeha"
+    },
+    {
+        "id":  113092,
+        "name":  "Abū Zabad"
+    },
+    {
+        "id":  113091,
+        "name":  "Ad Dabbah"
+    },
+    {
+        "id":  113088,
+        "name":  "Ad Dindar"
+    },
+    {
+        "id":  113086,
+        "name":  "Ad Douiem"
+    },
+    {
+        "id":  113090,
+        "name":  "Ad-Damazin"
+    },
+    {
+        "id":  113109,
+        "name":  "Ad-Dindar"
+    },
+    {
+        "id":  113083,
+        "name":  "Al Fūlah"
+    },
+    {
+        "id":  113097,
+        "name":  "Al Giref Gharb"
+    },
+    {
+        "id":  113082,
+        "name":  "Al Hasaheisa"
+    },
+    {
+        "id":  113081,
+        "name":  "Al Ḩawātah"
+    },
+    {
+        "id":  113080,
+        "name":  "Al Hilāliyya"
+    },
+    {
+        "id":  113107,
+        "name":  "Al Jazeera Aba"
+    },
+    {
+        "id":  113077,
+        "name":  "Al Kawa"
+    },
+    {
+        "id":  113076,
+        "name":  "Al Kiremit al ‘Arakiyyīn"
+    },
+    {
+        "id":  113073,
+        "name":  "Al Lagowa"
+    },
+    {
+        "id":  113072,
+        "name":  "Al Manāqil"
+    },
+    {
+        "id":  113096,
+        "name":  "Al Manshiya"
+    },
+    {
+        "id":  113069,
+        "name":  "Al Masallamiyya"
+    },
+    {
+        "id":  113070,
+        "name":  "Al Mijlad"
+    },
+    {
+        "id":  113068,
+        "name":  "Al Qadarif"
+    },
+    {
+        "id":  113067,
+        "name":  "Al Qiţena"
+    },
+    {
+        "id":  113105,
+        "name":  "ِAl Taif"
+    },
+    {
+        "id":  113108,
+        "name":  "ALdinigila wad dhahi"
+    },
+    {
+        "id":  113110,
+        "name":  "Al-Fashaqah"
+    },
+    {
+        "id":  113111,
+        "name":  "Al-Fāw"
+    },
+    {
+        "id":  113112,
+        "name":  "Al-Quṭaynah"
+    },
+    {
+        "id":  113065,
+        "name":  "An Nuhūd"
+    },
+    {
+        "id":  113062,
+        "name":  "Ar Rahad"
+    },
+    {
+        "id":  113113,
+        "name":  "\u0027Ārdamatā"
+    },
+    {
+        "id":  113064,
+        "name":  "Argo"
+    },
+    {
+        "id":  113063,
+        "name":  "Aroma"
+    },
+    {
+        "id":  113059,
+        "name":  "As Sūkī"
+    },
+    {
+        "id":  113060,
+        "name":  "Ash Shallāl"
+    },
+    {
+        "id":  113058,
+        "name":  "Atbara"
+    },
+    {
+        "id":  113057,
+        "name":  "Babanūsah"
+    },
+    {
+        "id":  113056,
+        "name":  "Bārah"
+    },
+    {
+        "id":  113055,
+        "name":  "Berber"
+    },
+    {
+        "id":  113054,
+        "name":  "Burām"
+    },
+    {
+        "id":  113053,
+        "name":  "Burri Al Drayssah"
+    },
+    {
+        "id":  113100,
+        "name":  "Burri Al Lamab"
+    },
+    {
+        "id":  113102,
+        "name":  "Burri Al Mahas"
+    },
+    {
+        "id":  113094,
+        "name":  "Burri Al Shreef"
+    },
+    {
+        "id":  113051,
+        "name":  "Dilling"
+    },
+    {
+        "id":  113050,
+        "name":  "Doka"
+    },
+    {
+        "id":  113005,
+        "name":  "Dongola"
+    },
+    {
+        "id":  113089,
+        "name":  "Ed Damer"
+    },
+    {
+        "id":  113085,
+        "name":  "El Bauga"
+    },
+    {
+        "id":  113087,
+        "name":  "El Daein"
+    },
+    {
+        "id":  113084,
+        "name":  "El Fasher"
+    },
+    {
+        "id":  113101,
+        "name":  "El Fula"
+    },
+    {
+        "id":  113078,
+        "name":  "El Geneina Fort"
+    },
+    {
+        "id":  113071,
+        "name":  "El Matama"
+    },
+    {
+        "id":  113066,
+        "name":  "El Obeid"
+    },
+    {
+        "id":  113061,
+        "name":  "Er Roseires"
+    },
+    {
+        "id":  113106,
+        "name":  "Garden City"
+    },
+    {
+        "id":  113048,
+        "name":  "Gebeit"
+    },
+    {
+        "id":  113079,
+        "name":  "Geneina"
+    },
+    {
+        "id":  113099,
+        "name":  "Gereida"
+    },
+    {
+        "id":  113047,
+        "name":  "Ghubaysh"
+    },
+    {
+        "id":  113049,
+        "name":  "Jalqani"
+    },
+    {
+        "id":  113045,
+        "name":  "Jubayt"
+    },
+    {
+        "id":  113044,
+        "name":  "Kabkābīyah"
+    },
+    {
+        "id":  113043,
+        "name":  "Kadugli"
+    },
+    {
+        "id":  113042,
+        "name":  "Karmah an Nuzul"
+    },
+    {
+        "id":  113041,
+        "name":  "Kas"
+    },
+    {
+        "id":  113040,
+        "name":  "Kassala"
+    },
+    {
+        "id":  113075,
+        "name":  "Khartoum"
+    },
+    {
+        "id":  113074,
+        "name":  "Khartoum North"
+    },
+    {
+        "id":  113039,
+        "name":  "Khashm al Qirbah"
+    },
+    {
+        "id":  113038,
+        "name":  "Kināna"
+    },
+    {
+        "id":  113035,
+        "name":  "Kosti"
+    },
+    {
+        "id":  113037,
+        "name":  "Kuraymah"
+    },
+    {
+        "id":  113036,
+        "name":  "Kurmuk"
+    },
+    {
+        "id":  113034,
+        "name":  "Kutum"
+    },
+    {
+        "id":  113033,
+        "name":  "Maiurno"
+    },
+    {
+        "id":  113032,
+        "name":  "Marabba"
+    },
+    {
+        "id":  113030,
+        "name":  "Mellit"
+    },
+    {
+        "id":  113031,
+        "name":  "Merowe"
+    },
+    {
+        "id":  113103,
+        "name":  "Nagaro"
+    },
+    {
+        "id":  113098,
+        "name":  "Najaru قرية نجرو"
+    },
+    {
+        "id":  113095,
+        "name":  "Nasir Extension"
+    },
+    {
+        "id":  113046,
+        "name":  "New Halfa"
+    },
+    {
+        "id":  113029,
+        "name":  "Nyala"
+    },
+    {
+        "id":  113015,
+        "name":  "Omdurman"
+    },
+    {
+        "id":  113052,
+        "name":  "Port Sudan"
+    },
+    {
+        "id":  113028,
+        "name":  "Rabak"
+    },
+    {
+        "id":  113027,
+        "name":  "Rahad al Bardi"
+    },
+    {
+        "id":  113104,
+        "name":  "Riyadh"
+    },
+    {
+        "id":  113026,
+        "name":  "Rufā‘a"
+    },
+    {
+        "id":  113023,
+        "name":  "Shendi"
+    },
+    {
+        "id":  113114,
+        "name":  "Sh\u0027īarīah"
+    },
+    {
+        "id":  113022,
+        "name":  "Singa"
+    },
+    {
+        "id":  113021,
+        "name":  "Sinkat"
+    },
+    {
+        "id":  113025,
+        "name":  "Sinnar"
+    },
+    {
+        "id":  113024,
+        "name":  "Suakin"
+    },
+    {
+        "id":  113020,
+        "name":  "Talodi"
+    },
+    {
+        "id":  113019,
+        "name":  "Tandaltī"
+    },
+    {
+        "id":  113018,
+        "name":  "Tokār"
+    },
+    {
+        "id":  113017,
+        "name":  "Tullus"
+    },
+    {
+        "id":  113014,
+        "name":  "Um Jar Al Gharbiyya"
+    },
+    {
+        "id":  113016,
+        "name":  "Umm Dafog"
+    },
+    {
+        "id":  113013,
+        "name":  "Umm Kaddadah"
+    },
+    {
+        "id":  113012,
+        "name":  "Umm Ruwaba"
+    },
+    {
+        "id":  113011,
+        "name":  "Umm Shawkah"
+    },
+    {
+        "id":  113010,
+        "name":  "Wad az Zāki"
+    },
+    {
+        "id":  113009,
+        "name":  "Wad Medani"
+    },
+    {
+        "id":  113008,
+        "name":  "Wad Rāwah"
+    },
+    {
+        "id":  113007,
+        "name":  "Wagar"
+    },
+    {
+        "id":  113006,
+        "name":  "Zalinguei"
+    }
+]

@@ -73,5 +73,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Lokinter needs the camera to record the pickup video that confirms a parcel's condition.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Lokinter records audio with the pickup video so both parties can verify the handover.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Lokinter needs photo access to attach item pictures and pickup videos to your deals.</string>
 </dict>
 </plist>

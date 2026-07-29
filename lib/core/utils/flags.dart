@@ -22,8 +22,9 @@ const _cityCountry = {
   'Istanbul': 'Turkey',
 };
 
-// Falls back to Tunisia if the place is unknown.
-String countryCodeFor(String place) {
+// Null when the place isn't recognised — callers hide the flag rather than
+// show the wrong country (the own-posts endpoint sends no ISO code at all).
+String? countryCodeFor(String place) {
   final country = _countryCode.containsKey(place) ? place : _cityCountry[place];
-  return _countryCode[country] ?? 'TN';
+  return _countryCode[country];
 }

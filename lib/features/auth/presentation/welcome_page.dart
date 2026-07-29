@@ -30,32 +30,31 @@ class WelcomePage extends StatelessWidget {
               _hero(),
               SizedBox(height: 24.h),
               Text(
-                'Ship anything, anywhere',
+                'welcome.tagline'.tr,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(height: 8.h),
               Text(
-                'Connect with travelers heading your way and send '
-                'parcels locally or across the world.',
+                'welcome.subtitle'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.5),
               ),
               const Spacer(),
               ElevatedButton(
                 onPressed: () => Get.to(() => const LoginPage()),
-                child: const Text('Login'),
+                child: Text('welcome.login'.tr),
               ),
               SizedBox(height: 12.h),
               OutlinedButton(
                 onPressed: () => Get.to(() => const RegisterPage()),
-                child: const Text('Create an account'),
+                child: Text('welcome.createAccount'.tr),
               ),
               SizedBox(height: 12.h),
               TextButton(
                 onPressed: () => Get.offAll(() => const MainShell()),
                 child: Text(
-                  'Continue as guest',
+                  'welcome.guest'.tr,
                   style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13.sp),
                 ),
               ),

@@ -5,6 +5,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import '../../features/auth/data/models/auth_user.dart';
 import 'cache_service.dart';
+import 'language_service.dart';
 import 'storage_service.dart';
 
 // Who is logged in right now. Tokens live in SharedPreferences so the
@@ -50,6 +51,10 @@ class SessionService extends GetxService {
   Future<void> saveUser(AuthUser u) async {
     user.value = u;
     await _storage.setString(StorageKeys.userJson, jsonEncode(u.toJson()));
+    // adopt the account's saved language on login / getUser
+    if (Get.isRegistered<LanguageService>()) {
+      Get.find<LanguageService>().applyFromUser(u.lang);
+    }
   }
 
   // wipes every trace of the account so nothing leaks into the next login

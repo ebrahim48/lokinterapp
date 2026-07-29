@@ -161,6 +161,7 @@ class PostTripPage extends StatelessWidget {
               value: c.date.value,
               onChanged: (d) => c.date.value = d,
             )),
+        // live mode has no airline field, and no pickup/dropoff on trips
         if (c.isLocal) ...[
           SizedBox(height: 12.h),
           Obx(() => LokCheckbox(
@@ -168,15 +169,6 @@ class PostTripPage extends StatelessWidget {
                 value: c.noSpecificDate.value,
                 onChanged: (v) => c.noSpecificDate.value = v,
               )),
-        ] else ...[
-          SizedBox(height: 16.h),
-          LokTextField(
-            label: 'Airline',
-            hint: 'e.g. Air France',
-            icon: Icons.flight_takeoff,
-            required: true,
-            controller: c.airline,
-          ),
         ],
         SizedBox(height: 16.h),
         LokTextField(
@@ -188,29 +180,13 @@ class PostTripPage extends StatelessWidget {
           controller: c.weight,
         ),
         SizedBox(height: 16.h),
-        LokTextField(
-          label: 'Pickup location',
-          hint: 'where you collect items',
-          icon: Icons.place_outlined,
-          required: true,
-          controller: c.pickupLocation,
-        ),
-        SizedBox(height: 16.h),
-        LokTextField(
-          label: 'Dropoff location',
-          hint: 'where you hand them over',
-          icon: Icons.flag_outlined,
-          required: true,
-          controller: c.dropoffLocation,
-        ),
-        SizedBox(height: 16.h),
-        Obx(() => LokDropdownField(
+        Obx(() => LokMultiSelectField(
               label: 'Rejected Categories (optional)',
               hint: 'select rejected categories',
               icon: Icons.category_outlined,
               options: c.categoryNames,
-              value: c.rejectedCategory.value,
-              onChanged: (v) => c.rejectedCategory.value = v,
+              selected: c.rejectedCategories.toList(),
+              onChanged: c.rejectedCategories.assignAll,
             )),
         SizedBox(height: 16.h),
         LokTextField(

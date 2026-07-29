@@ -1,4 +1,5 @@
 import '../../../../core/utils/media_url.dart';
+import '../../../../core/utils/format.dart';
 
 enum PostType { trip, deliver }
 
@@ -57,10 +58,19 @@ class Post {
   final String? pickupLocation;
   final String? dropoffLocation;
   final String? status;
+  // free-text notes: deliveryPoints on a request, pickupPoints on a trip
+  final String? notes;
+  // the API's own label for the date — may read "No specific date/time"
+  final String? dateLabel;
+  // trips can rule out several categories at once
+  final List<String> rejectedCategories;
   final PostUser user;
   final bool recommended;
 
   const Post({
+    this.dateLabel,
+    this.notes,
+    this.rejectedCategories = const [],
     this.id = 0,
     required this.type,
     required this.location,
@@ -110,6 +120,11 @@ class Post {
       profit: json['profit']?.toString(),
       imageUrl: fixMediaUrl(json['attachUrl'] ?? json['imageUrl'] ?? json['attachFile']?['url']),
       category: json['categoryTitle'],
+      notes: json['pickupPoints'] ?? json['deliveryPoints'],
+      dateLabel: _dateLabel(json['beforeDate']),
+      rejectedCategories: (json['rejectedCategoriesTitles'] as List? ?? const [])
+          .map((e) => '$e')
+          .toList(),
       categoryId: json['categoryId'],
       airline: json['airLine'],
       pickupLocation: json['pickupLocation'],
@@ -130,6 +145,7 @@ class Post {
         fromCountry: _name(json['from']),
         toCountry: _name(json['to']),
         date: _parseDate(json['beforeDate']),
+        dateLabel: _dateLabel(json['beforeDate']),
         weight: _num(json['weight']), // arrives as a string ("20")
         user: const PostUser(name: ''),
       );
@@ -139,6 +155,9 @@ class Post {
   String get from => fromCity ?? fromCountry;
   String get to => toCity ?? toCountry;
   String? get flagIso => fromIso; // local posts fly their country's flag
+  // what to print for the date: the API's phrase when there isn't a real one
+  String get dateText => dateLabel ?? shortDate(date);
+  String get shortDateText => dateLabel ?? dayMonth(date);
 
   // numbers sometimes arrive as strings ("5") — never trust the type
   static double _num(dynamic v) =>
@@ -158,6 +177,13 @@ class Post {
   }
 
   static String? _iso(dynamic v) => v is Map ? v['iso2'] : null;
+
+  // the API returns a phrase like "No specific date/time" when a trip was
+  // posted without one — keep it so the UI doesn't invent a date
+  static String? _dateLabel(dynamic raw) {
+    if (raw is! String || raw.isEmpty) return null;
+    return RegExp(r'^\d{1,2}/\d{1,2}/\d{4}').hasMatch(raw) ? null : raw;
+  }
 
   // "08/01/2026 12:00 AM" — MM/dd/yyyy with a 12h clock
   static DateTime _parseDate(dynamic raw) {

@@ -23,7 +23,8 @@ class PostTripController extends GetxController {
   final toCity = RxnString();
   final date = Rxn<DateTime>();
   final noSpecificDate = false.obs;
-  final rejectedCategory = RxnString();
+  // live mode lets a traveler rule out several categories at once
+  final rejectedCategories = <String>[].obs;
 
   final weight = TextEditingController();
   final notes = TextEditingController();
@@ -95,7 +96,8 @@ class PostTripController extends GetxController {
       airline.text = post.airline ?? '';
       pickupLocation.text = post.pickupLocation ?? '';
       dropoffLocation.text = post.dropoffLocation ?? '';
-      rejectedCategory.value = post.category;
+      notes.text = post.notes ?? '';
+      rejectedCategories.assignAll(post.rejectedCategories);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -123,23 +125,19 @@ class PostTripController extends GetxController {
       toast('Pick a destination country');
       return;
     }
-    if (!isLocal && airline.text.trim().isEmpty) {
-      toast('Airline is required for international trips');
-      return;
-    }
     if (date.value == null && !noSpecificDate.value) {
       toast('Pick a trip date');
       return;
     }
-    if (pickupLocation.text.trim().isEmpty || dropoffLocation.text.trim().isEmpty) {
-      toast('Add the pickup and dropoff locations');
-      return;
-    }
-
     final rejected = categories
-        .where((c) => c.title == rejectedCategory.value)
+        .where((c) => rejectedCategories.contains(c.title))
         .map((c) => c.id)
         .toList();
+
+    // trips don't ask for pickup/dropoff in live mode; the repository posts the
+    // same placeholder the website does so the API's required rule still passes
+    const from = '';
+    const to = '';
 
     busy.value = true;
     try {
@@ -153,11 +151,11 @@ class PostTripController extends GetxController {
           fromCity: _cityByName(fromCity.value),
           toCity: _cityByName(toCity.value),
           date: tripDate,
-          airline: airline.text.trim(),
           weight: kg,
-          pickupLocation: pickupLocation.text.trim(),
-          dropoffLocation: dropoffLocation.text.trim(),
+          pickupLocation: from,
+          dropoffLocation: to,
           rejectedCategoryIds: rejected,
+          notes: notes.text.trim(),
         );
       } else {
         await _repo.addTrip(
@@ -167,11 +165,11 @@ class PostTripController extends GetxController {
           fromCity: _cityByName(fromCity.value),
           toCity: _cityByName(toCity.value),
           date: tripDate,
-          airline: airline.text.trim(),
           weight: kg,
-          pickupLocation: pickupLocation.text.trim(),
-          dropoffLocation: dropoffLocation.text.trim(),
+          pickupLocation: from,
+          dropoffLocation: to,
           rejectedCategoryIds: rejected,
+          notes: notes.text.trim(),
         );
       }
       toast(isEditing ? 'Trip updated' : 'Trip posted');

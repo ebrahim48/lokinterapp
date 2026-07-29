@@ -1,0 +1,1514 @@
+[
+    {
+        "id":  796,
+        "name":  "Aliaj"
+    },
+    {
+        "id":  439,
+        "name":  "Aliko"
+    },
+    {
+        "id":  793,
+        "name":  "Allambres"
+    },
+    {
+        "id":  792,
+        "name":  "Allkaj"
+    },
+    {
+        "id":  791,
+        "name":  "Aranitas"
+    },
+    {
+        "id":  790,
+        "name":  "Armen"
+    },
+    {
+        "id":  598,
+        "name":  "Arras"
+    },
+    {
+        "id":  597,
+        "name":  "Arrën"
+    },
+    {
+        "id":  804,
+        "name":  "Bajram Curri"
+    },
+    {
+        "id":  789,
+        "name":  "Baldushk"
+    },
+    {
+        "id":  596,
+        "name":  "Ballaban"
+    },
+    {
+        "id":  788,
+        "name":  "Ballagat"
+    },
+    {
+        "id":  795,
+        "name":  "Balldreni i Ri"
+    },
+    {
+        "id":  787,
+        "name":  "Ballsh"
+    },
+    {
+        "id":  595,
+        "name":  "Barmash"
+    },
+    {
+        "id":  786,
+        "name":  "Baz"
+    },
+    {
+        "id":  785,
+        "name":  "Belsh"
+    },
+    {
+        "id":  784,
+        "name":  "Berat"
+    },
+    {
+        "id":  783,
+        "name":  "Bërdica e Madhe"
+    },
+    {
+        "id":  782,
+        "name":  "Bërxull"
+    },
+    {
+        "id":  781,
+        "name":  "Bërzhitë"
+    },
+    {
+        "id":  593,
+        "name":  "Bicaj"
+    },
+    {
+        "id":  592,
+        "name":  "Bilisht"
+    },
+    {
+        "id":  591,
+        "name":  "Blerim"
+    },
+    {
+        "id":  590,
+        "name":  "Blinisht"
+    },
+    {
+        "id":  603,
+        "name":  "Bogovë"
+    },
+    {
+        "id":  589,
+        "name":  "Bradashesh"
+    },
+    {
+        "id":  780,
+        "name":  "Brataj"
+    },
+    {
+        "id":  779,
+        "name":  "Bubq"
+    },
+    {
+        "id":  778,
+        "name":  "Bubullimë"
+    },
+    {
+        "id":  440,
+        "name":  "Buçimas"
+    },
+    {
+        "id":  588,
+        "name":  "Bujan"
+    },
+    {
+        "id":  587,
+        "name":  "Bulqizë"
+    },
+    {
+        "id":  586,
+        "name":  "Burrel"
+    },
+    {
+        "id":  777,
+        "name":  "Bushat"
+    },
+    {
+        "id":  585,
+        "name":  "Bushtricë"
+    },
+    {
+        "id":  584,
+        "name":  "Buz"
+    },
+    {
+        "id":  599,
+        "name":  "Bytyç"
+    },
+    {
+        "id":  776,
+        "name":  "Cakran"
+    },
+    {
+        "id":  582,
+        "name":  "Çarshovë"
+    },
+    {
+        "id":  581,
+        "name":  "Çepan"
+    },
+    {
+        "id":  580,
+        "name":  "Cerava"
+    },
+    {
+        "id":  775,
+        "name":  "Cërrik"
+    },
+    {
+        "id":  746,
+        "name":  "Çlirim"
+    },
+    {
+        "id":  579,
+        "name":  "Çlirim"
+    },
+    {
+        "id":  578,
+        "name":  "Çorovodë"
+    },
+    {
+        "id":  774,
+        "name":  "Cudhi Zall"
+    },
+    {
+        "id":  773,
+        "name":  "Cukalat"
+    },
+    {
+        "id":  771,
+        "name":  "Dajç"
+    },
+    {
+        "id":  772,
+        "name":  "Dajç"
+    },
+    {
+        "id":  770,
+        "name":  "Dajt"
+    },
+    {
+        "id":  594,
+        "name":  "Dardhas"
+    },
+    {
+        "id":  438,
+        "name":  "Delvinë"
+    },
+    {
+        "id":  576,
+        "name":  "Derjan"
+    },
+    {
+        "id":  768,
+        "name":  "Dërmënas"
+    },
+    {
+        "id":  767,
+        "name":  "Dhërmi"
+    },
+    {
+        "id":  437,
+        "name":  "Dhivër"
+    },
+    {
+        "id":  575,
+        "name":  "Dishnicë"
+    },
+    {
+        "id":  766,
+        "name":  "Divjakë"
+    },
+    {
+        "id":  765,
+        "name":  "Drenovë"
+    },
+    {
+        "id":  574,
+        "name":  "Drenovë"
+    },
+    {
+        "id":  764,
+        "name":  "Drenovicë"
+    },
+    {
+        "id":  763,
+        "name":  "Duhanas"
+    },
+    {
+        "id":  762,
+        "name":  "Durrës"
+    },
+    {
+        "id":  801,
+        "name":  "Dushk"
+    },
+    {
+        "id":  761,
+        "name":  "Dushnik"
+    },
+    {
+        "id":  573,
+        "name":  "Elbasan"
+    },
+    {
+        "id":  572,
+        "name":  "Ersekë"
+    },
+    {
+        "id":  571,
+        "name":  "Fajzë"
+    },
+    {
+        "id":  760,
+        "name":  "Farka e Madhe"
+    },
+    {
+        "id":  759,
+        "name":  "Fier"
+    },
+    {
+        "id":  758,
+        "name":  "Fier-Çifçi"
+    },
+    {
+        "id":  757,
+        "name":  "Fier-Shegan"
+    },
+    {
+        "id":  799,
+        "name":  "Fierzë"
+    },
+    {
+        "id":  570,
+        "name":  "Fierzë"
+    },
+    {
+        "id":  436,
+        "name":  "Finiq"
+    },
+    {
+        "id":  756,
+        "name":  "Frakulla e Madhe"
+    },
+    {
+        "id":  569,
+        "name":  "Frashër"
+    },
+    {
+        "id":  755,
+        "name":  "Fratar"
+    },
+    {
+        "id":  601,
+        "name":  "Funarë"
+    },
+    {
+        "id":  568,
+        "name":  "Fushë-Arrëz"
+    },
+    {
+        "id":  567,
+        "name":  "Fushë-Bulqizë"
+    },
+    {
+        "id":  566,
+        "name":  "Fushë-Çidhnë"
+    },
+    {
+        "id":  754,
+        "name":  "Fushë-Krujë"
+    },
+    {
+        "id":  753,
+        "name":  "Fushëkuqe"
+    },
+    {
+        "id":  565,
+        "name":  "Fushë-Lurë"
+    },
+    {
+        "id":  564,
+        "name":  "Fushë-Muhurr"
+    },
+    {
+        "id":  752,
+        "name":  "Gegë"
+    },
+    {
+        "id":  751,
+        "name":  "Gjadër, Dajc"
+    },
+    {
+        "id":  563,
+        "name":  "Gjegjan"
+    },
+    {
+        "id":  750,
+        "name":  "Gjepalaj"
+    },
+    {
+        "id":  577,
+        "name":  "Gjerbës"
+    },
+    {
+        "id":  562,
+        "name":  "Gjergjan"
+    },
+    {
+        "id":  561,
+        "name":  "Gjinaj"
+    },
+    {
+        "id":  560,
+        "name":  "Gjinar"
+    },
+    {
+        "id":  502,
+        "name":  "Gjinkar"
+    },
+    {
+        "id":  559,
+        "name":  "Gjirokastër"
+    },
+    {
+        "id":  749,
+        "name":  "Gjoçaj"
+    },
+    {
+        "id":  558,
+        "name":  "Gjorica e Sipërme"
+    },
+    {
+        "id":  557,
+        "name":  "Golaj"
+    },
+    {
+        "id":  794,
+        "name":  "Golem"
+    },
+    {
+        "id":  748,
+        "name":  "Golem"
+    },
+    {
+        "id":  747,
+        "name":  "Goraj"
+    },
+    {
+        "id":  745,
+        "name":  "Gosë e Madhe"
+    },
+    {
+        "id":  556,
+        "name":  "Gostimë"
+    },
+    {
+        "id":  744,
+        "name":  "Grabjan"
+    },
+    {
+        "id":  743,
+        "name":  "Gracen"
+    },
+    {
+        "id":  742,
+        "name":  "Gradishtë"
+    },
+    {
+        "id":  555,
+        "name":  "Gramsh"
+    },
+    {
+        "id":  741,
+        "name":  "Grekan"
+    },
+    {
+        "id":  740,
+        "name":  "Greshicë"
+    },
+    {
+        "id":  797,
+        "name":  "Grudë-Fushë"
+    },
+    {
+        "id":  739,
+        "name":  "Gruemirë"
+    },
+    {
+        "id":  738,
+        "name":  "Guri i Zi"
+    },
+    {
+        "id":  737,
+        "name":  "Gurra e Vogël"
+    },
+    {
+        "id":  736,
+        "name":  "Hajmel"
+    },
+    {
+        "id":  735,
+        "name":  "Hasan"
+    },
+    {
+        "id":  734,
+        "name":  "Havaleas"
+    },
+    {
+        "id":  733,
+        "name":  "Hekal"
+    },
+    {
+        "id":  732,
+        "name":  "Helmas"
+    },
+    {
+        "id":  731,
+        "name":  "Himarë"
+    },
+    {
+        "id":  554,
+        "name":  "Hoçisht"
+    },
+    {
+        "id":  730,
+        "name":  "Hot"
+    },
+    {
+        "id":  553,
+        "name":  "Hotolisht"
+    },
+    {
+        "id":  729,
+        "name":  "Hysgjokaj"
+    },
+    {
+        "id":  552,
+        "name":  "Iballë"
+    },
+    {
+        "id":  728,
+        "name":  "Ishëm"
+    },
+    {
+        "id":  727,
+        "name":  "Kaçinar"
+    },
+    {
+        "id":  726,
+        "name":  "Kajan"
+    },
+    {
+        "id":  435,
+        "name":  "Kakavijë"
+    },
+    {
+        "id":  725,
+        "name":  "Kalenjë"
+    },
+    {
+        "id":  551,
+        "name":  "Kalis"
+    },
+    {
+        "id":  724,
+        "name":  "Kallmet"
+    },
+    {
+        "id":  723,
+        "name":  "Kallmeti i Madh"
+    },
+    {
+        "id":  722,
+        "name":  "Kamëz"
+    },
+    {
+        "id":  721,
+        "name":  "Karbunara e Vogël"
+    },
+    {
+        "id":  550,
+        "name":  "Kardhiq"
+    },
+    {
+        "id":  720,
+        "name":  "Karinë"
+    },
+    {
+        "id":  719,
+        "name":  "Kashar"
+    },
+    {
+        "id":  718,
+        "name":  "Kastrat"
+    },
+    {
+        "id":  549,
+        "name":  "Kastriot"
+    },
+    {
+        "id":  717,
+        "name":  "Katundi i Ri"
+    },
+    {
+        "id":  716,
+        "name":  "Kavajë"
+    },
+    {
+        "id":  548,
+        "name":  "Këlcyrë"
+    },
+    {
+        "id":  546,
+        "name":  "Klos"
+    },
+    {
+        "id":  547,
+        "name":  "Klos"
+    },
+    {
+        "id":  798,
+        "name":  "Kodër-Vorë"
+    },
+    {
+        "id":  545,
+        "name":  "Kodovjat"
+    },
+    {
+        "id":  583,
+        "name":  "Kokaj"
+    },
+    {
+        "id":  715,
+        "name":  "Kolç"
+    },
+    {
+        "id":  714,
+        "name":  "Kolonjë"
+    },
+    {
+        "id":  544,
+        "name":  "Kolsh"
+    },
+    {
+        "id":  713,
+        "name":  "Kombësi"
+    },
+    {
+        "id":  434,
+        "name":  "Konispol"
+    },
+    {
+        "id":  712,
+        "name":  "Koplik"
+    },
+    {
+        "id":  543,
+        "name":  "Korçë"
+    },
+    {
+        "id":  711,
+        "name":  "Kotë"
+    },
+    {
+        "id":  710,
+        "name":  "Kozarë"
+    },
+    {
+        "id":  709,
+        "name":  "Krahës"
+    },
+    {
+        "id":  542,
+        "name":  "Krastë"
+    },
+    {
+        "id":  708,
+        "name":  "Krrabë"
+    },
+    {
+        "id":  707,
+        "name":  "Krujë"
+    },
+    {
+        "id":  541,
+        "name":  "Krumë"
+    },
+    {
+        "id":  706,
+        "name":  "Krutja e Poshtme"
+    },
+    {
+        "id":  705,
+        "name":  "Kryevidh"
+    },
+    {
+        "id":  606,
+        "name":  "Ksamil"
+    },
+    {
+        "id":  540,
+        "name":  "Kthella e Epërme"
+    },
+    {
+        "id":  704,
+        "name":  "Kuç"
+    },
+    {
+        "id":  703,
+        "name":  "Kuçovë"
+    },
+    {
+        "id":  539,
+        "name":  "Kukës"
+    },
+    {
+        "id":  538,
+        "name":  "Kukur"
+    },
+    {
+        "id":  702,
+        "name":  "Kuman"
+    },
+    {
+        "id":  537,
+        "name":  "Kurbnesh"
+    },
+    {
+        "id":  701,
+        "name":  "Kurjan"
+    },
+    {
+        "id":  536,
+        "name":  "Kushovë"
+    },
+    {
+        "id":  700,
+        "name":  "Kutalli"
+    },
+    {
+        "id":  699,
+        "name":  "Kutë"
+    },
+    {
+        "id":  535,
+        "name":  "Labinot-Fushë"
+    },
+    {
+        "id":  534,
+        "name":  "Labinot-Mal"
+    },
+    {
+        "id":  698,
+        "name":  "Laç"
+    },
+    {
+        "id":  800,
+        "name":  "Lapardha Dy"
+    },
+    {
+        "id":  697,
+        "name":  "Lapardha Një"
+    },
+    {
+        "id":  533,
+        "name":  "Lazarat"
+    },
+    {
+        "id":  696,
+        "name":  "Lekaj"
+    },
+    {
+        "id":  532,
+        "name":  "Lekas"
+    },
+    {
+        "id":  695,
+        "name":  "Lekbibaj"
+    },
+    {
+        "id":  531,
+        "name":  "Lenias"
+    },
+    {
+        "id":  530,
+        "name":  "Leshnjë"
+    },
+    {
+        "id":  529,
+        "name":  "Leskovik"
+    },
+    {
+        "id":  694,
+        "name":  "Levan"
+    },
+    {
+        "id":  693,
+        "name":  "Lezhë"
+    },
+    {
+        "id":  692,
+        "name":  "Libofshë"
+    },
+    {
+        "id":  528,
+        "name":  "Libohovë"
+    },
+    {
+        "id":  527,
+        "name":  "Libonik"
+    },
+    {
+        "id":  526,
+        "name":  "Librazhd"
+    },
+    {
+        "id":  600,
+        "name":  "Librazhd-Qendër"
+    },
+    {
+        "id":  525,
+        "name":  "Liqenas"
+    },
+    {
+        "id":  524,
+        "name":  "Lis"
+    },
+    {
+        "id":  433,
+        "name":  "Livadhja"
+    },
+    {
+        "id":  523,
+        "name":  "Llugaj"
+    },
+    {
+        "id":  691,
+        "name":  "Luftinjë"
+    },
+    {
+        "id":  605,
+        "name":  "Lukovë"
+    },
+    {
+        "id":  805,
+        "name":  "Lumas"
+    },
+    {
+        "id":  522,
+        "name":  "Lunik"
+    },
+    {
+        "id":  690,
+        "name":  "Lushnjë"
+    },
+    {
+        "id":  689,
+        "name":  "Luzi i Vogël"
+    },
+    {
+        "id":  521,
+        "name":  "Macukull"
+    },
+    {
+        "id":  688,
+        "name":  "Magjatë"
+    },
+    {
+        "id":  520,
+        "name":  "Maliq"
+    },
+    {
+        "id":  687,
+        "name":  "Maminas"
+    },
+    {
+        "id":  686,
+        "name":  "Mamurras"
+    },
+    {
+        "id":  685,
+        "name":  "Manzë"
+    },
+    {
+        "id":  519,
+        "name":  "Maqellarë"
+    },
+    {
+        "id":  432,
+        "name":  "Markat"
+    },
+    {
+        "id":  518,
+        "name":  "Martanesh"
+    },
+    {
+        "id":  517,
+        "name":  "Mborje"
+    },
+    {
+        "id":  684,
+        "name":  "Mbrostar-Urë"
+    },
+    {
+        "id":  516,
+        "name":  "Melan"
+    },
+    {
+        "id":  683,
+        "name":  "Memaliaj"
+    },
+    {
+        "id":  431,
+        "name":  "Mesopotam"
+    },
+    {
+        "id":  682,
+        "name":  "Milot"
+    },
+    {
+        "id":  515,
+        "name":  "Miras"
+    },
+    {
+        "id":  602,
+        "name":  "Moglicë"
+    },
+    {
+        "id":  514,
+        "name":  "Mollaj"
+    },
+    {
+        "id":  513,
+        "name":  "Mollas"
+    },
+    {
+        "id":  512,
+        "name":  "Mollas"
+    },
+    {
+        "id":  681,
+        "name":  "Moravë"
+    },
+    {
+        "id":  680,
+        "name":  "Ndroq"
+    },
+    {
+        "id":  679,
+        "name":  "Ngraçan"
+    },
+    {
+        "id":  641,
+        "name":  "Nicaj-Shalë"
+    },
+    {
+        "id":  678,
+        "name":  "Nicaj-Shosh"
+    },
+    {
+        "id":  677,
+        "name":  "Nikël"
+    },
+    {
+        "id":  510,
+        "name":  "Novoselë"
+    },
+    {
+        "id":  676,
+        "name":  "Novoselë"
+    },
+    {
+        "id":  509,
+        "name":  "Odrie"
+    },
+    {
+        "id":  508,
+        "name":  "Orenjë"
+    },
+    {
+        "id":  675,
+        "name":  "Orikum"
+    },
+    {
+        "id":  507,
+        "name":  "Orosh"
+    },
+    {
+        "id":  506,
+        "name":  "Ostreni i Math"
+    },
+    {
+        "id":  674,
+        "name":  "Otllak"
+    },
+    {
+        "id":  673,
+        "name":  "Pajovë"
+    },
+    {
+        "id":  672,
+        "name":  "Papër"
+    },
+    {
+        "id":  671,
+        "name":  "Paskuqan"
+    },
+    {
+        "id":  670,
+        "name":  "Patos"
+    },
+    {
+        "id":  669,
+        "name":  "Patos Fshat"
+    },
+    {
+        "id":  668,
+        "name":  "Peqin"
+    },
+    {
+        "id":  505,
+        "name":  "Përmet"
+    },
+    {
+        "id":  667,
+        "name":  "Perondi"
+    },
+    {
+        "id":  666,
+        "name":  "Përparim"
+    },
+    {
+        "id":  491,
+        "name":  "Përrenjas"
+    },
+    {
+        "id":  490,
+        "name":  "Përrenjas-Fshat"
+    },
+    {
+        "id":  504,
+        "name":  "Peshkopi"
+    },
+    {
+        "id":  503,
+        "name":  "Petran"
+    },
+    {
+        "id":  665,
+        "name":  "Petrelë"
+    },
+    {
+        "id":  664,
+        "name":  "Peza e Madhe"
+    },
+    {
+        "id":  511,
+        "name":  "Picar"
+    },
+    {
+        "id":  501,
+        "name":  "Pirg"
+    },
+    {
+        "id":  500,
+        "name":  "Pishaj"
+    },
+    {
+        "id":  604,
+        "name":  "Piskovë"
+    },
+    {
+        "id":  663,
+        "name":  "Pobrat"
+    },
+    {
+        "id":  499,
+        "name":  "Pogradec"
+    },
+    {
+        "id":  498,
+        "name":  "Pojan"
+    },
+    {
+        "id":  497,
+        "name":  "Poliçan"
+    },
+    {
+        "id":  496,
+        "name":  "Polis-Gostimë"
+    },
+    {
+        "id":  495,
+        "name":  "Poroçan"
+    },
+    {
+        "id":  662,
+        "name":  "Portëz"
+    },
+    {
+        "id":  661,
+        "name":  "Poshnjë"
+    },
+    {
+        "id":  494,
+        "name":  "Potom"
+    },
+    {
+        "id":  660,
+        "name":  "Prezë"
+    },
+    {
+        "id":  493,
+        "name":  "Progër"
+    },
+    {
+        "id":  659,
+        "name":  "Progonat"
+    },
+    {
+        "id":  492,
+        "name":  "Proptisht"
+    },
+    {
+        "id":  658,
+        "name":  "Pukë"
+    },
+    {
+        "id":  489,
+        "name":  "Qafëmal"
+    },
+    {
+        "id":  657,
+        "name":  "Qelëz"
+    },
+    {
+        "id":  806,
+        "name":  "Qendër Skrapar"
+    },
+    {
+        "id":  488,
+        "name":  "Qereshnik"
+    },
+    {
+        "id":  656,
+        "name":  "Qerret"
+    },
+    {
+        "id":  487,
+        "name":  "Qestorat"
+    },
+    {
+        "id":  486,
+        "name":  "Qukës-Skënderbe"
+    },
+    {
+        "id":  484,
+        "name":  "Rajcë"
+    },
+    {
+        "id":  655,
+        "name":  "Remas"
+    },
+    {
+        "id":  485,
+        "name":  "Roshnik Qender"
+    },
+    {
+        "id":  654,
+        "name":  "Roskovec"
+    },
+    {
+        "id":  653,
+        "name":  "Rrapë"
+    },
+    {
+        "id":  652,
+        "name":  "Rrasa e Sipërme"
+    },
+    {
+        "id":  651,
+        "name":  "Rrashbull"
+    },
+    {
+        "id":  650,
+        "name":  "Rrëshen"
+    },
+    {
+        "id":  649,
+        "name":  "Rrogozhinë"
+    },
+    {
+        "id":  648,
+        "name":  "Rubik"
+    },
+    {
+        "id":  483,
+        "name":  "Rukaj"
+    },
+    {
+        "id":  647,
+        "name":  "Ruzhdie"
+    },
+    {
+        "id":  646,
+        "name":  "Samaticë"
+    },
+    {
+        "id":  430,
+        "name":  "Sarandë"
+    },
+    {
+        "id":  482,
+        "name":  "Saraqinishtë"
+    },
+    {
+        "id":  645,
+        "name":  "Selenicë"
+    },
+    {
+        "id":  481,
+        "name":  "Selishtë"
+    },
+    {
+        "id":  643,
+        "name":  "Selitë"
+    },
+    {
+        "id":  802,
+        "name":  "Selitë"
+    },
+    {
+        "id":  642,
+        "name":  "Sevaster"
+    },
+    {
+        "id":  640,
+        "name":  "Shalës"
+    },
+    {
+        "id":  639,
+        "name":  "Shëngjergj"
+    },
+    {
+        "id":  638,
+        "name":  "Shëngjin"
+    },
+    {
+        "id":  479,
+        "name":  "Shëngjin"
+    },
+    {
+        "id":  637,
+        "name":  "Shënkoll"
+    },
+    {
+        "id":  480,
+        "name":  "Shënmëri"
+    },
+    {
+        "id":  636,
+        "name":  "Shezë"
+    },
+    {
+        "id":  635,
+        "name":  "Shijak"
+    },
+    {
+        "id":  478,
+        "name":  "Shirgjan"
+    },
+    {
+        "id":  477,
+        "name":  "Shishtavec"
+    },
+    {
+        "id":  634,
+        "name":  "Shkodër"
+    },
+    {
+        "id":  476,
+        "name":  "Shtiqën"
+    },
+    {
+        "id":  475,
+        "name":  "Shupenzë"
+    },
+    {
+        "id":  474,
+        "name":  "Shushicë"
+    },
+    {
+        "id":  633,
+        "name":  "Sinaballaj"
+    },
+    {
+        "id":  632,
+        "name":  "Sinjë"
+    },
+    {
+        "id":  473,
+        "name":  "Skënderbegas"
+    },
+    {
+        "id":  472,
+        "name":  "Skore"
+    },
+    {
+        "id":  471,
+        "name":  "Sllovë"
+    },
+    {
+        "id":  631,
+        "name":  "Starovë"
+    },
+    {
+        "id":  470,
+        "name":  "Steblevë"
+    },
+    {
+        "id":  469,
+        "name":  "Stravaj"
+    },
+    {
+        "id":  630,
+        "name":  "Strum"
+    },
+    {
+        "id":  468,
+        "name":  "Suç"
+    },
+    {
+        "id":  467,
+        "name":  "Sukë"
+    },
+    {
+        "id":  629,
+        "name":  "Sukth"
+    },
+    {
+        "id":  466,
+        "name":  "Sult"
+    },
+    {
+        "id":  465,
+        "name":  "Surroj"
+    },
+    {
+        "id":  628,
+        "name":  "Synej"
+    },
+    {
+        "id":  627,
+        "name":  "Tapi"
+    },
+    {
+        "id":  464,
+        "name":  "Tepelenë"
+    },
+    {
+        "id":  626,
+        "name":  "Tërbuf"
+    },
+    {
+        "id":  625,
+        "name":  "Thumanë"
+    },
+    {
+        "id":  624,
+        "name":  "Tirana"
+    },
+    {
+        "id":  463,
+        "name":  "Tomin"
+    },
+    {
+        "id":  462,
+        "name":  "Topojan"
+    },
+    {
+        "id":  623,
+        "name":  "Topojë"
+    },
+    {
+        "id":  461,
+        "name":  "Trebinjë"
+    },
+    {
+        "id":  460,
+        "name":  "Trebisht-Muçinë"
+    },
+    {
+        "id":  459,
+        "name":  "Tregan"
+    },
+    {
+        "id":  458,
+        "name":  "Tunjë"
+    },
+    {
+        "id":  457,
+        "name":  "Udënisht"
+    },
+    {
+        "id":  456,
+        "name":  "Ujmisht"
+    },
+    {
+        "id":  622,
+        "name":  "Ulëz"
+    },
+    {
+        "id":  621,
+        "name":  "Ungrej"
+    },
+    {
+        "id":  620,
+        "name":  "Ura Vajgurore"
+    },
+    {
+        "id":  619,
+        "name":  "Uznovë"
+    },
+    {
+        "id":  644,
+        "name":  "Valbonë"
+    },
+    {
+        "id":  618,
+        "name":  "Vaqarr"
+    },
+    {
+        "id":  769,
+        "name":  "Vau i Dejës"
+    },
+    {
+        "id":  617,
+        "name":  "Velabisht"
+    },
+    {
+        "id":  455,
+        "name":  "Velçan"
+    },
+    {
+        "id":  616,
+        "name":  "Velipojë"
+    },
+    {
+        "id":  454,
+        "name":  "Vendresha e Vogël"
+    },
+    {
+        "id":  453,
+        "name":  "Vergo"
+    },
+    {
+        "id":  452,
+        "name":  "Vërtop"
+    },
+    {
+        "id":  451,
+        "name":  "Vithkuq"
+    },
+    {
+        "id":  450,
+        "name":  "Vithkuq"
+    },
+    {
+        "id":  803,
+        "name":  "Vllahinë"
+    },
+    {
+        "id":  615,
+        "name":  "Vlorë"
+    },
+    {
+        "id":  614,
+        "name":  "Vorë"
+    },
+    {
+        "id":  449,
+        "name":  "Voskop"
+    },
+    {
+        "id":  448,
+        "name":  "Voskopojë"
+    },
+    {
+        "id":  613,
+        "name":  "Vranisht"
+    },
+    {
+        "id":  447,
+        "name":  "Vreshtas"
+    },
+    {
+        "id":  612,
+        "name":  "Vukatanë"
+    },
+    {
+        "id":  429,
+        "name":  "Xarrë"
+    },
+    {
+        "id":  611,
+        "name":  "Xhafzotaj"
+    },
+    {
+        "id":  446,
+        "name":  "Xibër-Murrizë"
+    },
+    {
+        "id":  610,
+        "name":  "Zall-Bastar"
+    },
+    {
+        "id":  445,
+        "name":  "Zall-Dardhë"
+    },
+    {
+        "id":  609,
+        "name":  "Zall-Herr"
+    },
+    {
+        "id":  444,
+        "name":  "Zall-Reç"
+    },
+    {
+        "id":  443,
+        "name":  "Zapod"
+    },
+    {
+        "id":  442,
+        "name":  "Zavalinë"
+    },
+    {
+        "id":  608,
+        "name":  "Zejmen"
+    },
+    {
+        "id":  441,
+        "name":  "Zerqan"
+    },
+    {
+        "id":  607,
+        "name":  "Zharrëz"
+    }
+]

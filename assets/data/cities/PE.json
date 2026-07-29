@@ -1,0 +1,6726 @@
+[
+    {
+        "id":  93444,
+        "name":  "Abancay"
+    },
+    {
+        "id":  93443,
+        "name":  "Acarí"
+    },
+    {
+        "id":  93442,
+        "name":  "Acas"
+    },
+    {
+        "id":  93441,
+        "name":  "Accha"
+    },
+    {
+        "id":  93434,
+        "name":  "Accocunca"
+    },
+    {
+        "id":  93440,
+        "name":  "Accomarca"
+    },
+    {
+        "id":  93439,
+        "name":  "Achanizo"
+    },
+    {
+        "id":  93438,
+        "name":  "Achaya"
+    },
+    {
+        "id":  93437,
+        "name":  "Achoma"
+    },
+    {
+        "id":  92544,
+        "name":  "Aco"
+    },
+    {
+        "id":  93505,
+        "name":  "Aco"
+    },
+    {
+        "id":  93435,
+        "name":  "Aco"
+    },
+    {
+        "id":  93436,
+        "name":  "Aco"
+    },
+    {
+        "id":  93652,
+        "name":  "Acobamba"
+    },
+    {
+        "id":  93432,
+        "name":  "Acobamba"
+    },
+    {
+        "id":  93433,
+        "name":  "Acobamba"
+    },
+    {
+        "id":  93431,
+        "name":  "Acobambilla"
+    },
+    {
+        "id":  93654,
+        "name":  "Acochaca"
+    },
+    {
+        "id":  93430,
+        "name":  "Acocro"
+    },
+    {
+        "id":  93429,
+        "name":  "Acolla"
+    },
+    {
+        "id":  92543,
+        "name":  "Acomayo"
+    },
+    {
+        "id":  93428,
+        "name":  "Acomayo"
+    },
+    {
+        "id":  92542,
+        "name":  "Acopampa"
+    },
+    {
+        "id":  93427,
+        "name":  "Acopía"
+    },
+    {
+        "id":  93426,
+        "name":  "Acora"
+    },
+    {
+        "id":  93425,
+        "name":  "Acoria"
+    },
+    {
+        "id":  93424,
+        "name":  "Acos"
+    },
+    {
+        "id":  93423,
+        "name":  "Acos"
+    },
+    {
+        "id":  93422,
+        "name":  "Acostambo"
+    },
+    {
+        "id":  93421,
+        "name":  "Acosvinchos"
+    },
+    {
+        "id":  93704,
+        "name":  "Acraquia"
+    },
+    {
+        "id":  92541,
+        "name":  "Aczo"
+    },
+    {
+        "id":  92540,
+        "name":  "Agallpampa"
+    },
+    {
+        "id":  92538,
+        "name":  "Agua Blanca"
+    },
+    {
+        "id":  92539,
+        "name":  "Agua Blanca"
+    },
+    {
+        "id":  92537,
+        "name":  "Aguas Verdes"
+    },
+    {
+        "id":  93420,
+        "name":  "Ahuac"
+    },
+    {
+        "id":  93571,
+        "name":  "Ahuaycha"
+    },
+    {
+        "id":  92536,
+        "name":  "Aija"
+    },
+    {
+        "id":  93418,
+        "name":  "Ajoyani"
+    },
+    {
+        "id":  93417,
+        "name":  "Alca"
+    },
+    {
+        "id":  93416,
+        "name":  "Alcamenca"
+    },
+    {
+        "id":  93640,
+        "name":  "Alexander von Humboldt"
+    },
+    {
+        "id":  92552,
+        "name":  "Alianza Cristiana"
+    },
+    {
+        "id":  93414,
+        "name":  "Alis"
+    },
+    {
+        "id":  93625,
+        "name":  "Alto Salaverry"
+    },
+    {
+        "id":  93700,
+        "name":  "Amantaní"
+    },
+    {
+        "id":  92535,
+        "name":  "Amashca"
+    },
+    {
+        "id":  93688,
+        "name":  "Amaybamba"
+    },
+    {
+        "id":  93412,
+        "name":  "Ambar"
+    },
+    {
+        "id":  93411,
+        "name":  "Ambo"
+    },
+    {
+        "id":  92534,
+        "name":  "Amotape"
+    },
+    {
+        "id":  93410,
+        "name":  "Ananea"
+    },
+    {
+        "id":  93699,
+        "name":  "Anapia"
+    },
+    {
+        "id":  93409,
+        "name":  "Ancahuasi"
+    },
+    {
+        "id":  93684,
+        "name":  "Anchihuay"
+    },
+    {
+        "id":  93408,
+        "name":  "Anchonga"
+    },
+    {
+        "id":  93680,
+        "name":  "Andabamba"
+    },
+    {
+        "id":  93407,
+        "name":  "Andahua"
+    },
+    {
+        "id":  93406,
+        "name":  "Andahuaylas"
+    },
+    {
+        "id":  93405,
+        "name":  "Andahuaylillas"
+    },
+    {
+        "id":  93404,
+        "name":  "Andajes"
+    },
+    {
+        "id":  93403,
+        "name":  "Andamarca"
+    },
+    {
+        "id":  93402,
+        "name":  "Andamarca"
+    },
+    {
+        "id":  93401,
+        "name":  "Andarapa"
+    },
+    {
+        "id":  93400,
+        "name":  "Andaray"
+    },
+    {
+        "id":  93576,
+        "name":  "Andaymarca"
+    },
+    {
+        "id":  92533,
+        "name":  "Angasmarca"
+    },
+    {
+        "id":  92532,
+        "name":  "Anguía"
+    },
+    {
+        "id":  93399,
+        "name":  "Aniso"
+    },
+    {
+        "id":  93555,
+        "name":  "Anra"
+    },
+    {
+        "id":  93398,
+        "name":  "Anta"
+    },
+    {
+        "id":  92531,
+        "name":  "Anta"
+    },
+    {
+        "id":  93397,
+        "name":  "Anta"
+    },
+    {
+        "id":  93396,
+        "name":  "Antabamba"
+    },
+    {
+        "id":  93395,
+        "name":  "Antaparco"
+    },
+    {
+        "id":  93394,
+        "name":  "Antauta"
+    },
+    {
+        "id":  93393,
+        "name":  "Apata"
+    },
+    {
+        "id":  93392,
+        "name":  "Aplao"
+    },
+    {
+        "id":  93391,
+        "name":  "Apongo"
+    },
+    {
+        "id":  93390,
+        "name":  "Aquia"
+    },
+    {
+        "id":  93389,
+        "name":  "Arahuay"
+    },
+    {
+        "id":  92530,
+        "name":  "Aramango"
+    },
+    {
+        "id":  92529,
+        "name":  "Arancay"
+    },
+    {
+        "id":  93388,
+        "name":  "Arapa"
+    },
+    {
+        "id":  92528,
+        "name":  "Arenal"
+    },
+    {
+        "id":  93387,
+        "name":  "Arequipa"
+    },
+    {
+        "id":  92527,
+        "name":  "Aricapampa"
+    },
+    {
+        "id":  93386,
+        "name":  "Arma"
+    },
+    {
+        "id":  93613,
+        "name":  "Ascencion"
+    },
+    {
+        "id":  92526,
+        "name":  "Ascope"
+    },
+    {
+        "id":  92945,
+        "name":  "Asentamiento Humano Nicolas de Pierola"
+    },
+    {
+        "id":  93385,
+        "name":  "Asia"
+    },
+    {
+        "id":  93384,
+        "name":  "Asillo"
+    },
+    {
+        "id":  93383,
+        "name":  "Asquipata"
+    },
+    {
+        "id":  92525,
+        "name":  "Asunción"
+    },
+    {
+        "id":  93382,
+        "name":  "Ataura"
+    },
+    {
+        "id":  93381,
+        "name":  "Atico"
+    },
+    {
+        "id":  93380,
+        "name":  "Atiquipa"
+    },
+    {
+        "id":  93379,
+        "name":  "Atuncolla"
+    },
+    {
+        "id":  93378,
+        "name":  "Aucallama"
+    },
+    {
+        "id":  93482,
+        "name":  "Aucara"
+    },
+    {
+        "id":  92524,
+        "name":  "Aucayacu"
+    },
+    {
+        "id":  93377,
+        "name":  "Aurahuá"
+    },
+    {
+        "id":  92523,
+        "name":  "Ayabaca"
+    },
+    {
+        "id":  93376,
+        "name":  "Ayacucho"
+    },
+    {
+        "id":  93451,
+        "name":  "Ayahuay"
+    },
+    {
+        "id":  93375,
+        "name":  "Ayapata"
+    },
+    {
+        "id":  93374,
+        "name":  "Ayaviri"
+    },
+    {
+        "id":  93494,
+        "name":  "Ayaviri"
+    },
+    {
+        "id":  93373,
+        "name":  "Ayna"
+    },
+    {
+        "id":  93372,
+        "name":  "Ayo"
+    },
+    {
+        "id":  93371,
+        "name":  "Ayrampuni"
+    },
+    {
+        "id":  93419,
+        "name":  "Ayrihuanca"
+    },
+    {
+        "id":  93370,
+        "name":  "Azángaro"
+    },
+    {
+        "id":  92522,
+        "name":  "Bagua"
+    },
+    {
+        "id":  92521,
+        "name":  "Bagua Grande"
+    },
+    {
+        "id":  93516,
+        "name":  "Bajo Naranjillo"
+    },
+    {
+        "id":  93484,
+        "name":  "Bajo Pichanaqui"
+    },
+    {
+        "id":  93648,
+        "name":  "Balsapuerto"
+    },
+    {
+        "id":  92520,
+        "name":  "Balsas"
+    },
+    {
+        "id":  92519,
+        "name":  "Bambamarca"
+    },
+    {
+        "id":  92518,
+        "name":  "Bambas"
+    },
+    {
+        "id":  93369,
+        "name":  "Baños"
+    },
+    {
+        "id":  92517,
+        "name":  "Barranca"
+    },
+    {
+        "id":  93368,
+        "name":  "Barranca"
+    },
+    {
+        "id":  92516,
+        "name":  "Barranquita"
+    },
+    {
+        "id":  92563,
+        "name":  "Belen"
+    },
+    {
+        "id":  93367,
+        "name":  "Belén"
+    },
+    {
+        "id":  93056,
+        "name":  "Bella Unión"
+    },
+    {
+        "id":  92515,
+        "name":  "Bellavista"
+    },
+    {
+        "id":  92513,
+        "name":  "Bellavista"
+    },
+    {
+        "id":  92514,
+        "name":  "Bellavista"
+    },
+    {
+        "id":  92512,
+        "name":  "Bernal"
+    },
+    {
+        "id":  92550,
+        "name":  "Bolívar"
+    },
+    {
+        "id":  93586,
+        "name":  "Bolívar"
+    },
+    {
+        "id":  93366,
+        "name":  "Bolognesi"
+    },
+    {
+        "id":  92511,
+        "name":  "Bolognesi"
+    },
+    {
+        "id":  93647,
+        "name":  "Boquerón"
+    },
+    {
+        "id":  93633,
+        "name":  "Breña"
+    },
+    {
+        "id":  92510,
+        "name":  "Bretaña"
+    },
+    {
+        "id":  92509,
+        "name":  "Breu"
+    },
+    {
+        "id":  92508,
+        "name":  "Buena Vista Alta"
+    },
+    {
+        "id":  93524,
+        "name":  "Buenos Aires"
+    },
+    {
+        "id":  92558,
+        "name":  "Buenos Aires"
+    },
+    {
+        "id":  92507,
+        "name":  "Buenos Aires"
+    },
+    {
+        "id":  92506,
+        "name":  "Buenos Aires"
+    },
+    {
+        "id":  92505,
+        "name":  "Caballococha"
+    },
+    {
+        "id":  93364,
+        "name":  "Cabana"
+    },
+    {
+        "id":  92504,
+        "name":  "Cabana"
+    },
+    {
+        "id":  93365,
+        "name":  "Cabana"
+    },
+    {
+        "id":  93363,
+        "name":  "Cabanaconde"
+    },
+    {
+        "id":  93362,
+        "name":  "Cabanilla"
+    },
+    {
+        "id":  92503,
+        "name":  "Cachachi"
+    },
+    {
+        "id":  93361,
+        "name":  "Cachimayo"
+    },
+    {
+        "id":  93360,
+        "name":  "Cachora"
+    },
+    {
+        "id":  93359,
+        "name":  "Cacra"
+    },
+    {
+        "id":  92502,
+        "name":  "Cahuac"
+    },
+    {
+        "id":  93358,
+        "name":  "Cahuacho"
+    },
+    {
+        "id":  93468,
+        "name":  "Cahuanuyo"
+    },
+    {
+        "id":  93357,
+        "name":  "Caicay"
+    },
+    {
+        "id":  93354,
+        "name":  "Cairani"
+    },
+    {
+        "id":  93353,
+        "name":  "Caja"
+    },
+    {
+        "id":  92501,
+        "name":  "Cajabamba"
+    },
+    {
+        "id":  93352,
+        "name":  "Cajacay"
+    },
+    {
+        "id":  92500,
+        "name":  "Cajamarca"
+    },
+    {
+        "id":  92499,
+        "name":  "Cajamarquilla"
+    },
+    {
+        "id":  93351,
+        "name":  "Cajamarquilla"
+    },
+    {
+        "id":  92498,
+        "name":  "Cajaruro"
+    },
+    {
+        "id":  93657,
+        "name":  "Cajay"
+    },
+    {
+        "id":  93350,
+        "name":  "Calacoa"
+    },
+    {
+        "id":  92497,
+        "name":  "Calamarca"
+    },
+    {
+        "id":  93349,
+        "name":  "Calana"
+    },
+    {
+        "id":  93348,
+        "name":  "Calango"
+    },
+    {
+        "id":  93347,
+        "name":  "Calapuja"
+    },
+    {
+        "id":  93346,
+        "name":  "Calca"
+    },
+    {
+        "id":  92496,
+        "name":  "Caleta Cruz"
+    },
+    {
+        "id":  93345,
+        "name":  "Caleta de Carquín"
+    },
+    {
+        "id":  93344,
+        "name":  "Callahuanca"
+    },
+    {
+        "id":  93343,
+        "name":  "Callalli"
+    },
+    {
+        "id":  93466,
+        "name":  "Callanca"
+    },
+    {
+        "id":  93342,
+        "name":  "Callanmarca"
+    },
+    {
+        "id":  93341,
+        "name":  "Callao"
+    },
+    {
+        "id":  92495,
+        "name":  "Callayuc"
+    },
+    {
+        "id":  93676,
+        "name":  "Calquis"
+    },
+    {
+        "id":  92494,
+        "name":  "Calzada"
+    },
+    {
+        "id":  93340,
+        "name":  "Camaná"
+    },
+    {
+        "id":  93339,
+        "name":  "Camilaca"
+    },
+    {
+        "id":  93338,
+        "name":  "Caminaca"
+    },
+    {
+        "id":  93582,
+        "name":  "Camisea"
+    },
+    {
+        "id":  93645,
+        "name":  "Campanilla"
+    },
+    {
+        "id":  92546,
+        "name":  "Campo Verde"
+    },
+    {
+        "id":  93337,
+        "name":  "Canaria"
+    },
+    {
+        "id":  92493,
+        "name":  "Cañaris"
+    },
+    {
+        "id":  92492,
+        "name":  "Cañaveral"
+    },
+    {
+        "id":  93638,
+        "name":  "Canayre"
+    },
+    {
+        "id":  92491,
+        "name":  "Cancas"
+    },
+    {
+        "id":  92490,
+        "name":  "Canchaque"
+    },
+    {
+        "id":  93336,
+        "name":  "Canchayllo"
+    },
+    {
+        "id":  93335,
+        "name":  "Candarave"
+    },
+    {
+        "id":  93334,
+        "name":  "Cangallo"
+    },
+    {
+        "id":  93333,
+        "name":  "Canis"
+    },
+    {
+        "id":  93332,
+        "name":  "Canta"
+    },
+    {
+        "id":  93331,
+        "name":  "Capachica"
+    },
+    {
+        "id":  93330,
+        "name":  "Capacmarca"
+    },
+    {
+        "id":  93692,
+        "name":  "Capaso"
+    },
+    {
+        "id":  93329,
+        "name":  "Capaya"
+    },
+    {
+        "id":  92744,
+        "name":  "Capillas"
+    },
+    {
+        "id":  92489,
+        "name":  "Carabamba"
+    },
+    {
+        "id":  93327,
+        "name":  "Carabayllo"
+    },
+    {
+        "id":  93326,
+        "name":  "Carac"
+    },
+    {
+        "id":  93325,
+        "name":  "Caracoto"
+    },
+    {
+        "id":  93323,
+        "name":  "Carampoma"
+    },
+    {
+        "id":  93322,
+        "name":  "Carania"
+    },
+    {
+        "id":  93321,
+        "name":  "Carapo"
+    },
+    {
+        "id":  93324,
+        "name":  "Caraybamba"
+    },
+    {
+        "id":  92488,
+        "name":  "Caraz"
+    },
+    {
+        "id":  93504,
+        "name":  "Carhuac"
+    },
+    {
+        "id":  93320,
+        "name":  "Carhuacallanga"
+    },
+    {
+        "id":  93318,
+        "name":  "Carhuamayo"
+    },
+    {
+        "id":  93317,
+        "name":  "Carhuanca"
+    },
+    {
+        "id":  92487,
+        "name":  "Carhuaz"
+    },
+    {
+        "id":  93316,
+        "name":  "Carmen Alto"
+    },
+    {
+        "id":  93600,
+        "name":  "Carmen De La Legua Reynoso"
+    },
+    {
+        "id":  93315,
+        "name":  "Carumas"
+    },
+    {
+        "id":  92486,
+        "name":  "Casa Grande"
+    },
+    {
+        "id":  92485,
+        "name":  "Casca"
+    },
+    {
+        "id":  92484,
+        "name":  "Cascapara"
+    },
+    {
+        "id":  92483,
+        "name":  "Cascas"
+    },
+    {
+        "id":  93664,
+        "name":  "Cashapampa"
+    },
+    {
+        "id":  92482,
+        "name":  "Casma"
+    },
+    {
+        "id":  92481,
+        "name":  "Caspisapa"
+    },
+    {
+        "id":  93314,
+        "name":  "Castrovirreyna"
+    },
+    {
+        "id":  92480,
+        "name":  "Catac"
+    },
+    {
+        "id":  92479,
+        "name":  "Catacaos"
+    },
+    {
+        "id":  92478,
+        "name":  "Catache"
+    },
+    {
+        "id":  93313,
+        "name":  "Catahuasi"
+    },
+    {
+        "id":  92477,
+        "name":  "Catán"
+    },
+    {
+        "id":  93674,
+        "name":  "Catilluc"
+    },
+    {
+        "id":  92476,
+        "name":  "Cauday"
+    },
+    {
+        "id":  93483,
+        "name":  "Caujul"
+    },
+    {
+        "id":  93311,
+        "name":  "Cauri"
+    },
+    {
+        "id":  93310,
+        "name":  "Cayara"
+    },
+    {
+        "id":  93309,
+        "name":  "Cayarani"
+    },
+    {
+        "id":  93531,
+        "name":  "Cayhuayna"
+    },
+    {
+        "id":  93356,
+        "name":  "Caylloma"
+    },
+    {
+        "id":  93355,
+        "name":  "Cayma"
+    },
+    {
+        "id":  93308,
+        "name":  "Cayna"
+    },
+    {
+        "id":  93307,
+        "name":  "Ccapi"
+    },
+    {
+        "id":  93469,
+        "name":  "Ccaquiracunca"
+    },
+    {
+        "id":  93446,
+        "name":  "Ccarhuayo"
+    },
+    {
+        "id":  93312,
+        "name":  "Ccatca"
+    },
+    {
+        "id":  93703,
+        "name":  "Ccochaccasa"
+    },
+    {
+        "id":  93460,
+        "name":  "Ccolo"
+    },
+    {
+        "id":  93306,
+        "name":  "Ccorca"
+    },
+    {
+        "id":  93471,
+        "name":  "Ccuntuma"
+    },
+    {
+        "id":  92475,
+        "name":  "Celendín"
+    },
+    {
+        "id":  93598,
+        "name":  "Centenario"
+    },
+    {
+        "id":  93305,
+        "name":  "Cerro de Pasco"
+    },
+    {
+        "id":  93631,
+        "name":  "Cerro Verde"
+    },
+    {
+        "id":  93563,
+        "name":  "Chaca"
+    },
+    {
+        "id":  93304,
+        "name":  "Chacapalpa"
+    },
+    {
+        "id":  93303,
+        "name":  "Chacapampa"
+    },
+    {
+        "id":  92474,
+        "name":  "Chacas"
+    },
+    {
+        "id":  93650,
+        "name":  "Chaccho"
+    },
+    {
+        "id":  93302,
+        "name":  "Chaccrampa"
+    },
+    {
+        "id":  92473,
+        "name":  "Chachapoyas"
+    },
+    {
+        "id":  93301,
+        "name":  "Chachas"
+    },
+    {
+        "id":  93300,
+        "name":  "Chaclacayo"
+    },
+    {
+        "id":  93299,
+        "name":  "Chacoche"
+    },
+    {
+        "id":  92472,
+        "name":  "Chadín"
+    },
+    {
+        "id":  92471,
+        "name":  "Chaglla"
+    },
+    {
+        "id":  93297,
+        "name":  "Chala"
+    },
+    {
+        "id":  92470,
+        "name":  "Chalaco"
+    },
+    {
+        "id":  93498,
+        "name":  "Chalamarca"
+    },
+    {
+        "id":  92469,
+        "name":  "Chalán"
+    },
+    {
+        "id":  93296,
+        "name":  "Chalcos"
+    },
+    {
+        "id":  93295,
+        "name":  "Chalhuanca"
+    },
+    {
+        "id":  93294,
+        "name":  "Challabamba"
+    },
+    {
+        "id":  93513,
+        "name":  "Challas"
+    },
+    {
+        "id":  93293,
+        "name":  "Challhuahuacho"
+    },
+    {
+        "id":  93292,
+        "name":  "Chamaca"
+    },
+    {
+        "id":  93291,
+        "name":  "Chambara"
+    },
+    {
+        "id":  93658,
+        "name":  "Chaná"
+    },
+    {
+        "id":  93673,
+        "name":  "Chancay"
+    },
+    {
+        "id":  93290,
+        "name":  "Chancay"
+    },
+    {
+        "id":  93289,
+        "name":  "Changuillo"
+    },
+    {
+        "id":  92202,
+        "name":  "Chao"
+    },
+    {
+        "id":  93288,
+        "name":  "Chapimarca"
+    },
+    {
+        "id":  93287,
+        "name":  "Characato"
+    },
+    {
+        "id":  92468,
+        "name":  "Charat"
+    },
+    {
+        "id":  93286,
+        "name":  "Charcana"
+    },
+    {
+        "id":  93285,
+        "name":  "Chasquitambo"
+    },
+    {
+        "id":  93284,
+        "name":  "Chaupimarca"
+    },
+    {
+        "id":  93283,
+        "name":  "Chaviña"
+    },
+    {
+        "id":  92466,
+        "name":  "Chavinillo"
+    },
+    {
+        "id":  92467,
+        "name":  "Chazuta"
+    },
+    {
+        "id":  93282,
+        "name":  "Checacupe"
+    },
+    {
+        "id":  93281,
+        "name":  "Checca"
+    },
+    {
+        "id":  92465,
+        "name":  "Chepén"
+    },
+    {
+        "id":  92464,
+        "name":  "Chetilla"
+    },
+    {
+        "id":  93506,
+        "name":  "Cheto"
+    },
+    {
+        "id":  93279,
+        "name":  "Chiara"
+    },
+    {
+        "id":  93280,
+        "name":  "Chiara"
+    },
+    {
+        "id":  92463,
+        "name":  "Chicama"
+    },
+    {
+        "id":  93278,
+        "name":  "Chicche"
+    },
+    {
+        "id":  93277,
+        "name":  "Chichas"
+    },
+    {
+        "id":  93276,
+        "name":  "Chicla"
+    },
+    {
+        "id":  92462,
+        "name":  "Chiclayo"
+    },
+    {
+        "id":  93470,
+        "name":  "Chignayhua"
+    },
+    {
+        "id":  93275,
+        "name":  "Chiguata"
+    },
+    {
+        "id":  92461,
+        "name":  "Chiguirip"
+    },
+    {
+        "id":  93274,
+        "name":  "Chilca"
+    },
+    {
+        "id":  93594,
+        "name":  "Chilca"
+    },
+    {
+        "id":  93272,
+        "name":  "Chilcas"
+    },
+    {
+        "id":  93273,
+        "name":  "Chilcaymarca"
+    },
+    {
+        "id":  93271,
+        "name":  "Chílcayoc"
+    },
+    {
+        "id":  92460,
+        "name":  "Chilete"
+    },
+    {
+        "id":  92459,
+        "name":  "Chillia"
+    },
+    {
+        "id":  92458,
+        "name":  "Chimbán"
+    },
+    {
+        "id":  92457,
+        "name":  "Chimbote"
+    },
+    {
+        "id":  92456,
+        "name":  "Chimuch"
+    },
+    {
+        "id":  93270,
+        "name":  "Chincha Alta"
+    },
+    {
+        "id":  93269,
+        "name":  "Chincha Baja"
+    },
+    {
+        "id":  93268,
+        "name":  "Chinchaypujio"
+    },
+    {
+        "id":  93267,
+        "name":  "Chinchero"
+    },
+    {
+        "id":  93266,
+        "name":  "Chincheros"
+    },
+    {
+        "id":  93568,
+        "name":  "Chinchihuasi"
+    },
+    {
+        "id":  93265,
+        "name":  "Chincho"
+    },
+    {
+        "id":  92455,
+        "name":  "Chingalpa"
+    },
+    {
+        "id":  92454,
+        "name":  "Chingas"
+    },
+    {
+        "id":  93264,
+        "name":  "Chipao"
+    },
+    {
+        "id":  93263,
+        "name":  "Chipispaya"
+    },
+    {
+        "id":  93262,
+        "name":  "Chiquintirca"
+    },
+    {
+        "id":  92453,
+        "name":  "Chiriaco"
+    },
+    {
+        "id":  92452,
+        "name":  "Chirinos"
+    },
+    {
+        "id":  92451,
+        "name":  "Chisquilla"
+    },
+    {
+        "id":  93261,
+        "name":  "Chivay"
+    },
+    {
+        "id":  93260,
+        "name":  "Choco"
+    },
+    {
+        "id":  92450,
+        "name":  "Chocope"
+    },
+    {
+        "id":  93259,
+        "name":  "Chocos"
+    },
+    {
+        "id":  93258,
+        "name":  "Chojata"
+    },
+    {
+        "id":  93257,
+        "name":  "Chongos Alto"
+    },
+    {
+        "id":  93256,
+        "name":  "Chongos Bajo"
+    },
+    {
+        "id":  92449,
+        "name":  "Chongoyape"
+    },
+    {
+        "id":  93255,
+        "name":  "Chontabamba"
+    },
+    {
+        "id":  92448,
+        "name":  "Chontalí"
+    },
+    {
+        "id":  93499,
+        "name":  "Choropampa"
+    },
+    {
+        "id":  92447,
+        "name":  "Choros"
+    },
+    {
+        "id":  93254,
+        "name":  "Chosica"
+    },
+    {
+        "id":  92446,
+        "name":  "Chota"
+    },
+    {
+        "id":  93253,
+        "name":  "Chucatamani"
+    },
+    {
+        "id":  93252,
+        "name":  "Chucuito"
+    },
+    {
+        "id":  92445,
+        "name":  "Chugay"
+    },
+    {
+        "id":  92444,
+        "name":  "Chugur"
+    },
+    {
+        "id":  93665,
+        "name":  "Chullin"
+    },
+    {
+        "id":  92443,
+        "name":  "Chulucanas"
+    },
+    {
+        "id":  93251,
+        "name":  "Chumpi"
+    },
+    {
+        "id":  92442,
+        "name":  "Chumuch"
+    },
+    {
+        "id":  93249,
+        "name":  "Chungui"
+    },
+    {
+        "id":  93248,
+        "name":  "Chupa"
+    },
+    {
+        "id":  93247,
+        "name":  "Chupaca"
+    },
+    {
+        "id":  93246,
+        "name":  "Chupamarca"
+    },
+    {
+        "id":  93634,
+        "name":  "Chupuro"
+    },
+    {
+        "id":  93245,
+        "name":  "Chuquibamba"
+    },
+    {
+        "id":  92441,
+        "name":  "Chuquibamba"
+    },
+    {
+        "id":  93244,
+        "name":  "Chuquibambilla"
+    },
+    {
+        "id":  92440,
+        "name":  "Chuquis"
+    },
+    {
+        "id":  93464,
+        "name":  "Chuquitira"
+    },
+    {
+        "id":  93243,
+        "name":  "Churcampa"
+    },
+    {
+        "id":  92439,
+        "name":  "Churubamba"
+    },
+    {
+        "id":  92438,
+        "name":  "Churuja"
+    },
+    {
+        "id":  93242,
+        "name":  "Chuschi"
+    },
+    {
+        "id":  93241,
+        "name":  "Cieneguilla"
+    },
+    {
+        "id":  93240,
+        "name":  "Circa"
+    },
+    {
+        "id":  93593,
+        "name":  "Ciudad Satelite"
+    },
+    {
+        "id":  93239,
+        "name":  "Coalaque"
+    },
+    {
+        "id":  93238,
+        "name":  "Coasa"
+    },
+    {
+        "id":  93237,
+        "name":  "Coata"
+    },
+    {
+        "id":  93236,
+        "name":  "Coayllo"
+    },
+    {
+        "id":  92437,
+        "name":  "Cocabamba"
+    },
+    {
+        "id":  93234,
+        "name":  "Cocachacra"
+    },
+    {
+        "id":  93235,
+        "name":  "Cocachacra"
+    },
+    {
+        "id":  93233,
+        "name":  "Cocas"
+    },
+    {
+        "id":  92435,
+        "name":  "Cochabamba"
+    },
+    {
+        "id":  93556,
+        "name":  "Cochabamba"
+    },
+    {
+        "id":  92436,
+        "name":  "Cochabamba"
+    },
+    {
+        "id":  93508,
+        "name":  "Cochamal"
+    },
+    {
+        "id":  92434,
+        "name":  "Cochapetí"
+    },
+    {
+        "id":  93232,
+        "name":  "Cocharcas"
+    },
+    {
+        "id":  93231,
+        "name":  "Cochas"
+    },
+    {
+        "id":  92433,
+        "name":  "Coishco"
+    },
+    {
+        "id":  93230,
+        "name":  "Cojata"
+    },
+    {
+        "id":  92432,
+        "name":  "Colasay"
+    },
+    {
+        "id":  93228,
+        "name":  "Colca"
+    },
+    {
+        "id":  93229,
+        "name":  "Colca"
+    },
+    {
+        "id":  93226,
+        "name":  "Colcabamba"
+    },
+    {
+        "id":  93227,
+        "name":  "Colcabamba"
+    },
+    {
+        "id":  92431,
+        "name":  "Colcabamba"
+    },
+    {
+        "id":  92430,
+        "name":  "Colcamar"
+    },
+    {
+        "id":  93225,
+        "name":  "Colcha"
+    },
+    {
+        "id":  93500,
+        "name":  "Collonce"
+    },
+    {
+        "id":  93224,
+        "name":  "Colonia"
+    },
+    {
+        "id":  93223,
+        "name":  "Colpas"
+    },
+    {
+        "id":  93222,
+        "name":  "Colquemarca"
+    },
+    {
+        "id":  93221,
+        "name":  "Colquepata"
+    },
+    {
+        "id":  93220,
+        "name":  "Colta"
+    },
+    {
+        "id":  93219,
+        "name":  "Comas"
+    },
+    {
+        "id":  93218,
+        "name":  "Combapata"
+    },
+    {
+        "id":  93217,
+        "name":  "Conayca"
+    },
+    {
+        "id":  93215,
+        "name":  "Concepción"
+    },
+    {
+        "id":  93216,
+        "name":  "Concepción"
+    },
+    {
+        "id":  93214,
+        "name":  "Conchamarca"
+    },
+    {
+        "id":  92429,
+        "name":  "Conchán"
+    },
+    {
+        "id":  93213,
+        "name":  "Concho"
+    },
+    {
+        "id":  93476,
+        "name":  "Conchopata"
+    },
+    {
+        "id":  92428,
+        "name":  "Conchucos"
+    },
+    {
+        "id":  92427,
+        "name":  "Concordia"
+    },
+    {
+        "id":  93212,
+        "name":  "Condoroma"
+    },
+    {
+        "id":  93691,
+        "name":  "Conduriri"
+    },
+    {
+        "id":  93211,
+        "name":  "Congalla"
+    },
+    {
+        "id":  93210,
+        "name":  "Congas"
+    },
+    {
+        "id":  93209,
+        "name":  "Conima"
+    },
+    {
+        "id":  93599,
+        "name":  "Cono Norte"
+    },
+    {
+        "id":  93607,
+        "name":  "Cono Norte"
+    },
+    {
+        "id":  92426,
+        "name":  "Contamana"
+    },
+    {
+        "id":  92425,
+        "name":  "Contumazá"
+    },
+    {
+        "id":  93208,
+        "name":  "Copa"
+    },
+    {
+        "id":  93207,
+        "name":  "Copa"
+    },
+    {
+        "id":  93695,
+        "name":  "Copani"
+    },
+    {
+        "id":  93205,
+        "name":  "Coporaque"
+    },
+    {
+        "id":  93206,
+        "name":  "Coporaque"
+    },
+    {
+        "id":  93204,
+        "name":  "Coracora"
+    },
+    {
+        "id":  93203,
+        "name":  "Corani"
+    },
+    {
+        "id":  93202,
+        "name":  "Corculla"
+    },
+    {
+        "id":  93201,
+        "name":  "Córdova"
+    },
+    {
+        "id":  93200,
+        "name":  "Corire"
+    },
+    {
+        "id":  92424,
+        "name":  "Coris"
+    },
+    {
+        "id":  92423,
+        "name":  "Corongo"
+    },
+    {
+        "id":  93199,
+        "name":  "Corpanqui"
+    },
+    {
+        "id":  92422,
+        "name":  "Cospán"
+    },
+    {
+        "id":  93197,
+        "name":  "Cotabambas"
+    },
+    {
+        "id":  93196,
+        "name":  "Cotahuasi"
+    },
+    {
+        "id":  93195,
+        "name":  "Cotaparaco"
+    },
+    {
+        "id":  93194,
+        "name":  "Cotaruse"
+    },
+    {
+        "id":  93489,
+        "name":  "Coviriali"
+    },
+    {
+        "id":  93193,
+        "name":  "Coya"
+    },
+    {
+        "id":  93192,
+        "name":  "Coyllurqui"
+    },
+    {
+        "id":  93191,
+        "name":  "Crucero"
+    },
+    {
+        "id":  93190,
+        "name":  "Cruz Blanca"
+    },
+    {
+        "id":  93189,
+        "name":  "Cuchumbaya"
+    },
+    {
+        "id":  93188,
+        "name":  "Cuenca"
+    },
+    {
+        "id":  92421,
+        "name":  "Cuispes"
+    },
+    {
+        "id":  92420,
+        "name":  "Cujillo"
+    },
+    {
+        "id":  93467,
+        "name":  "Cullcuyre"
+    },
+    {
+        "id":  93187,
+        "name":  "Cullhuas"
+    },
+    {
+        "id":  92418,
+        "name":  "Cumba"
+    },
+    {
+        "id":  92556,
+        "name":  "Cuñumbuqui"
+    },
+    {
+        "id":  93186,
+        "name":  "Cupi"
+    },
+    {
+        "id":  93185,
+        "name":  "Curahuasi"
+    },
+    {
+        "id":  93184,
+        "name":  "Curasco"
+    },
+    {
+        "id":  92417,
+        "name":  "Curgos"
+    },
+    {
+        "id":  93183,
+        "name":  "Curibaya"
+    },
+    {
+        "id":  93641,
+        "name":  "Curimaná"
+    },
+    {
+        "id":  93456,
+        "name":  "Curpahuasi"
+    },
+    {
+        "id":  92416,
+        "name":  "Cusca"
+    },
+    {
+        "id":  93182,
+        "name":  "Cusco"
+    },
+    {
+        "id":  93181,
+        "name":  "Cusipata"
+    },
+    {
+        "id":  92415,
+        "name":  "Cutervo"
+    },
+    {
+        "id":  93180,
+        "name":  "Cuyocuyo"
+    },
+    {
+        "id":  93507,
+        "name":  "Daguas"
+    },
+    {
+        "id":  93179,
+        "name":  "Desaguadero"
+    },
+    {
+        "id":  93178,
+        "name":  "Deustua"
+    },
+    {
+        "id":  92414,
+        "name":  "Dos Pueblos"
+    },
+    {
+        "id":  93502,
+        "name":  "Duraznopampa"
+    },
+    {
+        "id":  93486,
+        "name":  "Echarate"
+    },
+    {
+        "id":  93415,
+        "name":  "El Algarrobal"
+    },
+    {
+        "id":  92413,
+        "name":  "El Alto"
+    },
+    {
+        "id":  93177,
+        "name":  "El Cardo"
+    },
+    {
+        "id":  93176,
+        "name":  "El Carmen"
+    },
+    {
+        "id":  93175,
+        "name":  "El Descanso"
+    },
+    {
+        "id":  93174,
+        "name":  "El Ingenio"
+    },
+    {
+        "id":  93546,
+        "name":  "El Mantaro"
+    },
+    {
+        "id":  92412,
+        "name":  "El Parco District"
+    },
+    {
+        "id":  93604,
+        "name":  "El Pedregal"
+    },
+    {
+        "id":  92411,
+        "name":  "El Porvenir"
+    },
+    {
+        "id":  92410,
+        "name":  "El Prado"
+    },
+    {
+        "id":  93538,
+        "name":  "El Rosario"
+    },
+    {
+        "id":  93172,
+        "name":  "El Tambo"
+    },
+    {
+        "id":  93526,
+        "name":  "El Triunfo ( El Cruce)"
+    },
+    {
+        "id":  92409,
+        "name":  "Encañada"
+    },
+    {
+        "id":  93690,
+        "name":  "Estación de Pucará"
+    },
+    {
+        "id":  93171,
+        "name":  "Estique"
+    },
+    {
+        "id":  93170,
+        "name":  "Estique Pampa"
+    },
+    {
+        "id":  92407,
+        "name":  "Eten"
+    },
+    {
+        "id":  92406,
+        "name":  "Ferreñafe"
+    },
+    {
+        "id":  92405,
+        "name":  "Florida ( Pomacochas)"
+    },
+    {
+        "id":  93621,
+        "name":  "Fonavi"
+    },
+    {
+        "id":  92403,
+        "name":  "Frias"
+    },
+    {
+        "id":  93487,
+        "name":  "Genaro Herrera"
+    },
+    {
+        "id":  93169,
+        "name":  "Gorgor"
+    },
+    {
+        "id":  93168,
+        "name":  "Gorgorillo"
+    },
+    {
+        "id":  93167,
+        "name":  "Goyllarisquizga"
+    },
+    {
+        "id":  92402,
+        "name":  "Granada"
+    },
+    {
+        "id":  92401,
+        "name":  "Guadalupe"
+    },
+    {
+        "id":  93166,
+        "name":  "Guadalupe"
+    },
+    {
+        "id":  92173,
+        "name":  "Guadalupito"
+    },
+    {
+        "id":  92400,
+        "name":  "Guzmango"
+    },
+    {
+        "id":  92399,
+        "name":  "Habana"
+    },
+    {
+        "id":  93138,
+        "name":  "Hacienda Huancane"
+    },
+    {
+        "id":  92208,
+        "name":  "Hacienda Pucala"
+    },
+    {
+        "id":  93165,
+        "name":  "Haquira"
+    },
+    {
+        "id":  93164,
+        "name":  "Hongos"
+    },
+    {
+        "id":  92398,
+        "name":  "Honoria"
+    },
+    {
+        "id":  93616,
+        "name":  "Horacio Zeballos Gamez"
+    },
+    {
+        "id":  93523,
+        "name":  "Huabal"
+    },
+    {
+        "id":  93157,
+        "name":  "Huac Huas"
+    },
+    {
+        "id":  92397,
+        "name":  "Huacachi"
+    },
+    {
+        "id":  93163,
+        "name":  "Huacaña"
+    },
+    {
+        "id":  92396,
+        "name":  "Huacapampa"
+    },
+    {
+        "id":  93162,
+        "name":  "Huacar"
+    },
+    {
+        "id":  92395,
+        "name":  "Huacaschuque"
+    },
+    {
+        "id":  92394,
+        "name":  "Huacaybamba"
+    },
+    {
+        "id":  93485,
+        "name":  "Huaccana"
+    },
+    {
+        "id":  92393,
+        "name":  "Huacchis"
+    },
+    {
+        "id":  93161,
+        "name":  "Huachac"
+    },
+    {
+        "id":  92392,
+        "name":  "Huachis"
+    },
+    {
+        "id":  93160,
+        "name":  "Huacho"
+    },
+    {
+        "id":  93705,
+        "name":  "Huachocolpa"
+    },
+    {
+        "id":  93159,
+        "name":  "Huachocolpa"
+    },
+    {
+        "id":  93158,
+        "name":  "Huachos"
+    },
+    {
+        "id":  92391,
+        "name":  "Huacllán"
+    },
+    {
+        "id":  92390,
+        "name":  "Huacrachuco"
+    },
+    {
+        "id":  93156,
+        "name":  "Huacrapuquio"
+    },
+    {
+        "id":  92389,
+        "name":  "Hualgayoc"
+    },
+    {
+        "id":  93548,
+        "name":  "Hualhuas"
+    },
+    {
+        "id":  92387,
+        "name":  "Huallanca"
+    },
+    {
+        "id":  92388,
+        "name":  "Huallanca"
+    },
+    {
+        "id":  93682,
+        "name":  "Huallhua"
+    },
+    {
+        "id":  93152,
+        "name":  "Hualmay"
+    },
+    {
+        "id":  92385,
+        "name":  "Huamachuco"
+    },
+    {
+        "id":  93151,
+        "name":  "Huamali"
+    },
+    {
+        "id":  93628,
+        "name":  "Huamancaca Chico"
+    },
+    {
+        "id":  93150,
+        "name":  "Huamanguilla"
+    },
+    {
+        "id":  93149,
+        "name":  "Huamanquiquia"
+    },
+    {
+        "id":  93148,
+        "name":  "Huamantanga"
+    },
+    {
+        "id":  93147,
+        "name":  "Huamatambo"
+    },
+    {
+        "id":  93146,
+        "name":  "Huambalpa"
+    },
+    {
+        "id":  93145,
+        "name":  "Huambo"
+    },
+    {
+        "id":  93509,
+        "name":  "Huambo"
+    },
+    {
+        "id":  92384,
+        "name":  "Huambos"
+    },
+    {
+        "id":  93143,
+        "name":  "Huampara"
+    },
+    {
+        "id":  93142,
+        "name":  "Huanca"
+    },
+    {
+        "id":  92383,
+        "name":  "Huancabamba"
+    },
+    {
+        "id":  93141,
+        "name":  "Huancabamba"
+    },
+    {
+        "id":  93140,
+        "name":  "Huancabamba"
+    },
+    {
+        "id":  93139,
+        "name":  "Huancán"
+    },
+    {
+        "id":  93137,
+        "name":  "Huancaní"
+    },
+    {
+        "id":  93136,
+        "name":  "Huancano"
+    },
+    {
+        "id":  93532,
+        "name":  "Huancapallac"
+    },
+    {
+        "id":  93135,
+        "name":  "Huancapi"
+    },
+    {
+        "id":  93134,
+        "name":  "Huancarama"
+    },
+    {
+        "id":  93133,
+        "name":  "Huancarane"
+    },
+    {
+        "id":  93132,
+        "name":  "Huancaray"
+    },
+    {
+        "id":  93131,
+        "name":  "Huancaraylla"
+    },
+    {
+        "id":  93130,
+        "name":  "Huancarqui"
+    },
+    {
+        "id":  92382,
+        "name":  "Huancas"
+    },
+    {
+        "id":  93514,
+        "name":  "Huancaspata"
+    },
+    {
+        "id":  93129,
+        "name":  "Huancavelica"
+    },
+    {
+        "id":  93128,
+        "name":  "Huancaya"
+    },
+    {
+        "id":  93127,
+        "name":  "Huancayo"
+    },
+    {
+        "id":  92381,
+        "name":  "Huanchaco"
+    },
+    {
+        "id":  93617,
+        "name":  "Huanchaquito Alto"
+    },
+    {
+        "id":  93126,
+        "name":  "Huanchay"
+    },
+    {
+        "id":  92380,
+        "name":  "Huanchay"
+    },
+    {
+        "id":  93155,
+        "name":  "Huancullani"
+    },
+    {
+        "id":  93125,
+        "name":  "Huando"
+    },
+    {
+        "id":  92379,
+        "name":  "Huandoval"
+    },
+    {
+        "id":  92338,
+        "name":  "Huangala"
+    },
+    {
+        "id":  93124,
+        "name":  "Huangascar"
+    },
+    {
+        "id":  93123,
+        "name":  "Huanipaca"
+    },
+    {
+        "id":  93122,
+        "name":  "Huanoquite"
+    },
+    {
+        "id":  93121,
+        "name":  "Huanta"
+    },
+    {
+        "id":  92378,
+        "name":  "Huántar"
+    },
+    {
+        "id":  93120,
+        "name":  "Huanuara"
+    },
+    {
+        "id":  92377,
+        "name":  "Huánuco"
+    },
+    {
+        "id":  93119,
+        "name":  "Huanza"
+    },
+    {
+        "id":  93118,
+        "name":  "Huaquirca"
+    },
+    {
+        "id":  93117,
+        "name":  "Huaral"
+    },
+    {
+        "id":  93459,
+        "name":  "Huarancante"
+    },
+    {
+        "id":  92376,
+        "name":  "Huaranchal"
+    },
+    {
+        "id":  93670,
+        "name":  "Huarango"
+    },
+    {
+        "id":  92375,
+        "name":  "Huaraz"
+    },
+    {
+        "id":  92374,
+        "name":  "Huari"
+    },
+    {
+        "id":  93116,
+        "name":  "Huariaca"
+    },
+    {
+        "id":  93115,
+        "name":  "Huaribamba"
+    },
+    {
+        "id":  93461,
+        "name":  "Huarichancara"
+    },
+    {
+        "id":  93535,
+        "name":  "Huaricolca"
+    },
+    {
+        "id":  92373,
+        "name":  "Huaripampa"
+    },
+    {
+        "id":  93114,
+        "name":  "Huaripampa"
+    },
+    {
+        "id":  92372,
+        "name":  "Huarmaca"
+    },
+    {
+        "id":  93113,
+        "name":  "Huarmey"
+    },
+    {
+        "id":  93112,
+        "name":  "Huaro"
+    },
+    {
+        "id":  93111,
+        "name":  "Huarocondo"
+    },
+    {
+        "id":  93110,
+        "name":  "Huaros"
+    },
+    {
+        "id":  93109,
+        "name":  "Huasahuasi"
+    },
+    {
+        "id":  93108,
+        "name":  "Huasicancha"
+    },
+    {
+        "id":  92371,
+        "name":  "Huasmín"
+    },
+    {
+        "id":  93107,
+        "name":  "Huasta"
+    },
+    {
+        "id":  92370,
+        "name":  "Huata"
+    },
+    {
+        "id":  93106,
+        "name":  "Huata"
+    },
+    {
+        "id":  93105,
+        "name":  "Huatasani"
+    },
+    {
+        "id":  93104,
+        "name":  "Huaura"
+    },
+    {
+        "id":  93103,
+        "name":  "Huayacundo Arma"
+    },
+    {
+        "id":  92369,
+        "name":  "Huayán"
+    },
+    {
+        "id":  93102,
+        "name":  "Huayana"
+    },
+    {
+        "id":  93101,
+        "name":  "Huayhuay"
+    },
+    {
+        "id":  92368,
+        "name":  "Huaylas"
+    },
+    {
+        "id":  92367,
+        "name":  "Huaylillas"
+    },
+    {
+        "id":  93100,
+        "name":  "Huayllabamba"
+    },
+    {
+        "id":  92386,
+        "name":  "Huayllabamba"
+    },
+    {
+        "id":  93154,
+        "name":  "Huayllacayán"
+    },
+    {
+        "id":  93099,
+        "name":  "Huayllahuara"
+    },
+    {
+        "id":  93663,
+        "name":  "Huayllán"
+    },
+    {
+        "id":  93098,
+        "name":  "Huayllapampa"
+    },
+    {
+        "id":  93448,
+        "name":  "Huayllati"
+    },
+    {
+        "id":  93097,
+        "name":  "Huayllay"
+    },
+    {
+        "id":  93153,
+        "name":  "Huayllay Grande"
+    },
+    {
+        "id":  93452,
+        "name":  "Huayllo"
+    },
+    {
+        "id":  93478,
+        "name":  "Huayna Alcalde"
+    },
+    {
+        "id":  93095,
+        "name":  "Huayrapata"
+    },
+    {
+        "id":  93094,
+        "name":  "Huayucachi"
+    },
+    {
+        "id":  93626,
+        "name":  "Huepetuhe"
+    },
+    {
+        "id":  93543,
+        "name":  "Huertas"
+    },
+    {
+        "id":  92366,
+        "name":  "Huicungo"
+    },
+    {
+        "id":  93646,
+        "name":  "Huipoca"
+    },
+    {
+        "id":  93091,
+        "name":  "Humay"
+    },
+    {
+        "id":  93096,
+        "name":  "Huyro"
+    },
+    {
+        "id":  93089,
+        "name":  "Iberia"
+    },
+    {
+        "id":  92365,
+        "name":  "Iberia"
+    },
+    {
+        "id":  93088,
+        "name":  "Ica"
+    },
+    {
+        "id":  92364,
+        "name":  "Ichocán"
+    },
+    {
+        "id":  93087,
+        "name":  "Ichuña"
+    },
+    {
+        "id":  93086,
+        "name":  "Ichupampa"
+    },
+    {
+        "id":  93085,
+        "name":  "Ihuari"
+    },
+    {
+        "id":  93084,
+        "name":  "Ilabaya"
+    },
+    {
+        "id":  93083,
+        "name":  "Ilave"
+    },
+    {
+        "id":  93082,
+        "name":  "Ilo"
+    },
+    {
+        "id":  93081,
+        "name":  "Imperial"
+    },
+    {
+        "id":  92363,
+        "name":  "Inahuaya"
+    },
+    {
+        "id":  93080,
+        "name":  "Iñapari"
+    },
+    {
+        "id":  92362,
+        "name":  "Incahuasi"
+    },
+    {
+        "id":  93079,
+        "name":  "Inchupalla"
+    },
+    {
+        "id":  93078,
+        "name":  "Incuyo"
+    },
+    {
+        "id":  93076,
+        "name":  "Independencia"
+    },
+    {
+        "id":  93077,
+        "name":  "Independencia"
+    },
+    {
+        "id":  93583,
+        "name":  "Indiana"
+    },
+    {
+        "id":  93075,
+        "name":  "Ingenio"
+    },
+    {
+        "id":  92361,
+        "name":  "Inguilpata"
+    },
+    {
+        "id":  92360,
+        "name":  "Iparia"
+    },
+    {
+        "id":  93074,
+        "name":  "Iquipi"
+    },
+    {
+        "id":  92359,
+        "name":  "Iquitos"
+    },
+    {
+        "id":  93073,
+        "name":  "Iray"
+    },
+    {
+        "id":  93072,
+        "name":  "Iscos"
+    },
+    {
+        "id":  93644,
+        "name":  "Islandia"
+    },
+    {
+        "id":  93071,
+        "name":  "Islay (Matarani)"
+    },
+    {
+        "id":  93070,
+        "name":  "Izcuchaca"
+    },
+    {
+        "id":  93530,
+        "name":  "Jacas Grande"
+    },
+    {
+        "id":  93458,
+        "name":  "Jacobo Hunter"
+    },
+    {
+        "id":  92358,
+        "name":  "Jaén"
+    },
+    {
+        "id":  92357,
+        "name":  "Jamalca"
+    },
+    {
+        "id":  92356,
+        "name":  "Jangas"
+    },
+    {
+        "id":  93537,
+        "name":  "Janjaillo"
+    },
+    {
+        "id":  93068,
+        "name":  "Jaquí"
+    },
+    {
+        "id":  93601,
+        "name":  "Jardin"
+    },
+    {
+        "id":  93067,
+        "name":  "Jarpa"
+    },
+    {
+        "id":  93066,
+        "name":  "Jatun Orcochiri"
+    },
+    {
+        "id":  93065,
+        "name":  "Jauja"
+    },
+    {
+        "id":  92355,
+        "name":  "Jayanca"
+    },
+    {
+        "id":  93473,
+        "name":  "Jayobamba"
+    },
+    {
+        "id":  93463,
+        "name":  "Jayune"
+    },
+    {
+        "id":  92354,
+        "name":  "Jeberos"
+    },
+    {
+        "id":  92353,
+        "name":  "Jepelacio"
+    },
+    {
+        "id":  92352,
+        "name":  "Jesús"
+    },
+    {
+        "id":  93596,
+        "name":  "Jesus Maria"
+    },
+    {
+        "id":  92351,
+        "name":  "Jilili"
+    },
+    {
+        "id":  92350,
+        "name":  "Jimbe"
+    },
+    {
+        "id":  93064,
+        "name":  "Jivia"
+    },
+    {
+        "id":  93588,
+        "name":  "José Leonardo Ortiz"
+    },
+    {
+        "id":  92349,
+        "name":  "Juan Guerra"
+    },
+    {
+        "id":  92348,
+        "name":  "Juanjuí"
+    },
+    {
+        "id":  93069,
+        "name":  "Jucul"
+    },
+    {
+        "id":  93062,
+        "name":  "Julcamarca"
+    },
+    {
+        "id":  93061,
+        "name":  "Julcan"
+    },
+    {
+        "id":  93060,
+        "name":  "Juli"
+    },
+    {
+        "id":  93059,
+        "name":  "Juliaca"
+    },
+    {
+        "id":  93058,
+        "name":  "Junín"
+    },
+    {
+        "id":  93493,
+        "name":  "Kelluyo"
+    },
+    {
+        "id":  93578,
+        "name":  "Kimbiri"
+    },
+    {
+        "id":  93057,
+        "name":  "Kishuara"
+    },
+    {
+        "id":  92347,
+        "name":  "La Arena"
+    },
+    {
+        "id":  93602,
+        "name":  "La Banda"
+    },
+    {
+        "id":  92560,
+        "name":  "La Breita"
+    },
+    {
+        "id":  92419,
+        "name":  "La Caleta Culebras"
+    },
+    {
+        "id":  93055,
+        "name":  "La Capilla"
+    },
+    {
+        "id":  92548,
+        "name":  "La Coipa"
+    },
+    {
+        "id":  92345,
+        "name":  "La Cuesta"
+    },
+    {
+        "id":  93053,
+        "name":  "La Curva"
+    },
+    {
+        "id":  93052,
+        "name":  "La Esmeralda"
+    },
+    {
+        "id":  92343,
+        "name":  "La Esperanza"
+    },
+    {
+        "id":  93492,
+        "name":  "La Esperanza"
+    },
+    {
+        "id":  92344,
+        "name":  "La Esperanza"
+    },
+    {
+        "id":  92404,
+        "name":  "La Florida"
+    },
+    {
+        "id":  92342,
+        "name":  "La Grama"
+    },
+    {
+        "id":  92339,
+        "name":  "La Huaca"
+    },
+    {
+        "id":  92337,
+        "name":  "La Jalca"
+    },
+    {
+        "id":  93527,
+        "name":  "La Joya"
+    },
+    {
+        "id":  92335,
+        "name":  "La Legua - San Jacinto"
+    },
+    {
+        "id":  93050,
+        "name":  "La Libertad"
+    },
+    {
+        "id":  92551,
+        "name":  "La Libertad de Pallán"
+    },
+    {
+        "id":  92290,
+        "name":  "La Matanza"
+    },
+    {
+        "id":  93047,
+        "name":  "La Merced"
+    },
+    {
+        "id":  92332,
+        "name":  "La Merced"
+    },
+    {
+        "id":  93565,
+        "name":  "La Merced"
+    },
+    {
+        "id":  93046,
+        "name":  "La Molina"
+    },
+    {
+        "id":  93040,
+        "name":  "La Oroya"
+    },
+    {
+        "id":  93039,
+        "name":  "La Pampa"
+    },
+    {
+        "id":  92330,
+        "name":  "La Pampa"
+    },
+    {
+        "id":  92329,
+        "name":  "La Peca"
+    },
+    {
+        "id":  93611,
+        "name":  "La Pradera"
+    },
+    {
+        "id":  93709,
+        "name":  "La Ramada"
+    },
+    {
+        "id":  93561,
+        "name":  "La Rinconada"
+    },
+    {
+        "id":  93610,
+        "name":  "La Rinconada Ana Maria (La Rinconada)"
+    },
+    {
+        "id":  92549,
+        "name":  "La Sacilia"
+    },
+    {
+        "id":  93029,
+        "name":  "La Tinguiña"
+    },
+    {
+        "id":  92325,
+        "name":  "La Unión"
+    },
+    {
+        "id":  92324,
+        "name":  "La Unión"
+    },
+    {
+        "id":  92346,
+        "name":  "Lacabamba"
+    },
+    {
+        "id":  93054,
+        "name":  "Lachaqui"
+    },
+    {
+        "id":  92340,
+        "name":  "Lagunas"
+    },
+    {
+        "id":  92341,
+        "name":  "Lagunas"
+    },
+    {
+        "id":  93051,
+        "name":  "Lahuaytambo"
+    },
+    {
+        "id":  92336,
+        "name":  "Lajas"
+    },
+    {
+        "id":  92334,
+        "name":  "Lamas"
+    },
+    {
+        "id":  93049,
+        "name":  "Lamay"
+    },
+    {
+        "id":  92333,
+        "name":  "Lambayeque"
+    },
+    {
+        "id":  93048,
+        "name":  "Lambrama"
+    },
+    {
+        "id":  93044,
+        "name":  "Lampa"
+    },
+    {
+        "id":  93045,
+        "name":  "Lampa"
+    },
+    {
+        "id":  93043,
+        "name":  "Lampian"
+    },
+    {
+        "id":  92331,
+        "name":  "Lamud"
+    },
+    {
+        "id":  93042,
+        "name":  "Langui"
+    },
+    {
+        "id":  93041,
+        "name":  "Lanlacuni Bajo"
+    },
+    {
+        "id":  93038,
+        "name":  "Laramarca"
+    },
+    {
+        "id":  93037,
+        "name":  "Laramate"
+    },
+    {
+        "id":  93036,
+        "name":  "Laraos"
+    },
+    {
+        "id":  93035,
+        "name":  "Laraos"
+    },
+    {
+        "id":  93034,
+        "name":  "Laraqueri"
+    },
+    {
+        "id":  92328,
+        "name":  "Laredo"
+    },
+    {
+        "id":  93033,
+        "name":  "Lares"
+    },
+    {
+        "id":  93032,
+        "name":  "Lari"
+    },
+    {
+        "id":  93031,
+        "name":  "Laria"
+    },
+    {
+        "id":  92327,
+        "name":  "Las Lomas"
+    },
+    {
+        "id":  93608,
+        "name":  "Las Nazarenas"
+    },
+    {
+        "id":  92326,
+        "name":  "Las Palmas"
+    },
+    {
+        "id":  92554,
+        "name":  "Las Pirias"
+    },
+    {
+        "id":  93030,
+        "name":  "Las Yaras"
+    },
+    {
+        "id":  93488,
+        "name":  "Laylla"
+    },
+    {
+        "id":  93028,
+        "name":  "Layo"
+    },
+    {
+        "id":  93558,
+        "name":  "Ledoy"
+    },
+    {
+        "id":  93027,
+        "name":  "Leticia"
+    },
+    {
+        "id":  92323,
+        "name":  "Levanto"
+    },
+    {
+        "id":  92322,
+        "name":  "Licupis"
+    },
+    {
+        "id":  93026,
+        "name":  "Lima"
+    },
+    {
+        "id":  93472,
+        "name":  "Lima Pampa"
+    },
+    {
+        "id":  93025,
+        "name":  "Limatambo"
+    },
+    {
+        "id":  93024,
+        "name":  "Limbani"
+    },
+    {
+        "id":  93632,
+        "name":  "Limoncarro"
+    },
+    {
+        "id":  93023,
+        "name":  "Lincha"
+    },
+    {
+        "id":  93022,
+        "name":  "Lircay"
+    },
+    {
+        "id":  93021,
+        "name":  "Livitaca"
+    },
+    {
+        "id":  92321,
+        "name":  "Llacanora"
+    },
+    {
+        "id":  93020,
+        "name":  "Llaclla"
+    },
+    {
+        "id":  93019,
+        "name":  "Llacllin"
+    },
+    {
+        "id":  93018,
+        "name":  "Llalli"
+    },
+    {
+        "id":  92319,
+        "name":  "Llama"
+    },
+    {
+        "id":  92320,
+        "name":  "Llama"
+    },
+    {
+        "id":  92318,
+        "name":  "Llapa"
+    },
+    {
+        "id":  92317,
+        "name":  "Llapo"
+    },
+    {
+        "id":  93529,
+        "name":  "Llata"
+    },
+    {
+        "id":  92316,
+        "name":  "Llata"
+    },
+    {
+        "id":  93017,
+        "name":  "Llauta"
+    },
+    {
+        "id":  93016,
+        "name":  "Llipa"
+    },
+    {
+        "id":  93015,
+        "name":  "Llipata"
+    },
+    {
+        "id":  93580,
+        "name":  "Llochegua"
+    },
+    {
+        "id":  93014,
+        "name":  "Llocllapampa"
+    },
+    {
+        "id":  93462,
+        "name":  "Llongasora"
+    },
+    {
+        "id":  93013,
+        "name":  "Lloque"
+    },
+    {
+        "id":  92315,
+        "name":  "Lluchubamba"
+    },
+    {
+        "id":  93012,
+        "name":  "Llusco"
+    },
+    {
+        "id":  93011,
+        "name":  "Lluta"
+    },
+    {
+        "id":  92314,
+        "name":  "Lobitos"
+    },
+    {
+        "id":  93010,
+        "name":  "Locroja"
+    },
+    {
+        "id":  93009,
+        "name":  "Locumba"
+    },
+    {
+        "id":  92313,
+        "name":  "Longar"
+    },
+    {
+        "id":  92312,
+        "name":  "Longotea"
+    },
+    {
+        "id":  92311,
+        "name":  "Longuita"
+    },
+    {
+        "id":  92310,
+        "name":  "Lonya Chico"
+    },
+    {
+        "id":  92309,
+        "name":  "Lonya Grande"
+    },
+    {
+        "id":  93008,
+        "name":  "Los Aquijes"
+    },
+    {
+        "id":  92308,
+        "name":  "Los Baños del Inca"
+    },
+    {
+        "id":  92307,
+        "name":  "Los Organos"
+    },
+    {
+        "id":  93007,
+        "name":  "Lucanas"
+    },
+    {
+        "id":  93006,
+        "name":  "Lucma"
+    },
+    {
+        "id":  92305,
+        "name":  "Lucma"
+    },
+    {
+        "id":  92306,
+        "name":  "Lucma"
+    },
+    {
+        "id":  92304,
+        "name":  "Lucmapampa"
+    },
+    {
+        "id":  93004,
+        "name":  "Lucre"
+    },
+    {
+        "id":  93005,
+        "name":  "Lucre"
+    },
+    {
+        "id":  93003,
+        "name":  "Luricocha"
+    },
+    {
+        "id":  92303,
+        "name":  "Luya"
+    },
+    {
+        "id":  93002,
+        "name":  "Maca"
+    },
+    {
+        "id":  93001,
+        "name":  "Macachacra"
+    },
+    {
+        "id":  93000,
+        "name":  "Macari"
+    },
+    {
+        "id":  92302,
+        "name":  "Macate"
+    },
+    {
+        "id":  92999,
+        "name":  "Machaguay"
+    },
+    {
+        "id":  92301,
+        "name":  "Mache"
+    },
+    {
+        "id":  92998,
+        "name":  "Machupicchu"
+    },
+    {
+        "id":  92997,
+        "name":  "Macusani"
+    },
+    {
+        "id":  92996,
+        "name":  "Madean"
+    },
+    {
+        "id":  92995,
+        "name":  "Madrigal"
+    },
+    {
+        "id":  92299,
+        "name":  "Magdalena"
+    },
+    {
+        "id":  92300,
+        "name":  "Magdalena"
+    },
+    {
+        "id":  92298,
+        "name":  "Maino"
+    },
+    {
+        "id":  92994,
+        "name":  "Mala"
+    },
+    {
+        "id":  92297,
+        "name":  "Malvas"
+    },
+    {
+        "id":  92993,
+        "name":  "Mamara"
+    },
+    {
+        "id":  92992,
+        "name":  "Mañazo"
+    },
+    {
+        "id":  92296,
+        "name":  "Máncora"
+    },
+    {
+        "id":  92295,
+        "name":  "Mancos"
+    },
+    {
+        "id":  92991,
+        "name":  "Mangas"
+    },
+    {
+        "id":  92990,
+        "name":  "Manta"
+    },
+    {
+        "id":  92559,
+        "name":  "Manuel Antonio Mesones Muro"
+    },
+    {
+        "id":  92989,
+        "name":  "Mara"
+    },
+    {
+        "id":  92988,
+        "name":  "Maranganí"
+    },
+    {
+        "id":  92987,
+        "name":  "Maranura"
+    },
+    {
+        "id":  92986,
+        "name":  "Maras"
+    },
+    {
+        "id":  92985,
+        "name":  "Maray"
+    },
+    {
+        "id":  92984,
+        "name":  "Marca"
+    },
+    {
+        "id":  92294,
+        "name":  "Marcabal"
+    },
+    {
+        "id":  92983,
+        "name":  "Marcabamba"
+    },
+    {
+        "id":  93697,
+        "name":  "Marcaja"
+    },
+    {
+        "id":  92982,
+        "name":  "Marcapata"
+    },
+    {
+        "id":  92981,
+        "name":  "Marcapomacocha"
+    },
+    {
+        "id":  92293,
+        "name":  "Marcará"
+    },
+    {
+        "id":  92980,
+        "name":  "Marcas"
+    },
+    {
+        "id":  92292,
+        "name":  "Marcavelica"
+    },
+    {
+        "id":  92979,
+        "name":  "Marco"
+    },
+    {
+        "id":  92977,
+        "name":  "Margos"
+    },
+    {
+        "id":  93589,
+        "name":  "Mariano Melgar"
+    },
+    {
+        "id":  92976,
+        "name":  "Mariatana"
+    },
+    {
+        "id":  92975,
+        "name":  "Mariposa"
+    },
+    {
+        "id":  92974,
+        "name":  "Mariscal Cáceres"
+    },
+    {
+        "id":  93572,
+        "name":  "Mariscal Cáceres"
+    },
+    {
+        "id":  93656,
+        "name":  "Masin"
+    },
+    {
+        "id":  92291,
+        "name":  "Masisea"
+    },
+    {
+        "id":  93545,
+        "name":  "Masma"
+    },
+    {
+        "id":  93541,
+        "name":  "Masma Chicche"
+    },
+    {
+        "id":  93584,
+        "name":  "Massiapo"
+    },
+    {
+        "id":  93503,
+        "name":  "Matacoto"
+    },
+    {
+        "id":  93547,
+        "name":  "Matahuasi"
+    },
+    {
+        "id":  92973,
+        "name":  "Matalaque"
+    },
+    {
+        "id":  92289,
+        "name":  "Matapalo"
+    },
+    {
+        "id":  92288,
+        "name":  "Matará"
+    },
+    {
+        "id":  92972,
+        "name":  "Matucana"
+    },
+    {
+        "id":  92971,
+        "name":  "Mayocc"
+    },
+    {
+        "id":  92970,
+        "name":  "Mazamari"
+    },
+    {
+        "id":  92969,
+        "name":  "Mazo Cruz"
+    },
+    {
+        "id":  93629,
+        "name":  "Mazuko"
+    },
+    {
+        "id":  92968,
+        "name":  "Mejía"
+    },
+    {
+        "id":  92287,
+        "name":  "Mendoza"
+    },
+    {
+        "id":  92286,
+        "name":  "Milpuc"
+    },
+    {
+        "id":  92978,
+        "name":  "Minas de Marcona"
+    },
+    {
+        "id":  92284,
+        "name":  "Miracosta"
+    },
+    {
+        "id":  92966,
+        "name":  "Miraflores"
+    },
+    {
+        "id":  92283,
+        "name":  "Miraflores"
+    },
+    {
+        "id":  92967,
+        "name":  "Miraflores"
+    },
+    {
+        "id":  93612,
+        "name":  "Miramar"
+    },
+    {
+        "id":  92282,
+        "name":  "Mirgas"
+    },
+    {
+        "id":  92281,
+        "name":  "Moche"
+    },
+    {
+        "id":  92280,
+        "name":  "Mochumí"
+    },
+    {
+        "id":  92279,
+        "name":  "Mocupe"
+    },
+    {
+        "id":  92965,
+        "name":  "Moho"
+    },
+    {
+        "id":  92964,
+        "name":  "Molinos"
+    },
+    {
+        "id":  92963,
+        "name":  "Mollebamba"
+    },
+    {
+        "id":  92962,
+        "name":  "Mollebaya"
+    },
+    {
+        "id":  92961,
+        "name":  "Mollendo"
+    },
+    {
+        "id":  92960,
+        "name":  "Mollepampa"
+    },
+    {
+        "id":  92959,
+        "name":  "Mollepata"
+    },
+    {
+        "id":  92278,
+        "name":  "Mollepata"
+    },
+    {
+        "id":  92958,
+        "name":  "Monobamba"
+    },
+    {
+        "id":  92277,
+        "name":  "Monsefú"
+    },
+    {
+        "id":  92276,
+        "name":  "Montero"
+    },
+    {
+        "id":  92275,
+        "name":  "Montevideo"
+    },
+    {
+        "id":  92957,
+        "name":  "Moquegua"
+    },
+    {
+        "id":  92956,
+        "name":  "Morcolla"
+    },
+    {
+        "id":  92274,
+        "name":  "Moro"
+    },
+    {
+        "id":  92955,
+        "name":  "Morococha"
+    },
+    {
+        "id":  92273,
+        "name":  "Mórrope"
+    },
+    {
+        "id":  92272,
+        "name":  "Morropón"
+    },
+    {
+        "id":  92954,
+        "name":  "Mosca"
+    },
+    {
+        "id":  93477,
+        "name":  "Mosoc Cancha"
+    },
+    {
+        "id":  93445,
+        "name":  "Mosoc Llacta"
+    },
+    {
+        "id":  92271,
+        "name":  "Motupe"
+    },
+    {
+        "id":  92953,
+        "name":  "Moya"
+    },
+    {
+        "id":  92270,
+        "name":  "Moyobamba"
+    },
+    {
+        "id":  93544,
+        "name":  "Mucllo"
+    },
+    {
+        "id":  92952,
+        "name":  "Muñani"
+    },
+    {
+        "id":  92951,
+        "name":  "Mungui"
+    },
+    {
+        "id":  92950,
+        "name":  "Muqui"
+    },
+    {
+        "id":  92949,
+        "name":  "Muquiyauyo"
+    },
+    {
+        "id":  93660,
+        "name":  "Musga"
+    },
+    {
+        "id":  92948,
+        "name":  "Ñahuimpuquio"
+    },
+    {
+        "id":  92269,
+        "name":  "Namballe"
+    },
+    {
+        "id":  92268,
+        "name":  "Namora"
+    },
+    {
+        "id":  92267,
+        "name":  "Nanchoc"
+    },
+    {
+        "id":  92266,
+        "name":  "Naranjillo"
+    },
+    {
+        "id":  93515,
+        "name":  "Naranjos"
+    },
+    {
+        "id":  92265,
+        "name":  "Nauta"
+    },
+    {
+        "id":  92264,
+        "name":  "Navarro"
+    },
+    {
+        "id":  92947,
+        "name":  "Nazca"
+    },
+    {
+        "id":  92263,
+        "name":  "Negritos"
+    },
+    {
+        "id":  92262,
+        "name":  "Nepeña"
+    },
+    {
+        "id":  92946,
+        "name":  "Nicasio"
+    },
+    {
+        "id":  92261,
+        "name":  "Niepos"
+    },
+    {
+        "id":  92285,
+        "name":  "Ninabamba"
+    },
+    {
+        "id":  92944,
+        "name":  "Ninacaca"
+    },
+    {
+        "id":  92260,
+        "name":  "Nueva Arica"
+    },
+    {
+        "id":  93518,
+        "name":  "Nueva Cajamarca"
+    },
+    {
+        "id":  92547,
+        "name":  "Nueva Requena"
+    },
+    {
+        "id":  92943,
+        "name":  "Nuevo Imperial"
+    },
+    {
+        "id":  92942,
+        "name":  "Nuevo Occoro"
+    },
+    {
+        "id":  93520,
+        "name":  "Nuevo Progreso"
+    },
+    {
+        "id":  93624,
+        "name":  "Nuevo Sullana"
+    },
+    {
+        "id":  92941,
+        "name":  "Nuñoa"
+    },
+    {
+        "id":  92259,
+        "name":  "Obas"
+    },
+    {
+        "id":  92940,
+        "name":  "Ocaña"
+    },
+    {
+        "id":  92939,
+        "name":  "Ocobamba"
+    },
+    {
+        "id":  92938,
+        "name":  "Ocobamba"
+    },
+    {
+        "id":  92937,
+        "name":  "Ocoña"
+    },
+    {
+        "id":  92936,
+        "name":  "Ocongate"
+    },
+    {
+        "id":  92935,
+        "name":  "Ocoruro"
+    },
+    {
+        "id":  92934,
+        "name":  "Ocoyo"
+    },
+    {
+        "id":  92933,
+        "name":  "Ocros"
+    },
+    {
+        "id":  92932,
+        "name":  "Ocros"
+    },
+    {
+        "id":  92931,
+        "name":  "Ocucaje"
+    },
+    {
+        "id":  92930,
+        "name":  "Ocuviri"
+    },
+    {
+        "id":  92929,
+        "name":  "Ollachea"
+    },
+    {
+        "id":  92928,
+        "name":  "Ollantaytambo"
+    },
+    {
+        "id":  92257,
+        "name":  "Olleros"
+    },
+    {
+        "id":  92258,
+        "name":  "Olleros"
+    },
+    {
+        "id":  92256,
+        "name":  "Olmos"
+    },
+    {
+        "id":  92255,
+        "name":  "Olto"
+    },
+    {
+        "id":  92927,
+        "name":  "Omacha"
+    },
+    {
+        "id":  92926,
+        "name":  "Omas"
+    },
+    {
+        "id":  92925,
+        "name":  "Omate"
+    },
+    {
+        "id":  92254,
+        "name":  "Omia"
+    },
+    {
+        "id":  92924,
+        "name":  "Ondores"
+    },
+    {
+        "id":  92923,
+        "name":  "Ongoy"
+    },
+    {
+        "id":  92922,
+        "name":  "Orcopampa"
+    },
+    {
+        "id":  92921,
+        "name":  "Orcotuna"
+    },
+    {
+        "id":  92253,
+        "name":  "Orellana"
+    },
+    {
+        "id":  93491,
+        "name":  "Oronccoy"
+    },
+    {
+        "id":  92919,
+        "name":  "Oropesa"
+    },
+    {
+        "id":  92920,
+        "name":  "Oropesa"
+    },
+    {
+        "id":  92918,
+        "name":  "Orurillo"
+    },
+    {
+        "id":  92917,
+        "name":  "Otoca"
+    },
+    {
+        "id":  92252,
+        "name":  "Otuzco"
+    },
+    {
+        "id":  92251,
+        "name":  "Oxamarca"
+    },
+    {
+        "id":  92916,
+        "name":  "Oxapampa"
+    },
+    {
+        "id":  92915,
+        "name":  "Oyolo"
+    },
+    {
+        "id":  92914,
+        "name":  "Oyón"
+    },
+    {
+        "id":  92250,
+        "name":  "Oyotún"
+    },
+    {
+        "id":  92913,
+        "name":  "Paca"
+    },
+    {
+        "id":  92249,
+        "name":  "Pacaipampa"
+    },
+    {
+        "id":  92248,
+        "name":  "Pacanga"
+    },
+    {
+        "id":  92912,
+        "name":  "Pacapausa"
+    },
+    {
+        "id":  92911,
+        "name":  "Pacaraos"
+    },
+    {
+        "id":  92247,
+        "name":  "Pacasmayo"
+    },
+    {
+        "id":  92910,
+        "name":  "Pacaycasa"
+    },
+    {
+        "id":  92909,
+        "name":  "Paccaritambo"
+    },
+    {
+        "id":  92907,
+        "name":  "Paccha"
+    },
+    {
+        "id":  92908,
+        "name":  "Paccha"
+    },
+    {
+        "id":  92246,
+        "name":  "Paccha"
+    },
+    {
+        "id":  93496,
+        "name":  "Paccha Huallhua"
+    },
+    {
+        "id":  92906,
+        "name":  "Paccho"
+    },
+    {
+        "id":  92905,
+        "name":  "Pachaconas"
+    },
+    {
+        "id":  93701,
+        "name":  "Pachamarca"
+    },
+    {
+        "id":  92245,
+        "name":  "Pachas"
+    },
+    {
+        "id":  92904,
+        "name":  "Pachía"
+    },
+    {
+        "id":  92244,
+        "name":  "Paclas"
+    },
+    {
+        "id":  92903,
+        "name":  "Pacobamba"
+    },
+    {
+        "id":  92902,
+        "name":  "Pacocha"
+    },
+    {
+        "id":  92243,
+        "name":  "Pacora"
+    },
+    {
+        "id":  92901,
+        "name":  "Pacucha"
+    },
+    {
+        "id":  92900,
+        "name":  "Paico"
+    },
+    {
+        "id":  92242,
+        "name":  "Paiján"
+    },
+    {
+        "id":  92241,
+        "name":  "Paimas"
+    },
+    {
+        "id":  92240,
+        "name":  "Paita"
+    },
+    {
+        "id":  93559,
+        "name":  "Pajarillo"
+    },
+    {
+        "id":  92898,
+        "name":  "Palca"
+    },
+    {
+        "id":  92897,
+        "name":  "Palca"
+    },
+    {
+        "id":  92899,
+        "name":  "Palca"
+    },
+    {
+        "id":  92896,
+        "name":  "Palcamayo"
+    },
+    {
+        "id":  92895,
+        "name":  "Palco"
+    },
+    {
+        "id":  93627,
+        "name":  "Palianñuñas"
+    },
+    {
+        "id":  92894,
+        "name":  "Pallanchacra"
+    },
+    {
+        "id":  92239,
+        "name":  "Pallasca"
+    },
+    {
+        "id":  92893,
+        "name":  "Pallca"
+    },
+    {
+        "id":  93577,
+        "name":  "Palmapampa"
+    },
+    {
+        "id":  92892,
+        "name":  "Palpa"
+    },
+    {
+        "id":  92891,
+        "name":  "Palpacachi"
+    },
+    {
+        "id":  92227,
+        "name":  "Paltashaco"
+    },
+    {
+        "id":  92890,
+        "name":  "Pampa Cangallo"
+    },
+    {
+        "id":  92887,
+        "name":  "Pampa de Tate"
+    },
+    {
+        "id":  92238,
+        "name":  "Pampa Hermosa"
+    },
+    {
+        "id":  93661,
+        "name":  "Pampachacra"
+    },
+    {
+        "id":  92889,
+        "name":  "Pampachiri"
+    },
+    {
+        "id":  92888,
+        "name":  "Pampacolca"
+    },
+    {
+        "id":  93528,
+        "name":  "Pampamarca"
+    },
+    {
+        "id":  92886,
+        "name":  "Pampamarca"
+    },
+    {
+        "id":  92237,
+        "name":  "Pamparomas"
+    },
+    {
+        "id":  92885,
+        "name":  "Pampas"
+    },
+    {
+        "id":  92884,
+        "name":  "Pampas"
+    },
+    {
+        "id":  92236,
+        "name":  "Pampas"
+    },
+    {
+        "id":  92235,
+        "name":  "Pampas"
+    },
+    {
+        "id":  92883,
+        "name":  "Pampas Chico"
+    },
+    {
+        "id":  93635,
+        "name":  "Pampas Grande"
+    },
+    {
+        "id":  92234,
+        "name":  "Panao"
+    },
+    {
+        "id":  92882,
+        "name":  "Pancan"
+    },
+    {
+        "id":  92881,
+        "name":  "Pangoa"
+    },
+    {
+        "id":  92233,
+        "name":  "Pantoja"
+    },
+    {
+        "id":  92232,
+        "name":  "Papayal"
+    },
+    {
+        "id":  92561,
+        "name":  "Papayal"
+    },
+    {
+        "id":  92880,
+        "name":  "Paracas"
+    },
+    {
+        "id":  93623,
+        "name":  "Paragsha- San Andres - Jose Carlos Mariategui"
+    },
+    {
+        "id":  92879,
+        "name":  "Paramonga"
+    },
+    {
+        "id":  93710,
+        "name":  "Pararca"
+    },
+    {
+        "id":  92878,
+        "name":  "Pararín"
+    },
+    {
+        "id":  92877,
+        "name":  "Paras"
+    },
+    {
+        "id":  92876,
+        "name":  "Paratia"
+    },
+    {
+        "id":  92875,
+        "name":  "Parco"
+    },
+    {
+        "id":  93510,
+        "name":  "Parcoy"
+    },
+    {
+        "id":  92231,
+        "name":  "Pariacoto"
+    },
+    {
+        "id":  92230,
+        "name":  "Parinari"
+    },
+    {
+        "id":  92229,
+        "name":  "Parobamba"
+    },
+    {
+        "id":  92874,
+        "name":  "Paruro"
+    },
+    {
+        "id":  92873,
+        "name":  "Patambuco"
+    },
+    {
+        "id":  92228,
+        "name":  "Pátapo"
+    },
+    {
+        "id":  92872,
+        "name":  "Pataypampa"
+    },
+    {
+        "id":  92871,
+        "name":  "Pativilca"
+    },
+    {
+        "id":  93672,
+        "name":  "Paucamarca"
+    },
+    {
+        "id":  92870,
+        "name":  "Paucar"
+    },
+    {
+        "id":  93533,
+        "name":  "Paucarbamba"
+    },
+    {
+        "id":  92869,
+        "name":  "Paucarbamba"
+    },
+    {
+        "id":  92868,
+        "name":  "Paucarbambilla"
+    },
+    {
+        "id":  92867,
+        "name":  "Paucarcolla"
+    },
+    {
+        "id":  92866,
+        "name":  "Paucarpata"
+    },
+    {
+        "id":  93587,
+        "name":  "Paucartambo"
+    },
+    {
+        "id":  92865,
+        "name":  "Paucartambo"
+    },
+    {
+        "id":  92226,
+        "name":  "Paucas"
+    },
+    {
+        "id":  92864,
+        "name":  "Pausa"
+    },
+    {
+        "id":  92863,
+        "name":  "Pazos"
+    },
+    {
+        "id":  92225,
+        "name":  "Pebas"
+    },
+    {
+        "id":  93562,
+        "name":  "Pedro Ruiz Gallo"
+    },
+    {
+        "id":  92224,
+        "name":  "Pelejo"
+    },
+    {
+        "id":  92862,
+        "name":  "Perené"
+    },
+    {
+        "id":  92861,
+        "name":  "Phara"
+    },
+    {
+        "id":  92860,
+        "name":  "Pichari"
+    },
+    {
+        "id":  92859,
+        "name":  "Pichigua"
+    },
+    {
+        "id":  92858,
+        "name":  "Pichihua"
+    },
+    {
+        "id":  92857,
+        "name":  "Pichirhua"
+    },
+    {
+        "id":  93569,
+        "name":  "Pichos"
+    },
+    {
+        "id":  92223,
+        "name":  "Picota"
+    },
+    {
+        "id":  92222,
+        "name":  "Picsi"
+    },
+    {
+        "id":  92856,
+        "name":  "Pilchaca"
+    },
+    {
+        "id":  93609,
+        "name":  "Pilcomayo"
+    },
+    {
+        "id":  92855,
+        "name":  "Pilcomayo"
+    },
+    {
+        "id":  92854,
+        "name":  "Pilcuyo"
+    },
+    {
+        "id":  92853,
+        "name":  "Pillcopata"
+    },
+    {
+        "id":  92852,
+        "name":  "Pillpinto"
+    },
+    {
+        "id":  92221,
+        "name":  "Pilluana"
+    },
+    {
+        "id":  92851,
+        "name":  "Pilpichaca"
+    },
+    {
+        "id":  92220,
+        "name":  "Pimentel"
+    },
+    {
+        "id":  93668,
+        "name":  "Pimpingos"
+    },
+    {
+        "id":  92219,
+        "name":  "Pión"
+    },
+    {
+        "id":  92218,
+        "name":  "Pira"
+    },
+    {
+        "id":  92850,
+        "name":  "Pirca"
+    },
+    {
+        "id":  92849,
+        "name":  "Pisac"
+    },
+    {
+        "id":  92848,
+        "name":  "Pisco"
+    },
+    {
+        "id":  92217,
+        "name":  "Piscoyacu"
+    },
+    {
+        "id":  92847,
+        "name":  "Pitumarca"
+    },
+    {
+        "id":  92216,
+        "name":  "Piura"
+    },
+    {
+        "id":  92846,
+        "name":  "Pizacoma"
+    },
+    {
+        "id":  92845,
+        "name":  "Platería"
+    },
+    {
+        "id":  92844,
+        "name":  "Pocohuanca"
+    },
+    {
+        "id":  92843,
+        "name":  "Pocollay"
+    },
+    {
+        "id":  92842,
+        "name":  "Pocsi"
+    },
+    {
+        "id":  92841,
+        "name":  "Polobaya"
+    },
+    {
+        "id":  92840,
+        "name":  "Pomabamba"
+    },
+    {
+        "id":  92215,
+        "name":  "Pomabamba"
+    },
+    {
+        "id":  92839,
+        "name":  "Pomacancha"
+    },
+    {
+        "id":  92838,
+        "name":  "Pomacanchi"
+    },
+    {
+        "id":  92836,
+        "name":  "Pomacocha"
+    },
+    {
+        "id":  92837,
+        "name":  "Pomacocha"
+    },
+    {
+        "id":  92214,
+        "name":  "Pomahuaca"
+    },
+    {
+        "id":  92213,
+        "name":  "Pomalca"
+    },
+    {
+        "id":  92835,
+        "name":  "Pomata"
+    },
+    {
+        "id":  93651,
+        "name":  "Pongo de Caynarachi"
+    },
+    {
+        "id":  92212,
+        "name":  "Ponto"
+    },
+    {
+        "id":  92211,
+        "name":  "Poroto"
+    },
+    {
+        "id":  92834,
+        "name":  "Poroy"
+    },
+    {
+        "id":  92210,
+        "name":  "Posic"
+    },
+    {
+        "id":  92833,
+        "name":  "Potoni"
+    },
+    {
+        "id":  92832,
+        "name":  "Pozuzo"
+    },
+    {
+        "id":  93173,
+        "name":  "Progreso"
+    },
+    {
+        "id":  93497,
+        "name":  "Providencia"
+    },
+    {
+        "id":  92209,
+        "name":  "Pucacaca"
+    },
+    {
+        "id":  92207,
+        "name":  "Pucallpa"
+    },
+    {
+        "id":  92829,
+        "name":  "Pucara"
+    },
+    {
+        "id":  92830,
+        "name":  "Pucará"
+    },
+    {
+        "id":  92831,
+        "name":  "Pucará"
+    },
+    {
+        "id":  92206,
+        "name":  "Pucará"
+    },
+    {
+        "id":  93540,
+        "name":  "Pucayacu"
+    },
+    {
+        "id":  92828,
+        "name":  "Pucusana"
+    },
+    {
+        "id":  92827,
+        "name":  "Pucyura"
+    },
+    {
+        "id":  92205,
+        "name":  "Pueblo Libre"
+    },
+    {
+        "id":  92204,
+        "name":  "Pueblo Nuevo"
+    },
+    {
+        "id":  93465,
+        "name":  "Pueblo Nuevo"
+    },
+    {
+        "id":  92826,
+        "name":  "Pueblo Nuevo"
+    },
+    {
+        "id":  92203,
+        "name":  "Pueblo Nuevo"
+    },
+    {
+        "id":  93614,
+        "name":  "Puente Viru"
+    },
+    {
+        "id":  92545,
+        "name":  "Puerto Callao"
+    },
+    {
+        "id":  92201,
+        "name":  "Puerto Casma"
+    },
+    {
+        "id":  92825,
+        "name":  "Puerto de Lomas"
+    },
+    {
+        "id":  92200,
+        "name":  "Puerto Galilea"
+    },
+    {
+        "id":  92199,
+        "name":  "Puerto Inca"
+    },
+    {
+        "id":  92824,
+        "name":  "Puerto Maldonado"
+    },
+    {
+        "id":  92823,
+        "name":  "Puerto Ocopa"
+    },
+    {
+        "id":  92198,
+        "name":  "Puerto Rico"
+    },
+    {
+        "id":  93636,
+        "name":  "Puerto Rosario de Laberinto"
+    },
+    {
+        "id":  93707,
+        "name":  "Puerto San Antonio"
+    },
+    {
+        "id":  92197,
+        "name":  "Puerto Santa"
+    },
+    {
+        "id":  92820,
+        "name":  "Pujocucho"
+    },
+    {
+        "id":  92819,
+        "name":  "Pullo"
+    },
+    {
+        "id":  92196,
+        "name":  "Punchao"
+    },
+    {
+        "id":  92818,
+        "name":  "Puno"
+    },
+    {
+        "id":  92195,
+        "name":  "Puños"
+    },
+    {
+        "id":  92817,
+        "name":  "Punta de Bombón"
+    },
+    {
+        "id":  92816,
+        "name":  "Punta Hermosa"
+    },
+    {
+        "id":  92815,
+        "name":  "Puquina"
+    },
+    {
+        "id":  92814,
+        "name":  "Puquio"
+    },
+    {
+        "id":  92813,
+        "name":  "Pusi"
+    },
+    {
+        "id":  92811,
+        "name":  "Putina"
+    },
+    {
+        "id":  92812,
+        "name":  "Putina"
+    },
+    {
+        "id":  93711,
+        "name":  "Putina Punco"
+    },
+    {
+        "id":  92821,
+        "name":  "Puyca"
+    },
+    {
+        "id":  93475,
+        "name":  "Qquea"
+    },
+    {
+        "id":  92810,
+        "name":  "Quebrada Honda"
+    },
+    {
+        "id":  92809,
+        "name":  "Quehue"
+    },
+    {
+        "id":  92808,
+        "name":  "Quellouno"
+    },
+    {
+        "id":  92807,
+        "name":  "Quequeña"
+    },
+    {
+        "id":  92806,
+        "name":  "Querco"
+    },
+    {
+        "id":  92194,
+        "name":  "Querecotillo"
+    },
+    {
+        "id":  92805,
+        "name":  "Querobamba"
+    },
+    {
+        "id":  92193,
+        "name":  "Querocotillo"
+    },
+    {
+        "id":  92192,
+        "name":  "Querocoto"
+    },
+    {
+        "id":  93474,
+        "name":  "Queromarca"
+    },
+    {
+        "id":  92804,
+        "name":  "Queropalca"
+    },
+    {
+        "id":  92803,
+        "name":  "Quiaca"
+    },
+    {
+        "id":  92802,
+        "name":  "Quicacha"
+    },
+    {
+        "id":  92191,
+        "name":  "Quiches"
+    },
+    {
+        "id":  93575,
+        "name":  "Quichuas"
+    },
+    {
+        "id":  93551,
+        "name":  "Quichuay"
+    },
+    {
+        "id":  92801,
+        "name":  "Quilahuani"
+    },
+    {
+        "id":  92800,
+        "name":  "Quilca"
+    },
+    {
+        "id":  93693,
+        "name":  "Quilcapuncu"
+    },
+    {
+        "id":  93550,
+        "name":  "Quilcas"
+    },
+    {
+        "id":  92799,
+        "name":  "Quilcata"
+    },
+    {
+        "id":  92798,
+        "name":  "Quillabamba"
+    },
+    {
+        "id":  92190,
+        "name":  "Quillo"
+    },
+    {
+        "id":  92797,
+        "name":  "Quilmaná"
+    },
+    {
+        "id":  92796,
+        "name":  "Quince Mil"
+    },
+    {
+        "id":  92795,
+        "name":  "Quinistaquillas"
+    },
+    {
+        "id":  92189,
+        "name":  "Quinjalca"
+    },
+    {
+        "id":  92794,
+        "name":  "Quinocay"
+    },
+    {
+        "id":  92793,
+        "name":  "Quiñota"
+    },
+    {
+        "id":  92792,
+        "name":  "Quinua"
+    },
+    {
+        "id":  92188,
+        "name":  "Quinuabamba"
+    },
+    {
+        "id":  92791,
+        "name":  "Quiquijana"
+    },
+    {
+        "id":  92187,
+        "name":  "Quiruvilca"
+    },
+    {
+        "id":  93574,
+        "name":  "Quishuar"
+    },
+    {
+        "id":  92790,
+        "name":  "Quito-Arma"
+    },
+    {
+        "id":  92186,
+        "name":  "Quivilla"
+    },
+    {
+        "id":  93666,
+        "name":  "Ragash"
+    },
+    {
+        "id":  92185,
+        "name":  "Rahuapampa"
+    },
+    {
+        "id":  92789,
+        "name":  "Raján"
+    },
+    {
+        "id":  92184,
+        "name":  "Ramón Castilla"
+    },
+    {
+        "id":  92788,
+        "name":  "Ranracancha"
+    },
+    {
+        "id":  92183,
+        "name":  "Ranrahirca"
+    },
+    {
+        "id":  93554,
+        "name":  "Rapayan"
+    },
+    {
+        "id":  92787,
+        "name":  "Raquía"
+    },
+    {
+        "id":  92182,
+        "name":  "Recuay"
+    },
+    {
+        "id":  93649,
+        "name":  "Remanso"
+    },
+    {
+        "id":  92181,
+        "name":  "Reque"
+    },
+    {
+        "id":  92180,
+        "name":  "Requena"
+    },
+    {
+        "id":  92786,
+        "name":  "Ricardo Palma"
+    },
+    {
+        "id":  93534,
+        "name":  "Ricrán"
+    },
+    {
+        "id":  93457,
+        "name":  "Río Blanco"
+    },
+    {
+        "id":  92785,
+        "name":  "Río Grande"
+    },
+    {
+        "id":  93490,
+        "name":  "Río Negro"
+    },
+    {
+        "id":  92179,
+        "name":  "Rioja"
+    },
+    {
+        "id":  92784,
+        "name":  "Rocchacc"
+    },
+    {
+        "id":  92783,
+        "name":  "Rondocán"
+    },
+    {
+        "id":  92178,
+        "name":  "Rondos"
+    },
+    {
+        "id":  92177,
+        "name":  "Roque"
+    },
+    {
+        "id":  93702,
+        "name":  "Rosario"
+    },
+    {
+        "id":  92782,
+        "name":  "Rosaspata"
+    },
+    {
+        "id":  93450,
+        "name":  "Sabaino"
+    },
+    {
+        "id":  92781,
+        "name":  "Sabandia"
+    },
+    {
+        "id":  92176,
+        "name":  "Sacanche"
+    },
+    {
+        "id":  92780,
+        "name":  "Sachaca"
+    },
+    {
+        "id":  92779,
+        "name":  "Sacsamarca"
+    },
+    {
+        "id":  93479,
+        "name":  "Salamanca"
+    },
+    {
+        "id":  92175,
+        "name":  "Salas"
+    },
+    {
+        "id":  92174,
+        "name":  "Salaverry"
+    },
+    {
+        "id":  92777,
+        "name":  "Salcabamba"
+    },
+    {
+        "id":  93573,
+        "name":  "Salcahuasi"
+    },
+    {
+        "id":  92172,
+        "name":  "Salinera Colán"
+    },
+    {
+        "id":  92171,
+        "name":  "Salitral"
+    },
+    {
+        "id":  92170,
+        "name":  "Sallique"
+    },
+    {
+        "id":  92169,
+        "name":  "Salpo"
+    },
+    {
+        "id":  93585,
+        "name":  "Salvación"
+    },
+    {
+        "id":  92776,
+        "name":  "Sama Grande"
+    },
+    {
+        "id":  92775,
+        "name":  "Samán"
+    },
+    {
+        "id":  92168,
+        "name":  "Samanco"
+    },
+    {
+        "id":  92774,
+        "name":  "Samegua"
+    },
+    {
+        "id":  92773,
+        "name":  "San Agustin"
+    },
+    {
+        "id":  93630,
+        "name":  "San Alejandro"
+    },
+    {
+        "id":  92166,
+        "name":  "San Andrés de Cutervo"
+    },
+    {
+        "id":  93606,
+        "name":  "San Antonio"
+    },
+    {
+        "id":  93455,
+        "name":  "San Antonio"
+    },
+    {
+        "id":  92165,
+        "name":  "San Antonio"
+    },
+    {
+        "id":  92772,
+        "name":  "San Antonio de Cusicancha"
+    },
+    {
+        "id":  92771,
+        "name":  "San Antonio de Esquilache"
+    },
+    {
+        "id":  92770,
+        "name":  "San Antonio de Ocopa"
+    },
+    {
+        "id":  92408,
+        "name":  "San Antonio del Estrecho"
+    },
+    {
+        "id":  92768,
+        "name":  "San Bartolo"
+    },
+    {
+        "id":  92164,
+        "name":  "San Benito"
+    },
+    {
+        "id":  92163,
+        "name":  "San Bernardino"
+    },
+    {
+        "id":  92767,
+        "name":  "San Buenaventura"
+    },
+    {
+        "id":  92162,
+        "name":  "San Carlos"
+    },
+    {
+        "id":  92766,
+        "name":  "San Clemente"
+    },
+    {
+        "id":  92764,
+        "name":  "San Cristóbal"
+    },
+    {
+        "id":  92161,
+        "name":  "San Felipe"
+    },
+    {
+        "id":  93595,
+        "name":  "San Fernando"
+    },
+    {
+        "id":  92762,
+        "name":  "San Francisco"
+    },
+    {
+        "id":  93716,
+        "name":  "San Francisco"
+    },
+    {
+        "id":  93592,
+        "name":  "San Francisco De Borja"
+    },
+    {
+        "id":  93453,
+        "name":  "San Francisco de Ravacayco"
+    },
+    {
+        "id":  92761,
+        "name":  "San Francisco de Sangayaico"
+    },
+    {
+        "id":  92160,
+        "name":  "San Gregorio"
+    },
+    {
+        "id":  92758,
+        "name":  "San Gregorio"
+    },
+    {
+        "id":  92159,
+        "name":  "San Ignacio"
+    },
+    {
+        "id":  92757,
+        "name":  "San Isidro"
+    },
+    {
+        "id":  92157,
+        "name":  "San Jacinto"
+    },
+    {
+        "id":  92158,
+        "name":  "San Jacinto"
+    },
+    {
+        "id":  93413,
+        "name":  "San Javier de Alpabamba"
+    },
+    {
+        "id":  92755,
+        "name":  "San Jerónimo"
+    },
+    {
+        "id":  92756,
+        "name":  "San Jeronimo De Tunan"
+    },
+    {
+        "id":  92754,
+        "name":  "San Joaquín"
+    },
+    {
+        "id":  92753,
+        "name":  "San José"
+    },
+    {
+        "id":  92156,
+        "name":  "San José"
+    },
+    {
+        "id":  93714,
+        "name":  "San José"
+    },
+    {
+        "id":  92752,
+        "name":  "San José"
+    },
+    {
+        "id":  92154,
+        "name":  "San José de Lourdes"
+    },
+    {
+        "id":  92751,
+        "name":  "San José de Quero"
+    },
+    {
+        "id":  93564,
+        "name":  "San José de Secce"
+    },
+    {
+        "id":  93622,
+        "name":  "San Jose De Sisa"
+    },
+    {
+        "id":  92750,
+        "name":  "San José de Ushua"
+    },
+    {
+        "id":  92155,
+        "name":  "San José del Alto"
+    },
+    {
+        "id":  92747,
+        "name":  "San Juan"
+    },
+    {
+        "id":  92748,
+        "name":  "San Juan"
+    },
+    {
+        "id":  92749,
+        "name":  "San Juan"
+    },
+    {
+        "id":  93715,
+        "name":  "San Juan"
+    },
+    {
+        "id":  92151,
+        "name":  "San Juan"
+    },
+    {
+        "id":  92152,
+        "name":  "San Juan"
+    },
+    {
+        "id":  93521,
+        "name":  "San Juan"
+    },
+    {
+        "id":  92745,
+        "name":  "San Juan Bautista"
+    },
+    {
+        "id":  92746,
+        "name":  "San Juan Bautista"
+    },
+    {
+        "id":  93298,
+        "name":  "San Juan de Chacña"
+    },
+    {
+        "id":  93669,
+        "name":  "San Juan de Cutervo"
+    },
+    {
+        "id":  93696,
+        "name":  "San Juan de Cuturapi"
+    },
+    {
+        "id":  93093,
+        "name":  "San Juan de Huirpacancha"
+    },
+    {
+        "id":  93553,
+        "name":  "San Juan de Rontoy"
+    },
+    {
+        "id":  92742,
+        "name":  "San Juan de Salinas"
+    },
+    {
+        "id":  93449,
+        "name":  "San Juan de Virundo"
+    },
+    {
+        "id":  92743,
+        "name":  "San Juan del Oro"
+    },
+    {
+        "id":  92740,
+        "name":  "San Lorenzo"
+    },
+    {
+        "id":  92741,
+        "name":  "San Lorenzo"
+    },
+    {
+        "id":  92150,
+        "name":  "San Lorenzo"
+    },
+    {
+        "id":  92149,
+        "name":  "San Lucas ( Pueblo Nuevo de Colan)"
+    },
+    {
+        "id":  92739,
+        "name":  "San Luis"
+    },
+    {
+        "id":  92148,
+        "name":  "San Luis"
+    },
+    {
+        "id":  93653,
+        "name":  "San Luis de Lucma"
+    },
+    {
+        "id":  92738,
+        "name":  "San Luis de Shuaro"
+    },
+    {
+        "id":  93678,
+        "name":  "San Luis Grande"
+    },
+    {
+        "id":  92147,
+        "name":  "San Marcos"
+    },
+    {
+        "id":  92146,
+        "name":  "San Marcos"
+    },
+    {
+        "id":  93706,
+        "name":  "San Marcos de Rocchac"
+    },
+    {
+        "id":  93591,
+        "name":  "San Martin"
+    },
+    {
+        "id":  92737,
+        "name":  "San Mateo"
+    },
+    {
+        "id":  92736,
+        "name":  "San Miguel"
+    },
+    {
+        "id":  92735,
+        "name":  "San Miguel"
+    },
+    {
+        "id":  93712,
+        "name":  "San Miguel"
+    },
+    {
+        "id":  92734,
+        "name":  "San Miguel de Cauri"
+    },
+    {
+        "id":  93698,
+        "name":  "San Miguel de Ollaraya"
+    },
+    {
+        "id":  92145,
+        "name":  "San Miguel de Pallaques"
+    },
+    {
+        "id":  93655,
+        "name":  "San Nicolás"
+    },
+    {
+        "id":  92733,
+        "name":  "San Pablo"
+    },
+    {
+        "id":  92144,
+        "name":  "San Pablo"
+    },
+    {
+        "id":  92143,
+        "name":  "San Pablo"
+    },
+    {
+        "id":  92730,
+        "name":  "San Pedro"
+    },
+    {
+        "id":  92731,
+        "name":  "San Pedro"
+    },
+    {
+        "id":  92732,
+        "name":  "San Pedro"
+    },
+    {
+        "id":  92729,
+        "name":  "San Pedro de Cachi"
+    },
+    {
+        "id":  93557,
+        "name":  "San Pedro De Cachora"
+    },
+    {
+        "id":  92728,
+        "name":  "San Pedro de Cajas"
+    },
+    {
+        "id":  93250,
+        "name":  "San Pedro de Chunan"
+    },
+    {
+        "id":  93566,
+        "name":  "San Pedro de Coris"
+    },
+    {
+        "id":  93480,
+        "name":  "San Pedro de Larcay"
+    },
+    {
+        "id":  92142,
+        "name":  "San Pedro de Lloc"
+    },
+    {
+        "id":  93144,
+        "name":  "San Pedro Huamburque"
+    },
+    {
+        "id":  92141,
+        "name":  "San Rafael"
+    },
+    {
+        "id":  92727,
+        "name":  "San Rafael"
+    },
+    {
+        "id":  92726,
+        "name":  "San Ramón"
+    },
+    {
+        "id":  92725,
+        "name":  "San Salvador"
+    },
+    {
+        "id":  92724,
+        "name":  "San Salvador de Quije"
+    },
+    {
+        "id":  92723,
+        "name":  "San Sebastián"
+    },
+    {
+        "id":  93675,
+        "name":  "San Silvestre de Cochán"
+    },
+    {
+        "id":  92700,
+        "name":  "San Vicente de Cañete"
+    },
+    {
+        "id":  92167,
+        "name":  "Saña"
+    },
+    {
+        "id":  93662,
+        "name":  "Sanachgan"
+    },
+    {
+        "id":  92769,
+        "name":  "Sañayca"
+    },
+    {
+        "id":  92765,
+        "name":  "Sancos"
+    },
+    {
+        "id":  92763,
+        "name":  "Sandia"
+    },
+    {
+        "id":  92760,
+        "name":  "Sangallaya"
+    },
+    {
+        "id":  92759,
+        "name":  "Sangarará"
+    },
+    {
+        "id":  93549,
+        "name":  "Saño"
+    },
+    {
+        "id":  92140,
+        "name":  "Santa"
+    },
+    {
+        "id":  92721,
+        "name":  "Santa Ana"
+    },
+    {
+        "id":  92722,
+        "name":  "Santa Ana"
+    },
+    {
+        "id":  93481,
+        "name":  "Santa Ana de Huaycahuacho"
+    },
+    {
+        "id":  93590,
+        "name":  "Santa Anita - Los Ficus"
+    },
+    {
+        "id":  93319,
+        "name":  "Santa Barbara de Carhuacayan"
+    },
+    {
+        "id":  93501,
+        "name":  "Santa Catalina"
+    },
+    {
+        "id":  92139,
+        "name":  "Santa Catalina de Pulán"
+    },
+    {
+        "id":  93198,
+        "name":  "Santa Clara de Cosme"
+    },
+    {
+        "id":  92720,
+        "name":  "Santa Cruz"
+    },
+    {
+        "id":  93667,
+        "name":  "Santa Cruz"
+    },
+    {
+        "id":  92138,
+        "name":  "Santa Cruz"
+    },
+    {
+        "id":  92137,
+        "name":  "Santa Cruz De Succhabamba"
+    },
+    {
+        "id":  92136,
+        "name":  "Santa Elena"
+    },
+    {
+        "id":  92719,
+        "name":  "Santa Eulalia"
+    },
+    {
+        "id":  92135,
+        "name":  "Santa Isabel"
+    },
+    {
+        "id":  92718,
+        "name":  "Santa Isabel de Sihuas"
+    },
+    {
+        "id":  92716,
+        "name":  "Santa Lucía"
+    },
+    {
+        "id":  92717,
+        "name":  "Santa Lucía"
+    },
+    {
+        "id":  92715,
+        "name":  "Santa María"
+    },
+    {
+        "id":  92714,
+        "name":  "Santa Maria de Chicmo"
+    },
+    {
+        "id":  92713,
+        "name":  "Santa Rita de Siguas"
+    },
+    {
+        "id":  93708,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  93605,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92134,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92712,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92710,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92709,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  93567,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92133,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92132,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92131,
+        "name":  "Santa Rosa"
+    },
+    {
+        "id":  92711,
+        "name":  "Santa Rosa de Ocopa"
+    },
+    {
+        "id":  93539,
+        "name":  "Santa Rosa de Sacco"
+    },
+    {
+        "id":  93495,
+        "name":  "Santa Rosa de Tambo"
+    },
+    {
+        "id":  92708,
+        "name":  "Santa Teresa"
+    },
+    {
+        "id":  92707,
+        "name":  "Santiago"
+    },
+    {
+        "id":  93619,
+        "name":  "Santiago"
+    },
+    {
+        "id":  92130,
+        "name":  "Santiago de Cao"
+    },
+    {
+        "id":  92706,
+        "name":  "Santiago de Chilcas"
+    },
+    {
+        "id":  92705,
+        "name":  "Santiago de Chocorvos"
+    },
+    {
+        "id":  92129,
+        "name":  "Santiago de Chuco"
+    },
+    {
+        "id":  92704,
+        "name":  "Santiago de Paucaray"
+    },
+    {
+        "id":  92703,
+        "name":  "Santiago de Pupuja"
+    },
+    {
+        "id":  92702,
+        "name":  "Santiago de Quirehuara"
+    },
+    {
+        "id":  92675,
+        "name":  "Santiago de Surco"
+    },
+    {
+        "id":  93570,
+        "name":  "Santiago de Tucuma"
+    },
+    {
+        "id":  92128,
+        "name":  "Santo Domingo"
+    },
+    {
+        "id":  92127,
+        "name":  "Santo Domingo de Capilla"
+    },
+    {
+        "id":  93328,
+        "name":  "Santo Domingo de Capillas"
+    },
+    {
+        "id":  93552,
+        "name":  "Santo Domingo del Prado"
+    },
+    {
+        "id":  93454,
+        "name":  "Santo Tomas"
+    },
+    {
+        "id":  92126,
+        "name":  "Santo Tomás"
+    },
+    {
+        "id":  92701,
+        "name":  "Santo Tomás de Pata"
+    },
+    {
+        "id":  93659,
+        "name":  "Santo Toribio"
+    },
+    {
+        "id":  92125,
+        "name":  "Sapalache"
+    },
+    {
+        "id":  92699,
+        "name":  "Sapallanga"
+    },
+    {
+        "id":  92124,
+        "name":  "Sapillica"
+    },
+    {
+        "id":  92123,
+        "name":  "Saposoa"
+    },
+    {
+        "id":  92122,
+        "name":  "Saquena"
+    },
+    {
+        "id":  93519,
+        "name":  "Saramiriza"
+    },
+    {
+        "id":  92698,
+        "name":  "Sarhua"
+    },
+    {
+        "id":  92121,
+        "name":  "Sartimbamba"
+    },
+    {
+        "id":  92697,
+        "name":  "Satipo"
+    },
+    {
+        "id":  92120,
+        "name":  "Sauce"
+    },
+    {
+        "id":  93681,
+        "name":  "Saucepampa"
+    },
+    {
+        "id":  92696,
+        "name":  "Saurama"
+    },
+    {
+        "id":  93542,
+        "name":  "Sausa"
+    },
+    {
+        "id":  92695,
+        "name":  "Sayán"
+    },
+    {
+        "id":  92119,
+        "name":  "Sayapullo"
+    },
+    {
+        "id":  92778,
+        "name":  "Sayla"
+    },
+    {
+        "id":  92694,
+        "name":  "Saylla"
+    },
+    {
+        "id":  92693,
+        "name":  "Saysa"
+    },
+    {
+        "id":  92118,
+        "name":  "Sechura"
+    },
+    {
+        "id":  93517,
+        "name":  "Segunda Jerusalén - Azunguillo"
+    },
+    {
+        "id":  93618,
+        "name":  "Selva Alegre"
+    },
+    {
+        "id":  92692,
+        "name":  "Sepahua"
+    },
+    {
+        "id":  92117,
+        "name":  "Sexi"
+    },
+    {
+        "id":  92116,
+        "name":  "Shamboyacu"
+    },
+    {
+        "id":  92115,
+        "name":  "Shapaja"
+    },
+    {
+        "id":  93560,
+        "name":  "Shatoja"
+    },
+    {
+        "id":  92114,
+        "name":  "Shilla"
+    },
+    {
+        "id":  92113,
+        "name":  "Shirac"
+    },
+    {
+        "id":  92112,
+        "name":  "Shucushuyacu"
+    },
+    {
+        "id":  92111,
+        "name":  "Shunqui"
+    },
+    {
+        "id":  92110,
+        "name":  "Shupluy"
+    },
+    {
+        "id":  92691,
+        "name":  "Sibayo"
+    },
+    {
+        "id":  92690,
+        "name":  "Sicaya"
+    },
+    {
+        "id":  92689,
+        "name":  "Sicuani"
+    },
+    {
+        "id":  92109,
+        "name":  "Sihuas"
+    },
+    {
+        "id":  92108,
+        "name":  "Sillapata"
+    },
+    {
+        "id":  92107,
+        "name":  "Simbal"
+    },
+    {
+        "id":  92688,
+        "name":  "Sina"
+    },
+    {
+        "id":  92106,
+        "name":  "Sinchao"
+    },
+    {
+        "id":  92687,
+        "name":  "Sincos"
+    },
+    {
+        "id":  92105,
+        "name":  "Singa"
+    },
+    {
+        "id":  92104,
+        "name":  "Sinsicap"
+    },
+    {
+        "id":  92153,
+        "name":  "Sisa"
+    },
+    {
+        "id":  92103,
+        "name":  "Sitabamba"
+    },
+    {
+        "id":  92686,
+        "name":  "Sitajara"
+    },
+    {
+        "id":  93579,
+        "name":  "Sivia"
+    },
+    {
+        "id":  92685,
+        "name":  "Socabaya"
+    },
+    {
+        "id":  92684,
+        "name":  "Socos"
+    },
+    {
+        "id":  92102,
+        "name":  "Socota"
+    },
+    {
+        "id":  92101,
+        "name":  "Sojo"
+    },
+    {
+        "id":  92100,
+        "name":  "Soloco"
+    },
+    {
+        "id":  92099,
+        "name":  "Sondor"
+    },
+    {
+        "id":  92098,
+        "name":  "Sondorillo"
+    },
+    {
+        "id":  93637,
+        "name":  "Soplín Vargas"
+    },
+    {
+        "id":  92683,
+        "name":  "Soras"
+    },
+    {
+        "id":  92682,
+        "name":  "Soraya"
+    },
+    {
+        "id":  92097,
+        "name":  "Soritor"
+    },
+    {
+        "id":  92096,
+        "name":  "Sorochuco"
+    },
+    {
+        "id":  92681,
+        "name":  "Subtanjalla"
+    },
+    {
+        "id":  92095,
+        "name":  "Succha"
+    },
+    {
+        "id":  92094,
+        "name":  "Sucre"
+    },
+    {
+        "id":  92093,
+        "name":  "Sucre"
+    },
+    {
+        "id":  92680,
+        "name":  "Suitucancha"
+    },
+    {
+        "id":  92092,
+        "name":  "Sullana"
+    },
+    {
+        "id":  92679,
+        "name":  "Sumbilca"
+    },
+    {
+        "id":  92678,
+        "name":  "Sunampe"
+    },
+    {
+        "id":  92677,
+        "name":  "Supe"
+    },
+    {
+        "id":  92822,
+        "name":  "Supe Puerto"
+    },
+    {
+        "id":  92676,
+        "name":  "Surco"
+    },
+    {
+        "id":  92674,
+        "name":  "Surcubamba"
+    },
+    {
+        "id":  92673,
+        "name":  "Susapaya"
+    },
+    {
+        "id":  92091,
+        "name":  "Suyo"
+    },
+    {
+        "id":  92090,
+        "name":  "Tabaconas"
+    },
+    {
+        "id":  93620,
+        "name":  "Tabaloslos"
+    },
+    {
+        "id":  92089,
+        "name":  "Tabalosos"
+    },
+    {
+        "id":  92088,
+        "name":  "Tablazo Norte"
+    },
+    {
+        "id":  92087,
+        "name":  "Tacabamba"
+    },
+    {
+        "id":  92672,
+        "name":  "Tacna"
+    },
+    {
+        "id":  92086,
+        "name":  "Talara"
+    },
+    {
+        "id":  92671,
+        "name":  "Talavera"
+    },
+    {
+        "id":  92085,
+        "name":  "Tamanco"
+    },
+    {
+        "id":  92084,
+        "name":  "Tamarindo"
+    },
+    {
+        "id":  92670,
+        "name":  "Tambillo"
+    },
+    {
+        "id":  92668,
+        "name":  "Tambo"
+    },
+    {
+        "id":  92669,
+        "name":  "Tambo"
+    },
+    {
+        "id":  92083,
+        "name":  "Tambo Grande"
+    },
+    {
+        "id":  92665,
+        "name":  "Tambo Quemado"
+    },
+    {
+        "id":  92667,
+        "name":  "Tambobamba"
+    },
+    {
+        "id":  92666,
+        "name":  "Tambopata"
+    },
+    {
+        "id":  92664,
+        "name":  "Tamburco"
+    },
+    {
+        "id":  92663,
+        "name":  "Tanta"
+    },
+    {
+        "id":  92082,
+        "name":  "Tantamayo"
+    },
+    {
+        "id":  92662,
+        "name":  "Tantara"
+    },
+    {
+        "id":  92661,
+        "name":  "Tapacocha"
+    },
+    {
+        "id":  92660,
+        "name":  "Tapairihua"
+    },
+    {
+        "id":  92659,
+        "name":  "Tapay"
+    },
+    {
+        "id":  92658,
+        "name":  "Tapo"
+    },
+    {
+        "id":  92657,
+        "name":  "Taquile"
+    },
+    {
+        "id":  92656,
+        "name":  "Taraco"
+    },
+    {
+        "id":  92081,
+        "name":  "Tarapoto"
+    },
+    {
+        "id":  92655,
+        "name":  "Tarata"
+    },
+    {
+        "id":  93447,
+        "name":  "Taray"
+    },
+    {
+        "id":  92080,
+        "name":  "Tarica"
+    },
+    {
+        "id":  92654,
+        "name":  "Tarma"
+    },
+    {
+        "id":  92653,
+        "name":  "Tarucachi"
+    },
+    {
+        "id":  92652,
+        "name":  "Tarucani"
+    },
+    {
+        "id":  92079,
+        "name":  "Tauca"
+    },
+    {
+        "id":  92651,
+        "name":  "Tauria"
+    },
+    {
+        "id":  92078,
+        "name":  "Taurija"
+    },
+    {
+        "id":  92650,
+        "name":  "Tauripampa"
+    },
+    {
+        "id":  92649,
+        "name":  "Taurisma"
+    },
+    {
+        "id":  92077,
+        "name":  "Tayabamba"
+    },
+    {
+        "id":  92076,
+        "name":  "Tembladera"
+    },
+    {
+        "id":  92648,
+        "name":  "Tiabaya"
+    },
+    {
+        "id":  92634,
+        "name":  "Tibillo"
+    },
+    {
+        "id":  92647,
+        "name":  "Ticaco"
+    },
+    {
+        "id":  92075,
+        "name":  "Ticapampa"
+    },
+    {
+        "id":  92646,
+        "name":  "Ticllas"
+    },
+    {
+        "id":  92645,
+        "name":  "Ticllos"
+    },
+    {
+        "id":  92644,
+        "name":  "Ticrapo"
+    },
+    {
+        "id":  92074,
+        "name":  "Tinco"
+    },
+    {
+        "id":  92073,
+        "name":  "Tingo"
+    },
+    {
+        "id":  92072,
+        "name":  "Tingo María"
+    },
+    {
+        "id":  93694,
+        "name":  "Tinicachi"
+    },
+    {
+        "id":  92642,
+        "name":  "Tinta"
+    },
+    {
+        "id":  92641,
+        "name":  "Tintay"
+    },
+    {
+        "id":  92640,
+        "name":  "Tintay"
+    },
+    {
+        "id":  92639,
+        "name":  "Tinyahuarco"
+    },
+    {
+        "id":  92638,
+        "name":  "Tipán"
+    },
+    {
+        "id":  92637,
+        "name":  "Tiquillaca"
+    },
+    {
+        "id":  92636,
+        "name":  "Tirapata"
+    },
+    {
+        "id":  92635,
+        "name":  "Tisco"
+    },
+    {
+        "id":  92643,
+        "name":  "Titili"
+    },
+    {
+        "id":  92071,
+        "name":  "Tocache"
+    },
+    {
+        "id":  92070,
+        "name":  "Tocmoche"
+    },
+    {
+        "id":  92633,
+        "name":  "Tocota"
+    },
+    {
+        "id":  92632,
+        "name":  "Tomas"
+    },
+    {
+        "id":  92631,
+        "name":  "Tomay Kichwa"
+    },
+    {
+        "id":  92630,
+        "name":  "Tomepampa"
+    },
+    {
+        "id":  93677,
+        "name":  "Tongod"
+    },
+    {
+        "id":  92629,
+        "name":  "Torata"
+    },
+    {
+        "id":  92628,
+        "name":  "Toraya"
+    },
+    {
+        "id":  92627,
+        "name":  "Toro"
+    },
+    {
+        "id":  92069,
+        "name":  "Totora"
+    },
+    {
+        "id":  92626,
+        "name":  "Totorales"
+    },
+    {
+        "id":  92625,
+        "name":  "Totos"
+    },
+    {
+        "id":  92068,
+        "name":  "Tournavista"
+    },
+    {
+        "id":  93685,
+        "name":  "Tres de Diciembre"
+    },
+    {
+        "id":  92067,
+        "name":  "Tres Unidos"
+    },
+    {
+        "id":  92066,
+        "name":  "Trinidad"
+    },
+    {
+        "id":  92065,
+        "name":  "Trompeteros"
+    },
+    {
+        "id":  92064,
+        "name":  "Trujillo"
+    },
+    {
+        "id":  92063,
+        "name":  "Túcume"
+    },
+    {
+        "id":  93679,
+        "name":  "Tumbadén"
+    },
+    {
+        "id":  92062,
+        "name":  "Tumbes"
+    },
+    {
+        "id":  92061,
+        "name":  "Tunal"
+    },
+    {
+        "id":  92624,
+        "name":  "Tungasuca"
+    },
+    {
+        "id":  92598,
+        "name":  "Tupac Amaru"
+    },
+    {
+        "id":  92623,
+        "name":  "Tupe"
+    },
+    {
+        "id":  92622,
+        "name":  "Turpay"
+    },
+    {
+        "id":  92621,
+        "name":  "Turpo"
+    },
+    {
+        "id":  92620,
+        "name":  "Tuti"
+    },
+    {
+        "id":  92619,
+        "name":  "Ubinas"
+    },
+    {
+        "id":  92060,
+        "name":  "Uchiza"
+    },
+    {
+        "id":  92618,
+        "name":  "Uchumayo"
+    },
+    {
+        "id":  92059,
+        "name":  "Uco"
+    },
+    {
+        "id":  92058,
+        "name":  "Ucuncha"
+    },
+    {
+        "id":  92617,
+        "name":  "Ulcumayo"
+    },
+    {
+        "id":  93639,
+        "name":  "Ullpayacu"
+    },
+    {
+        "id":  93512,
+        "name":  "Ullulluco"
+    },
+    {
+        "id":  92616,
+        "name":  "Umachiri"
+    },
+    {
+        "id":  93092,
+        "name":  "Umamarca"
+    },
+    {
+        "id":  92057,
+        "name":  "Umbe"
+    },
+    {
+        "id":  92615,
+        "name":  "Uñón"
+    },
+    {
+        "id":  92614,
+        "name":  "Upahuacho"
+    },
+    {
+        "id":  93090,
+        "name":  "Uranmarca"
+    },
+    {
+        "id":  92613,
+        "name":  "Urasqui"
+    },
+    {
+        "id":  93581,
+        "name":  "Urb. Santo Domingo"
+    },
+    {
+        "id":  92612,
+        "name":  "Urcos"
+    },
+    {
+        "id":  92611,
+        "name":  "Uripa"
+    },
+    {
+        "id":  93511,
+        "name":  "Urpay"
+    },
+    {
+        "id":  92610,
+        "name":  "Urubamba"
+    },
+    {
+        "id":  92609,
+        "name":  "Usicayos"
+    },
+    {
+        "id":  92056,
+        "name":  "Usquil"
+    },
+    {
+        "id":  92553,
+        "name":  "Utco"
+    },
+    {
+        "id":  92557,
+        "name":  "Utcurarca"
+    },
+    {
+        "id":  92055,
+        "name":  "Uticyacu"
+    },
+    {
+        "id":  92608,
+        "name":  "Végueta"
+    },
+    {
+        "id":  92607,
+        "name":  "Velille"
+    },
+    {
+        "id":  92606,
+        "name":  "Velinga"
+    },
+    {
+        "id":  93671,
+        "name":  "Venecia"
+    },
+    {
+        "id":  92605,
+        "name":  "Ventanilla"
+    },
+    {
+        "id":  93642,
+        "name":  "Vicco"
+    },
+    {
+        "id":  92054,
+        "name":  "Vice"
+    },
+    {
+        "id":  93615,
+        "name":  "Victor Raul"
+    },
+    {
+        "id":  92604,
+        "name":  "Vilavila"
+    },
+    {
+        "id":  92603,
+        "name":  "Vilca"
+    },
+    {
+        "id":  92602,
+        "name":  "Vilcabamba"
+    },
+    {
+        "id":  92601,
+        "name":  "Vilcabamba"
+    },
+    {
+        "id":  92600,
+        "name":  "Vilcanchos"
+    },
+    {
+        "id":  93713,
+        "name":  "Villa Alto Camilaca"
+    },
+    {
+        "id":  93687,
+        "name":  "Villa Kintiarina"
+    },
+    {
+        "id":  93063,
+        "name":  "Villa Poeta José Gálvez Barrenechea"
+    },
+    {
+        "id":  92599,
+        "name":  "Villa Rica"
+    },
+    {
+        "id":  93689,
+        "name":  "Villa Virgen"
+    },
+    {
+        "id":  92597,
+        "name":  "Vilque"
+    },
+    {
+        "id":  92596,
+        "name":  "Vilque Chico"
+    },
+    {
+        "id":  92595,
+        "name":  "Viñac"
+    },
+    {
+        "id":  92594,
+        "name":  "Vinchos"
+    },
+    {
+        "id":  92593,
+        "name":  "Viques"
+    },
+    {
+        "id":  92592,
+        "name":  "Viraco"
+    },
+    {
+        "id":  93683,
+        "name":  "Viracochan"
+    },
+    {
+        "id":  93686,
+        "name":  "Virginniyoc"
+    },
+    {
+        "id":  92053,
+        "name":  "Virú"
+    },
+    {
+        "id":  92591,
+        "name":  "Vischongo"
+    },
+    {
+        "id":  92052,
+        "name":  "Vista Alegre"
+    },
+    {
+        "id":  92590,
+        "name":  "Vitarte"
+    },
+    {
+        "id":  92589,
+        "name":  "Vitis"
+    },
+    {
+        "id":  92588,
+        "name":  "Vítor"
+    },
+    {
+        "id":  92587,
+        "name":  "Vizcachane"
+    },
+    {
+        "id":  93597,
+        "name":  "Wanchaq"
+    },
+    {
+        "id":  92051,
+        "name":  "Yamango"
+    },
+    {
+        "id":  92050,
+        "name":  "Yambrasbamba"
+    },
+    {
+        "id":  92049,
+        "name":  "Yanac"
+    },
+    {
+        "id":  92586,
+        "name":  "Yanaca"
+    },
+    {
+        "id":  93603,
+        "name":  "Yanacancha"
+    },
+    {
+        "id":  92584,
+        "name":  "Yanacancha"
+    },
+    {
+        "id":  92585,
+        "name":  "Yanacancha"
+    },
+    {
+        "id":  93522,
+        "name":  "Yanahuanca"
+    },
+    {
+        "id":  92583,
+        "name":  "Yanahuanca"
+    },
+    {
+        "id":  92582,
+        "name":  "Yanahuara"
+    },
+    {
+        "id":  92581,
+        "name":  "Yanahuaya"
+    },
+    {
+        "id":  92048,
+        "name":  "Yanama"
+    },
+    {
+        "id":  92580,
+        "name":  "Yanaoca"
+    },
+    {
+        "id":  92579,
+        "name":  "Yanaquihua"
+    },
+    {
+        "id":  92047,
+        "name":  "Yanas"
+    },
+    {
+        "id":  92578,
+        "name":  "Yangas"
+    },
+    {
+        "id":  92577,
+        "name":  "Yanque"
+    },
+    {
+        "id":  92576,
+        "name":  "Yarabamba"
+    },
+    {
+        "id":  92575,
+        "name":  "Yauca"
+    },
+    {
+        "id":  92573,
+        "name":  "Yauli"
+    },
+    {
+        "id":  92574,
+        "name":  "Yauli"
+    },
+    {
+        "id":  93643,
+        "name":  "Yauli"
+    },
+    {
+        "id":  92572,
+        "name":  "Yauri"
+    },
+    {
+        "id":  92571,
+        "name":  "Yaurisque"
+    },
+    {
+        "id":  92046,
+        "name":  "Yaután"
+    },
+    {
+        "id":  92045,
+        "name":  "Yauya"
+    },
+    {
+        "id":  92570,
+        "name":  "Yauyos"
+    },
+    {
+        "id":  93536,
+        "name":  "Yauyos"
+    },
+    {
+        "id":  92044,
+        "name":  "Yauyucán"
+    },
+    {
+        "id":  92043,
+        "name":  "Yorongos"
+    },
+    {
+        "id":  92569,
+        "name":  "Yucay"
+    },
+    {
+        "id":  92568,
+        "name":  "Yunga"
+    },
+    {
+        "id":  92042,
+        "name":  "Yungar"
+    },
+    {
+        "id":  92041,
+        "name":  "Yungay"
+    },
+    {
+        "id":  92567,
+        "name":  "Yunguyo"
+    },
+    {
+        "id":  92040,
+        "name":  "Yupán"
+    },
+    {
+        "id":  92566,
+        "name":  "Yura"
+    },
+    {
+        "id":  92038,
+        "name":  "Yuracmarca"
+    },
+    {
+        "id":  92039,
+        "name":  "Yuracyacu"
+    },
+    {
+        "id":  92037,
+        "name":  "Yurimaguas"
+    },
+    {
+        "id":  93525,
+        "name":  "Yuyapichis"
+    },
+    {
+        "id":  92555,
+        "name":  "Zapatero"
+    },
+    {
+        "id":  92562,
+        "name":  "Zarumilla"
+    },
+    {
+        "id":  92565,
+        "name":  "Zepita"
+    },
+    {
+        "id":  92036,
+        "name":  "Zorritos"
+    },
+    {
+        "id":  92564,
+        "name":  "Zurite"
+    }
+]

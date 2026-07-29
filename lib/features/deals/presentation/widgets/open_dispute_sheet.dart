@@ -124,8 +124,10 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
       (r['label'] ?? r['title'] ?? r['name'] ?? _prettify('${r['value'] ?? r['reason'] ?? ''}'))
           .toString();
 
+  // the API returns [{key, label}] — without `key` every reason resolved to the
+  // same empty string, so picking one lit them all up and submitting sent none
   String _valueOf(Map<String, dynamic> r) =>
-      (r['value'] ?? r['reason'] ?? r['code'] ?? '').toString();
+      (r['key'] ?? r['value'] ?? r['reason'] ?? r['code'] ?? '').toString();
 
   String _prettify(String code) => code
       .split('_')

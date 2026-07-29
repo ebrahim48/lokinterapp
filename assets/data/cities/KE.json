@@ -1,0 +1,1314 @@
+[
+    {
+        "id":  76964,
+        "name":  "Ahero"
+    },
+    {
+        "id":  76963,
+        "name":  "Amagoru"
+    },
+    {
+        "id":  76962,
+        "name":  "Archers Post"
+    },
+    {
+        "id":  76961,
+        "name":  "Athi River"
+    },
+    {
+        "id":  76960,
+        "name":  "Awasi"
+    },
+    {
+        "id":  76959,
+        "name":  "Awendo"
+    },
+    {
+        "id":  76988,
+        "name":  "Awendo"
+    },
+    {
+        "id":  76958,
+        "name":  "Bahati"
+    },
+    {
+        "id":  76957,
+        "name":  "Bamba"
+    },
+    {
+        "id":  76981,
+        "name":  "Banissa"
+    },
+    {
+        "id":  76956,
+        "name":  "Baragoi"
+    },
+    {
+        "id":  76955,
+        "name":  "Baraton"
+    },
+    {
+        "id":  76954,
+        "name":  "Baringo"
+    },
+    {
+        "id":  76953,
+        "name":  "Bomet"
+    },
+    {
+        "id":  76951,
+        "name":  "Bondo"
+    },
+    {
+        "id":  76952,
+        "name":  "Bondo"
+    },
+    {
+        "id":  77023,
+        "name":  "Brooke"
+    },
+    {
+        "id":  76978,
+        "name":  "Bungoma"
+    },
+    {
+        "id":  76950,
+        "name":  "Bungoma"
+    },
+    {
+        "id":  76948,
+        "name":  "Bura"
+    },
+    {
+        "id":  77006,
+        "name":  "Bura Tana"
+    },
+    {
+        "id":  76947,
+        "name":  "Burnt Forest"
+    },
+    {
+        "id":  76946,
+        "name":  "Busia"
+    },
+    {
+        "id":  77010,
+        "name":  "Bute"
+    },
+    {
+        "id":  76945,
+        "name":  "Butere"
+    },
+    {
+        "id":  77003,
+        "name":  "Chaka"
+    },
+    {
+        "id":  76944,
+        "name":  "Chavakali"
+    },
+    {
+        "id":  76943,
+        "name":  "Chepareria"
+    },
+    {
+        "id":  76942,
+        "name":  "Cheptai"
+    },
+    {
+        "id":  76941,
+        "name":  "Chogoria"
+    },
+    {
+        "id":  76940,
+        "name":  "Chuka"
+    },
+    {
+        "id":  76939,
+        "name":  "Chwele"
+    },
+    {
+        "id":  76938,
+        "name":  "Dadaab"
+    },
+    {
+        "id":  76937,
+        "name":  "Dundori"
+    },
+    {
+        "id":  76933,
+        "name":  "El Wak"
+    },
+    {
+        "id":  76936,
+        "name":  "Elburgon"
+    },
+    {
+        "id":  76935,
+        "name":  "Eldama Ravine"
+    },
+    {
+        "id":  77009,
+        "name":  "Eldas"
+    },
+    {
+        "id":  76934,
+        "name":  "Eldoret"
+    },
+    {
+        "id":  76932,
+        "name":  "Emali"
+    },
+    {
+        "id":  76931,
+        "name":  "Embu"
+    },
+    {
+        "id":  76976,
+        "name":  "Endarasha"
+    },
+    {
+        "id":  77002,
+        "name":  "Engineer"
+    },
+    {
+        "id":  77014,
+        "name":  "Ewuaso"
+    },
+    {
+        "id":  76930,
+        "name":  "Faza"
+    },
+    {
+        "id":  76984,
+        "name":  "Funyula"
+    },
+    {
+        "id":  76929,
+        "name":  "Garba Tula"
+    },
+    {
+        "id":  76928,
+        "name":  "Garissa"
+    },
+    {
+        "id":  76927,
+        "name":  "Garsen"
+    },
+    {
+        "id":  76926,
+        "name":  "Gatundu"
+    },
+    {
+        "id":  76925,
+        "name":  "Gazi"
+    },
+    {
+        "id":  76923,
+        "name":  "Gilgil"
+    },
+    {
+        "id":  76922,
+        "name":  "Giriftu"
+    },
+    {
+        "id":  76921,
+        "name":  "Githiga A"
+    },
+    {
+        "id":  77008,
+        "name":  "Githunguri"
+    },
+    {
+        "id":  76920,
+        "name":  "Githunguri"
+    },
+    {
+        "id":  76919,
+        "name":  "Gongoni"
+    },
+    {
+        "id":  76918,
+        "name":  "Habaswein"
+    },
+    {
+        "id":  76916,
+        "name":  "Hola"
+    },
+    {
+        "id":  76915,
+        "name":  "Homa Bay"
+    },
+    {
+        "id":  76914,
+        "name":  "Ijara"
+    },
+    {
+        "id":  76913,
+        "name":  "Ikinu"
+    },
+    {
+        "id":  77022,
+        "name":  "Il"
+    },
+    {
+        "id":  77021,
+        "name":  "Illasit"
+    },
+    {
+        "id":  76974,
+        "name":  "Imara Daima Estate"
+    },
+    {
+        "id":  76912,
+        "name":  "Isebania"
+    },
+    {
+        "id":  77020,
+        "name":  "Isineti"
+    },
+    {
+        "id":  76911,
+        "name":  "Isinya"
+    },
+    {
+        "id":  76910,
+        "name":  "Isiolo"
+    },
+    {
+        "id":  76909,
+        "name":  "Iten"
+    },
+    {
+        "id":  76908,
+        "name":  "Jebilat"
+    },
+    {
+        "id":  76972,
+        "name":  "Juja"
+    },
+    {
+        "id":  76907,
+        "name":  "Kabarnet"
+    },
+    {
+        "id":  76905,
+        "name":  "Kagio"
+    },
+    {
+        "id":  76904,
+        "name":  "Kagumo"
+    },
+    {
+        "id":  77024,
+        "name":  "Kainuk"
+    },
+    {
+        "id":  76903,
+        "name":  "Kajiado"
+    },
+    {
+        "id":  76902,
+        "name":  "Kakamega"
+    },
+    {
+        "id":  76901,
+        "name":  "Kakuma"
+    },
+    {
+        "id":  76900,
+        "name":  "Kaloleni"
+    },
+    {
+        "id":  76999,
+        "name":  "Kampi Ya Moto"
+    },
+    {
+        "id":  76899,
+        "name":  "Kangare"
+    },
+    {
+        "id":  76898,
+        "name":  "Kangema"
+    },
+    {
+        "id":  76897,
+        "name":  "Kangundo"
+    },
+    {
+        "id":  76896,
+        "name":  "Kapcherop"
+    },
+    {
+        "id":  76895,
+        "name":  "Kapenguria"
+    },
+    {
+        "id":  76894,
+        "name":  "Kapkatet"
+    },
+    {
+        "id":  76893,
+        "name":  "Kapsabet"
+    },
+    {
+        "id":  76892,
+        "name":  "Kapsoit"
+    },
+    {
+        "id":  76986,
+        "name":  "Kapsokwony"
+    },
+    {
+        "id":  76891,
+        "name":  "Kapsowar"
+    },
+    {
+        "id":  76890,
+        "name":  "Karatina"
+    },
+    {
+        "id":  77016,
+        "name":  "Karuga"
+    },
+    {
+        "id":  76888,
+        "name":  "Karuri"
+    },
+    {
+        "id":  76889,
+        "name":  "Karuri"
+    },
+    {
+        "id":  77001,
+        "name":  "Kasuku"
+    },
+    {
+        "id":  76992,
+        "name":  "Kathwana"
+    },
+    {
+        "id":  76998,
+        "name":  "Katito"
+    },
+    {
+        "id":  76906,
+        "name":  "Kavati"
+    },
+    {
+        "id":  76990,
+        "name":  "Kawaida"
+    },
+    {
+        "id":  76887,
+        "name":  "Kebirigo"
+    },
+    {
+        "id":  76886,
+        "name":  "Kendu Bay"
+    },
+    {
+        "id":  77004,
+        "name":  "Kenol"
+    },
+    {
+        "id":  76885,
+        "name":  "Kenyenya"
+    },
+    {
+        "id":  76884,
+        "name":  "Kericho"
+    },
+    {
+        "id":  76798,
+        "name":  "Keringet"
+    },
+    {
+        "id":  76883,
+        "name":  "Keroka"
+    },
+    {
+        "id":  76882,
+        "name":  "Kerugoya"
+    },
+    {
+        "id":  76991,
+        "name":  "Kesses"
+    },
+    {
+        "id":  77026,
+        "name":  "Khayega"
+    },
+    {
+        "id":  76881,
+        "name":  "Khwisero"
+    },
+    {
+        "id":  76880,
+        "name":  "Kiambu"
+    },
+    {
+        "id":  76997,
+        "name":  "Kiambur"
+    },
+    {
+        "id":  76879,
+        "name":  "Kianyaga"
+    },
+    {
+        "id":  76995,
+        "name":  "Kiboko"
+    },
+    {
+        "id":  76878,
+        "name":  "Kibwezi"
+    },
+    {
+        "id":  76877,
+        "name":  "Kiganjo"
+    },
+    {
+        "id":  76865,
+        "name":  "Kihancha"
+    },
+    {
+        "id":  76876,
+        "name":  "Kiirua"
+    },
+    {
+        "id":  76875,
+        "name":  "Kijabe"
+    },
+    {
+        "id":  76874,
+        "name":  "Kikima"
+    },
+    {
+        "id":  76873,
+        "name":  "Kikuyu"
+    },
+    {
+        "id":  76872,
+        "name":  "Kilgoris"
+    },
+    {
+        "id":  76871,
+        "name":  "Kilifi"
+    },
+    {
+        "id":  76870,
+        "name":  "Kimana"
+    },
+    {
+        "id":  76869,
+        "name":  "Kimbimbi"
+    },
+    {
+        "id":  76868,
+        "name":  "Kimende"
+    },
+    {
+        "id":  76867,
+        "name":  "Kimilili"
+    },
+    {
+        "id":  76866,
+        "name":  "Kiminini"
+    },
+    {
+        "id":  76864,
+        "name":  "Kinango"
+    },
+    {
+        "id":  76863,
+        "name":  "Kinna"
+    },
+    {
+        "id":  76862,
+        "name":  "Kinoi"
+    },
+    {
+        "id":  77019,
+        "name":  "Kinungi"
+    },
+    {
+        "id":  76861,
+        "name":  "Kipini"
+    },
+    {
+        "id":  76835,
+        "name":  "Kipkelion"
+    },
+    {
+        "id":  76860,
+        "name":  "Kiriaini"
+    },
+    {
+        "id":  76859,
+        "name":  "Kiserian"
+    },
+    {
+        "id":  76858,
+        "name":  "Kisii"
+    },
+    {
+        "id":  76857,
+        "name":  "Kisumu"
+    },
+    {
+        "id":  76856,
+        "name":  "Kitale"
+    },
+    {
+        "id":  76971,
+        "name":  "Kitengela"
+    },
+    {
+        "id":  76855,
+        "name":  "Kithii"
+    },
+    {
+        "id":  76854,
+        "name":  "Kithimani"
+    },
+    {
+        "id":  76853,
+        "name":  "Kitui"
+    },
+    {
+        "id":  76852,
+        "name":  "Konza"
+    },
+    {
+        "id":  76851,
+        "name":  "Kutus"
+    },
+    {
+        "id":  76850,
+        "name":  "Kwale"
+    },
+    {
+        "id":  76980,
+        "name":  "Lafey"
+    },
+    {
+        "id":  76849,
+        "name":  "Laisamis"
+    },
+    {
+        "id":  76848,
+        "name":  "Lamu"
+    },
+    {
+        "id":  76973,
+        "name":  "Lang\u0027ata"
+    },
+    {
+        "id":  76846,
+        "name":  "Lare"
+    },
+    {
+        "id":  76845,
+        "name":  "Limuru"
+    },
+    {
+        "id":  76844,
+        "name":  "Litein"
+    },
+    {
+        "id":  76843,
+        "name":  "Lodwar"
+    },
+    {
+        "id":  76982,
+        "name":  "Loiyangalani"
+    },
+    {
+        "id":  76842,
+        "name":  "Lokichar"
+    },
+    {
+        "id":  76841,
+        "name":  "Lokichokio"
+    },
+    {
+        "id":  76840,
+        "name":  "Lolgorien"
+    },
+    {
+        "id":  76839,
+        "name":  "Londiani"
+    },
+    {
+        "id":  76838,
+        "name":  "Luanda"
+    },
+    {
+        "id":  76837,
+        "name":  "Luanda"
+    },
+    {
+        "id":  76836,
+        "name":  "Lugulu"
+    },
+    {
+        "id":  76834,
+        "name":  "Lunga-Lunga"
+    },
+    {
+        "id":  76994,
+        "name":  "Maai Mahiu"
+    },
+    {
+        "id":  76833,
+        "name":  "Machakos"
+    },
+    {
+        "id":  76832,
+        "name":  "Mackinnon Road"
+    },
+    {
+        "id":  76831,
+        "name":  "Mado Gashi"
+    },
+    {
+        "id":  76830,
+        "name":  "Magadi"
+    },
+    {
+        "id":  76829,
+        "name":  "Magena Marabu"
+    },
+    {
+        "id":  77025,
+        "name":  "Mai"
+    },
+    {
+        "id":  77000,
+        "name":  "Mairo Inya"
+    },
+    {
+        "id":  76828,
+        "name":  "Majengo"
+    },
+    {
+        "id":  76967,
+        "name":  "Maji Mazuri"
+    },
+    {
+        "id":  76827,
+        "name":  "Makindu"
+    },
+    {
+        "id":  76826,
+        "name":  "Makueni Boma"
+    },
+    {
+        "id":  76824,
+        "name":  "Makutano"
+    },
+    {
+        "id":  76825,
+        "name":  "Makutano"
+    },
+    {
+        "id":  76823,
+        "name":  "Malaba"
+    },
+    {
+        "id":  76822,
+        "name":  "Malava"
+    },
+    {
+        "id":  76821,
+        "name":  "Malikisi"
+    },
+    {
+        "id":  76820,
+        "name":  "Malindi"
+    },
+    {
+        "id":  76819,
+        "name":  "Mandera"
+    },
+    {
+        "id":  76818,
+        "name":  "Maragua"
+    },
+    {
+        "id":  76817,
+        "name":  "Maralal"
+    },
+    {
+        "id":  76816,
+        "name":  "Marereni"
+    },
+    {
+        "id":  76815,
+        "name":  "Mariakani"
+    },
+    {
+        "id":  76814,
+        "name":  "Marigat"
+    },
+    {
+        "id":  76985,
+        "name":  "Marimanti"
+    },
+    {
+        "id":  76813,
+        "name":  "Marsabit"
+    },
+    {
+        "id":  76812,
+        "name":  "Masalani"
+    },
+    {
+        "id":  76811,
+        "name":  "Maseno"
+    },
+    {
+        "id":  76810,
+        "name":  "Masii"
+    },
+    {
+        "id":  76809,
+        "name":  "Matunda"
+    },
+    {
+        "id":  76808,
+        "name":  "Matuu"
+    },
+    {
+        "id":  76806,
+        "name":  "Mau Narok"
+    },
+    {
+        "id":  76807,
+        "name":  "Maua"
+    },
+    {
+        "id":  76996,
+        "name":  "Maungu"
+    },
+    {
+        "id":  76805,
+        "name":  "Mazeras"
+    },
+    {
+        "id":  76804,
+        "name":  "Mbale"
+    },
+    {
+        "id":  76803,
+        "name":  "Mbita"
+    },
+    {
+        "id":  76802,
+        "name":  "Merti"
+    },
+    {
+        "id":  76801,
+        "name":  "Meru"
+    },
+    {
+        "id":  76800,
+        "name":  "Migori"
+    },
+    {
+        "id":  76799,
+        "name":  "Mitunguu"
+    },
+    {
+        "id":  76979,
+        "name":  "Mlolongo"
+    },
+    {
+        "id":  76796,
+        "name":  "Mogonga"
+    },
+    {
+        "id":  76797,
+        "name":  "Mogotio"
+    },
+    {
+        "id":  76917,
+        "name":  "Moi‘s Bridge"
+    },
+    {
+        "id":  76795,
+        "name":  "Mokowe"
+    },
+    {
+        "id":  76794,
+        "name":  "Molo"
+    },
+    {
+        "id":  76793,
+        "name":  "Mombasa"
+    },
+    {
+        "id":  76792,
+        "name":  "Mosocho"
+    },
+    {
+        "id":  76791,
+        "name":  "Mosoriot"
+    },
+    {
+        "id":  76790,
+        "name":  "Moyale"
+    },
+    {
+        "id":  76983,
+        "name":  "Mpeketoni"
+    },
+    {
+        "id":  76789,
+        "name":  "Msambweni"
+    },
+    {
+        "id":  76788,
+        "name":  "Mtito Andei"
+    },
+    {
+        "id":  76987,
+        "name":  "Mtwapa"
+    },
+    {
+        "id":  77015,
+        "name":  "Muchorwi"
+    },
+    {
+        "id":  76787,
+        "name":  "Muhoroni"
+    },
+    {
+        "id":  77011,
+        "name":  "Muhuru"
+    },
+    {
+        "id":  76969,
+        "name":  "Mukurwe-ini"
+    },
+    {
+        "id":  76786,
+        "name":  "Mulot"
+    },
+    {
+        "id":  76785,
+        "name":  "Mumias"
+    },
+    {
+        "id":  76784,
+        "name":  "Murang’a"
+    },
+    {
+        "id":  76783,
+        "name":  "Mwatate"
+    },
+    {
+        "id":  76782,
+        "name":  "Mweiga"
+    },
+    {
+        "id":  76781,
+        "name":  "Mwingi"
+    },
+    {
+        "id":  76780,
+        "name":  "Nairagi Enkare"
+    },
+    {
+        "id":  76779,
+        "name":  "Nairobi"
+    },
+    {
+        "id":  76778,
+        "name":  "Naivasha"
+    },
+    {
+        "id":  76777,
+        "name":  "Nakuru"
+    },
+    {
+        "id":  76776,
+        "name":  "Nambare"
+    },
+    {
+        "id":  76775,
+        "name":  "Nandi Hills"
+    },
+    {
+        "id":  76774,
+        "name":  "Nanyuki"
+    },
+    {
+        "id":  76772,
+        "name":  "Naro Moru"
+    },
+    {
+        "id":  76773,
+        "name":  "Narok"
+    },
+    {
+        "id":  76771,
+        "name":  "Ndhiwa"
+    },
+    {
+        "id":  76770,
+        "name":  "Ndori"
+    },
+    {
+        "id":  76977,
+        "name":  "Ndunyu Njeru"
+    },
+    {
+        "id":  76768,
+        "name":  "Ngewa"
+    },
+    {
+        "id":  76767,
+        "name":  "Ngong"
+    },
+    {
+        "id":  76766,
+        "name":  "Njoro"
+    },
+    {
+        "id":  76765,
+        "name":  "Nkubu"
+    },
+    {
+        "id":  76764,
+        "name":  "North Horr"
+    },
+    {
+        "id":  76769,
+        "name":  "Ntulelei"
+    },
+    {
+        "id":  76763,
+        "name":  "Nunguni"
+    },
+    {
+        "id":  76762,
+        "name":  "Nyahururu"
+    },
+    {
+        "id":  76761,
+        "name":  "Nyambunwa"
+    },
+    {
+        "id":  76760,
+        "name":  "Nyamira"
+    },
+    {
+        "id":  76759,
+        "name":  "Nyandiwa"
+    },
+    {
+        "id":  76758,
+        "name":  "Nyangusu"
+    },
+    {
+        "id":  77012,
+        "name":  "Nyansiongo"
+    },
+    {
+        "id":  76757,
+        "name":  "Nyeri"
+    },
+    {
+        "id":  76756,
+        "name":  "Ogembo"
+    },
+    {
+        "id":  76712,
+        "name":  "Ogunja"
+    },
+    {
+        "id":  77007,
+        "name":  "Ol Donyo"
+    },
+    {
+        "id":  76754,
+        "name":  "Ol Joro Orok"
+    },
+    {
+        "id":  76993,
+        "name":  "Ol Kalau South Settlement"
+    },
+    {
+        "id":  76970,
+        "name":  "Ol Kalou"
+    },
+    {
+        "id":  76755,
+        "name":  "Olenguruone"
+    },
+    {
+        "id":  76753,
+        "name":  "Oloitokitok"
+    },
+    {
+        "id":  76752,
+        "name":  "Olulung’a"
+    },
+    {
+        "id":  76847,
+        "name":  "Ongata Rongai"
+    },
+    {
+        "id":  76751,
+        "name":  "Ortum"
+    },
+    {
+        "id":  76750,
+        "name":  "Othaya"
+    },
+    {
+        "id":  76749,
+        "name":  "Oyugis"
+    },
+    {
+        "id":  76949,
+        "name":  "Port Victoria"
+    },
+    {
+        "id":  76748,
+        "name":  "Pumwani"
+    },
+    {
+        "id":  76747,
+        "name":  "Rabuor"
+    },
+    {
+        "id":  76746,
+        "name":  "Ramu"
+    },
+    {
+        "id":  76745,
+        "name":  "Rironi"
+    },
+    {
+        "id":  77013,
+        "name":  "Rodi"
+    },
+    {
+        "id":  76744,
+        "name":  "Rombo"
+    },
+    {
+        "id":  76743,
+        "name":  "Rongai"
+    },
+    {
+        "id":  76742,
+        "name":  "Rongo"
+    },
+    {
+        "id":  76741,
+        "name":  "Ruiru"
+    },
+    {
+        "id":  76740,
+        "name":  "Rumuruti"
+    },
+    {
+        "id":  76739,
+        "name":  "Runyenjes"
+    },
+    {
+        "id":  76738,
+        "name":  "Saba Saba"
+    },
+    {
+        "id":  76737,
+        "name":  "Sagana"
+    },
+    {
+        "id":  77005,
+        "name":  "Samburu"
+    },
+    {
+        "id":  76736,
+        "name":  "Sawa Sawa"
+    },
+    {
+        "id":  76735,
+        "name":  "Sega"
+    },
+    {
+        "id":  76734,
+        "name":  "Serem"
+    },
+    {
+        "id":  76733,
+        "name":  "Shianda"
+    },
+    {
+        "id":  76732,
+        "name":  "Shimoni"
+    },
+    {
+        "id":  76731,
+        "name":  "Siakago"
+    },
+    {
+        "id":  76965,
+        "name":  "Siaya"
+    },
+    {
+        "id":  76730,
+        "name":  "Simba"
+    },
+    {
+        "id":  76729,
+        "name":  "Sindo"
+    },
+    {
+        "id":  76728,
+        "name":  "Sirisia"
+    },
+    {
+        "id":  76727,
+        "name":  "Sololo"
+    },
+    {
+        "id":  76726,
+        "name":  "Sondu"
+    },
+    {
+        "id":  76989,
+        "name":  "Sori"
+    },
+    {
+        "id":  76725,
+        "name":  "Sotik"
+    },
+    {
+        "id":  76724,
+        "name":  "South Kinangop"
+    },
+    {
+        "id":  76723,
+        "name":  "Subukia"
+    },
+    {
+        "id":  77017,
+        "name":  "Suguta"
+    },
+    {
+        "id":  76722,
+        "name":  "Sultan Hamud"
+    },
+    {
+        "id":  76721,
+        "name":  "Tabaka"
+    },
+    {
+        "id":  76966,
+        "name":  "Takaba"
+    },
+    {
+        "id":  76720,
+        "name":  "Takaungu"
+    },
+    {
+        "id":  76719,
+        "name":  "Tala"
+    },
+    {
+        "id":  76718,
+        "name":  "Tarbaj"
+    },
+    {
+        "id":  76717,
+        "name":  "Taveta"
+    },
+    {
+        "id":  76716,
+        "name":  "Thika"
+    },
+    {
+        "id":  76715,
+        "name":  "Timau"
+    },
+    {
+        "id":  76968,
+        "name":  "Timboroa"
+    },
+    {
+        "id":  76714,
+        "name":  "Tinganga"
+    },
+    {
+        "id":  76713,
+        "name":  "Turbo"
+    },
+    {
+        "id":  76711,
+        "name":  "Ukunda"
+    },
+    {
+        "id":  76924,
+        "name":  "Upper Gilgil"
+    },
+    {
+        "id":  76975,
+        "name":  "Usenge"
+    },
+    {
+        "id":  76710,
+        "name":  "Vipingo"
+    },
+    {
+        "id":  76709,
+        "name":  "Voi"
+    },
+    {
+        "id":  76708,
+        "name":  "Wajir"
+    },
+    {
+        "id":  76707,
+        "name":  "Wamba"
+    },
+    {
+        "id":  76706,
+        "name":  "Wamunyu"
+    },
+    {
+        "id":  76705,
+        "name":  "Wanguru"
+    },
+    {
+        "id":  76704,
+        "name":  "Watamu"
+    },
+    {
+        "id":  76703,
+        "name":  "Webuye"
+    },
+    {
+        "id":  76702,
+        "name":  "Witu"
+    },
+    {
+        "id":  77018,
+        "name":  "Wiyumiririe"
+    },
+    {
+        "id":  76701,
+        "name":  "Wote"
+    },
+    {
+        "id":  76700,
+        "name":  "Wundanyi"
+    },
+    {
+        "id":  76699,
+        "name":  "Yala"
+    }
+]

@@ -17,7 +17,7 @@ import 'chat_inbox_controller.dart';
 class ChatConversationController extends GetxController {
   final PostUser peer;
   final int? initialChatId;
-  final int? postId; // set when the chat was opened from a post
+  int? postId; // set when the chat was opened from a post
 
   ChatConversationController({required this.peer, this.initialChatId, this.postId});
 
@@ -67,6 +67,17 @@ class ChatConversationController extends GetxController {
     } finally {
       loading.value = false;
     }
+  }
+
+  // The same conversation can be reopened from a different post — e.g. the
+  // other side comes back with a trip after the first deal closed. The website
+  // does this by setting selectedPostId and re-reading chat details; the server
+  // then swaps the chat's post (and drops a closed deal on a different post),
+  // so the route strip and the sender/traveler roles recompute.
+  Future<void> switchPost(int? newPostId) async {
+    if (postId == newPostId) return;
+    postId = newPostId;
+    await reloadContext();
   }
 
   // re-reads post/deal so the action bar flips to "View agreement" the moment

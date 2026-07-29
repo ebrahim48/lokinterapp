@@ -1,0 +1,510 @@
+[
+    {
+        "id":  78134,
+        "name":  "Ādaži"
+    },
+    {
+        "id":  78133,
+        "name":  "Ainaži"
+    },
+    {
+        "id":  78132,
+        "name":  "Aizkraukle"
+    },
+    {
+        "id":  78131,
+        "name":  "Aizpute"
+    },
+    {
+        "id":  78130,
+        "name":  "Aknīste"
+    },
+    {
+        "id":  78129,
+        "name":  "Aloja"
+    },
+    {
+        "id":  78128,
+        "name":  "Alsunga"
+    },
+    {
+        "id":  78127,
+        "name":  "Alūksne"
+    },
+    {
+        "id":  78126,
+        "name":  "Ape"
+    },
+    {
+        "id":  78125,
+        "name":  "Auce"
+    },
+    {
+        "id":  78124,
+        "name":  "Baldone"
+    },
+    {
+        "id":  78135,
+        "name":  "Baloži"
+    },
+    {
+        "id":  78123,
+        "name":  "Balvi"
+    },
+    {
+        "id":  78122,
+        "name":  "Bauska"
+    },
+    {
+        "id":  78121,
+        "name":  "Berģi"
+    },
+    {
+        "id":  78120,
+        "name":  "Bolderaja"
+    },
+    {
+        "id":  78119,
+        "name":  "Brocēni"
+    },
+    {
+        "id":  78118,
+        "name":  "Cēsis"
+    },
+    {
+        "id":  78117,
+        "name":  "Cesvaine"
+    },
+    {
+        "id":  78116,
+        "name":  "Dagda"
+    },
+    {
+        "id":  78138,
+        "name":  "Dārzciems"
+    },
+    {
+        "id":  78115,
+        "name":  "Daugavgrīva"
+    },
+    {
+        "id":  78114,
+        "name":  "Daugavpils"
+    },
+    {
+        "id":  78113,
+        "name":  "Dobele"
+    },
+    {
+        "id":  78112,
+        "name":  "Drabeši"
+    },
+    {
+        "id":  78111,
+        "name":  "Dreiliņi"
+    },
+    {
+        "id":  78110,
+        "name":  "Engure"
+    },
+    {
+        "id":  78109,
+        "name":  "Ērgļi"
+    },
+    {
+        "id":  78050,
+        "name":  "Garkalne"
+    },
+    {
+        "id":  78108,
+        "name":  "Grobiņa"
+    },
+    {
+        "id":  78107,
+        "name":  "Gulbene"
+    },
+    {
+        "id":  78106,
+        "name":  "Iecava"
+    },
+    {
+        "id":  78105,
+        "name":  "Ikšķile"
+    },
+    {
+        "id":  78104,
+        "name":  "Ilūkste"
+    },
+    {
+        "id":  78103,
+        "name":  "Inčukalns"
+    },
+    {
+        "id":  78102,
+        "name":  "Jaunaglona"
+    },
+    {
+        "id":  78101,
+        "name":  "Jaunciems"
+    },
+    {
+        "id":  78100,
+        "name":  "Jaunjelgava"
+    },
+    {
+        "id":  78099,
+        "name":  "Jaunpils"
+    },
+    {
+        "id":  78098,
+        "name":  "Jēkabpils"
+    },
+    {
+        "id":  78097,
+        "name":  "Jelgava"
+    },
+    {
+        "id":  78096,
+        "name":  "Jumprava"
+    },
+    {
+        "id":  78095,
+        "name":  "Jūrmala"
+    },
+    {
+        "id":  78094,
+        "name":  "Kalnciems"
+    },
+    {
+        "id":  78093,
+        "name":  "Kandava"
+    },
+    {
+        "id":  78092,
+        "name":  "Karosta"
+    },
+    {
+        "id":  78091,
+        "name":  "Kārsava"
+    },
+    {
+        "id":  78090,
+        "name":  "Ķegums"
+    },
+    {
+        "id":  78089,
+        "name":  "Ķekava"
+    },
+    {
+        "id":  78088,
+        "name":  "Kocēni"
+    },
+    {
+        "id":  78087,
+        "name":  "Koknese"
+    },
+    {
+        "id":  78086,
+        "name":  "Krāslava"
+    },
+    {
+        "id":  78085,
+        "name":  "Krustpils"
+    },
+    {
+        "id":  78084,
+        "name":  "Kuldīga"
+    },
+    {
+        "id":  78083,
+        "name":  "Lieģi"
+    },
+    {
+        "id":  78082,
+        "name":  "Lielvārde"
+    },
+    {
+        "id":  78081,
+        "name":  "Liepāja"
+    },
+    {
+        "id":  78080,
+        "name":  "Liezēre"
+    },
+    {
+        "id":  78079,
+        "name":  "Līgatne"
+    },
+    {
+        "id":  78078,
+        "name":  "Limbaži"
+    },
+    {
+        "id":  78077,
+        "name":  "Līvāni"
+    },
+    {
+        "id":  78076,
+        "name":  "Lubāna"
+    },
+    {
+        "id":  78075,
+        "name":  "Ludza"
+    },
+    {
+        "id":  78074,
+        "name":  "Madona"
+    },
+    {
+        "id":  78136,
+        "name":  "Mārupe"
+    },
+    {
+        "id":  78073,
+        "name":  "Matīši"
+    },
+    {
+        "id":  78072,
+        "name":  "Mazsalaca"
+    },
+    {
+        "id":  78071,
+        "name":  "Mērsrags"
+    },
+    {
+        "id":  78070,
+        "name":  "Mežaparks"
+    },
+    {
+        "id":  78069,
+        "name":  "Mūrmuiža"
+    },
+    {
+        "id":  78068,
+        "name":  "Naukšēni"
+    },
+    {
+        "id":  78067,
+        "name":  "Nereta"
+    },
+    {
+        "id":  78066,
+        "name":  "Nīca"
+    },
+    {
+        "id":  78065,
+        "name":  "Ogre"
+    },
+    {
+        "id":  78064,
+        "name":  "Olaine"
+    },
+    {
+        "id":  78063,
+        "name":  "Ozolnieki"
+    },
+    {
+        "id":  78062,
+        "name":  "Pāvilosta"
+    },
+    {
+        "id":  78061,
+        "name":  "Piņķi"
+    },
+    {
+        "id":  78060,
+        "name":  "Pļaviņas"
+    },
+    {
+        "id":  78059,
+        "name":  "Preiļi"
+    },
+    {
+        "id":  78058,
+        "name":  "Priekule"
+    },
+    {
+        "id":  78057,
+        "name":  "Priekuļi"
+    },
+    {
+        "id":  78056,
+        "name":  "Ragana"
+    },
+    {
+        "id":  78055,
+        "name":  "Rauna"
+    },
+    {
+        "id":  78054,
+        "name":  "Rēzekne"
+    },
+    {
+        "id":  78053,
+        "name":  "Riebiņi"
+    },
+    {
+        "id":  78052,
+        "name":  "Riga"
+    },
+    {
+        "id":  78051,
+        "name":  "Roja"
+    },
+    {
+        "id":  78049,
+        "name":  "Rucava"
+    },
+    {
+        "id":  78048,
+        "name":  "Rūjiena"
+    },
+    {
+        "id":  78047,
+        "name":  "Sabile"
+    },
+    {
+        "id":  78046,
+        "name":  "Sala"
+    },
+    {
+        "id":  78045,
+        "name":  "Salacgrīva"
+    },
+    {
+        "id":  78044,
+        "name":  "Salaspils"
+    },
+    {
+        "id":  78043,
+        "name":  "Saldus"
+    },
+    {
+        "id":  78042,
+        "name":  "Saulkrasti"
+    },
+    {
+        "id":  78041,
+        "name":  "Seda"
+    },
+    {
+        "id":  78040,
+        "name":  "Sigulda"
+    },
+    {
+        "id":  78039,
+        "name":  "Skrīveri"
+    },
+    {
+        "id":  78038,
+        "name":  "Skrunda"
+    },
+    {
+        "id":  78037,
+        "name":  "Smārde"
+    },
+    {
+        "id":  78036,
+        "name":  "Smiltene"
+    },
+    {
+        "id":  78035,
+        "name":  "Stalbe"
+    },
+    {
+        "id":  78034,
+        "name":  "Stende"
+    },
+    {
+        "id":  78033,
+        "name":  "Strenči"
+    },
+    {
+        "id":  78032,
+        "name":  "Talsi"
+    },
+    {
+        "id":  78031,
+        "name":  "Tērvete"
+    },
+    {
+        "id":  78030,
+        "name":  "Tīreļi"
+    },
+    {
+        "id":  78029,
+        "name":  "Tukums"
+    },
+    {
+        "id":  78028,
+        "name":  "Ugāle"
+    },
+    {
+        "id":  78027,
+        "name":  "Ulbroka"
+    },
+    {
+        "id":  78026,
+        "name":  "Vaiņode"
+    },
+    {
+        "id":  78025,
+        "name":  "Valdemārpils"
+    },
+    {
+        "id":  78024,
+        "name":  "Valka"
+    },
+    {
+        "id":  78012,
+        "name":  "Valmiera"
+    },
+    {
+        "id":  78023,
+        "name":  "Vangaži"
+    },
+    {
+        "id":  78022,
+        "name":  "Varakļāni"
+    },
+    {
+        "id":  78021,
+        "name":  "Vecpiebalga"
+    },
+    {
+        "id":  78137,
+        "name":  "Vecrīga"
+    },
+    {
+        "id":  78019,
+        "name":  "Vecumnieki"
+    },
+    {
+        "id":  78020,
+        "name":  "Ventspils"
+    },
+    {
+        "id":  78018,
+        "name":  "Viesīte"
+    },
+    {
+        "id":  78015,
+        "name":  "Viļaka"
+    },
+    {
+        "id":  78017,
+        "name":  "Viļāni"
+    },
+    {
+        "id":  78016,
+        "name":  "Vilce"
+    },
+    {
+        "id":  78014,
+        "name":  "Zelmeņi"
+    },
+    {
+        "id":  78013,
+        "name":  "Zilupe"
+    }
+]

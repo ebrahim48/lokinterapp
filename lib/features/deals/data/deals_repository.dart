@@ -160,11 +160,17 @@ class DealsRepository {
     unwrapData(await _api.get('/deals/$dealId/checkOutgoingEligibility'));
   }
 
-  Future<void> uploadPickupVideo(int dealId, String filePath, String fileName) async {
+  Future<void> uploadPickupVideo(
+    int dealId,
+    String filePath,
+    String fileName, {
+    void Function(int sent, int total)? onProgress,
+  }) async {
     final form = FormData.fromMap({
       'video': await MultipartFile.fromFile(filePath, filename: fileName),
     });
-    unwrapData(await _api.post('/deals/$dealId/uploadPickupVideo', data: form));
+    unwrapData(await _api.post('/deals/$dealId/uploadPickupVideo',
+        data: form, onSendProgress: onProgress));
     DataBus.changed(DataTopic.deals);
   }
 

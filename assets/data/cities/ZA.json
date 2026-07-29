@@ -1,0 +1,3422 @@
+[
+    {
+        "id":  139888,
+        "name":  "Abbotsdale"
+    },
+    {
+        "id":  139625,
+        "name":  "Aberdeen"
+    },
+    {
+        "id":  139624,
+        "name":  "Addo"
+    },
+    {
+        "id":  139623,
+        "name":  "Adelaide"
+    },
+    {
+        "id":  139622,
+        "name":  "Albert Falls"
+    },
+    {
+        "id":  139621,
+        "name":  "Albertina"
+    },
+    {
+        "id":  139620,
+        "name":  "Alberton"
+    },
+    {
+        "id":  139716,
+        "name":  "Alexander Bay"
+    },
+    {
+        "id":  139619,
+        "name":  "Alexandra"
+    },
+    {
+        "id":  139618,
+        "name":  "Alexandria"
+    },
+    {
+        "id":  139617,
+        "name":  "Alice"
+    },
+    {
+        "id":  139616,
+        "name":  "Alicedale"
+    },
+    {
+        "id":  139615,
+        "name":  "Aliwal North"
+    },
+    {
+        "id":  139614,
+        "name":  "Allanridge"
+    },
+    {
+        "id":  139613,
+        "name":  "Alldays"
+    },
+    {
+        "id":  139629,
+        "name":  "Allemansdrif"
+    },
+    {
+        "id":  139612,
+        "name":  "Amalia"
+    },
+    {
+        "id":  139611,
+        "name":  "Amandelbult"
+    },
+    {
+        "id":  139610,
+        "name":  "Amersfoort"
+    },
+    {
+        "id":  139608,
+        "name":  "Apel"
+    },
+    {
+        "id":  139607,
+        "name":  "Arlington"
+    },
+    {
+        "id":  139083,
+        "name":  "Arniston"
+    },
+    {
+        "id":  139807,
+        "name":  "Ashburton"
+    },
+    {
+        "id":  139606,
+        "name":  "Ashton"
+    },
+    {
+        "id":  139715,
+        "name":  "Athlone"
+    },
+    {
+        "id":  139714,
+        "name":  "Atlantis"
+    },
+    {
+        "id":  139605,
+        "name":  "Augrabies"
+    },
+    {
+        "id":  139604,
+        "name":  "Babanango"
+    },
+    {
+        "id":  139832,
+        "name":  "Babirwa"
+    },
+    {
+        "id":  139794,
+        "name":  "Bagale"
+    },
+    {
+        "id":  139601,
+        "name":  "Balfour"
+    },
+    {
+        "id":  139602,
+        "name":  "Balfour"
+    },
+    {
+        "id":  139600,
+        "name":  "Ballitoville"
+    },
+    {
+        "id":  139599,
+        "name":  "Barberton"
+    },
+    {
+        "id":  139598,
+        "name":  "Barkly East"
+    },
+    {
+        "id":  139597,
+        "name":  "Barkly West"
+    },
+    {
+        "id":  139596,
+        "name":  "Barrydale"
+    },
+    {
+        "id":  139595,
+        "name":  "Bathurst"
+    },
+    {
+        "id":  139594,
+        "name":  "Beaufort West"
+    },
+    {
+        "id":  139593,
+        "name":  "Bedford"
+    },
+    {
+        "id":  139079,
+        "name":  "Bela Bela"
+    },
+    {
+        "id":  139725,
+        "name":  "Bela-Bela"
+    },
+    {
+        "id":  139592,
+        "name":  "Belfast"
+    },
+    {
+        "id":  139591,
+        "name":  "Benoni"
+    },
+    {
+        "id":  139590,
+        "name":  "Berea"
+    },
+    {
+        "id":  139589,
+        "name":  "Bergnek"
+    },
+    {
+        "id":  139588,
+        "name":  "Bergville"
+    },
+    {
+        "id":  139713,
+        "name":  "Bergvliet"
+    },
+    {
+        "id":  139586,
+        "name":  "Bertha Shaft Village"
+    },
+    {
+        "id":  139585,
+        "name":  "Bethal"
+    },
+    {
+        "id":  139584,
+        "name":  "Bethlehem"
+    },
+    {
+        "id":  139583,
+        "name":  "Bethulie"
+    },
+    {
+        "id":  139712,
+        "name":  "Betty’s Bay"
+    },
+    {
+        "id":  139842,
+        "name":  "Betty\u0027s Goed"
+    },
+    {
+        "id":  139582,
+        "name":  "Bhisho"
+    },
+    {
+        "id":  139581,
+        "name":  "Bizana"
+    },
+    {
+        "id":  139580,
+        "name":  "Blinkpan"
+    },
+    {
+        "id":  139579,
+        "name":  "Bloemfontein"
+    },
+    {
+        "id":  139578,
+        "name":  "Bloemhof"
+    },
+    {
+        "id":  139577,
+        "name":  "Bochum"
+    },
+    {
+        "id":  139866,
+        "name":  "Boipelo"
+    },
+    {
+        "id":  139576,
+        "name":  "Boksburg"
+    },
+    {
+        "id":  139575,
+        "name":  "Bonnievale"
+    },
+    {
+        "id":  139574,
+        "name":  "Bontrug"
+    },
+    {
+        "id":  139573,
+        "name":  "Boshof"
+    },
+    {
+        "id":  139840,
+        "name":  "Bosoord"
+    },
+    {
+        "id":  139572,
+        "name":  "Botha’s Hill"
+    },
+    {
+        "id":  139571,
+        "name":  "Bothaville"
+    },
+    {
+        "id":  139711,
+        "name":  "Botrivier"
+    },
+    {
+        "id":  139570,
+        "name":  "Botshabelo"
+    },
+    {
+        "id":  139569,
+        "name":  "Brakpan"
+    },
+    {
+        "id":  139567,
+        "name":  "Brandvlei"
+    },
+    {
+        "id":  139566,
+        "name":  "Brandwag"
+    },
+    {
+        "id":  139865,
+        "name":  "Bray"
+    },
+    {
+        "id":  139565,
+        "name":  "Bredasdorp"
+    },
+    {
+        "id":  139564,
+        "name":  "Breyten"
+    },
+    {
+        "id":  139563,
+        "name":  "Brits"
+    },
+    {
+        "id":  139562,
+        "name":  "Bronkhorstspruit"
+    },
+    {
+        "id":  139561,
+        "name":  "Buffeljagsrivier"
+    },
+    {
+        "id":  139560,
+        "name":  "Bultfontein"
+    },
+    {
+        "id":  139559,
+        "name":  "Bulwer"
+    },
+    {
+        "id":  139558,
+        "name":  "Burgersdorp"
+    },
+    {
+        "id":  139557,
+        "name":  "Burgersfort"
+    },
+    {
+        "id":  139556,
+        "name":  "Butterworth"
+    },
+    {
+        "id":  139555,
+        "name":  "Cala"
+    },
+    {
+        "id":  139710,
+        "name":  "Caledon"
+    },
+    {
+        "id":  139554,
+        "name":  "Calitzdorp"
+    },
+    {
+        "id":  139709,
+        "name":  "Calvinia"
+    },
+    {
+        "id":  139553,
+        "name":  "Camperdown"
+    },
+    {
+        "id":  139708,
+        "name":  "Cape Town"
+    },
+    {
+        "id":  139552,
+        "name":  "Carletonville"
+    },
+    {
+        "id":  139551,
+        "name":  "Carnarvon"
+    },
+    {
+        "id":  139550,
+        "name":  "Carolina"
+    },
+    {
+        "id":  139869,
+        "name":  "Carousel View"
+    },
+    {
+        "id":  139549,
+        "name":  "Cathcart"
+    },
+    {
+        "id":  139548,
+        "name":  "Cato Ridge"
+    },
+    {
+        "id":  139547,
+        "name":  "Cedarville"
+    },
+    {
+        "id":  139384,
+        "name":  "Centane"
+    },
+    {
+        "id":  139631,
+        "name":  "Centurion"
+    },
+    {
+        "id":  139707,
+        "name":  "Ceres"
+    },
+    {
+        "id":  139546,
+        "name":  "Charlestown"
+    },
+    {
+        "id":  139706,
+        "name":  "Chatsworth"
+    },
+    {
+        "id":  139545,
+        "name":  "Chrissiesmeer"
+    },
+    {
+        "id":  139544,
+        "name":  "Christiana"
+    },
+    {
+        "id":  139804,
+        "name":  "Cibelichle"
+    },
+    {
+        "id":  139875,
+        "name":  "Cillie"
+    },
+    {
+        "id":  139543,
+        "name":  "Cintsa Mouth West"
+    },
+    {
+        "id":  139705,
+        "name":  "Citrusdal"
+    },
+    {
+        "id":  139704,
+        "name":  "Clanwilliam"
+    },
+    {
+        "id":  139703,
+        "name":  "Claremont"
+    },
+    {
+        "id":  139773,
+        "name":  "Clarendon Marine"
+    },
+    {
+        "id":  139542,
+        "name":  "Clarens"
+    },
+    {
+        "id":  139541,
+        "name":  "Clarkson"
+    },
+    {
+        "id":  139539,
+        "name":  "Clydesdale"
+    },
+    {
+        "id":  139538,
+        "name":  "Cofimvaba"
+    },
+    {
+        "id":  139735,
+        "name":  "Colchester"
+    },
+    {
+        "id":  139537,
+        "name":  "Coldstream"
+    },
+    {
+        "id":  139536,
+        "name":  "Colenso"
+    },
+    {
+        "id":  139535,
+        "name":  "Colesberg"
+    },
+    {
+        "id":  139534,
+        "name":  "Coligny"
+    },
+    {
+        "id":  139702,
+        "name":  "Constantia"
+    },
+    {
+        "id":  139533,
+        "name":  "Cookhouse"
+    },
+    {
+        "id":  139763,
+        "name":  "Cool Air"
+    },
+    {
+        "id":  139532,
+        "name":  "Cornelia"
+    },
+    {
+        "id":  139531,
+        "name":  "Coronation"
+    },
+    {
+        "id":  139530,
+        "name":  "Cradock"
+    },
+    {
+        "id":  139814,
+        "name":  "Craigieburn"
+    },
+    {
+        "id":  139529,
+        "name":  "Creighton"
+    },
+    {
+        "id":  139528,
+        "name":  "Cullinan"
+    },
+    {
+        "id":  139858,
+        "name":  "Daggakraal"
+    },
+    {
+        "id":  139527,
+        "name":  "Dalton"
+    },
+    {
+        "id":  139526,
+        "name":  "Daniëlskuil"
+    },
+    {
+        "id":  139525,
+        "name":  "Dannhauser"
+    },
+    {
+        "id":  139701,
+        "name":  "Darling"
+    },
+    {
+        "id":  139524,
+        "name":  "Darnall"
+    },
+    {
+        "id":  139523,
+        "name":  "Davel"
+    },
+    {
+        "id":  139522,
+        "name":  "De Aar"
+    },
+    {
+        "id":  139700,
+        "name":  "De Doorns"
+    },
+    {
+        "id":  139515,
+        "name":  "De Rust"
+    },
+    {
+        "id":  139521,
+        "name":  "Dealesville"
+    },
+    {
+        "id":  139520,
+        "name":  "Delareyville"
+    },
+    {
+        "id":  139519,
+        "name":  "Delmas"
+    },
+    {
+        "id":  139518,
+        "name":  "Dendron"
+    },
+    {
+        "id":  139517,
+        "name":  "Deneysville"
+    },
+    {
+        "id":  139516,
+        "name":  "Derby"
+    },
+    {
+        "id":  139514,
+        "name":  "Devon"
+    },
+    {
+        "id":  139513,
+        "name":  "Dewetsdorp"
+    },
+    {
+        "id":  139736,
+        "name":  "Diepsloot"
+    },
+    {
+        "id":  139512,
+        "name":  "Dimbaza"
+    },
+    {
+        "id":  139511,
+        "name":  "Dirkiesdorp"
+    },
+    {
+        "id":  139853,
+        "name":  "Doornkop"
+    },
+    {
+        "id":  139510,
+        "name":  "Dordrecht"
+    },
+    {
+        "id":  139699,
+        "name":  "Doringbaai"
+    },
+    {
+        "id":  139509,
+        "name":  "Douglas"
+    },
+    {
+        "id":  139508,
+        "name":  "Driefontein"
+    },
+    {
+        "id":  139800,
+        "name":  "Drummond"
+    },
+    {
+        "id":  139776,
+        "name":  "Ducats"
+    },
+    {
+        "id":  139507,
+        "name":  "Duiwelskloof"
+    },
+    {
+        "id":  139506,
+        "name":  "Dullstroom"
+    },
+    {
+        "id":  139505,
+        "name":  "Dundee"
+    },
+    {
+        "id":  139898,
+        "name":  "Dundonald"
+    },
+    {
+        "id":  139504,
+        "name":  "Durban"
+    },
+    {
+        "id":  139411,
+        "name":  "Dutywa"
+    },
+    {
+        "id":  139503,
+        "name":  "Dwarsloop"
+    },
+    {
+        "id":  139502,
+        "name":  "Dysselsdorp"
+    },
+    {
+        "id":  139501,
+        "name":  "East London"
+    },
+    {
+        "id":  139749,
+        "name":  "Eastleigh"
+    },
+    {
+        "id":  139698,
+        "name":  "Ebenhaeser"
+    },
+    {
+        "id":  139721,
+        "name":  "Eden Glen"
+    },
+    {
+        "id":  139760,
+        "name":  "Eden Glen Ext 60"
+    },
+    {
+        "id":  139500,
+        "name":  "Edenburg"
+    },
+    {
+        "id":  139499,
+        "name":  "Edenvale"
+    },
+    {
+        "id":  139498,
+        "name":  "Edenville"
+    },
+    {
+        "id":  139697,
+        "name":  "Eendekuil"
+    },
+    {
+        "id":  139626,
+        "name":  "Ekangala"
+    },
+    {
+        "id":  139852,
+        "name":  "Ekulindeni"
+    },
+    {
+        "id":  139497,
+        "name":  "Ekuvukeni"
+    },
+    {
+        "id":  139696,
+        "name":  "Elandsbaai"
+    },
+    {
+        "id":  139496,
+        "name":  "Elandshoek"
+    },
+    {
+        "id":  139836,
+        "name":  "Elandskraal"
+    },
+    {
+        "id":  139695,
+        "name":  "Elim"
+    },
+    {
+        "id":  139494,
+        "name":  "Elliotdale"
+    },
+    {
+        "id":  139493,
+        "name":  "Eloff"
+    },
+    {
+        "id":  139791,
+        "name":  "Elsburg Gold Mine"
+    },
+    {
+        "id":  139057,
+        "name":  "Emalahleni"
+    },
+    {
+        "id":  139603,
+        "name":  "eManzana"
+    },
+    {
+        "id":  139808,
+        "name":  "Emaqeleni"
+    },
+    {
+        "id":  139492,
+        "name":  "eMbalenhle"
+    },
+    {
+        "id":  139339,
+        "name":  "eMbangweni"
+    },
+    {
+        "id":  139111,
+        "name":  "eMdloti"
+    },
+    {
+        "id":  139854,
+        "name":  "Emgwenya"
+    },
+    {
+        "id":  139110,
+        "name":  "eMkhomazi"
+    },
+    {
+        "id":  139301,
+        "name":  "eMkhuze"
+    },
+    {
+        "id":  139805,
+        "name":  "Emona"
+    },
+    {
+        "id":  139491,
+        "name":  "Empangeni"
+    },
+    {
+        "id":  139857,
+        "name":  "Empuluzu"
+    },
+    {
+        "id":  139108,
+        "name":  "eMuziwezinto"
+    },
+    {
+        "id":  139609,
+        "name":  "eMvelo"
+    },
+    {
+        "id":  139694,
+        "name":  "eNduli"
+    },
+    {
+        "id":  139489,
+        "name":  "Enon"
+    },
+    {
+        "id":  139488,
+        "name":  "Ermelo"
+    },
+    {
+        "id":  139487,
+        "name":  "Eshowe"
+    },
+    {
+        "id":  139486,
+        "name":  "eSikhaleni"
+    },
+    {
+        "id":  139485,
+        "name":  "Estcourt"
+    },
+    {
+        "id":  139740,
+        "name":  "Etwatwa"
+    },
+    {
+        "id":  139484,
+        "name":  "Evander"
+    },
+    {
+        "id":  139483,
+        "name":  "Evaton"
+    },
+    {
+        "id":  139482,
+        "name":  "Excelsior"
+    },
+    {
+        "id":  139809,
+        "name":  "Ezibomvu"
+    },
+    {
+        "id":  139481,
+        "name":  "Fauresmith"
+    },
+    {
+        "id":  139480,
+        "name":  "Felixton"
+    },
+    {
+        "id":  139899,
+        "name":  "Fernie"
+    },
+    {
+        "id":  139479,
+        "name":  "Ficksburg"
+    },
+    {
+        "id":  139891,
+        "name":  "Fistantkraal"
+    },
+    {
+        "id":  139478,
+        "name":  "Flagstaff"
+    },
+    {
+        "id":  139477,
+        "name":  "Fochville"
+    },
+    {
+        "id":  139759,
+        "name":  "Folweni"
+    },
+    {
+        "id":  139476,
+        "name":  "Fort Beaufort"
+    },
+    {
+        "id":  139475,
+        "name":  "Fouriesburg"
+    },
+    {
+        "id":  139473,
+        "name":  "Frankfort"
+    },
+    {
+        "id":  139474,
+        "name":  "Frankfort"
+    },
+    {
+        "id":  139472,
+        "name":  "Franklin"
+    },
+    {
+        "id":  139471,
+        "name":  "Fraserburg"
+    },
+    {
+        "id":  139883,
+        "name":  "Friemersheim"
+    },
+    {
+        "id":  139815,
+        "name":  "Frischgewaagd"
+    },
+    {
+        "id":  139470,
+        "name":  "Ga-Kgapane"
+    },
+    {
+        "id":  139742,
+        "name":  "Ga-Malakhe"
+    },
+    {
+        "id":  139873,
+        "name":  "Gannaput"
+    },
+    {
+        "id":  139693,
+        "name":  "Gansbaai"
+    },
+    {
+        "id":  139469,
+        "name":  "Ganyesa"
+    },
+    {
+        "id":  139468,
+        "name":  "Ga-Rankuwa"
+    },
+    {
+        "id":  139767,
+        "name":  "Gariep Dam"
+    },
+    {
+        "id":  139692,
+        "name":  "Garies"
+    },
+    {
+        "id":  139833,
+        "name":  "GaSekhaolelo"
+    },
+    {
+        "id":  139856,
+        "name":  "Gemsbokspruit"
+    },
+    {
+        "id":  139691,
+        "name":  "Genadendal"
+    },
+    {
+        "id":  139467,
+        "name":  "George"
+    },
+    {
+        "id":  139466,
+        "name":  "Germiston"
+    },
+    {
+        "id":  139465,
+        "name":  "Geysdorp"
+    },
+    {
+        "id":  139463,
+        "name":  "Giyani"
+    },
+    {
+        "id":  139462,
+        "name":  "Glaudina"
+    },
+    {
+        "id":  139802,
+        "name":  "Glen Mill"
+    },
+    {
+        "id":  139461,
+        "name":  "Glencoe"
+    },
+    {
+        "id":  139460,
+        "name":  "Glenharvie"
+    },
+    {
+        "id":  139769,
+        "name":  "Glenmore"
+    },
+    {
+        "id":  139897,
+        "name":  "Glenmore"
+    },
+    {
+        "id":  139690,
+        "name":  "Goedverwag"
+    },
+    {
+        "id":  139459,
+        "name":  "Gonubie"
+    },
+    {
+        "id":  139689,
+        "name":  "Gouda"
+    },
+    {
+        "id":  139458,
+        "name":  "Graaff Reinet"
+    },
+    {
+        "id":  139688,
+        "name":  "Graafwater"
+    },
+    {
+        "id":  139687,
+        "name":  "Grabouw"
+    },
+    {
+        "id":  139457,
+        "name":  "Grahamstown"
+    },
+    {
+        "id":  139456,
+        "name":  "Graskop"
+    },
+    {
+        "id":  139455,
+        "name":  "Gravelotte"
+    },
+    {
+        "id":  139806,
+        "name":  "Greylands"
+    },
+    {
+        "id":  139686,
+        "name":  "Greyton"
+    },
+    {
+        "id":  139453,
+        "name":  "Greytown"
+    },
+    {
+        "id":  139452,
+        "name":  "Groblersdal"
+    },
+    {
+        "id":  139451,
+        "name":  "Groblershoop"
+    },
+    {
+        "id":  139450,
+        "name":  "Groenpunt"
+    },
+    {
+        "id":  139449,
+        "name":  "Groot-Brakrivier"
+    },
+    {
+        "id":  139877,
+        "name":  "Grootdrink"
+    },
+    {
+        "id":  139448,
+        "name":  "Groot-Marico"
+    },
+    {
+        "id":  139447,
+        "name":  "Grootvlei"
+    },
+    {
+        "id":  139446,
+        "name":  "Haarlem"
+    },
+    {
+        "id":  139445,
+        "name":  "Ha-Mavhunga"
+    },
+    {
+        "id":  139799,
+        "name":  "Hambanathi"
+    },
+    {
+        "id":  139444,
+        "name":  "Hamburg"
+    },
+    {
+        "id":  139443,
+        "name":  "Hammanskraal"
+    },
+    {
+        "id":  139442,
+        "name":  "Hankey"
+    },
+    {
+        "id":  139441,
+        "name":  "Hanover"
+    },
+    {
+        "id":  139440,
+        "name":  "Harding"
+    },
+    {
+        "id":  139439,
+        "name":  "Harrismith"
+    },
+    {
+        "id":  139438,
+        "name":  "Hartbeesfontein"
+    },
+    {
+        "id":  139437,
+        "name":  "Hartbeespoort"
+    },
+    {
+        "id":  139733,
+        "name":  "Hartbeestfontein-A"
+    },
+    {
+        "id":  139436,
+        "name":  "Hartswater"
+    },
+    {
+        "id":  139812,
+        "name":  "Hazelmere"
+    },
+    {
+        "id":  139435,
+        "name":  "Hazyview"
+    },
+    {
+        "id":  139434,
+        "name":  "Hectorspruit"
+    },
+    {
+        "id":  139433,
+        "name":  "Heidelberg"
+    },
+    {
+        "id":  139432,
+        "name":  "Heidelberg"
+    },
+    {
+        "id":  139431,
+        "name":  "Heilbron"
+    },
+    {
+        "id":  139430,
+        "name":  "Hendrina"
+    },
+    {
+        "id":  139429,
+        "name":  "Hennenman"
+    },
+    {
+        "id":  139685,
+        "name":  "Hermanus"
+    },
+    {
+        "id":  139723,
+        "name":  "Herolds Bay"
+    },
+    {
+        "id":  139428,
+        "name":  "Hertzogville"
+    },
+    {
+        "id":  139427,
+        "name":  "Hibberdene"
+    },
+    {
+        "id":  139426,
+        "name":  "Hillshaven"
+    },
+    {
+        "id":  139425,
+        "name":  "Hilton"
+    },
+    {
+        "id":  139424,
+        "name":  "Himeville"
+    },
+    {
+        "id":  139423,
+        "name":  "Hlabisa"
+    },
+    {
+        "id":  139795,
+        "name":  "Hlalanathi"
+    },
+    {
+        "id":  139422,
+        "name":  "Hlobane"
+    },
+    {
+        "id":  139540,
+        "name":  "Hlohlolwane"
+    },
+    {
+        "id":  139421,
+        "name":  "Hluhluwe"
+    },
+    {
+        "id":  139420,
+        "name":  "Hobhouse"
+    },
+    {
+        "id":  139419,
+        "name":  "Hoedspruit"
+    },
+    {
+        "id":  139418,
+        "name":  "Hofmeyr"
+    },
+    {
+        "id":  139417,
+        "name":  "Hogsback"
+    },
+    {
+        "id":  139416,
+        "name":  "Hoopstad"
+    },
+    {
+        "id":  139684,
+        "name":  "Hopefield"
+    },
+    {
+        "id":  139415,
+        "name":  "Hopetown"
+    },
+    {
+        "id":  139414,
+        "name":  "Hopewell"
+    },
+    {
+        "id":  139413,
+        "name":  "Howick"
+    },
+    {
+        "id":  139882,
+        "name":  "Hugenote"
+    },
+    {
+        "id":  139412,
+        "name":  "Humansdorp"
+    },
+    {
+        "id":  139811,
+        "name":  "Ibisikululwa"
+    },
+    {
+        "id":  139781,
+        "name":  "Ikgomotseng"
+    },
+    {
+        "id":  139410,
+        "name":  "Ilinge"
+    },
+    {
+        "id":  139778,
+        "name":  "Ilitha"
+    },
+    {
+        "id":  139409,
+        "name":  "Impendle"
+    },
+    {
+        "id":  139408,
+        "name":  "Inanda"
+    },
+    {
+        "id":  139407,
+        "name":  "Indwe"
+    },
+    {
+        "id":  139406,
+        "name":  "Ingwavuma"
+    },
+    {
+        "id":  139844,
+        "name":  "Iswepe"
+    },
+    {
+        "id":  139867,
+        "name":  "Itekeng"
+    },
+    {
+        "id":  139405,
+        "name":  "Itsoseng"
+    },
+    {
+        "id":  139743,
+        "name":  "Ivory Park"
+    },
+    {
+        "id":  139404,
+        "name":  "Ixopo"
+    },
+    {
+        "id":  139403,
+        "name":  "Izingolweni"
+    },
+    {
+        "id":  139402,
+        "name":  "Jacobsdal"
+    },
+    {
+        "id":  139401,
+        "name":  "Jagersfontein"
+    },
+    {
+        "id":  139400,
+        "name":  "James Calata"
+    },
+    {
+        "id":  139398,
+        "name":  "Jan Kempdorp"
+    },
+    {
+        "id":  139399,
+        "name":  "Jane Furse"
+    },
+    {
+        "id":  139397,
+        "name":  "Jansenville"
+    },
+    {
+        "id":  139396,
+        "name":  "Jeffreys Bay"
+    },
+    {
+        "id":  139395,
+        "name":  "Johannesburg"
+    },
+    {
+        "id":  139394,
+        "name":  "Joubertina"
+    },
+    {
+        "id":  139393,
+        "name":  "Jozini"
+    },
+    {
+        "id":  139392,
+        "name":  "Kakamas"
+    },
+    {
+        "id":  139683,
+        "name":  "Kalbaskraal"
+    },
+    {
+        "id":  139831,
+        "name":  "Ka-Mahonisi"
+    },
+    {
+        "id":  139750,
+        "name":  "Kamaqhekeza"
+    },
+    {
+        "id":  139785,
+        "name":  "Kameelkraal"
+    },
+    {
+        "id":  139391,
+        "name":  "Ka-Mhinga"
+    },
+    {
+        "id":  139855,
+        "name":  "Kamhlushwa"
+    },
+    {
+        "id":  139816,
+        "name":  "KaNdengeza"
+    },
+    {
+        "id":  139390,
+        "name":  "Kareedouw"
+    },
+    {
+        "id":  139113,
+        "name":  "Kariega"
+    },
+    {
+        "id":  139389,
+        "name":  "Kathu"
+    },
+    {
+        "id":  139826,
+        "name":  "Ka-Xihosana"
+    },
+    {
+        "id":  139388,
+        "name":  "Kei Mouth"
+    },
+    {
+        "id":  139387,
+        "name":  "Kei Road"
+    },
+    {
+        "id":  139386,
+        "name":  "Keiskammahoek"
+    },
+    {
+        "id":  139385,
+        "name":  "Kenhardt"
+    },
+    {
+        "id":  139383,
+        "name":  "Kenton"
+    },
+    {
+        "id":  139382,
+        "name":  "Kestell"
+    },
+    {
+        "id":  139813,
+        "name":  "Kgwaripe"
+    },
+    {
+        "id":  139766,
+        "name":  "Khaya Mnandi"
+    },
+    {
+        "id":  139495,
+        "name":  "Khowa"
+    },
+    {
+        "id":  139381,
+        "name":  "Kimberley"
+    },
+    {
+        "id":  139379,
+        "name":  "Kinross"
+    },
+    {
+        "id":  139378,
+        "name":  "Kirkwood"
+    },
+    {
+        "id":  139731,
+        "name":  "Klapmuts"
+    },
+    {
+        "id":  139682,
+        "name":  "Klawer"
+    },
+    {
+        "id":  139681,
+        "name":  "Kleinmond"
+    },
+    {
+        "id":  139377,
+        "name":  "Klerksdorp"
+    },
+    {
+        "id":  139680,
+        "name":  "Klipheuwel"
+    },
+    {
+        "id":  139376,
+        "name":  "Klipplaat"
+    },
+    {
+        "id":  139375,
+        "name":  "Knysna"
+    },
+    {
+        "id":  139679,
+        "name":  "Koekenaap"
+    },
+    {
+        "id":  139374,
+        "name":  "Koffiefontein"
+    },
+    {
+        "id":  139373,
+        "name":  "Kokstad"
+    },
+    {
+        "id":  139372,
+        "name":  "Komati"
+    },
+    {
+        "id":  139371,
+        "name":  "Komatipoort"
+    },
+    {
+        "id":  139370,
+        "name":  "Komga"
+    },
+    {
+        "id":  139369,
+        "name":  "Koppies"
+    },
+    {
+        "id":  139678,
+        "name":  "Koringberg"
+    },
+    {
+        "id":  139368,
+        "name":  "Koster"
+    },
+    {
+        "id":  139677,
+        "name":  "Kraaifontein"
+    },
+    {
+        "id":  139367,
+        "name":  "Kragbron"
+    },
+    {
+        "id":  139366,
+        "name":  "Krakeelrivier"
+    },
+    {
+        "id":  139890,
+        "name":  "Kranshoek"
+    },
+    {
+        "id":  139365,
+        "name":  "Kranskop"
+    },
+    {
+        "id":  139364,
+        "name":  "Kriel"
+    },
+    {
+        "id":  139843,
+        "name":  "Kriel Power Station"
+    },
+    {
+        "id":  139363,
+        "name":  "Kroonstad"
+    },
+    {
+        "id":  139362,
+        "name":  "Krugersdorp"
+    },
+    {
+        "id":  139361,
+        "name":  "Kruisfontein"
+    },
+    {
+        "id":  139737,
+        "name":  "Kurland"
+    },
+    {
+        "id":  139360,
+        "name":  "Kuruman"
+    },
+    {
+        "id":  139359,
+        "name":  "Kutloanong"
+    },
+    {
+        "id":  139849,
+        "name":  "KwaDela"
+    },
+    {
+        "id":  139157,
+        "name":  "KwaDukuza"
+    },
+    {
+        "id":  139358,
+        "name":  "Kwaggafontein"
+    },
+    {
+        "id":  139464,
+        "name":  "KwaGingindlovu"
+    },
+    {
+        "id":  139357,
+        "name":  "KwaMbonambi"
+    },
+    {
+        "id":  139627,
+        "name":  "Kwamhlanga"
+    },
+    {
+        "id":  139901,
+        "name":  "KwaNgema"
+    },
+    {
+        "id":  139900,
+        "name":  "KwaThandeka"
+    },
+    {
+        "id":  139676,
+        "name":  "Kylemore"
+    },
+    {
+        "id":  139350,
+        "name":  "La Mercy"
+    },
+    {
+        "id":  139356,
+        "name":  "Ladismith"
+    },
+    {
+        "id":  139354,
+        "name":  "Lady Frere"
+    },
+    {
+        "id":  139353,
+        "name":  "Lady Grey"
+    },
+    {
+        "id":  139355,
+        "name":  "Ladybrand"
+    },
+    {
+        "id":  139352,
+        "name":  "Ladysmith"
+    },
+    {
+        "id":  139823,
+        "name":  "Laersdrift"
+    },
+    {
+        "id":  139351,
+        "name":  "Laingsburg"
+    },
+    {
+        "id":  139675,
+        "name":  "Lamberts Bay"
+    },
+    {
+        "id":  139674,
+        "name":  "Langebaan"
+    },
+    {
+        "id":  139889,
+        "name":  "Languedoc"
+    },
+    {
+        "id":  139673,
+        "name":  "Lansdowne"
+    },
+    {
+        "id":  139892,
+        "name":  "Le Roux"
+    },
+    {
+        "id":  139762,
+        "name":  "Lebohang"
+    },
+    {
+        "id":  139839,
+        "name":  "Lebowakgomo"
+    },
+    {
+        "id":  139872,
+        "name":  "Leerkrans"
+    },
+    {
+        "id":  139788,
+        "name":  "Leeudoorn Mine"
+    },
+    {
+        "id":  139348,
+        "name":  "Leeudoringstad"
+    },
+    {
+        "id":  139347,
+        "name":  "Leeu-Gamka"
+    },
+    {
+        "id":  139346,
+        "name":  "Leeupoort"
+    },
+    {
+        "id":  139739,
+        "name":  "Leeuwfontein-C"
+    },
+    {
+        "id":  139754,
+        "name":  "Lehurutshe"
+    },
+    {
+        "id":  139345,
+        "name":  "Lenyenye"
+    },
+    {
+        "id":  139726,
+        "name":  "Lephalale"
+    },
+    {
+        "id":  139344,
+        "name":  "Leslie"
+    },
+    {
+        "id":  139870,
+        "name":  "Letlhabile"
+    },
+    {
+        "id":  139343,
+        "name":  "Libode"
+    },
+    {
+        "id":  139342,
+        "name":  "Lichtenburg"
+    },
+    {
+        "id":  139341,
+        "name":  "Lidgetton"
+    },
+    {
+        "id":  139340,
+        "name":  "Lindley"
+    },
+    {
+        "id":  139775,
+        "name":  "Loerieheuwel"
+    },
+    {
+        "id":  139796,
+        "name":  "Loss"
+    },
+    {
+        "id":  139338,
+        "name":  "Lothair"
+    },
+    {
+        "id":  139337,
+        "name":  "Louis Trichardt"
+    },
+    {
+        "id":  139818,
+        "name":  "Louis Trichardt Airforce Base"
+    },
+    {
+        "id":  139336,
+        "name":  "Louterwater"
+    },
+    {
+        "id":  139335,
+        "name":  "Louwsburg"
+    },
+    {
+        "id":  139334,
+        "name":  "Luckhoff"
+    },
+    {
+        "id":  139744,
+        "name":  "Lukwatini"
+    },
+    {
+        "id":  139333,
+        "name":  "Luphisi"
+    },
+    {
+        "id":  139332,
+        "name":  "Lusikisiki"
+    },
+    {
+        "id":  139672,
+        "name":  "Lutzville"
+    },
+    {
+        "id":  139819,
+        "name":  "Lwamondo"
+    },
+    {
+        "id":  139331,
+        "name":  "Lydenburg"
+    },
+    {
+        "id":  139330,
+        "name":  "Mabopane"
+    },
+    {
+        "id":  139329,
+        "name":  "Machadodorp"
+    },
+    {
+        "id":  139328,
+        "name":  "Maclear"
+    },
+    {
+        "id":  139327,
+        "name":  "Madikwe"
+    },
+    {
+        "id":  139326,
+        "name":  "Mafikeng"
+    },
+    {
+        "id":  139325,
+        "name":  "Magabeni"
+    },
+    {
+        "id":  139324,
+        "name":  "Magaliesburg"
+    },
+    {
+        "id":  139323,
+        "name":  "Mahlabatini"
+    },
+    {
+        "id":  139322,
+        "name":  "Maile"
+    },
+    {
+        "id":  139321,
+        "name":  "Makapanstad"
+    },
+    {
+        "id":  139320,
+        "name":  "Makwassie"
+    },
+    {
+        "id":  139755,
+        "name":  "Malamulele"
+    },
+    {
+        "id":  139319,
+        "name":  "Malelane"
+    },
+    {
+        "id":  139671,
+        "name":  "Malmesbury"
+    },
+    {
+        "id":  139756,
+        "name":  "Maluti"
+    },
+    {
+        "id":  139231,
+        "name":  "Mamafubedu"
+    },
+    {
+        "id":  139784,
+        "name":  "Mamello"
+    },
+    {
+        "id":  139670,
+        "name":  "Mamre"
+    },
+    {
+        "id":  139729,
+        "name":  "Mandeni"
+    },
+    {
+        "id":  139318,
+        "name":  "Mankoeng"
+    },
+    {
+        "id":  139745,
+        "name":  "Mankweng"
+    },
+    {
+        "id":  139850,
+        "name":  "Mapulaneng View"
+    },
+    {
+        "id":  139734,
+        "name":  "Marapong"
+    },
+    {
+        "id":  139317,
+        "name":  "Marble Hall"
+    },
+    {
+        "id":  139316,
+        "name":  "Margate"
+    },
+    {
+        "id":  139741,
+        "name":  "Marikana"
+    },
+    {
+        "id":  139720,
+        "name":  "Marloth Park"
+    },
+    {
+        "id":  139315,
+        "name":  "Marquard"
+    },
+    {
+        "id":  139851,
+        "name":  "Masakhane"
+    },
+    {
+        "id":  139314,
+        "name":  "Matatiele"
+    },
+    {
+        "id":  139764,
+        "name":  "Mathibela"
+    },
+    {
+        "id":  139313,
+        "name":  "Matsulu"
+    },
+    {
+        "id":  139267,
+        "name":  "Mbombela"
+    },
+    {
+        "id":  139669,
+        "name":  "McGregor"
+    },
+    {
+        "id":  139312,
+        "name":  "Mdantsane"
+    },
+    {
+        "id":  139668,
+        "name":  "Melkbosstrand"
+    },
+    {
+        "id":  139311,
+        "name":  "Melkhoutfontein"
+    },
+    {
+        "id":  139310,
+        "name":  "Melmoth"
+    },
+    {
+        "id":  139309,
+        "name":  "Memel"
+    },
+    {
+        "id":  139308,
+        "name":  "Merweville"
+    },
+    {
+        "id":  139307,
+        "name":  "Meyerton"
+    },
+    {
+        "id":  139306,
+        "name":  "Middelburg"
+    },
+    {
+        "id":  139305,
+        "name":  "Middelburg"
+    },
+    {
+        "id":  139304,
+        "name":  "Middledrift"
+    },
+    {
+        "id":  139630,
+        "name":  "Midrand"
+    },
+    {
+        "id":  139728,
+        "name":  "Midstream"
+    },
+    {
+        "id":  139303,
+        "name":  "Migdol"
+    },
+    {
+        "id":  139747,
+        "name":  "Mkhuhlu"
+    },
+    {
+        "id":  139770,
+        "name":  "Mkukwini"
+    },
+    {
+        "id":  139302,
+        "name":  "Mkuze"
+    },
+    {
+        "id":  139300,
+        "name":  "Mmabatho"
+    },
+    {
+        "id":  139299,
+        "name":  "Mmametlhake"
+    },
+    {
+        "id":  139298,
+        "name":  "Modderfontein"
+    },
+    {
+        "id":  139251,
+        "name":  "Modimolle"
+    },
+    {
+        "id":  139297,
+        "name":  "Mogwase"
+    },
+    {
+        "id":  139296,
+        "name":  "Mogwase"
+    },
+    {
+        "id":  139827,
+        "name":  "Mokgoba"
+    },
+    {
+        "id":  139207,
+        "name":  "Mokopane"
+    },
+    {
+        "id":  139295,
+        "name":  "Moloto South"
+    },
+    {
+        "id":  139294,
+        "name":  "Molteno"
+    },
+    {
+        "id":  139293,
+        "name":  "Mondlo"
+    },
+    {
+        "id":  139292,
+        "name":  "Monnakato"
+    },
+    {
+        "id":  139291,
+        "name":  "Montagu"
+    },
+    {
+        "id":  139289,
+        "name":  "Mooi River"
+    },
+    {
+        "id":  139290,
+        "name":  "Mooinooi"
+    },
+    {
+        "id":  139895,
+        "name":  "Mooiplaas"
+    },
+    {
+        "id":  139271,
+        "name":  "Mookgophong"
+    },
+    {
+        "id":  139667,
+        "name":  "Moorreesburg"
+    },
+    {
+        "id":  139825,
+        "name":  "Morbeng"
+    },
+    {
+        "id":  139288,
+        "name":  "Morgenzon"
+    },
+    {
+        "id":  139820,
+        "name":  "Moshate"
+    },
+    {
+        "id":  139287,
+        "name":  "Mossel Bay"
+    },
+    {
+        "id":  139286,
+        "name":  "Motetema"
+    },
+    {
+        "id":  139285,
+        "name":  "Mount Ayliff"
+    },
+    {
+        "id":  139283,
+        "name":  "Mount Frere"
+    },
+    {
+        "id":  139282,
+        "name":  "Mpakeni"
+    },
+    {
+        "id":  139281,
+        "name":  "Mpophomeni"
+    },
+    {
+        "id":  139280,
+        "name":  "Mpumalanga"
+    },
+    {
+        "id":  139803,
+        "name":  "Mpungamhlophe"
+    },
+    {
+        "id":  139279,
+        "name":  "Mqanduli"
+    },
+    {
+        "id":  139771,
+        "name":  "Msobomvu"
+    },
+    {
+        "id":  139109,
+        "name":  "Mthatha"
+    },
+    {
+        "id":  139278,
+        "name":  "Mtititi"
+    },
+    {
+        "id":  139277,
+        "name":  "Mtubatuba"
+    },
+    {
+        "id":  139276,
+        "name":  "Mtunzini"
+    },
+    {
+        "id":  139275,
+        "name":  "Muldersdriseloop"
+    },
+    {
+        "id":  139274,
+        "name":  "Murchison"
+    },
+    {
+        "id":  139273,
+        "name":  "Murraysburg"
+    },
+    {
+        "id":  139727,
+        "name":  "Musina"
+    },
+    {
+        "id":  139272,
+        "name":  "Mutale"
+    },
+    {
+        "id":  139821,
+        "name":  "Mvelaphanda"
+    },
+    {
+        "id":  139270,
+        "name":  "Namakgale"
+    },
+    {
+        "id":  139666,
+        "name":  "Napier"
+    },
+    {
+        "id":  139753,
+        "name":  "Ncotshane"
+    },
+    {
+        "id":  139780,
+        "name":  "Ndevana"
+    },
+    {
+        "id":  139269,
+        "name":  "Ndwedwe"
+    },
+    {
+        "id":  139268,
+        "name":  "Nelspoort"
+    },
+    {
+        "id":  139265,
+        "name":  "New Hanover"
+    },
+    {
+        "id":  139266,
+        "name":  "Newcastle"
+    },
+    {
+        "id":  139724,
+        "name":  "Newlands"
+    },
+    {
+        "id":  139774,
+        "name":  "Ngabangu"
+    },
+    {
+        "id":  139264,
+        "name":  "Ngagane"
+    },
+    {
+        "id":  139490,
+        "name":  "Ngcobo"
+    },
+    {
+        "id":  139902,
+        "name":  "Ngema Tribal Trust"
+    },
+    {
+        "id":  139848,
+        "name":  "Ngodwana"
+    },
+    {
+        "id":  139253,
+        "name":  "Ngqamakhwe"
+    },
+    {
+        "id":  139263,
+        "name":  "Ngqeleni"
+    },
+    {
+        "id":  139894,
+        "name":  "Nhlazatje"
+    },
+    {
+        "id":  139262,
+        "name":  "Nieu-Bethesda"
+    },
+    {
+        "id":  139261,
+        "name":  "Nigel"
+    },
+    {
+        "id":  139260,
+        "name":  "Nkandla"
+    },
+    {
+        "id":  139810,
+        "name":  "Nkongolwane"
+    },
+    {
+        "id":  139259,
+        "name":  "Nkowakowa"
+    },
+    {
+        "id":  139779,
+        "name":  "Nomathamasanqa"
+    },
+    {
+        "id":  139258,
+        "name":  "Nondweni"
+    },
+    {
+        "id":  139257,
+        "name":  "Nongoma"
+    },
+    {
+        "id":  139256,
+        "name":  "Northam"
+    },
+    {
+        "id":  139255,
+        "name":  "Nottingham Road"
+    },
+    {
+        "id":  139254,
+        "name":  "Noupoort"
+    },
+    {
+        "id":  139252,
+        "name":  "Nqutu"
+    },
+    {
+        "id":  139140,
+        "name":  "Ntabankulu"
+    },
+    {
+        "id":  139587,
+        "name":  "Ntabozuko"
+    },
+    {
+        "id":  139835,
+        "name":  "Nthabalala"
+    },
+    {
+        "id":  139828,
+        "name":  "Nthabiseng"
+    },
+    {
+        "id":  139454,
+        "name":  "Nthrowane"
+    },
+    {
+        "id":  139752,
+        "name":  "Ntuzuma"
+    },
+    {
+        "id":  139880,
+        "name":  "Nuwerus NC"
+    },
+    {
+        "id":  139879,
+        "name":  "Oakglen"
+    },
+    {
+        "id":  139797,
+        "name":  "Ocean Drive-In"
+    },
+    {
+        "id":  139250,
+        "name":  "Odendaalsrus"
+    },
+    {
+        "id":  139249,
+        "name":  "Ogies"
+    },
+    {
+        "id":  139786,
+        "name":  "Onverwacht"
+    },
+    {
+        "id":  139665,
+        "name":  "Op-die-Berg"
+    },
+    {
+        "id":  139248,
+        "name":  "Orange Farm"
+    },
+    {
+        "id":  139247,
+        "name":  "Orania"
+    },
+    {
+        "id":  139246,
+        "name":  "Oranjeville"
+    },
+    {
+        "id":  139787,
+        "name":  "Orient Hills"
+    },
+    {
+        "id":  139245,
+        "name":  "Orkney"
+    },
+    {
+        "id":  139244,
+        "name":  "Ottosdal"
+    },
+    {
+        "id":  139243,
+        "name":  "Oudtshoorn"
+    },
+    {
+        "id":  139664,
+        "name":  "Paarl"
+    },
+    {
+        "id":  139903,
+        "name":  "Palmietfontein"
+    },
+    {
+        "id":  139242,
+        "name":  "Pampierstad"
+    },
+    {
+        "id":  139241,
+        "name":  "Parys"
+    },
+    {
+        "id":  139240,
+        "name":  "Patensie"
+    },
+    {
+        "id":  139663,
+        "name":  "Paternoster"
+    },
+    {
+        "id":  139239,
+        "name":  "Paterson"
+    },
+    {
+        "id":  139237,
+        "name":  "Paul Roux"
+    },
+    {
+        "id":  139238,
+        "name":  "Paulpietersburg"
+    },
+    {
+        "id":  139662,
+        "name":  "Pearly Beach"
+    },
+    {
+        "id":  139236,
+        "name":  "Pearston"
+    },
+    {
+        "id":  139235,
+        "name":  "Peddie"
+    },
+    {
+        "id":  139884,
+        "name":  "Pella WC"
+    },
+    {
+        "id":  139234,
+        "name":  "Penge"
+    },
+    {
+        "id":  139717,
+        "name":  "Pennington"
+    },
+    {
+        "id":  139233,
+        "name":  "Perdekop"
+    },
+    {
+        "id":  139232,
+        "name":  "Petrusburg"
+    },
+    {
+        "id":  139230,
+        "name":  "Petrusville"
+    },
+    {
+        "id":  139777,
+        "name":  "Phakamisa"
+    },
+    {
+        "id":  139229,
+        "name":  "Phalaborwa"
+    },
+    {
+        "id":  139746,
+        "name":  "Phatsima"
+    },
+    {
+        "id":  139822,
+        "name":  "Phaweni"
+    },
+    {
+        "id":  139871,
+        "name":  "Philandersbron"
+    },
+    {
+        "id":  139228,
+        "name":  "Philippolis"
+    },
+    {
+        "id":  139227,
+        "name":  "Philipstown"
+    },
+    {
+        "id":  139751,
+        "name":  "Phola"
+    },
+    {
+        "id":  139783,
+        "name":  "Phomolong"
+    },
+    {
+        "id":  139226,
+        "name":  "Phuthaditjhaba"
+    },
+    {
+        "id":  139225,
+        "name":  "Pienaarsrivier"
+    },
+    {
+        "id":  139222,
+        "name":  "Piet Plessis"
+    },
+    {
+        "id":  139221,
+        "name":  "Piet Retief"
+    },
+    {
+        "id":  139224,
+        "name":  "Pietermaritzburg"
+    },
+    {
+        "id":  139661,
+        "name":  "Piketberg"
+    },
+    {
+        "id":  139220,
+        "name":  "Pilgrim’s Rest"
+    },
+    {
+        "id":  139219,
+        "name":  "Pinetown"
+    },
+    {
+        "id":  139218,
+        "name":  "Plettenberg Bay"
+    },
+    {
+        "id":  139660,
+        "name":  "Pniel"
+    },
+    {
+        "id":  139659,
+        "name":  "Pofadder"
+    },
+    {
+        "id":  139223,
+        "name":  "Polokwane"
+    },
+    {
+        "id":  139216,
+        "name":  "Pomfret"
+    },
+    {
+        "id":  139215,
+        "name":  "Pongola"
+    },
+    {
+        "id":  139758,
+        "name":  "Poortje"
+    },
+    {
+        "id":  139214,
+        "name":  "Port Alfred"
+    },
+    {
+        "id":  139213,
+        "name":  "Port Edward"
+    },
+    {
+        "id":  139212,
+        "name":  "Port Elizabeth"
+    },
+    {
+        "id":  139657,
+        "name":  "Port Nolloth"
+    },
+    {
+        "id":  139211,
+        "name":  "Port Saint John’s"
+    },
+    {
+        "id":  139210,
+        "name":  "Port Shepstone"
+    },
+    {
+        "id":  139658,
+        "name":  "Porterville"
+    },
+    {
+        "id":  139209,
+        "name":  "Postmasburg"
+    },
+    {
+        "id":  139208,
+        "name":  "Potchefstroom"
+    },
+    {
+        "id":  139838,
+        "name":  "Praktiseer"
+    },
+    {
+        "id":  139206,
+        "name":  "Pretoria"
+    },
+    {
+        "id":  139205,
+        "name":  "Prieska"
+    },
+    {
+        "id":  139204,
+        "name":  "Prince Albert"
+    },
+    {
+        "id":  139656,
+        "name":  "Prince Alfred Hamlet"
+    },
+    {
+        "id":  139847,
+        "name":  "Pullens Hope"
+    },
+    {
+        "id":  139380,
+        "name":  "Qonce"
+    },
+    {
+        "id":  139203,
+        "name":  "Queensdale"
+    },
+    {
+        "id":  139202,
+        "name":  "Queenstown"
+    },
+    {
+        "id":  139201,
+        "name":  "Qumbu"
+    },
+    {
+        "id":  139878,
+        "name":  "Raaswater"
+    },
+    {
+        "id":  139200,
+        "name":  "Randburg"
+    },
+    {
+        "id":  139199,
+        "name":  "Randfontein"
+    },
+    {
+        "id":  139801,
+        "name":  "Randgate"
+    },
+    {
+        "id":  139789,
+        "name":  "Randvaal"
+    },
+    {
+        "id":  139655,
+        "name":  "Rawsonville"
+    },
+    {
+        "id":  139198,
+        "name":  "Rayton"
+    },
+    {
+        "id":  139197,
+        "name":  "Reddersburg"
+    },
+    {
+        "id":  139862,
+        "name":  "Redhill"
+    },
+    {
+        "id":  139196,
+        "name":  "Reitz"
+    },
+    {
+        "id":  139793,
+        "name":  "Rethabiseng"
+    },
+    {
+        "id":  139732,
+        "name":  "Retreat"
+    },
+    {
+        "id":  139195,
+        "name":  "Rheenendal"
+    },
+    {
+        "id":  139194,
+        "name":  "Richards Bay"
+    },
+    {
+        "id":  139193,
+        "name":  "Richmond"
+    },
+    {
+        "id":  139653,
+        "name":  "Riebeek West"
+    },
+    {
+        "id":  139654,
+        "name":  "Riebeek-Kasteel"
+    },
+    {
+        "id":  139192,
+        "name":  "Rietbron"
+    },
+    {
+        "id":  139191,
+        "name":  "Rietkuil"
+    },
+    {
+        "id":  139190,
+        "name":  "Rietvlei"
+    },
+    {
+        "id":  139189,
+        "name":  "Ritchie"
+    },
+    {
+        "id":  139188,
+        "name":  "Riversdale"
+    },
+    {
+        "id":  139652,
+        "name":  "Riviersonderend"
+    },
+    {
+        "id":  139651,
+        "name":  "Robertson"
+    },
+    {
+        "id":  139722,
+        "name":  "Rondebosch"
+    },
+    {
+        "id":  139049,
+        "name":  "Roodepoort"
+    },
+    {
+        "id":  139187,
+        "name":  "Rooiberg"
+    },
+    {
+        "id":  139186,
+        "name":  "Roossenekal"
+    },
+    {
+        "id":  139650,
+        "name":  "Rosebank"
+    },
+    {
+        "id":  139185,
+        "name":  "Rosendal"
+    },
+    {
+        "id":  139184,
+        "name":  "Rouxville"
+    },
+    {
+        "id":  139183,
+        "name":  "Rustenburg"
+    },
+    {
+        "id":  139182,
+        "name":  "Sabie"
+    },
+    {
+        "id":  139649,
+        "name":  "Saint Helena Bay"
+    },
+    {
+        "id":  139181,
+        "name":  "Saint Lucia"
+    },
+    {
+        "id":  139648,
+        "name":  "Saldanha"
+    },
+    {
+        "id":  139180,
+        "name":  "Sanddrif"
+    },
+    {
+        "id":  139179,
+        "name":  "Sannieshof"
+    },
+    {
+        "id":  139768,
+        "name":  "Santombe"
+    },
+    {
+        "id":  139647,
+        "name":  "Saron"
+    },
+    {
+        "id":  139830,
+        "name":  "Saselamani"
+    },
+    {
+        "id":  139178,
+        "name":  "Sasolburg"
+    },
+    {
+        "id":  139177,
+        "name":  "Schweizer-Reneke"
+    },
+    {
+        "id":  139176,
+        "name":  "Scottburgh"
+    },
+    {
+        "id":  139175,
+        "name":  "Sebayeng"
+    },
+    {
+        "id":  139790,
+        "name":  "Seberuberung"
+    },
+    {
+        "id":  139174,
+        "name":  "Secunda"
+    },
+    {
+        "id":  139173,
+        "name":  "Sedgefield"
+    },
+    {
+        "id":  139172,
+        "name":  "Senekal"
+    },
+    {
+        "id":  139834,
+        "name":  "Senwamokgope"
+    },
+    {
+        "id":  139171,
+        "name":  "Seymour"
+    },
+    {
+        "id":  139170,
+        "name":  "Sezela"
+    },
+    {
+        "id":  139169,
+        "name":  "Shakaskraal"
+    },
+    {
+        "id":  139168,
+        "name":  "Sheepmoor"
+    },
+    {
+        "id":  139646,
+        "name":  "Simon\u0027s Town"
+    },
+    {
+        "id":  139167,
+        "name":  "Siyabuswa"
+    },
+    {
+        "id":  139841,
+        "name":  "Sizanane"
+    },
+    {
+        "id":  139887,
+        "name":  "Slangrivier"
+    },
+    {
+        "id":  139166,
+        "name":  "Smithfield"
+    },
+    {
+        "id":  139217,
+        "name":  "Solomon Linda"
+    },
+    {
+        "id":  139628,
+        "name":  "Somaroboro"
+    },
+    {
+        "id":  139165,
+        "name":  "Somerset East"
+    },
+    {
+        "id":  139719,
+        "name":  "Somerset West"
+    },
+    {
+        "id":  139164,
+        "name":  "Soshanguve"
+    },
+    {
+        "id":  139163,
+        "name":  "Southbroom"
+    },
+    {
+        "id":  139162,
+        "name":  "Soweto"
+    },
+    {
+        "id":  139645,
+        "name":  "Springbok"
+    },
+    {
+        "id":  139161,
+        "name":  "Springfontein"
+    },
+    {
+        "id":  139160,
+        "name":  "Springs"
+    },
+    {
+        "id":  139159,
+        "name":  "Springs"
+    },
+    {
+        "id":  139730,
+        "name":  "St Francis Bay"
+    },
+    {
+        "id":  139158,
+        "name":  "Standerton"
+    },
+    {
+        "id":  139644,
+        "name":  "Stanford"
+    },
+    {
+        "id":  139156,
+        "name":  "Steelpoort"
+    },
+    {
+        "id":  139155,
+        "name":  "Stella"
+    },
+    {
+        "id":  139643,
+        "name":  "Stellenbosch"
+    },
+    {
+        "id":  139154,
+        "name":  "Sterkstroom"
+    },
+    {
+        "id":  139153,
+        "name":  "Steynsburg"
+    },
+    {
+        "id":  139152,
+        "name":  "Steynsrus"
+    },
+    {
+        "id":  139151,
+        "name":  "Steytlerville"
+    },
+    {
+        "id":  139149,
+        "name":  "Stilfontein"
+    },
+    {
+        "id":  139150,
+        "name":  "Still Bay"
+    },
+    {
+        "id":  139148,
+        "name":  "Stormsrivier"
+    },
+    {
+        "id":  139147,
+        "name":  "Struisbaai"
+    },
+    {
+        "id":  139146,
+        "name":  "Stutterheim"
+    },
+    {
+        "id":  139863,
+        "name":  "Sun City"
+    },
+    {
+        "id":  139864,
+        "name":  "Sun Village"
+    },
+    {
+        "id":  139145,
+        "name":  "Sundumbili"
+    },
+    {
+        "id":  139718,
+        "name":  "Sunset Beach"
+    },
+    {
+        "id":  139144,
+        "name":  "Suurbraak"
+    },
+    {
+        "id":  139896,
+        "name":  "Swalluwnest"
+    },
+    {
+        "id":  139143,
+        "name":  "Swartklip"
+    },
+    {
+        "id":  139874,
+        "name":  "Swartkop"
+    },
+    {
+        "id":  139142,
+        "name":  "Swartruggens"
+    },
+    {
+        "id":  139141,
+        "name":  "Swellendam"
+    },
+    {
+        "id":  139139,
+        "name":  "Tarkastad"
+    },
+    {
+        "id":  139138,
+        "name":  "Taung"
+    },
+    {
+        "id":  139137,
+        "name":  "Teko Springs"
+    },
+    {
+        "id":  139860,
+        "name":  "Tekwane"
+    },
+    {
+        "id":  139642,
+        "name":  "Tesselaarsdal"
+    },
+    {
+        "id":  139135,
+        "name":  "Thaba Nchu"
+    },
+    {
+        "id":  139134,
+        "name":  "Thabazimbi"
+    },
+    {
+        "id":  139824,
+        "name":  "Thabo Mbeki"
+    },
+    {
+        "id":  139798,
+        "name":  "Thembalethu"
+    },
+    {
+        "id":  139136,
+        "name":  "Thembisa"
+    },
+    {
+        "id":  139792,
+        "name":  "Thembisile"
+    },
+    {
+        "id":  139133,
+        "name":  "Theunissen"
+    },
+    {
+        "id":  139132,
+        "name":  "Thohoyandou"
+    },
+    {
+        "id":  139765,
+        "name":  "Thornhill"
+    },
+    {
+        "id":  139859,
+        "name":  "Thubelihle"
+    },
+    {
+        "id":  139131,
+        "name":  "Thulamahashi"
+    },
+    {
+        "id":  139349,
+        "name":  "Thuli"
+    },
+    {
+        "id":  139817,
+        "name":  "Thusang"
+    },
+    {
+        "id":  139738,
+        "name":  "Tjakastad"
+    },
+    {
+        "id":  139284,
+        "name":  "Tlokoeng"
+    },
+    {
+        "id":  139130,
+        "name":  "Tokoza"
+    },
+    {
+        "id":  139129,
+        "name":  "Tongaat"
+    },
+    {
+        "id":  139761,
+        "name":  "Tongaat Beach"
+    },
+    {
+        "id":  139128,
+        "name":  "Touwsrivier"
+    },
+    {
+        "id":  139127,
+        "name":  "Trichardt"
+    },
+    {
+        "id":  139126,
+        "name":  "Trompsburg"
+    },
+    {
+        "id":  139748,
+        "name":  "Trust Feed"
+    },
+    {
+        "id":  139125,
+        "name":  "Tshandama"
+    },
+    {
+        "id":  139782,
+        "name":  "Tshiame"
+    },
+    {
+        "id":  139837,
+        "name":  "Tshitereke"
+    },
+    {
+        "id":  139124,
+        "name":  "Tshituni"
+    },
+    {
+        "id":  139123,
+        "name":  "Tsolo"
+    },
+    {
+        "id":  139122,
+        "name":  "Tsomo"
+    },
+    {
+        "id":  139121,
+        "name":  "Tugela"
+    },
+    {
+        "id":  139120,
+        "name":  "Tugela Ferry"
+    },
+    {
+        "id":  139757,
+        "name":  "Tukakgomo"
+    },
+    {
+        "id":  139641,
+        "name":  "Tulbagh"
+    },
+    {
+        "id":  139119,
+        "name":  "Tutuka"
+    },
+    {
+        "id":  139118,
+        "name":  "Tweeling"
+    },
+    {
+        "id":  139117,
+        "name":  "Tweespruit"
+    },
+    {
+        "id":  139116,
+        "name":  "Tyusha"
+    },
+    {
+        "id":  139115,
+        "name":  "Tzaneen"
+    },
+    {
+        "id":  139114,
+        "name":  "Ugie"
+    },
+    {
+        "id":  139112,
+        "name":  "Ulundi"
+    },
+    {
+        "id":  139868,
+        "name":  "Umzimhle"
+    },
+    {
+        "id":  139107,
+        "name":  "Underberg"
+    },
+    {
+        "id":  139106,
+        "name":  "Uniondale"
+    },
+    {
+        "id":  139105,
+        "name":  "Upington"
+    },
+    {
+        "id":  139104,
+        "name":  "Utrecht"
+    },
+    {
+        "id":  139861,
+        "name":  "Vaalbank"
+    },
+    {
+        "id":  139103,
+        "name":  "Vaalwater"
+    },
+    {
+        "id":  139101,
+        "name":  "Van Stadensrus"
+    },
+    {
+        "id":  139100,
+        "name":  "Van Wyksvlei"
+    },
+    {
+        "id":  139102,
+        "name":  "Vanderbijlpark"
+    },
+    {
+        "id":  139640,
+        "name":  "Vanrhynsdorp"
+    },
+    {
+        "id":  139639,
+        "name":  "Velddrif"
+    },
+    {
+        "id":  139099,
+        "name":  "Ventersburg"
+    },
+    {
+        "id":  139098,
+        "name":  "Ventersdorp"
+    },
+    {
+        "id":  139097,
+        "name":  "Venterstad"
+    },
+    {
+        "id":  139096,
+        "name":  "Vereeniging"
+    },
+    {
+        "id":  139095,
+        "name":  "Verena"
+    },
+    {
+        "id":  139094,
+        "name":  "Verkeerdevlei"
+    },
+    {
+        "id":  139886,
+        "name":  "Victor Verster"
+    },
+    {
+        "id":  139093,
+        "name":  "Victoria West"
+    },
+    {
+        "id":  139092,
+        "name":  "Viljoenskroon"
+    },
+    {
+        "id":  139091,
+        "name":  "Villiers"
+    },
+    {
+        "id":  139638,
+        "name":  "Villiersdorp"
+    },
+    {
+        "id":  139090,
+        "name":  "Virginia"
+    },
+    {
+        "id":  139089,
+        "name":  "Volksrust"
+    },
+    {
+        "id":  139088,
+        "name":  "Vrede"
+    },
+    {
+        "id":  139087,
+        "name":  "Vredefort"
+    },
+    {
+        "id":  139637,
+        "name":  "Vredenburg"
+    },
+    {
+        "id":  139636,
+        "name":  "Vredendal"
+    },
+    {
+        "id":  139086,
+        "name":  "Vryburg"
+    },
+    {
+        "id":  139085,
+        "name":  "Vryheid"
+    },
+    {
+        "id":  139829,
+        "name":  "Vuwani"
+    },
+    {
+        "id":  139084,
+        "name":  "Waay Hoek"
+    },
+    {
+        "id":  139082,
+        "name":  "Wakkerstroom"
+    },
+    {
+        "id":  139081,
+        "name":  "Walkerville"
+    },
+    {
+        "id":  139845,
+        "name":  "Warburton"
+    },
+    {
+        "id":  139080,
+        "name":  "Warden"
+    },
+    {
+        "id":  139078,
+        "name":  "Warrenton"
+    },
+    {
+        "id":  139077,
+        "name":  "Wartburg"
+    },
+    {
+        "id":  139076,
+        "name":  "Wasbank"
+    },
+    {
+        "id":  139075,
+        "name":  "Waterval"
+    },
+    {
+        "id":  139074,
+        "name":  "Weenen"
+    },
+    {
+        "id":  139876,
+        "name":  "Wegdraai"
+    },
+    {
+        "id":  139073,
+        "name":  "Welkom"
+    },
+    {
+        "id":  139635,
+        "name":  "Wellington"
+    },
+    {
+        "id":  139072,
+        "name":  "Welverdiend"
+    },
+    {
+        "id":  139071,
+        "name":  "Wembesi"
+    },
+    {
+        "id":  139881,
+        "name":  "Wemmershoek"
+    },
+    {
+        "id":  139070,
+        "name":  "Wepener"
+    },
+    {
+        "id":  139069,
+        "name":  "Wesley"
+    },
+    {
+        "id":  139068,
+        "name":  "Wesselsbron"
+    },
+    {
+        "id":  139067,
+        "name":  "Westbrook"
+    },
+    {
+        "id":  139066,
+        "name":  "Western Areas"
+    },
+    {
+        "id":  139065,
+        "name":  "Westonaria"
+    },
+    {
+        "id":  139893,
+        "name":  "Westville"
+    },
+    {
+        "id":  139055,
+        "name":  "White River"
+    },
+    {
+        "id":  139064,
+        "name":  "Whittlesea"
+    },
+    {
+        "id":  139885,
+        "name":  "Wiesiesdraai"
+    },
+    {
+        "id":  139063,
+        "name":  "Wilderness"
+    },
+    {
+        "id":  139062,
+        "name":  "Williston"
+    },
+    {
+        "id":  139061,
+        "name":  "Willowmore"
+    },
+    {
+        "id":  139060,
+        "name":  "Willowvale"
+    },
+    {
+        "id":  139059,
+        "name":  "Winburg"
+    },
+    {
+        "id":  139568,
+        "name":  "Winnie Mandela"
+    },
+    {
+        "id":  139058,
+        "name":  "Winterton"
+    },
+    {
+        "id":  139056,
+        "name":  "Witpoort"
+    },
+    {
+        "id":  139054,
+        "name":  "Wittedrif"
+    },
+    {
+        "id":  139846,
+        "name":  "Wolfenkop"
+    },
+    {
+        "id":  139053,
+        "name":  "Wolmaransstad"
+    },
+    {
+        "id":  139634,
+        "name":  "Wolseley"
+    },
+    {
+        "id":  139772,
+        "name":  "Woodlands"
+    },
+    {
+        "id":  139633,
+        "name":  "Worcester"
+    },
+    {
+        "id":  139632,
+        "name":  "Yzerfontein"
+    },
+    {
+        "id":  139052,
+        "name":  "Zastron"
+    },
+    {
+        "id":  139051,
+        "name":  "Zeerust"
+    },
+    {
+        "id":  139050,
+        "name":  "Zoar"
+    }
+]

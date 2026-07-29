@@ -8,6 +8,10 @@ import '../../data/chat_repository.dart';
 
 class ChatInboxController extends GetxController {
   final conversations = <Conversation>[].obs;
+
+  // drives the badge on the Chat tab
+  int get unreadTotal =>
+      conversations.fold<int>(0, (sum, c) => sum + c.unread);
   final loading = true.obs;
   final error = RxnString();
 

@@ -4,6 +4,7 @@ import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import '../constants/api_constants.dart';
 import '../exceptions/app_exceptions.dart';
 import '../utils/notify.dart';
+import 'language_service.dart';
 import 'session_service.dart';
 
 class ApiService {
@@ -35,6 +36,10 @@ class ApiService {
           if (token != null && token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
+          // the active UI language wins (priority 1) — server messages + CMS
+          // come back localized to it
+          options.headers['X-Lang'] = LanguageService.currentCode;
+          options.headers['Accept-Language'] = LanguageService.currentCode;
           assert(() {
             if (kDebugMode) {
               print('REQUEST[${options.method}] => PATH: ${options.path}');
@@ -173,6 +178,7 @@ class ApiService {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
   }) async {
     try {
       return await _dio.post(
@@ -181,6 +187,7 @@ class ApiService {
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
       );
     } on DioException catch (e) {
       throw _handleDioError(e);

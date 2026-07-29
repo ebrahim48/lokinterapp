@@ -20,6 +20,12 @@ enum CancelReason {
   const CancelReason(this.code, this.label);
 }
 
+List<String> _attachUrls(dynamic raw) => (raw as List? ?? const [])
+    .whereType<Map>()
+    .map((e) => fixMediaUrl(e['signedUrl'] ?? e['url']))
+    .whereType<String>()
+    .toList();
+
 class Deal {
   final int id;
   final String refId;
@@ -38,6 +44,12 @@ class Deal {
   final String? receiverName;
   final String? receiverPhone;
   final String? attachUrl;
+  // every picture the sender attached (the API returns an `attachments` array)
+  final List<String> attachUrls;
+  // item details the sender filled in — the traveler needs to see these
+  final String? itemName;
+  final String? notes;
+  final String? itemLink;
   final String? cancelReason;
   // escrow / security deposit
   final bool sdRequired;
@@ -68,6 +80,10 @@ class Deal {
     this.receiverName,
     this.receiverPhone,
     this.attachUrl,
+    this.attachUrls = const [],
+    this.itemName,
+    this.notes,
+    this.itemLink,
     this.cancelReason,
     this.sdRequired = false,
     this.itemEstimatedCost,
@@ -79,6 +95,42 @@ class Deal {
     this.fundsLockedForDispute = false,
     this.dispute,
   });
+
+  // getById omits the item name/notes/attachments that the list row carries,
+  // so keep the richer values when the detail call replaces this deal
+  Deal withItemDetailsFrom(Deal other) => Deal(
+        id: id,
+        refId: refId,
+        type: type,
+        location: location,
+        fromCountry: fromCountry,
+        toCountry: toCountry,
+        date: date,
+        weight: weight,
+        profitAmount: profitAmount,
+        status: status,
+        counterpart: counterpart,
+        isSender: isSender,
+        isTraveler: isTraveler,
+        paymentMethod: paymentMethod,
+        receiverName: receiverName,
+        receiverPhone: receiverPhone,
+        attachUrl: attachUrl,
+        attachUrls: attachUrls.isNotEmpty ? attachUrls : other.attachUrls,
+        itemName: itemName ?? other.itemName,
+        notes: notes ?? other.notes,
+        itemLink: itemLink ?? other.itemLink,
+        cancelReason: cancelReason,
+        sdRequired: sdRequired,
+        itemEstimatedCost: itemEstimatedCost,
+        travelerGuaranteeHeld: travelerGuaranteeHeld,
+        senderFundsHeld: senderFundsHeld,
+        countdownSeconds: countdownSeconds,
+        tripDate: tripDate,
+        arrivalDate: arrivalDate,
+        fundsLockedForDispute: fundsLockedForDispute,
+        dispute: dispute,
+      );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
   // returns the user's own posts, which carry flag "POST" instead of "DEAL".
@@ -129,6 +181,10 @@ class Deal {
       receiverName: json['receiverName'],
       receiverPhone: json['receiverPhone'],
       attachUrl: fixMediaUrl(json['attachLink'] ?? json['attachment']?['url']),
+      attachUrls: _attachUrls(json['attachments']),
+      itemName: json['itemName'],
+      notes: json['notes'] ?? json['itemDescription'],
+      itemLink: json['itemLink'],
       cancelReason: json['cancelReason'],
       sdRequired: json['sdRequired'] ?? false,
       itemEstimatedCost: _num(json['itemEstimatedCost']),
@@ -150,11 +206,10 @@ class Deal {
   String get depositLabel =>
       itemEstimatedCost == null ? '—' : _money(itemEstimatedCost!);
 
-  // Whoever confirmed the agreement in chat proposed this deal, so they can
-  // only withdraw it — accepting is the other side's call. The API has no
-  // "createdBy", but the proposer always ends up on a fixed side: on a trip
-  // post they're the sender, on a delivery request they're the traveler.
-  bool get isProposer => type == PostType.trip ? isSender : isTraveler;
+  // The deal is always created by the sender (website: canRequestDeal is
+  // sender-only), so the proposer is simply the sender. Accepting/rejecting a
+  // pending deal is the traveler's call.
+  bool get isProposer => isSender;
 
   // the receiver scans this at handover — it opens the website's public
   // confirmation page for this deal (getByReferenceId under the hood)
@@ -175,14 +230,13 @@ class Deal {
   // for the sender's hold before the traveler can move things on
   bool get senderHasPaid => senderFundsHeld || paymentMethod.toUpperCase() != 'STRIPE';
 
-  // the sender shares the receiver's QR while the deal is live (pending →
-  // outgoing), matching the live app — not only once it's outgoing
+  // the sender shares the receiver's QR the whole time the deal is live —
+  // website: shown unless cancelled/rejected/completed (so incl. disputed)
   bool get showsReceiverQr =>
       isSender &&
       refId.isNotEmpty &&
-      (status == DealStatus.pending ||
-          status == DealStatus.accepted ||
-          status == DealStatus.outgoing);
+      status != DealStatus.cancelled &&
+      status != DealStatus.completed;
 
   // at ACCEPTED the traveler can't start until the sender's payment clears
   bool get travelerWaitingOnPayment =>

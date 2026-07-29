@@ -1,0 +1,1374 @@
+[
+    {
+        "id":  32024,
+        "name":  "’Aïn Abid"
+    },
+    {
+        "id":  32022,
+        "name":  "’Aïn Azel"
+    },
+    {
+        "id":  32020,
+        "name":  "’Aïn Benian"
+    },
+    {
+        "id":  32018,
+        "name":  "’Aïn Boucif"
+    },
+    {
+        "id":  32016,
+        "name":  "’Aïn Deheb"
+    },
+    {
+        "id":  32015,
+        "name":  "’Aïn el Bell"
+    },
+    {
+        "id":  32014,
+        "name":  "’Aïn el Berd"
+    },
+    {
+        "id":  32012,
+        "name":  "’Aïn el Hadjar"
+    },
+    {
+        "id":  32010,
+        "name":  "’Aïn el Hammam"
+    },
+    {
+        "id":  32009,
+        "name":  "’Aïn el Melh"
+    },
+    {
+        "id":  32008,
+        "name":  "’Aïn el Turk"
+    },
+    {
+        "id":  32004,
+        "name":  "’Aïn Merane"
+    },
+    {
+        "id":  32030,
+        "name":  "Abadla"
+    },
+    {
+        "id":  32029,
+        "name":  "Abou el Hassan"
+    },
+    {
+        "id":  32028,
+        "name":  "Adrar"
+    },
+    {
+        "id":  32027,
+        "name":  "Aflou"
+    },
+    {
+        "id":  32026,
+        "name":  "Aghlal"
+    },
+    {
+        "id":  32025,
+        "name":  "Ahmed Bel Hadj"
+    },
+    {
+        "id":  32023,
+        "name":  "Aïn Arnat"
+    },
+    {
+        "id":  32021,
+        "name":  "Aïn Beïda"
+    },
+    {
+        "id":  32019,
+        "name":  "Aïn Bessem"
+    },
+    {
+        "id":  32017,
+        "name":  "Aïn Defla"
+    },
+    {
+        "id":  32013,
+        "name":  "Aïn el Bya"
+    },
+    {
+        "id":  32011,
+        "name":  "Ain el Hadjel"
+    },
+    {
+        "id":  32007,
+        "name":  "Aïn Fakroun"
+    },
+    {
+        "id":  32006,
+        "name":  "Aïn Kercha"
+    },
+    {
+        "id":  32005,
+        "name":  "Aïn Lechiakh"
+    },
+    {
+        "id":  32003,
+        "name":  "Aïn M’Lila"
+    },
+    {
+        "id":  32002,
+        "name":  "Aïn Oulmene"
+    },
+    {
+        "id":  32001,
+        "name":  "Aïn Oussera"
+    },
+    {
+        "id":  32000,
+        "name":  "Aïn Sefra"
+    },
+    {
+        "id":  31999,
+        "name":  "Aïn Smara"
+    },
+    {
+        "id":  31998,
+        "name":  "Aïn Taya"
+    },
+    {
+        "id":  31997,
+        "name":  "Aïn Temouchent"
+    },
+    {
+        "id":  31996,
+        "name":  "Aïn Touta"
+    },
+    {
+        "id":  32036,
+        "name":  "Ait Yahia"
+    },
+    {
+        "id":  31995,
+        "name":  "Akabli"
+    },
+    {
+        "id":  31994,
+        "name":  "Akbou"
+    },
+    {
+        "id":  31993,
+        "name":  "Algiers"
+    },
+    {
+        "id":  32037,
+        "name":  "Ali Mendjeli"
+    },
+    {
+        "id":  31992,
+        "name":  "Amizour"
+    },
+    {
+        "id":  31991,
+        "name":  "Ammi Moussa"
+    },
+    {
+        "id":  31990,
+        "name":  "Annaba"
+    },
+    {
+        "id":  31989,
+        "name":  "Aougrout"
+    },
+    {
+        "id":  31988,
+        "name":  "Aoulef"
+    },
+    {
+        "id":  31987,
+        "name":  "Arbatache"
+    },
+    {
+        "id":  31986,
+        "name":  "Arhribs"
+    },
+    {
+        "id":  31985,
+        "name":  "Arris"
+    },
+    {
+        "id":  31984,
+        "name":  "Arzew"
+    },
+    {
+        "id":  31858,
+        "name":  "Assi Bou Nif"
+    },
+    {
+        "id":  31983,
+        "name":  "Azazga"
+    },
+    {
+        "id":  31982,
+        "name":  "Azzaba"
+    },
+    {
+        "id":  31981,
+        "name":  "Bab Ezzouar"
+    },
+    {
+        "id":  32032,
+        "name":  "BABOR - VILLE"
+    },
+    {
+        "id":  31980,
+        "name":  "Baraki"
+    },
+    {
+        "id":  31979,
+        "name":  "Barbacha"
+    },
+    {
+        "id":  31968,
+        "name":  "Barbouche"
+    },
+    {
+        "id":  31978,
+        "name":  "Barika"
+    },
+    {
+        "id":  31977,
+        "name":  "Batna City"
+    },
+    {
+        "id":  31976,
+        "name":  "Béchar"
+    },
+    {
+        "id":  31975,
+        "name":  "Béjaïa"
+    },
+    {
+        "id":  31965,
+        "name":  "Ben Mehidi"
+    },
+    {
+        "id":  31973,
+        "name":  "Béni Abbès"
+    },
+    {
+        "id":  31972,
+        "name":  "Beni Amrane"
+    },
+    {
+        "id":  31971,
+        "name":  "Beni Douala"
+    },
+    {
+        "id":  31970,
+        "name":  "Beni Mered"
+    },
+    {
+        "id":  31969,
+        "name":  "Beni Mester"
+    },
+    {
+        "id":  31967,
+        "name":  "Beni Saf"
+    },
+    {
+        "id":  31966,
+        "name":  "Beni Tamou"
+    },
+    {
+        "id":  31964,
+        "name":  "Bensekrane"
+    },
+    {
+        "id":  31963,
+        "name":  "Berrahal"
+    },
+    {
+        "id":  31962,
+        "name":  "Berriane"
+    },
+    {
+        "id":  31961,
+        "name":  "Berrouaghia"
+    },
+    {
+        "id":  31960,
+        "name":  "Besbes"
+    },
+    {
+        "id":  31959,
+        "name":  "Bir el Ater"
+    },
+    {
+        "id":  31958,
+        "name":  "Bir el Djir"
+    },
+    {
+        "id":  31957,
+        "name":  "Birine"
+    },
+    {
+        "id":  31956,
+        "name":  "Birkhadem"
+    },
+    {
+        "id":  31955,
+        "name":  "Biskra"
+    },
+    {
+        "id":  31954,
+        "name":  "Blida"
+    },
+    {
+        "id":  31953,
+        "name":  "Boghni"
+    },
+    {
+        "id":  31952,
+        "name":  "Bordj Bou Arreridj"
+    },
+    {
+        "id":  31951,
+        "name":  "Bordj el Kiffan"
+    },
+    {
+        "id":  31950,
+        "name":  "Bordj Ghdir"
+    },
+    {
+        "id":  31949,
+        "name":  "Bordj Menaïel"
+    },
+    {
+        "id":  31948,
+        "name":  "Bordj Zemoura"
+    },
+    {
+        "id":  31947,
+        "name":  "Boû Arfa"
+    },
+    {
+        "id":  31940,
+        "name":  "Bou Hanifia el Hamamat"
+    },
+    {
+        "id":  31937,
+        "name":  "Bou Ismaïl"
+    },
+    {
+        "id":  31933,
+        "name":  "Bou Saâda"
+    },
+    {
+        "id":  31932,
+        "name":  "Bou Tlelis"
+    },
+    {
+        "id":  31974,
+        "name":  "Bouda"
+    },
+    {
+        "id":  31946,
+        "name":  "Boudjima"
+    },
+    {
+        "id":  31945,
+        "name":  "Boudouaou"
+    },
+    {
+        "id":  31944,
+        "name":  "Boufarik"
+    },
+    {
+        "id":  31943,
+        "name":  "Bougaa"
+    },
+    {
+        "id":  31942,
+        "name":  "Bougara"
+    },
+    {
+        "id":  31941,
+        "name":  "Bougzoul"
+    },
+    {
+        "id":  31939,
+        "name":  "Bouinan"
+    },
+    {
+        "id":  31938,
+        "name":  "Bouïra"
+    },
+    {
+        "id":  31936,
+        "name":  "Boukadir"
+    },
+    {
+        "id":  31934,
+        "name":  "Boumagueur"
+    },
+    {
+        "id":  31935,
+        "name":  "Boumahra Ahmed"
+    },
+    {
+        "id":  31708,
+        "name":  "Boumerdas"
+    },
+    {
+        "id":  31931,
+        "name":  "Brezina"
+    },
+    {
+        "id":  31930,
+        "name":  "Chabet el Ameur"
+    },
+    {
+        "id":  31929,
+        "name":  "Charef"
+    },
+    {
+        "id":  31928,
+        "name":  "Charouine"
+    },
+    {
+        "id":  31927,
+        "name":  "Chebli"
+    },
+    {
+        "id":  31926,
+        "name":  "Chelghoum el Aïd"
+    },
+    {
+        "id":  31925,
+        "name":  "Chellalat el Adhaouara"
+    },
+    {
+        "id":  31924,
+        "name":  "Chemini"
+    },
+    {
+        "id":  31923,
+        "name":  "Cheraga"
+    },
+    {
+        "id":  31922,
+        "name":  "Cherchell"
+    },
+    {
+        "id":  31921,
+        "name":  "Cheria"
+    },
+    {
+        "id":  31920,
+        "name":  "Chetouane"
+    },
+    {
+        "id":  31919,
+        "name":  "Chiffa"
+    },
+    {
+        "id":  31895,
+        "name":  "Chlef"
+    },
+    {
+        "id":  31918,
+        "name":  "Chorfa"
+    },
+    {
+        "id":  32040,
+        "name":  "Collo"
+    },
+    {
+        "id":  31917,
+        "name":  "Constantine"
+    },
+    {
+        "id":  31916,
+        "name":  "Dar Chioukh"
+    },
+    {
+        "id":  31915,
+        "name":  "Dar el Beïda"
+    },
+    {
+        "id":  31914,
+        "name":  "Debila"
+    },
+    {
+        "id":  32046,
+        "name":  "Deldoul"
+    },
+    {
+        "id":  31913,
+        "name":  "Dellys"
+    },
+    {
+        "id":  31912,
+        "name":  "Didouche Mourad"
+    },
+    {
+        "id":  32039,
+        "name":  "District of Taher"
+    },
+    {
+        "id":  31911,
+        "name":  "Djamaa"
+    },
+    {
+        "id":  31910,
+        "name":  "Djanet"
+    },
+    {
+        "id":  32035,
+        "name":  "Djebilet Rosfa"
+    },
+    {
+        "id":  31909,
+        "name":  "Djelfa"
+    },
+    {
+        "id":  31851,
+        "name":  "Djidiouia"
+    },
+    {
+        "id":  31908,
+        "name":  "Douéra"
+    },
+    {
+        "id":  31907,
+        "name":  "Draa Ben Khedda"
+    },
+    {
+        "id":  31906,
+        "name":  "Draa el Mizan"
+    },
+    {
+        "id":  31905,
+        "name":  "Draâ Esmar"
+    },
+    {
+        "id":  31829,
+        "name":  "Draa Klalouche"
+    },
+    {
+        "id":  31904,
+        "name":  "Drean"
+    },
+    {
+        "id":  31903,
+        "name":  "Ech Chettia"
+    },
+    {
+        "id":  31902,
+        "name":  "El Abadia"
+    },
+    {
+        "id":  31901,
+        "name":  "El Abiodh Sidi Cheikh"
+    },
+    {
+        "id":  31900,
+        "name":  "El Achir"
+    },
+    {
+        "id":  31899,
+        "name":  "El Affroun"
+    },
+    {
+        "id":  31898,
+        "name":  "El Amria"
+    },
+    {
+        "id":  31897,
+        "name":  "El Aouinet"
+    },
+    {
+        "id":  31896,
+        "name":  "El Arrouch"
+    },
+    {
+        "id":  31894,
+        "name":  "El Attaf"
+    },
+    {
+        "id":  31893,
+        "name":  "El Bayadh"
+    },
+    {
+        "id":  31892,
+        "name":  "El Eulma"
+    },
+    {
+        "id":  31890,
+        "name":  "El Hadjar"
+    },
+    {
+        "id":  31889,
+        "name":  "El Hadjira"
+    },
+    {
+        "id":  31731,
+        "name":  "el hed"
+    },
+    {
+        "id":  31888,
+        "name":  "El Idrissia"
+    },
+    {
+        "id":  31887,
+        "name":  "El Kala"
+    },
+    {
+        "id":  31886,
+        "name":  "El Khroub"
+    },
+    {
+        "id":  31885,
+        "name":  "El Kseur"
+    },
+    {
+        "id":  31884,
+        "name":  "El Malah"
+    },
+    {
+        "id":  31883,
+        "name":  "El Meghaïer"
+    },
+    {
+        "id":  31891,
+        "name":  "El Menia"
+    },
+    {
+        "id":  31882,
+        "name":  "El Milia"
+    },
+    {
+        "id":  31881,
+        "name":  "El Oued"
+    },
+    {
+        "id":  31880,
+        "name":  "El Tarf"
+    },
+    {
+        "id":  31879,
+        "name":  "En Nedjma"
+    },
+    {
+        "id":  31878,
+        "name":  "Es Senia"
+    },
+    {
+        "id":  31877,
+        "name":  "Fatis"
+    },
+    {
+        "id":  31876,
+        "name":  "Fedj M’Zala"
+    },
+    {
+        "id":  31875,
+        "name":  "Feidh el Botma"
+    },
+    {
+        "id":  31874,
+        "name":  "Feraoun"
+    },
+    {
+        "id":  31873,
+        "name":  "Freha"
+    },
+    {
+        "id":  31872,
+        "name":  "Frenda"
+    },
+    {
+        "id":  31871,
+        "name":  "Gdyel"
+    },
+    {
+        "id":  31870,
+        "name":  "Ghardaïa"
+    },
+    {
+        "id":  31869,
+        "name":  "Ghazaouet"
+    },
+    {
+        "id":  31868,
+        "name":  "Grarem"
+    },
+    {
+        "id":  31867,
+        "name":  "Guelma"
+    },
+    {
+        "id":  31866,
+        "name":  "Guemar"
+    },
+    {
+        "id":  31865,
+        "name":  "Guerara"
+    },
+    {
+        "id":  31864,
+        "name":  "Hadjout"
+    },
+    {
+        "id":  31863,
+        "name":  "Hamma Bouziane"
+    },
+    {
+        "id":  31862,
+        "name":  "Hammam Bou Hadjar"
+    },
+    {
+        "id":  31860,
+        "name":  "Hammam Righa"
+    },
+    {
+        "id":  31861,
+        "name":  "Hammamet"
+    },
+    {
+        "id":  31859,
+        "name":  "Hassi Bahbah"
+    },
+    {
+        "id":  31857,
+        "name":  "Hassi Messaoud"
+    },
+    {
+        "id":  31856,
+        "name":  "Héliopolis"
+    },
+    {
+        "id":  31855,
+        "name":  "Hennaya"
+    },
+    {
+        "id":  31854,
+        "name":  "Ighram"
+    },
+    {
+        "id":  31853,
+        "name":  "Illizi"
+    },
+    {
+        "id":  31852,
+        "name":  "In Guezzam"
+    },
+    {
+        "id":  32033,
+        "name":  "In Salah"
+    },
+    {
+        "id":  32050,
+        "name":  "In Zghmir"
+    },
+    {
+        "id":  31850,
+        "name":  "Jijel"
+    },
+    {
+        "id":  31849,
+        "name":  "Kaïs"
+    },
+    {
+        "id":  32045,
+        "name":  "Kasbate El Djena"
+    },
+    {
+        "id":  31848,
+        "name":  "Kerkera"
+    },
+    {
+        "id":  31847,
+        "name":  "Khemis el Khechna"
+    },
+    {
+        "id":  31846,
+        "name":  "Khemis Miliana"
+    },
+    {
+        "id":  31845,
+        "name":  "Khenchela"
+    },
+    {
+        "id":  31844,
+        "name":  "Kolea"
+    },
+    {
+        "id":  31843,
+        "name":  "Ksar Chellala"
+    },
+    {
+        "id":  31842,
+        "name":  "Ksar el Boukhari"
+    },
+    {
+        "id":  32048,
+        "name":  "Ksar Kaddour"
+    },
+    {
+        "id":  31838,
+        "name":  "L’Arbaa Naït Irathen"
+    },
+    {
+        "id":  31841,
+        "name":  "Laghouat"
+    },
+    {
+        "id":  31840,
+        "name":  "Lakhdaria"
+    },
+    {
+        "id":  31839,
+        "name":  "Larbaâ"
+    },
+    {
+        "id":  31752,
+        "name":  "Lardjem"
+    },
+    {
+        "id":  31831,
+        "name":  "M’Daourouch"
+    },
+    {
+        "id":  32041,
+        "name":  "Maâtkas"
+    },
+    {
+        "id":  31837,
+        "name":  "Maghnia"
+    },
+    {
+        "id":  31836,
+        "name":  "Makouda"
+    },
+    {
+        "id":  31835,
+        "name":  "Mansoûra"
+    },
+    {
+        "id":  31834,
+        "name":  "Mansourah"
+    },
+    {
+        "id":  31833,
+        "name":  "Mascara"
+    },
+    {
+        "id":  31832,
+        "name":  "Mazouna"
+    },
+    {
+        "id":  31830,
+        "name":  "Mecheria"
+    },
+    {
+        "id":  31828,
+        "name":  "Médéa"
+    },
+    {
+        "id":  31827,
+        "name":  "Meftah"
+    },
+    {
+        "id":  31826,
+        "name":  "Megarine"
+    },
+    {
+        "id":  31825,
+        "name":  "Mehdia daira de meghila"
+    },
+    {
+        "id":  31824,
+        "name":  "Mekla"
+    },
+    {
+        "id":  31823,
+        "name":  "Melouza"
+    },
+    {
+        "id":  31822,
+        "name":  "Merouana"
+    },
+    {
+        "id":  31821,
+        "name":  "Mers el Kebir"
+    },
+    {
+        "id":  31820,
+        "name":  "Meskiana"
+    },
+    {
+        "id":  31819,
+        "name":  "Messaad"
+    },
+    {
+        "id":  31818,
+        "name":  "Metarfa"
+    },
+    {
+        "id":  31817,
+        "name":  "Metlili Chaamba"
+    },
+    {
+        "id":  31816,
+        "name":  "Mila"
+    },
+    {
+        "id":  31815,
+        "name":  "Miliana"
+    },
+    {
+        "id":  31814,
+        "name":  "Mohammadia"
+    },
+    {
+        "id":  31813,
+        "name":  "Mostaganem"
+    },
+    {
+        "id":  31812,
+        "name":  "Mouzaïa"
+    },
+    {
+        "id":  31811,
+        "name":  "M\u0027Sila"
+    },
+    {
+        "id":  31807,
+        "name":  "N’Gaous"
+    },
+    {
+        "id":  31810,
+        "name":  "Naama"
+    },
+    {
+        "id":  31809,
+        "name":  "Naciria"
+    },
+    {
+        "id":  31808,
+        "name":  "Nedroma"
+    },
+    {
+        "id":  31806,
+        "name":  "Oran"
+    },
+    {
+        "id":  31805,
+        "name":  "Ouargla"
+    },
+    {
+        "id":  31804,
+        "name":  "Oued el Abtal"
+    },
+    {
+        "id":  31803,
+        "name":  "Oued el Alleug"
+    },
+    {
+        "id":  31802,
+        "name":  "Oued Fodda"
+    },
+    {
+        "id":  31801,
+        "name":  "Oued Rhiou"
+    },
+    {
+        "id":  31800,
+        "name":  "Oued Sly"
+    },
+    {
+        "id":  31799,
+        "name":  "Oued Zenati"
+    },
+    {
+        "id":  31798,
+        "name":  "Ouenza"
+    },
+    {
+        "id":  31797,
+        "name":  "Oulad Aïssa"
+    },
+    {
+        "id":  31796,
+        "name":  "Oulad Saïd"
+    },
+    {
+        "id":  32043,
+        "name":  "Ouled Ahmed Timmi"
+    },
+    {
+        "id":  31795,
+        "name":  "Ouled Djellal"
+    },
+    {
+        "id":  31794,
+        "name":  "Ouled Haddaj"
+    },
+    {
+        "id":  31793,
+        "name":  "Ouled Mimoun"
+    },
+    {
+        "id":  31792,
+        "name":  "Ouled Moussa"
+    },
+    {
+        "id":  31791,
+        "name":  "Ouled Slama Fouaga"
+    },
+    {
+        "id":  31789,
+        "name":  "Oum el Bouaghi"
+    },
+    {
+        "id":  31790,
+        "name":  "Oumache"
+    },
+    {
+        "id":  31788,
+        "name":  "Ouzera"
+    },
+    {
+        "id":  31787,
+        "name":  "Râs el Aïoun"
+    },
+    {
+        "id":  31786,
+        "name":  "Râs el Oued"
+    },
+    {
+        "id":  31785,
+        "name":  "Reggane"
+    },
+    {
+        "id":  31784,
+        "name":  "Reghaïa"
+    },
+    {
+        "id":  31783,
+        "name":  "Reguiba"
+    },
+    {
+        "id":  31782,
+        "name":  "Relizane"
+    },
+    {
+        "id":  31781,
+        "name":  "Remchi"
+    },
+    {
+        "id":  31780,
+        "name":  "Robbah"
+    },
+    {
+        "id":  31779,
+        "name":  "Rouached"
+    },
+    {
+        "id":  31778,
+        "name":  "Rouiba"
+    },
+    {
+        "id":  31777,
+        "name":  "Rouissat"
+    },
+    {
+        "id":  31776,
+        "name":  "Saïda"
+    },
+    {
+        "id":  31775,
+        "name":  "Salah Bey"
+    },
+    {
+        "id":  31774,
+        "name":  "Sali"
+    },
+    {
+        "id":  31773,
+        "name":  "Saoula"
+    },
+    {
+        "id":  31772,
+        "name":  "Sebdou"
+    },
+    {
+        "id":  31771,
+        "name":  "Seddouk"
+    },
+    {
+        "id":  31770,
+        "name":  "Sedrata"
+    },
+    {
+        "id":  31769,
+        "name":  "Sétif"
+    },
+    {
+        "id":  31768,
+        "name":  "Sfizef"
+    },
+    {
+        "id":  31767,
+        "name":  "Sidi Abdelli"
+    },
+    {
+        "id":  31766,
+        "name":  "Sidi Aïssa"
+    },
+    {
+        "id":  31765,
+        "name":  "Sidi Akkacha"
+    },
+    {
+        "id":  32042,
+        "name":  "Sidi Amar"
+    },
+    {
+        "id":  31764,
+        "name":  "Sidi Amrane"
+    },
+    {
+        "id":  31763,
+        "name":  "Sidi Bel Abbes"
+    },
+    {
+        "id":  31762,
+        "name":  "Sidi Ben Adda"
+    },
+    {
+        "id":  31761,
+        "name":  "Sidi ech Chahmi"
+    },
+    {
+        "id":  31760,
+        "name":  "Sidi Khaled"
+    },
+    {
+        "id":  31759,
+        "name":  "Sidi Mérouane"
+    },
+    {
+        "id":  31758,
+        "name":  "Sidi Moussa"
+    },
+    {
+        "id":  31757,
+        "name":  "Sidi Okba"
+    },
+    {
+        "id":  32038,
+        "name":  "Sidi Senoussi سيدي سنوسي"
+    },
+    {
+        "id":  31756,
+        "name":  "Sig"
+    },
+    {
+        "id":  31755,
+        "name":  "Skikda"
+    },
+    {
+        "id":  32034,
+        "name":  "Smala"
+    },
+    {
+        "id":  31754,
+        "name":  "Sougueur"
+    },
+    {
+        "id":  31753,
+        "name":  "Souk Ahras"
+    },
+    {
+        "id":  31751,
+        "name":  "Souma"
+    },
+    {
+        "id":  31750,
+        "name":  "Sour el Ghozlane"
+    },
+    {
+        "id":  31749,
+        "name":  "Tadjenanet"
+    },
+    {
+        "id":  31748,
+        "name":  "Tadmaït"
+    },
+    {
+        "id":  31747,
+        "name":  "Taïbet"
+    },
+    {
+        "id":  32049,
+        "name":  "Talmine"
+    },
+    {
+        "id":  31746,
+        "name":  "Tamalous"
+    },
+    {
+        "id":  31745,
+        "name":  "Tamanghasset"
+    },
+    {
+        "id":  31744,
+        "name":  "Tamentit"
+    },
+    {
+        "id":  31743,
+        "name":  "Tamest"
+    },
+    {
+        "id":  31742,
+        "name":  "Tarhit Ouled Hellal"
+    },
+    {
+        "id":  31741,
+        "name":  "Tazoult-Lambese"
+    },
+    {
+        "id":  31740,
+        "name":  "Tebesbest"
+    },
+    {
+        "id":  31739,
+        "name":  "Tébessa"
+    },
+    {
+        "id":  31738,
+        "name":  "Telerghma"
+    },
+    {
+        "id":  31737,
+        "name":  "Ténès"
+    },
+    {
+        "id":  31736,
+        "name":  "Thenia"
+    },
+    {
+        "id":  31735,
+        "name":  "Theniet el Had"
+    },
+    {
+        "id":  31734,
+        "name":  "Tiaret"
+    },
+    {
+        "id":  31733,
+        "name":  "Tidmaine"
+    },
+    {
+        "id":  31732,
+        "name":  "Tighenif"
+    },
+    {
+        "id":  31726,
+        "name":  "Tilouline"
+    },
+    {
+        "id":  32031,
+        "name":  "Timiaouine"
+    },
+    {
+        "id":  31730,
+        "name":  "Timimoun"
+    },
+    {
+        "id":  31729,
+        "name":  "Timizart"
+    },
+    {
+        "id":  31728,
+        "name":  "Timokten"
+    },
+    {
+        "id":  31727,
+        "name":  "Tindouf"
+    },
+    {
+        "id":  32047,
+        "name":  "Tinerkouk"
+    },
+    {
+        "id":  31725,
+        "name":  "Tipasa"
+    },
+    {
+        "id":  31724,
+        "name":  "Tirmitine"
+    },
+    {
+        "id":  31723,
+        "name":  "Tissemsilt"
+    },
+    {
+        "id":  31722,
+        "name":  "Tit"
+    },
+    {
+        "id":  31721,
+        "name":  "Tizi Gheniff"
+    },
+    {
+        "id":  31719,
+        "name":  "Tizi Ouzou"
+    },
+    {
+        "id":  31718,
+        "name":  "Tizi Rached"
+    },
+    {
+        "id":  31720,
+        "name":  "Tizi-n-Tleta"
+    },
+    {
+        "id":  31717,
+        "name":  "Tlemcen"
+    },
+    {
+        "id":  31716,
+        "name":  "Tolga"
+    },
+    {
+        "id":  31715,
+        "name":  "Touggourt"
+    },
+    {
+        "id":  31714,
+        "name":  "Tsabit"
+    },
+    {
+        "id":  32044,
+        "name":  "Zaouia"
+    },
+    {
+        "id":  31713,
+        "name":  "Zaouiet ed Debarh"
+    },
+    {
+        "id":  31712,
+        "name":  "Zemoura"
+    },
+    {
+        "id":  31711,
+        "name":  "Zeralda"
+    },
+    {
+        "id":  31710,
+        "name":  "Zeribet el Oued"
+    },
+    {
+        "id":  31709,
+        "name":  "Zighout Youcef"
+    }
+]

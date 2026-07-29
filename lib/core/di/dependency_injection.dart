@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import '../services/api_service.dart';
 import '../services/cache_service.dart';
 import '../services/connectivity_service.dart';
+import '../services/language_service.dart';
 import '../services/session_service.dart';
 import '../services/socket_service.dart';
 import '../services/storage_service.dart';
@@ -19,6 +20,9 @@ class DependencyInjection {
     final storage = StorageService();
     await storage.init();
     Get.put<StorageService>(storage, permanent: true);
+
+    // language is restored from local storage before the first frame
+    Get.put<LanguageService>(LanguageService(storage).restore(), permanent: true);
 
     // restore any saved login before the first screen decides where to go
     final session = SessionService(storage).restore();

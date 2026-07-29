@@ -48,6 +48,19 @@ class ModeBadge extends StatelessWidget {
   }
 
   Widget _flagDot() {
+    final code = iso ?? countryCodeFor(place ?? '');
+    // unknown country → a neutral pin instead of the wrong flag
+    if (code == null) {
+      return Container(
+        width: 34.r,
+        height: 34.r,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: AppPalette.localAccent,
+        ),
+        child: Icon(Icons.location_on, size: 18.sp, color: Colors.white),
+      );
+    }
     return Container(
       width: 34.r,
       height: 34.r,
@@ -58,7 +71,7 @@ class ModeBadge extends StatelessWidget {
         ],
       ),
       child: CountryFlag.fromCountryCode(
-        iso ?? countryCodeFor(place ?? ''),
+        code,
         height: 34.r,
         width: 34.r,
         shape: const Circle(),

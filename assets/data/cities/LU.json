@@ -1,0 +1,690 @@
+[
+    {
+        "id":  78001,
+        "name":  "Alzingen"
+    },
+    {
+        "id":  78000,
+        "name":  "Aspelt"
+    },
+    {
+        "id":  77999,
+        "name":  "Bascharage"
+    },
+    {
+        "id":  77998,
+        "name":  "Bavigne"
+    },
+    {
+        "id":  77997,
+        "name":  "Beaufort"
+    },
+    {
+        "id":  77996,
+        "name":  "Bech"
+    },
+    {
+        "id":  77995,
+        "name":  "Beckerich"
+    },
+    {
+        "id":  77994,
+        "name":  "Beggen"
+    },
+    {
+        "id":  78007,
+        "name":  "Belair"
+    },
+    {
+        "id":  77993,
+        "name":  "Belvaux"
+    },
+    {
+        "id":  77992,
+        "name":  "Berdorf"
+    },
+    {
+        "id":  77991,
+        "name":  "Béreldange"
+    },
+    {
+        "id":  77990,
+        "name":  "Bergem"
+    },
+    {
+        "id":  77989,
+        "name":  "Beringen"
+    },
+    {
+        "id":  77988,
+        "name":  "Bertrange"
+    },
+    {
+        "id":  77987,
+        "name":  "Bettange-sur-Mess"
+    },
+    {
+        "id":  77986,
+        "name":  "Bettborn"
+    },
+    {
+        "id":  77985,
+        "name":  "Bettembourg"
+    },
+    {
+        "id":  77984,
+        "name":  "Bettendorf"
+    },
+    {
+        "id":  77983,
+        "name":  "Betzdorf"
+    },
+    {
+        "id":  77981,
+        "name":  "Bissen"
+    },
+    {
+        "id":  77982,
+        "name":  "Bivange"
+    },
+    {
+        "id":  77980,
+        "name":  "Biwer"
+    },
+    {
+        "id":  77979,
+        "name":  "Boevange-sur-Attert"
+    },
+    {
+        "id":  77978,
+        "name":  "Bofferdange"
+    },
+    {
+        "id":  78010,
+        "name":  "Bonnevoie-Nord-Verlorenkost"
+    },
+    {
+        "id":  78009,
+        "name":  "Bonnevoie-Sud"
+    },
+    {
+        "id":  77977,
+        "name":  "Boulaide"
+    },
+    {
+        "id":  77976,
+        "name":  "Bourscheid"
+    },
+    {
+        "id":  77975,
+        "name":  "Bous"
+    },
+    {
+        "id":  77974,
+        "name":  "Bridel"
+    },
+    {
+        "id":  77973,
+        "name":  "Brouch"
+    },
+    {
+        "id":  77972,
+        "name":  "Canach"
+    },
+    {
+        "id":  77971,
+        "name":  "Capellen"
+    },
+    {
+        "id":  78011,
+        "name":  "Cents"
+    },
+    {
+        "id":  77970,
+        "name":  "Cessange"
+    },
+    {
+        "id":  77969,
+        "name":  "Clausen"
+    },
+    {
+        "id":  77968,
+        "name":  "Clemency"
+    },
+    {
+        "id":  77967,
+        "name":  "Clervaux"
+    },
+    {
+        "id":  77966,
+        "name":  "Colmar"
+    },
+    {
+        "id":  77965,
+        "name":  "Consdorf"
+    },
+    {
+        "id":  77964,
+        "name":  "Contern"
+    },
+    {
+        "id":  77963,
+        "name":  "Crauthem"
+    },
+    {
+        "id":  77962,
+        "name":  "Dalheim"
+    },
+    {
+        "id":  77961,
+        "name":  "Diekirch"
+    },
+    {
+        "id":  77960,
+        "name":  "Differdange"
+    },
+    {
+        "id":  77959,
+        "name":  "Dippach"
+    },
+    {
+        "id":  77958,
+        "name":  "Dommeldange"
+    },
+    {
+        "id":  77957,
+        "name":  "Dudelange"
+    },
+    {
+        "id":  77956,
+        "name":  "Echternach"
+    },
+    {
+        "id":  77955,
+        "name":  "Eich"
+    },
+    {
+        "id":  77954,
+        "name":  "Eischen"
+    },
+    {
+        "id":  77953,
+        "name":  "Ell"
+    },
+    {
+        "id":  77952,
+        "name":  "Erpeldange"
+    },
+    {
+        "id":  77951,
+        "name":  "Esch-sur-Alzette"
+    },
+    {
+        "id":  77950,
+        "name":  "Esch-sur-Sûre"
+    },
+    {
+        "id":  77949,
+        "name":  "Ettelbruck"
+    },
+    {
+        "id":  77948,
+        "name":  "Fentange"
+    },
+    {
+        "id":  77946,
+        "name":  "Fischbach"
+    },
+    {
+        "id":  77945,
+        "name":  "Flaxweiler"
+    },
+    {
+        "id":  77944,
+        "name":  "Frisange"
+    },
+    {
+        "id":  78008,
+        "name":  "Gare"
+    },
+    {
+        "id":  77943,
+        "name":  "Garnich"
+    },
+    {
+        "id":  77942,
+        "name":  "Gasperich"
+    },
+    {
+        "id":  77941,
+        "name":  "Gilsdorf"
+    },
+    {
+        "id":  77940,
+        "name":  "Goesdorf"
+    },
+    {
+        "id":  77939,
+        "name":  "Gonderange"
+    },
+    {
+        "id":  77938,
+        "name":  "Grevenmacher"
+    },
+    {
+        "id":  77937,
+        "name":  "Grosbous"
+    },
+    {
+        "id":  77936,
+        "name":  "Hagen"
+    },
+    {
+        "id":  77935,
+        "name":  "Hamm"
+    },
+    {
+        "id":  77934,
+        "name":  "Hautcharage"
+    },
+    {
+        "id":  77933,
+        "name":  "Heffingen"
+    },
+    {
+        "id":  77932,
+        "name":  "Heisdorf"
+    },
+    {
+        "id":  77931,
+        "name":  "Helmsange"
+    },
+    {
+        "id":  77930,
+        "name":  "Hesperange"
+    },
+    {
+        "id":  77929,
+        "name":  "Hobscheid"
+    },
+    {
+        "id":  77928,
+        "name":  "Hollerich"
+    },
+    {
+        "id":  77927,
+        "name":  "Hosingen"
+    },
+    {
+        "id":  78003,
+        "name":  "Howald"
+    },
+    {
+        "id":  77926,
+        "name":  "Itzig"
+    },
+    {
+        "id":  77925,
+        "name":  "Junglinster"
+    },
+    {
+        "id":  77924,
+        "name":  "Kayl"
+    },
+    {
+        "id":  77923,
+        "name":  "Kehlen"
+    },
+    {
+        "id":  77922,
+        "name":  "Kirchberg"
+    },
+    {
+        "id":  77921,
+        "name":  "Kleinbettingen"
+    },
+    {
+        "id":  77920,
+        "name":  "Koerich"
+    },
+    {
+        "id":  77919,
+        "name":  "Kopstal"
+    },
+    {
+        "id":  77918,
+        "name":  "Lamadelaine"
+    },
+    {
+        "id":  77917,
+        "name":  "Larochette"
+    },
+    {
+        "id":  77916,
+        "name":  "Lenningen"
+    },
+    {
+        "id":  77915,
+        "name":  "Leudelange"
+    },
+    {
+        "id":  77914,
+        "name":  "Limpertsberg"
+    },
+    {
+        "id":  77913,
+        "name":  "Lintgen"
+    },
+    {
+        "id":  77912,
+        "name":  "Lorentzweiler"
+    },
+    {
+        "id":  77911,
+        "name":  "Luxembourg"
+    },
+    {
+        "id":  77910,
+        "name":  "Mamer"
+    },
+    {
+        "id":  77909,
+        "name":  "Manternach"
+    },
+    {
+        "id":  77908,
+        "name":  "Medernach"
+    },
+    {
+        "id":  77907,
+        "name":  "Merl"
+    },
+    {
+        "id":  77906,
+        "name":  "Mersch"
+    },
+    {
+        "id":  77905,
+        "name":  "Mertert"
+    },
+    {
+        "id":  77904,
+        "name":  "Mertzig"
+    },
+    {
+        "id":  77903,
+        "name":  "Mompach"
+    },
+    {
+        "id":  77902,
+        "name":  "Mondercange"
+    },
+    {
+        "id":  77901,
+        "name":  "Mondorf-les-Bains"
+    },
+    {
+        "id":  77900,
+        "name":  "Moutfort"
+    },
+    {
+        "id":  77899,
+        "name":  "Muhlenbach"
+    },
+    {
+        "id":  77898,
+        "name":  "Müllendorf"
+    },
+    {
+        "id":  78006,
+        "name":  "Neudorf-Weimershof"
+    },
+    {
+        "id":  77897,
+        "name":  "Niederanven"
+    },
+    {
+        "id":  77896,
+        "name":  "Niedercorn"
+    },
+    {
+        "id":  77947,
+        "name":  "Niederfeulen"
+    },
+    {
+        "id":  77895,
+        "name":  "Noertzange"
+    },
+    {
+        "id":  77894,
+        "name":  "Nommern"
+    },
+    {
+        "id":  77893,
+        "name":  "Nospelt"
+    },
+    {
+        "id":  77892,
+        "name":  "Obercorn"
+    },
+    {
+        "id":  77891,
+        "name":  "Olm"
+    },
+    {
+        "id":  77890,
+        "name":  "Pétange"
+    },
+    {
+        "id":  77889,
+        "name":  "Pfaffenthal"
+    },
+    {
+        "id":  77888,
+        "name":  "Pontpierre"
+    },
+    {
+        "id":  77887,
+        "name":  "Putscheid"
+    },
+    {
+        "id":  77886,
+        "name":  "Rambrouch"
+    },
+    {
+        "id":  77885,
+        "name":  "Reckange"
+    },
+    {
+        "id":  77884,
+        "name":  "Reckange-sur-Mess"
+    },
+    {
+        "id":  77883,
+        "name":  "Redange-sur-Attert"
+    },
+    {
+        "id":  77882,
+        "name":  "Reisdorf"
+    },
+    {
+        "id":  77881,
+        "name":  "Remich"
+    },
+    {
+        "id":  77880,
+        "name":  "Rodange"
+    },
+    {
+        "id":  77879,
+        "name":  "Roeser"
+    },
+    {
+        "id":  77878,
+        "name":  "Rollingen"
+    },
+    {
+        "id":  78004,
+        "name":  "Rollingergrund-Belair-Nord"
+    },
+    {
+        "id":  77877,
+        "name":  "Roodt-sur-Syre"
+    },
+    {
+        "id":  77876,
+        "name":  "Rosport"
+    },
+    {
+        "id":  77875,
+        "name":  "Rumelange"
+    },
+    {
+        "id":  77874,
+        "name":  "Saeul"
+    },
+    {
+        "id":  77873,
+        "name":  "Sandweiler"
+    },
+    {
+        "id":  77872,
+        "name":  "Sanem"
+    },
+    {
+        "id":  77871,
+        "name":  "Schengen"
+    },
+    {
+        "id":  77870,
+        "name":  "Schieren"
+    },
+    {
+        "id":  77869,
+        "name":  "Schifflange"
+    },
+    {
+        "id":  77868,
+        "name":  "Schouweiler"
+    },
+    {
+        "id":  77867,
+        "name":  "Schuttrange"
+    },
+    {
+        "id":  78002,
+        "name":  "Senningerberg"
+    },
+    {
+        "id":  77866,
+        "name":  "Septfontaines"
+    },
+    {
+        "id":  77865,
+        "name":  "Soleuvre"
+    },
+    {
+        "id":  77864,
+        "name":  "Stadtbredimus"
+    },
+    {
+        "id":  77863,
+        "name":  "Steinfort"
+    },
+    {
+        "id":  77862,
+        "name":  "Steinsel"
+    },
+    {
+        "id":  77861,
+        "name":  "Strassen"
+    },
+    {
+        "id":  77860,
+        "name":  "Tandel"
+    },
+    {
+        "id":  77859,
+        "name":  "Tétange"
+    },
+    {
+        "id":  77858,
+        "name":  "Troisvierges"
+    },
+    {
+        "id":  77857,
+        "name":  "Tuntange"
+    },
+    {
+        "id":  77856,
+        "name":  "Useldange"
+    },
+    {
+        "id":  77855,
+        "name":  "Vianden"
+    },
+    {
+        "id":  77854,
+        "name":  "Vichten"
+    },
+    {
+        "id":  78005,
+        "name":  "Ville Haute"
+    },
+    {
+        "id":  77853,
+        "name":  "Wahl"
+    },
+    {
+        "id":  77852,
+        "name":  "Waldbillig"
+    },
+    {
+        "id":  77851,
+        "name":  "Waldbredimus"
+    },
+    {
+        "id":  77850,
+        "name":  "Walferdange"
+    },
+    {
+        "id":  77849,
+        "name":  "Warken"
+    },
+    {
+        "id":  77848,
+        "name":  "Wasserbillig"
+    },
+    {
+        "id":  77847,
+        "name":  "Weiler-la-Tour"
+    },
+    {
+        "id":  77846,
+        "name":  "Weimerskirch"
+    },
+    {
+        "id":  77845,
+        "name":  "Weiswampach"
+    },
+    {
+        "id":  77844,
+        "name":  "Wiltz"
+    },
+    {
+        "id":  77843,
+        "name":  "Wilwerwiltz"
+    },
+    {
+        "id":  77842,
+        "name":  "Wincrange"
+    },
+    {
+        "id":  77841,
+        "name":  "Winseler"
+    },
+    {
+        "id":  77840,
+        "name":  "Wormeldange"
+    }
+]

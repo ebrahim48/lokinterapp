@@ -1,0 +1,334 @@
+[
+    {
+        "id":  118773,
+        "name":  "Bade"
+    },
+    {
+        "id":  118761,
+        "name":  "Banqiao"
+    },
+    {
+        "id":  118771,
+        "name":  "Beidou"
+    },
+    {
+        "id":  118772,
+        "name":  "Beigang"
+    },
+    {
+        "id":  118765,
+        "name":  "Budai"
+    },
+    {
+        "id":  118764,
+        "name":  "Buzi"
+    },
+    {
+        "id":  118742,
+        "name":  "Caotun"
+    },
+    {
+        "id":  118806,
+        "name":  "Changhua"
+    },
+    {
+        "id":  118805,
+        "name":  "Chang-hua"
+    },
+    {
+        "id":  118804,
+        "name":  "Chaozhou"
+    },
+    {
+        "id":  118803,
+        "name":  "Chiayi City"
+    },
+    {
+        "id":  118802,
+        "name":  "Chishang"
+    },
+    {
+        "id":  118739,
+        "name":  "Citong"
+    },
+    {
+        "id":  118747,
+        "name":  "Danshui"
+    },
+    {
+        "id":  118755,
+        "name":  "Daxi"
+    },
+    {
+        "id":  118741,
+        "name":  "Donggang"
+    },
+    {
+        "id":  118740,
+        "name":  "Dongshi"
+    },
+    {
+        "id":  118731,
+        "name":  "Douliu"
+    },
+    {
+        "id":  118795,
+        "name":  "Erlin"
+    },
+    {
+        "id":  118794,
+        "name":  "Ershui"
+    },
+    {
+        "id":  118782,
+        "name":  "Fengshan"
+    },
+    {
+        "id":  118753,
+        "name":  "Fengyuan"
+    },
+    {
+        "id":  118781,
+        "name":  "Guanshan"
+    },
+    {
+        "id":  118792,
+        "name":  "Hengchun"
+    },
+    {
+        "id":  118787,
+        "name":  "Hsinchu"
+    },
+    {
+        "id":  118785,
+        "name":  "Hualien City"
+    },
+    {
+        "id":  118800,
+        "name":  "Jincheng"
+    },
+    {
+        "id":  118788,
+        "name":  "Jinhu"
+    },
+    {
+        "id":  118799,
+        "name":  "Jiufen"
+    },
+    {
+        "id":  118783,
+        "name":  "Kaohsiung"
+    },
+    {
+        "id":  118801,
+        "name":  "Keelung"
+    },
+    {
+        "id":  118811,
+        "name":  "Linhu"
+    },
+    {
+        "id":  118780,
+        "name":  "Linnei"
+    },
+    {
+        "id":  118779,
+        "name":  "Lugu"
+    },
+    {
+        "id":  118778,
+        "name":  "Magong"
+    },
+    {
+        "id":  118777,
+        "name":  "Miaoli"
+    },
+    {
+        "id":  118808,
+        "name":  "Nangan"
+    },
+    {
+        "id":  118776,
+        "name":  "Nantou"
+    },
+    {
+        "id":  118775,
+        "name":  "Neihu"
+    },
+    {
+        "id":  118774,
+        "name":  "Neili"
+    },
+    {
+        "id":  118810,
+        "name":  "New Taipei City"
+    },
+    {
+        "id":  118770,
+        "name":  "Pinglin"
+    },
+    {
+        "id":  118769,
+        "name":  "Pingtung"
+    },
+    {
+        "id":  118768,
+        "name":  "Pitou"
+    },
+    {
+        "id":  118767,
+        "name":  "Pizitou"
+    },
+    {
+        "id":  118766,
+        "name":  "Puli"
+    },
+    {
+        "id":  118762,
+        "name":  "Sanxia"
+    },
+    {
+        "id":  118763,
+        "name":  "Sanzhi"
+    },
+    {
+        "id":  118760,
+        "name":  "Shanglin"
+    },
+    {
+        "id":  118812,
+        "name":  "Shangqi Village"
+    },
+    {
+        "id":  118759,
+        "name":  "Shetou"
+    },
+    {
+        "id":  118757,
+        "name":  "Shiding"
+    },
+    {
+        "id":  118758,
+        "name":  "Shimen"
+    },
+    {
+        "id":  118756,
+        "name":  "Shulin"
+    },
+    {
+        "id":  118750,
+        "name":  "Taibao"
+    },
+    {
+        "id":  118754,
+        "name":  "Taichung"
+    },
+    {
+        "id":  118752,
+        "name":  "Tainan"
+    },
+    {
+        "id":  118749,
+        "name":  "Taipei"
+    },
+    {
+        "id":  118748,
+        "name":  "Taitung"
+    },
+    {
+        "id":  118746,
+        "name":  "Taoyuan"
+    },
+    {
+        "id":  118807,
+        "name":  "Taoyuan City"
+    },
+    {
+        "id":  118744,
+        "name":  "Tianwei"
+    },
+    {
+        "id":  118745,
+        "name":  "Tianzhong"
+    },
+    {
+        "id":  118743,
+        "name":  "Toufen"
+    },
+    {
+        "id":  118738,
+        "name":  "Wufeng"
+    },
+    {
+        "id":  118737,
+        "name":  "Wulai"
+    },
+    {
+        "id":  118790,
+        "name":  "Xihu"
+    },
+    {
+        "id":  118813,
+        "name":  "Xikou Village"
+    },
+    {
+        "id":  118789,
+        "name":  "Xiluo"
+    },
+    {
+        "id":  118786,
+        "name":  "Xindian"
+    },
+    {
+        "id":  118751,
+        "name":  "Xinying"
+    },
+    {
+        "id":  118791,
+        "name":  "Xizhi"
+    },
+    {
+        "id":  118793,
+        "name":  "Xizhou"
+    },
+    {
+        "id":  118784,
+        "name":  "Yilan"
+    },
+    {
+        "id":  118736,
+        "name":  "Yingge"
+    },
+    {
+        "id":  118733,
+        "name":  "Yongjing"
+    },
+    {
+        "id":  118732,
+        "name":  "Yongkang"
+    },
+    {
+        "id":  118735,
+        "name":  "Yuanlin"
+    },
+    {
+        "id":  118734,
+        "name":  "Yujing"
+    },
+    {
+        "id":  118798,
+        "name":  "Zhongliao"
+    },
+    {
+        "id":  118809,
+        "name":  "Zhongxing New Village"
+    },
+    {
+        "id":  118797,
+        "name":  "Zhubei"
+    },
+    {
+        "id":  118796,
+        "name":  "Zhushan"
+    }
+]

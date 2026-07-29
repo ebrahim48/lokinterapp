@@ -1,0 +1,1822 @@
+[
+    {
+        "id":  1186,
+        "name":  "Abovyan"
+    },
+    {
+        "id":  1187,
+        "name":  "Abovyan"
+    },
+    {
+        "id":  1185,
+        "name":  "Achajur"
+    },
+    {
+        "id":  1181,
+        "name":  "Agarak"
+    },
+    {
+        "id":  1183,
+        "name":  "Agarak"
+    },
+    {
+        "id":  866,
+        "name":  "Agarak"
+    },
+    {
+        "id":  865,
+        "name":  "Agarakadzor"
+    },
+    {
+        "id":  1182,
+        "name":  "Agarakavan"
+    },
+    {
+        "id":  864,
+        "name":  "Aghavnadzor"
+    },
+    {
+        "id":  1177,
+        "name":  "Aghavnadzor"
+    },
+    {
+        "id":  1176,
+        "name":  "Aghavnatun"
+    },
+    {
+        "id":  1178,
+        "name":  "Aghdzk"
+    },
+    {
+        "id":  1240,
+        "name":  "Ajapnyak"
+    },
+    {
+        "id":  1175,
+        "name":  "Akhtala"
+    },
+    {
+        "id":  1173,
+        "name":  "Akhurik"
+    },
+    {
+        "id":  1172,
+        "name":  "Akhuryan"
+    },
+    {
+        "id":  1122,
+        "name":  "Aknalich"
+    },
+    {
+        "id":  1218,
+        "name":  "Aknashen"
+    },
+    {
+        "id":  848,
+        "name":  "Akner"
+    },
+    {
+        "id":  1171,
+        "name":  "Akori"
+    },
+    {
+        "id":  1170,
+        "name":  "Akunk"
+    },
+    {
+        "id":  1169,
+        "name":  "Akunk"
+    },
+    {
+        "id":  1168,
+        "name":  "Alagyaz"
+    },
+    {
+        "id":  1167,
+        "name":  "Alapars"
+    },
+    {
+        "id":  923,
+        "name":  "Alashkert"
+    },
+    {
+        "id":  1166,
+        "name":  "Alaverdi"
+    },
+    {
+        "id":  1164,
+        "name":  "Amasia"
+    },
+    {
+        "id":  1165,
+        "name":  "Amasia"
+    },
+    {
+        "id":  1224,
+        "name":  "Amberd"
+    },
+    {
+        "id":  863,
+        "name":  "Angeghakot"
+    },
+    {
+        "id":  1163,
+        "name":  "Anushavan"
+    },
+    {
+        "id":  1162,
+        "name":  "Apaga"
+    },
+    {
+        "id":  1161,
+        "name":  "Aparan"
+    },
+    {
+        "id":  1261,
+        "name":  "Arabkir"
+    },
+    {
+        "id":  1160,
+        "name":  "Aragats"
+    },
+    {
+        "id":  1158,
+        "name":  "Aragats"
+    },
+    {
+        "id":  1159,
+        "name":  "Aragatsavan"
+    },
+    {
+        "id":  1157,
+        "name":  "Aragyugh"
+    },
+    {
+        "id":  1253,
+        "name":  "Araks"
+    },
+    {
+        "id":  1156,
+        "name":  "Araks"
+    },
+    {
+        "id":  868,
+        "name":  "Aralez"
+    },
+    {
+        "id":  1155,
+        "name":  "Aramus"
+    },
+    {
+        "id":  1154,
+        "name":  "Arapi"
+    },
+    {
+        "id":  861,
+        "name":  "Ararat"
+    },
+    {
+        "id":  862,
+        "name":  "Ararat village"
+    },
+    {
+        "id":  1217,
+        "name":  "Aratashen"
+    },
+    {
+        "id":  1153,
+        "name":  "Arazap"
+    },
+    {
+        "id":  1152,
+        "name":  "Arbat"
+    },
+    {
+        "id":  1151,
+        "name":  "Archis"
+    },
+    {
+        "id":  860,
+        "name":  "Areni"
+    },
+    {
+        "id":  1233,
+        "name":  "Arevabuyr"
+    },
+    {
+        "id":  1149,
+        "name":  "Arevashat"
+    },
+    {
+        "id":  1148,
+        "name":  "Arevashogh"
+    },
+    {
+        "id":  1146,
+        "name":  "Arevik"
+    },
+    {
+        "id":  1147,
+        "name":  "Arevik"
+    },
+    {
+        "id":  1144,
+        "name":  "Arevshat"
+    },
+    {
+        "id":  1145,
+        "name":  "Arevshat"
+    },
+    {
+        "id":  1255,
+        "name":  "Arevut"
+    },
+    {
+        "id":  1142,
+        "name":  "Argavand"
+    },
+    {
+        "id":  1143,
+        "name":  "Argavand"
+    },
+    {
+        "id":  1141,
+        "name":  "Argel"
+    },
+    {
+        "id":  1139,
+        "name":  "Arinj"
+    },
+    {
+        "id":  1150,
+        "name":  "Arjut"
+    },
+    {
+        "id":  859,
+        "name":  "Armash"
+    },
+    {
+        "id":  1055,
+        "name":  "Armavir"
+    },
+    {
+        "id":  1260,
+        "name":  "Armavir"
+    },
+    {
+        "id":  867,
+        "name":  "Arpi"
+    },
+    {
+        "id":  1138,
+        "name":  "Arshaluys"
+    },
+    {
+        "id":  1136,
+        "name":  "Artashar"
+    },
+    {
+        "id":  857,
+        "name":  "Artashat"
+    },
+    {
+        "id":  1135,
+        "name":  "Arteni"
+    },
+    {
+        "id":  1134,
+        "name":  "Artik"
+    },
+    {
+        "id":  1127,
+        "name":  "Artimet"
+    },
+    {
+        "id":  1194,
+        "name":  "Artsvaberd"
+    },
+    {
+        "id":  976,
+        "name":  "Artsvanist"
+    },
+    {
+        "id":  1196,
+        "name":  "Aruch"
+    },
+    {
+        "id":  1133,
+        "name":  "Arzakan"
+    },
+    {
+        "id":  1132,
+        "name":  "Arzni"
+    },
+    {
+        "id":  1131,
+        "name":  "Ashnak"
+    },
+    {
+        "id":  1130,
+        "name":  "Ashotsk"
+    },
+    {
+        "id":  1129,
+        "name":  "Ashtarak"
+    },
+    {
+        "id":  1128,
+        "name":  "Astghadzor"
+    },
+    {
+        "id":  1126,
+        "name":  "Avan"
+    },
+    {
+        "id":  856,
+        "name":  "Avshar"
+    },
+    {
+        "id":  855,
+        "name":  "Aygavan"
+    },
+    {
+        "id":  1124,
+        "name":  "Aygedzor"
+    },
+    {
+        "id":  1123,
+        "name":  "Aygehovit"
+    },
+    {
+        "id":  1225,
+        "name":  "Aygek"
+    },
+    {
+        "id":  854,
+        "name":  "Aygepat"
+    },
+    {
+        "id":  1121,
+        "name":  "Aygeshat"
+    },
+    {
+        "id":  1120,
+        "name":  "Aygeshat"
+    },
+    {
+        "id":  1119,
+        "name":  "Aygestan"
+    },
+    {
+        "id":  1252,
+        "name":  "Aygevan"
+    },
+    {
+        "id":  853,
+        "name":  "Aygezard"
+    },
+    {
+        "id":  1213,
+        "name":  "Ayntap"
+    },
+    {
+        "id":  1116,
+        "name":  "Ayrum"
+    },
+    {
+        "id":  1192,
+        "name":  "Azatamut"
+    },
+    {
+        "id":  1114,
+        "name":  "Azatan"
+    },
+    {
+        "id":  852,
+        "name":  "Azatavan"
+    },
+    {
+        "id":  1208,
+        "name":  "Baghramyan"
+    },
+    {
+        "id":  1201,
+        "name":  "Baghramyan"
+    },
+    {
+        "id":  851,
+        "name":  "Baghramyan"
+    },
+    {
+        "id":  1113,
+        "name":  "Bagratashen"
+    },
+    {
+        "id":  1112,
+        "name":  "Balahovit"
+    },
+    {
+        "id":  1189,
+        "name":  "Bardzrashen"
+    },
+    {
+        "id":  980,
+        "name":  "Basen"
+    },
+    {
+        "id":  1109,
+        "name":  "Bazmaghbyur"
+    },
+    {
+        "id":  1108,
+        "name":  "Bazum"
+    },
+    {
+        "id":  1107,
+        "name":  "Berd"
+    },
+    {
+        "id":  1106,
+        "name":  "Berdavan"
+    },
+    {
+        "id":  850,
+        "name":  "Berkanush"
+    },
+    {
+        "id":  1102,
+        "name":  "Bjni"
+    },
+    {
+        "id":  849,
+        "name":  "Brnakot"
+    },
+    {
+        "id":  847,
+        "name":  "Burastan"
+    },
+    {
+        "id":  1105,
+        "name":  "Buzhakan"
+    },
+    {
+        "id":  1104,
+        "name":  "Byurakan"
+    },
+    {
+        "id":  1111,
+        "name":  "Byuravan"
+    },
+    {
+        "id":  1103,
+        "name":  "Byureghavan"
+    },
+    {
+        "id":  1101,
+        "name":  "Chambarak"
+    },
+    {
+        "id":  1100,
+        "name":  "Charentsavan"
+    },
+    {
+        "id":  1099,
+        "name":  "Chochkan"
+    },
+    {
+        "id":  846,
+        "name":  "Dalar"
+    },
+    {
+        "id":  1098,
+        "name":  "Dalarik"
+    },
+    {
+        "id":  1210,
+        "name":  "Darakert"
+    },
+    {
+        "id":  1097,
+        "name":  "Darbnik"
+    },
+    {
+        "id":  1096,
+        "name":  "Darpas"
+    },
+    {
+        "id":  1211,
+        "name":  "Dashtavan"
+    },
+    {
+        "id":  1095,
+        "name":  "Davtashen"
+    },
+    {
+        "id":  1094,
+        "name":  "Ddmashen"
+    },
+    {
+        "id":  1093,
+        "name":  "Dilijan"
+    },
+    {
+        "id":  1231,
+        "name":  "Dimitrov"
+    },
+    {
+        "id":  1092,
+        "name":  "Doghs"
+    },
+    {
+        "id":  1091,
+        "name":  "Dsegh"
+    },
+    {
+        "id":  1090,
+        "name":  "Dvin"
+    },
+    {
+        "id":  1082,
+        "name":  "Dzithankov"
+    },
+    {
+        "id":  1079,
+        "name":  "Dzoraghbyur"
+    },
+    {
+        "id":  1081,
+        "name":  "Dzoragyugh"
+    },
+    {
+        "id":  1080,
+        "name":  "Dzorakap"
+    },
+    {
+        "id":  1237,
+        "name":  "Erebuni"
+    },
+    {
+        "id":  1226,
+        "name":  "Ferik"
+    },
+    {
+        "id":  1078,
+        "name":  "Fioletovo"
+    },
+    {
+        "id":  1077,
+        "name":  "Gagarin"
+    },
+    {
+        "id":  1110,
+        "name":  "Gandzak"
+    },
+    {
+        "id":  1180,
+        "name":  "Gandzakar"
+    },
+    {
+        "id":  1070,
+        "name":  "Gargar"
+    },
+    {
+        "id":  1076,
+        "name":  "Garni"
+    },
+    {
+        "id":  1047,
+        "name":  "Gavar"
+    },
+    {
+        "id":  1207,
+        "name":  "Gay"
+    },
+    {
+        "id":  1073,
+        "name":  "Geghadzor"
+    },
+    {
+        "id":  942,
+        "name":  "Geghakert"
+    },
+    {
+        "id":  1075,
+        "name":  "Geghamavan"
+    },
+    {
+        "id":  1072,
+        "name":  "Geghanist"
+    },
+    {
+        "id":  1071,
+        "name":  "Geghanist"
+    },
+    {
+        "id":  1074,
+        "name":  "Gegharkunik"
+    },
+    {
+        "id":  943,
+        "name":  "Geghashen"
+    },
+    {
+        "id":  1215,
+        "name":  "Geghhovit"
+    },
+    {
+        "id":  918,
+        "name":  "Getahovit"
+    },
+    {
+        "id":  844,
+        "name":  "Getap"
+    },
+    {
+        "id":  1235,
+        "name":  "Getapnya"
+    },
+    {
+        "id":  1069,
+        "name":  "Getashen"
+    },
+    {
+        "id":  1068,
+        "name":  "Getazat"
+    },
+    {
+        "id":  1062,
+        "name":  "Ghukasavan"
+    },
+    {
+        "id":  843,
+        "name":  "Gladzor"
+    },
+    {
+        "id":  1067,
+        "name":  "Gogaran"
+    },
+    {
+        "id":  1066,
+        "name":  "Goght"
+    },
+    {
+        "id":  809,
+        "name":  "Goravan"
+    },
+    {
+        "id":  842,
+        "name":  "Goris"
+    },
+    {
+        "id":  1065,
+        "name":  "Gosh"
+    },
+    {
+        "id":  1223,
+        "name":  "Griboyedov"
+    },
+    {
+        "id":  1063,
+        "name":  "Gugark"
+    },
+    {
+        "id":  1060,
+        "name":  "Gyulagarak"
+    },
+    {
+        "id":  1059,
+        "name":  "Gyumri"
+    },
+    {
+        "id":  1058,
+        "name":  "Haghartsin"
+    },
+    {
+        "id":  1174,
+        "name":  "Haghtanak"
+    },
+    {
+        "id":  1140,
+        "name":  "Harich"
+    },
+    {
+        "id":  1137,
+        "name":  "Hartagyugh"
+    },
+    {
+        "id":  1057,
+        "name":  "Hatsik"
+    },
+    {
+        "id":  1056,
+        "name":  "Hayanist"
+    },
+    {
+        "id":  1219,
+        "name":  "Haykashen"
+    },
+    {
+        "id":  1117,
+        "name":  "Haykavan"
+    },
+    {
+        "id":  1118,
+        "name":  "Haykavan"
+    },
+    {
+        "id":  1115,
+        "name":  "Haytagh"
+    },
+    {
+        "id":  1029,
+        "name":  "Hnaberd"
+    },
+    {
+        "id":  871,
+        "name":  "Horom"
+    },
+    {
+        "id":  982,
+        "name":  "Hovtamej"
+    },
+    {
+        "id":  1220,
+        "name":  "Hovtashat"
+    },
+    {
+        "id":  1230,
+        "name":  "Hovtashen"
+    },
+    {
+        "id":  1054,
+        "name":  "Hrazdan"
+    },
+    {
+        "id":  1203,
+        "name":  "Hushakert"
+    },
+    {
+        "id":  1053,
+        "name":  "Ijevan"
+    },
+    {
+        "id":  1050,
+        "name":  "Isahakyan"
+    },
+    {
+        "id":  1089,
+        "name":  "Janfida"
+    },
+    {
+        "id":  841,
+        "name":  "Jermuk"
+    },
+    {
+        "id":  1088,
+        "name":  "Jrahovit"
+    },
+    {
+        "id":  1086,
+        "name":  "Jrarat"
+    },
+    {
+        "id":  1087,
+        "name":  "Jrarat"
+    },
+    {
+        "id":  1258,
+        "name":  "Jrarbi"
+    },
+    {
+        "id":  1084,
+        "name":  "Jrashen"
+    },
+    {
+        "id":  1085,
+        "name":  "Jrashen"
+    },
+    {
+        "id":  1083,
+        "name":  "Jrvezh"
+    },
+    {
+        "id":  1048,
+        "name":  "Kaghsi"
+    },
+    {
+        "id":  839,
+        "name":  "Kaghtsrashen"
+    },
+    {
+        "id":  840,
+        "name":  "Kajaran"
+    },
+    {
+        "id":  1049,
+        "name":  "Kakavadzor"
+    },
+    {
+        "id":  1061,
+        "name":  "Kamaris"
+    },
+    {
+        "id":  1046,
+        "name":  "Kamo"
+    },
+    {
+        "id":  1045,
+        "name":  "Kanachut"
+    },
+    {
+        "id":  1044,
+        "name":  "Kanakeravan"
+    },
+    {
+        "id":  1242,
+        "name":  "Kanaker-Zeytun"
+    },
+    {
+        "id":  838,
+        "name":  "Kapan"
+    },
+    {
+        "id":  1043,
+        "name":  "Kaputan"
+    },
+    {
+        "id":  1042,
+        "name":  "Karaberd"
+    },
+    {
+        "id":  837,
+        "name":  "Karahunj"
+    },
+    {
+        "id":  1041,
+        "name":  "Karakert"
+    },
+    {
+        "id":  1040,
+        "name":  "Karanlukh"
+    },
+    {
+        "id":  1039,
+        "name":  "Karbi"
+    },
+    {
+        "id":  1038,
+        "name":  "Karchaghbyur"
+    },
+    {
+        "id":  1250,
+        "name":  "Karin"
+    },
+    {
+        "id":  870,
+        "name":  "Karmirgyugh"
+    },
+    {
+        "id":  1037,
+        "name":  "Karnut"
+    },
+    {
+        "id":  1200,
+        "name":  "Kasakh"
+    },
+    {
+        "id":  1036,
+        "name":  "Kasakh"
+    },
+    {
+        "id":  1034,
+        "name":  "Katnaghbyur"
+    },
+    {
+        "id":  1035,
+        "name":  "Katnajur"
+    },
+    {
+        "id":  1249,
+        "name":  "Kentron"
+    },
+    {
+        "id":  1033,
+        "name":  "Keti"
+    },
+    {
+        "id":  1032,
+        "name":  "Khachaghbyur"
+    },
+    {
+        "id":  1031,
+        "name":  "Khachpar"
+    },
+    {
+        "id":  1246,
+        "name":  "Khanjyan"
+    },
+    {
+        "id":  1030,
+        "name":  "Khashtarak"
+    },
+    {
+        "id":  836,
+        "name":  "Khndzoresk"
+    },
+    {
+        "id":  1018,
+        "name":  "Khoronk"
+    },
+    {
+        "id":  1027,
+        "name":  "Koghb"
+    },
+    {
+        "id":  834,
+        "name":  "Kornidzor"
+    },
+    {
+        "id":  1026,
+        "name":  "Kosh"
+    },
+    {
+        "id":  1025,
+        "name":  "Kotayk"
+    },
+    {
+        "id":  1024,
+        "name":  "Koti"
+    },
+    {
+        "id":  1023,
+        "name":  "Kuchak"
+    },
+    {
+        "id":  1022,
+        "name":  "Kurtan"
+    },
+    {
+        "id":  1021,
+        "name":  "Lanjaghbyur"
+    },
+    {
+        "id":  1236,
+        "name":  "Lanjazat"
+    },
+    {
+        "id":  1020,
+        "name":  "Lchap"
+    },
+    {
+        "id":  1019,
+        "name":  "Lchashen"
+    },
+    {
+        "id":  1204,
+        "name":  "Lenughi"
+    },
+    {
+        "id":  1017,
+        "name":  "Lermontovo"
+    },
+    {
+        "id":  1195,
+        "name":  "Lernagog"
+    },
+    {
+        "id":  1259,
+        "name":  "Lernahovit"
+    },
+    {
+        "id":  1016,
+        "name":  "Lernakert"
+    },
+    {
+        "id":  1015,
+        "name":  "Lernanist"
+    },
+    {
+        "id":  1014,
+        "name":  "Lernantsk"
+    },
+    {
+        "id":  1013,
+        "name":  "Lernapat"
+    },
+    {
+        "id":  1012,
+        "name":  "Lernavan"
+    },
+    {
+        "id":  1011,
+        "name":  "Lichk"
+    },
+    {
+        "id":  1010,
+        "name":  "Lukashin"
+    },
+    {
+        "id":  1008,
+        "name":  "Lusaghbyur"
+    },
+    {
+        "id":  1009,
+        "name":  "Lusagyugh"
+    },
+    {
+        "id":  1241,
+        "name":  "Lusakunk"
+    },
+    {
+        "id":  824,
+        "name":  "Lusarat"
+    },
+    {
+        "id":  1007,
+        "name":  "Madina"
+    },
+    {
+        "id":  1248,
+        "name":  "Malatia-Sebastia"
+    },
+    {
+        "id":  833,
+        "name":  "Malishka"
+    },
+    {
+        "id":  1005,
+        "name":  "Maralik"
+    },
+    {
+        "id":  1004,
+        "name":  "Margahovit"
+    },
+    {
+        "id":  872,
+        "name":  "Margara"
+    },
+    {
+        "id":  1002,
+        "name":  "Marmarashen"
+    },
+    {
+        "id":  1003,
+        "name":  "Marmashen"
+    },
+    {
+        "id":  1001,
+        "name":  "Martuni"
+    },
+    {
+        "id":  1214,
+        "name":  "Masis"
+    },
+    {
+        "id":  1000,
+        "name":  "Masis"
+    },
+    {
+        "id":  999,
+        "name":  "Mastara"
+    },
+    {
+        "id":  998,
+        "name":  "Mayakovski"
+    },
+    {
+        "id":  1051,
+        "name":  "Mayisyan"
+    },
+    {
+        "id":  1006,
+        "name":  "Mayisyan"
+    },
+    {
+        "id":  997,
+        "name":  "Meghradzor"
+    },
+    {
+        "id":  996,
+        "name":  "Meghrashen"
+    },
+    {
+        "id":  832,
+        "name":  "Meghri"
+    },
+    {
+        "id":  995,
+        "name":  "Melikgyugh"
+    },
+    {
+        "id":  994,
+        "name":  "Merdzavan"
+    },
+    {
+        "id":  991,
+        "name":  "Mets Mantash"
+    },
+    {
+        "id":  990,
+        "name":  "Mets Masrik"
+    },
+    {
+        "id":  989,
+        "name":  "Mets Parni"
+    },
+    {
+        "id":  1125,
+        "name":  "Metsadzor"
+    },
+    {
+        "id":  993,
+        "name":  "Metsamor"
+    },
+    {
+        "id":  1206,
+        "name":  "Metsamor"
+    },
+    {
+        "id":  992,
+        "name":  "Metsavan"
+    },
+    {
+        "id":  988,
+        "name":  "Mkhchyan"
+    },
+    {
+        "id":  987,
+        "name":  "Movses"
+    },
+    {
+        "id":  986,
+        "name":  "Mrganush"
+    },
+    {
+        "id":  985,
+        "name":  "Mrgashat"
+    },
+    {
+        "id":  984,
+        "name":  "Mrgashen"
+    },
+    {
+        "id":  983,
+        "name":  "Mrgastan"
+    },
+    {
+        "id":  831,
+        "name":  "Mrgavan"
+    },
+    {
+        "id":  1232,
+        "name":  "Mrgavet"
+    },
+    {
+        "id":  981,
+        "name":  "Mughni"
+    },
+    {
+        "id":  1209,
+        "name":  "Musaler"
+    },
+    {
+        "id":  1202,
+        "name":  "Myasnikyan"
+    },
+    {
+        "id":  978,
+        "name":  "Nalbandyan"
+    },
+    {
+        "id":  1243,
+        "name":  "Narek"
+    },
+    {
+        "id":  977,
+        "name":  "Navur"
+    },
+    {
+        "id":  975,
+        "name":  "Nerkin Bazmaberd"
+    },
+    {
+        "id":  974,
+        "name":  "Nerkin Getashen"
+    },
+    {
+        "id":  973,
+        "name":  "Nerkin Sasnashen"
+    },
+    {
+        "id":  1212,
+        "name":  "Nizami"
+    },
+    {
+        "id":  968,
+        "name":  "Nor Armavir"
+    },
+    {
+        "id":  1256,
+        "name":  "Nor Artagers"
+    },
+    {
+        "id":  1228,
+        "name":  "Nor Artamet"
+    },
+    {
+        "id":  964,
+        "name":  "Nor Geghi"
+    },
+    {
+        "id":  963,
+        "name":  "Nor Gyugh"
+    },
+    {
+        "id":  972,
+        "name":  "Nor Hachn"
+    },
+    {
+        "id":  1247,
+        "name":  "Nor Kesaria"
+    },
+    {
+        "id":  962,
+        "name":  "Nor Kharberd"
+    },
+    {
+        "id":  961,
+        "name":  "Nor Kyank"
+    },
+    {
+        "id":  830,
+        "name":  "Nor Kyank"
+    },
+    {
+        "id":  1234,
+        "name":  "Nor Kyurin"
+    },
+    {
+        "id":  1238,
+        "name":  "Nor Nork"
+    },
+    {
+        "id":  1227,
+        "name":  "Nor Yedesia"
+    },
+    {
+        "id":  1197,
+        "name":  "Nor Yerznka"
+    },
+    {
+        "id":  1191,
+        "name":  "Norabats"
+    },
+    {
+        "id":  970,
+        "name":  "Norakert"
+    },
+    {
+        "id":  969,
+        "name":  "Noramarg"
+    },
+    {
+        "id":  1257,
+        "name":  "Norapat"
+    },
+    {
+        "id":  966,
+        "name":  "Norashen"
+    },
+    {
+        "id":  967,
+        "name":  "Norashen"
+    },
+    {
+        "id":  965,
+        "name":  "Norashen"
+    },
+    {
+        "id":  971,
+        "name":  "Noratus"
+    },
+    {
+        "id":  1245,
+        "name":  "Noravan"
+    },
+    {
+        "id":  1239,
+        "name":  "Nork-Marash"
+    },
+    {
+        "id":  829,
+        "name":  "Noyakert"
+    },
+    {
+        "id":  960,
+        "name":  "Noyemberyan"
+    },
+    {
+        "id":  1190,
+        "name":  "Nshavan"
+    },
+    {
+        "id":  922,
+        "name":  "Nubarashen"
+    },
+    {
+        "id":  959,
+        "name":  "Odzun"
+    },
+    {
+        "id":  958,
+        "name":  "Ohanavan"
+    },
+    {
+        "id":  956,
+        "name":  "Oshakan"
+    },
+    {
+        "id":  955,
+        "name":  "Panik"
+    },
+    {
+        "id":  954,
+        "name":  "Parakar"
+    },
+    {
+        "id":  953,
+        "name":  "Paravakar"
+    },
+    {
+        "id":  952,
+        "name":  "Parpi"
+    },
+    {
+        "id":  951,
+        "name":  "Pemzashen"
+    },
+    {
+        "id":  949,
+        "name":  "Pokr Mantash"
+    },
+    {
+        "id":  835,
+        "name":  "Pokr Vedi"
+    },
+    {
+        "id":  948,
+        "name":  "Proshyan"
+    },
+    {
+        "id":  947,
+        "name":  "Pshatavan"
+    },
+    {
+        "id":  945,
+        "name":  "Ptghni"
+    },
+    {
+        "id":  946,
+        "name":  "Ptghunk"
+    },
+    {
+        "id":  944,
+        "name":  "Ranchpar"
+    },
+    {
+        "id":  828,
+        "name":  "Rind"
+    },
+    {
+        "id":  941,
+        "name":  "Sarahart"
+    },
+    {
+        "id":  940,
+        "name":  "Saralanj"
+    },
+    {
+        "id":  939,
+        "name":  "Saramej"
+    },
+    {
+        "id":  938,
+        "name":  "Saratak"
+    },
+    {
+        "id":  937,
+        "name":  "Sarchapet"
+    },
+    {
+        "id":  957,
+        "name":  "Sardarapat"
+    },
+    {
+        "id":  936,
+        "name":  "Sarigyugh"
+    },
+    {
+        "id":  935,
+        "name":  "Sarnaghbyur"
+    },
+    {
+        "id":  934,
+        "name":  "Sarukhan"
+    },
+    {
+        "id":  1198,
+        "name":  "Sasunik"
+    },
+    {
+        "id":  1221,
+        "name":  "Sayat-Nova"
+    },
+    {
+        "id":  933,
+        "name":  "Sevan"
+    },
+    {
+        "id":  932,
+        "name":  "Sevkar"
+    },
+    {
+        "id":  1052,
+        "name":  "Shahumyan"
+    },
+    {
+        "id":  930,
+        "name":  "Shahumyan"
+    },
+    {
+        "id":  825,
+        "name":  "Shahumyan"
+    },
+    {
+        "id":  827,
+        "name":  "Shaki"
+    },
+    {
+        "id":  931,
+        "name":  "Shamiram"
+    },
+    {
+        "id":  826,
+        "name":  "Shatin"
+    },
+    {
+        "id":  929,
+        "name":  "Shenavan"
+    },
+    {
+        "id":  928,
+        "name":  "Shenavan"
+    },
+    {
+        "id":  1254,
+        "name":  "Shengavit"
+    },
+    {
+        "id":  1251,
+        "name":  "Shenik"
+    },
+    {
+        "id":  823,
+        "name":  "Shinuhayr"
+    },
+    {
+        "id":  927,
+        "name":  "Shirak"
+    },
+    {
+        "id":  979,
+        "name":  "Shirakamut"
+    },
+    {
+        "id":  926,
+        "name":  "Shnogh"
+    },
+    {
+        "id":  925,
+        "name":  "Sis"
+    },
+    {
+        "id":  822,
+        "name":  "Sisavan"
+    },
+    {
+        "id":  821,
+        "name":  "Sisian"
+    },
+    {
+        "id":  924,
+        "name":  "Solak"
+    },
+    {
+        "id":  876,
+        "name":  "Sotk"
+    },
+    {
+        "id":  921,
+        "name":  "Spandaryan"
+    },
+    {
+        "id":  920,
+        "name":  "Spitak"
+    },
+    {
+        "id":  919,
+        "name":  "Stepanavan"
+    },
+    {
+        "id":  820,
+        "name":  "Surenavan"
+    },
+    {
+        "id":  1229,
+        "name":  "Tairov"
+    },
+    {
+        "id":  917,
+        "name":  "Talin"
+    },
+    {
+        "id":  916,
+        "name":  "Tandzut"
+    },
+    {
+        "id":  1216,
+        "name":  "Taronik"
+    },
+    {
+        "id":  915,
+        "name":  "Tashir"
+    },
+    {
+        "id":  913,
+        "name":  "Tavush"
+    },
+    {
+        "id":  818,
+        "name":  "Tegh"
+    },
+    {
+        "id":  1193,
+        "name":  "Teghut"
+    },
+    {
+        "id":  911,
+        "name":  "Tsaghkaber"
+    },
+    {
+        "id":  912,
+        "name":  "Tsaghkadzor"
+    },
+    {
+        "id":  910,
+        "name":  "Tsaghkahovit"
+    },
+    {
+        "id":  1179,
+        "name":  "Tsaghkalanj"
+    },
+    {
+        "id":  909,
+        "name":  "Tsaghkunk"
+    },
+    {
+        "id":  908,
+        "name":  "Tsaghkunk"
+    },
+    {
+        "id":  907,
+        "name":  "Tsakkar"
+    },
+    {
+        "id":  1064,
+        "name":  "Tsiatsan"
+    },
+    {
+        "id":  906,
+        "name":  "Tsovagyugh"
+    },
+    {
+        "id":  905,
+        "name":  "Tsovak"
+    },
+    {
+        "id":  914,
+        "name":  "Tsovasar"
+    },
+    {
+        "id":  904,
+        "name":  "Tsovazard"
+    },
+    {
+        "id":  903,
+        "name":  "Tsovinar"
+    },
+    {
+        "id":  901,
+        "name":  "Ttujur"
+    },
+    {
+        "id":  902,
+        "name":  "Tumanyan"
+    },
+    {
+        "id":  900,
+        "name":  "Ujan"
+    },
+    {
+        "id":  869,
+        "name":  "Urtsadzor"
+    },
+    {
+        "id":  899,
+        "name":  "Ushi"
+    },
+    {
+        "id":  883,
+        "name":  "Vagharshapat"
+    },
+    {
+        "id":  897,
+        "name":  "Vaghashen"
+    },
+    {
+        "id":  898,
+        "name":  "Vahagni"
+    },
+    {
+        "id":  1028,
+        "name":  "Vanadzor"
+    },
+    {
+        "id":  1244,
+        "name":  "Vanand"
+    },
+    {
+        "id":  819,
+        "name":  "Vanashen"
+    },
+    {
+        "id":  1188,
+        "name":  "Vardablur"
+    },
+    {
+        "id":  1184,
+        "name":  "Vardadzor"
+    },
+    {
+        "id":  896,
+        "name":  "Vardanashen"
+    },
+    {
+        "id":  895,
+        "name":  "Vardenik"
+    },
+    {
+        "id":  894,
+        "name":  "Vardenis"
+    },
+    {
+        "id":  893,
+        "name":  "Varser"
+    },
+    {
+        "id":  817,
+        "name":  "Vayk"
+    },
+    {
+        "id":  816,
+        "name":  "Vedi"
+    },
+    {
+        "id":  892,
+        "name":  "Verin Artashat"
+    },
+    {
+        "id":  891,
+        "name":  "Verin Dvin"
+    },
+    {
+        "id":  890,
+        "name":  "Verin Getashen"
+    },
+    {
+        "id":  889,
+        "name":  "Verin Karmiraghbyur"
+    },
+    {
+        "id":  815,
+        "name":  "Verishen"
+    },
+    {
+        "id":  814,
+        "name":  "Vernashen"
+    },
+    {
+        "id":  888,
+        "name":  "Voskehask"
+    },
+    {
+        "id":  1222,
+        "name":  "Voskehat"
+    },
+    {
+        "id":  887,
+        "name":  "Voskehat"
+    },
+    {
+        "id":  813,
+        "name":  "Vosketap"
+    },
+    {
+        "id":  886,
+        "name":  "Voskevan"
+    },
+    {
+        "id":  885,
+        "name":  "Voskevaz"
+    },
+    {
+        "id":  812,
+        "name":  "Vostan"
+    },
+    {
+        "id":  858,
+        "name":  "Yeghegis"
+    },
+    {
+        "id":  811,
+        "name":  "Yeghegnadzor"
+    },
+    {
+        "id":  810,
+        "name":  "Yeghegnavan"
+    },
+    {
+        "id":  882,
+        "name":  "Yeghegnut"
+    },
+    {
+        "id":  884,
+        "name":  "Yeghvard"
+    },
+    {
+        "id":  845,
+        "name":  "Yelpin"
+    },
+    {
+        "id":  881,
+        "name":  "Yeranos"
+    },
+    {
+        "id":  880,
+        "name":  "Yeraskhahun"
+    },
+    {
+        "id":  879,
+        "name":  "Yerazgavors"
+    },
+    {
+        "id":  878,
+        "name":  "Yerevan"
+    },
+    {
+        "id":  808,
+        "name":  "Zangakatun"
+    },
+    {
+        "id":  877,
+        "name":  "Zar"
+    },
+    {
+        "id":  807,
+        "name":  "Zaritap"
+    },
+    {
+        "id":  1205,
+        "name":  "Zartonk"
+    },
+    {
+        "id":  875,
+        "name":  "Zolakar"
+    },
+    {
+        "id":  874,
+        "name":  "Zorak"
+    },
+    {
+        "id":  950,
+        "name":  "Zoravan"
+    },
+    {
+        "id":  873,
+        "name":  "Zovaber"
+    },
+    {
+        "id":  1199,
+        "name":  "Zovuni"
+    }
+]

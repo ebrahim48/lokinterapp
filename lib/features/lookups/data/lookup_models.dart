@@ -4,16 +4,27 @@ class Country {
   final int id;
   final String name;
   final String iso2;
+  final String phoneCode; // e.g. "216" — drives the receiver phone prefix
+  final String emoji;
 
-  const Country({required this.id, required this.name, required this.iso2});
+  const Country({
+    required this.id,
+    required this.name,
+    required this.iso2,
+    this.phoneCode = '',
+    this.emoji = '',
+  });
 
   factory Country.fromJson(Map<String, dynamic> json) => Country(
         id: json['id'] ?? 0,
         name: json['name'] ?? '',
         iso2: json['iso2'] ?? '',
+        phoneCode: '${json['phonecode'] ?? json['phoneCode'] ?? ''}',
+        emoji: json['emoji'] ?? '',
       );
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'iso2': iso2};
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'iso2': iso2, 'phonecode': phoneCode, 'emoji': emoji};
 
   @override
   bool operator ==(Object other) => other is Country && other.id == id;

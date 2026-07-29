@@ -1,0 +1,2906 @@
+[
+    {
+        "id":  87905,
+        "name":  "Ajil"
+    },
+    {
+        "id":  88461,
+        "name":  "Alam Damai"
+    },
+    {
+        "id":  87913,
+        "name":  "Alor Gajah"
+    },
+    {
+        "id":  88047,
+        "name":  "Alor Janggus"
+    },
+    {
+        "id":  88248,
+        "name":  "Alor Merah"
+    },
+    {
+        "id":  88060,
+        "name":  "Alor Setar"
+    },
+    {
+        "id":  87874,
+        "name":  "Alur Pongsu"
+    },
+    {
+        "id":  87986,
+        "name":  "Ampang"
+    },
+    {
+        "id":  88247,
+        "name":  "Anak Bukit"
+    },
+    {
+        "id":  88396,
+        "name":  "Ara Damansara"
+    },
+    {
+        "id":  88399,
+        "name":  "Assam Jawa"
+    },
+    {
+        "id":  88276,
+        "name":  "Au Long"
+    },
+    {
+        "id":  87791,
+        "name":  "Ayer Baloi"
+    },
+    {
+        "id":  87766,
+        "name":  "Ayer Hangat"
+    },
+    {
+        "id":  87784,
+        "name":  "Ayer Hitam"
+    },
+    {
+        "id":  88275,
+        "name":  "Ayer Itam"
+    },
+    {
+        "id":  87917,
+        "name":  "Ayer Molek"
+    },
+    {
+        "id":  88274,
+        "name":  "Ayer Tawar"
+    },
+    {
+        "id":  88273,
+        "name":  "Bagan Datoh"
+    },
+    {
+        "id":  87988,
+        "name":  "Bagan Datuk"
+    },
+    {
+        "id":  88272,
+        "name":  "Bagan Pulau Ketam"
+    },
+    {
+        "id":  88303,
+        "name":  "Bagan Samak"
+    },
+    {
+        "id":  87875,
+        "name":  "Bagan Serai"
+    },
+    {
+        "id":  87965,
+        "name":  "Bagan Tiang"
+    },
+    {
+        "id":  87939,
+        "name":  "Bahau"
+    },
+    {
+        "id":  87823,
+        "name":  "Bakri"
+    },
+    {
+        "id":  87970,
+        "name":  "Balik Pulau"
+    },
+    {
+        "id":  88008,
+        "name":  "Balingian"
+    },
+    {
+        "id":  88385,
+        "name":  "Bandar 16 Sierra"
+    },
+    {
+        "id":  88324,
+        "name":  "Bandar Al-Muktafi Billah Shah"
+    },
+    {
+        "id":  87873,
+        "name":  "Bandar Baharu"
+    },
+    {
+        "id":  88435,
+        "name":  "Bandar Baru Ayer Itam"
+    },
+    {
+        "id":  88434,
+        "name":  "Bandar Baru Enstek"
+    },
+    {
+        "id":  88484,
+        "name":  "Bandar Baru Salak Tinggi"
+    },
+    {
+        "id":  88454,
+        "name":  "Bandar Botanic"
+    },
+    {
+        "id":  88451,
+        "name":  "Bandar Bukit Raja"
+    },
+    {
+        "id":  88457,
+        "name":  "Bandar Country Homes"
+    },
+    {
+        "id":  88450,
+        "name":  "Bandar Kinrara"
+    },
+    {
+        "id":  88307,
+        "name":  "Bandar Labuan"
+    },
+    {
+        "id":  88476,
+        "name":  "Bandar Laguna Merbok"
+    },
+    {
+        "id":  88424,
+        "name":  "Bandar Mahkota Cheras"
+    },
+    {
+        "id":  87860,
+        "name":  "Bandar Nabawan"
+    },
+    {
+        "id":  88453,
+        "name":  "Bandar Parklands"
+    },
+    {
+        "id":  88338,
+        "name":  "Bandar Penawar"
+    },
+    {
+        "id":  88302,
+        "name":  "Bandar Permaisuri"
+    },
+    {
+        "id":  88381,
+        "name":  "Bandar Puncak Alam"
+    },
+    {
+        "id":  88478,
+        "name":  "Bandar Putra Kulai"
+    },
+    {
+        "id":  88466,
+        "name":  "Bandar Saujana Utama"
+    },
+    {
+        "id":  88480,
+        "name":  "Bandar Seri Alam"
+    },
+    {
+        "id":  88456,
+        "name":  "Bandar Springhill"
+    },
+    {
+        "id":  88387,
+        "name":  "Bandar Sri Damansara"
+    },
+    {
+        "id":  88455,
+        "name":  "Bandar Sri Sendayan"
+    },
+    {
+        "id":  87821,
+        "name":  "Bandar Sungai Mati"
+    },
+    {
+        "id":  88379,
+        "name":  "Bandar Sunway"
+    },
+    {
+        "id":  88470,
+        "name":  "Bandar Tasik Puteri"
+    },
+    {
+        "id":  88311,
+        "name":  "Bandar Tenggara"
+    },
+    {
+        "id":  88432,
+        "name":  "Bandar Tun Hussein Onn"
+    },
+    {
+        "id":  88336,
+        "name":  "Bandar Tun Razak"
+    },
+    {
+        "id":  88485,
+        "name":  "Bandar Utama"
+    },
+    {
+        "id":  88075,
+        "name":  "Bandau"
+    },
+    {
+        "id":  87928,
+        "name":  "Bangi"
+    },
+    {
+        "id":  88405,
+        "name":  "Bangsar"
+    },
+    {
+        "id":  87925,
+        "name":  "Banting"
+    },
+    {
+        "id":  87828,
+        "name":  "Batang Berjuntai"
+    },
+    {
+        "id":  88271,
+        "name":  "Batang Kali"
+    },
+    {
+        "id":  87944,
+        "name":  "Batu Anam"
+    },
+    {
+        "id":  87829,
+        "name":  "Batu Arang"
+    },
+    {
+        "id":  88270,
+        "name":  "Batu Berendam"
+    },
+    {
+        "id":  87985,
+        "name":  "Batu Caves"
+    },
+    {
+        "id":  87956,
+        "name":  "Batu Feringgi"
+    },
+    {
+        "id":  88000,
+        "name":  "Batu Gajah"
+    },
+    {
+        "id":  88295,
+        "name":  "Batu Hitam"
+    },
+    {
+        "id":  88410,
+        "name":  "Batu Itam"
+    },
+    {
+        "id":  88268,
+        "name":  "Batu Kawan"
+    },
+    {
+        "id":  87889,
+        "name":  "Batu Kurau"
+    },
+    {
+        "id":  87782,
+        "name":  "Batu Pahat"
+    },
+    {
+        "id":  87981,
+        "name":  "Batu Tiga"
+    },
+    {
+        "id":  87884,
+        "name":  "Bau"
+    },
+    {
+        "id":  87971,
+        "name":  "Bayan Lepas"
+    },
+    {
+        "id":  87854,
+        "name":  "Beaufort"
+    },
+    {
+        "id":  87877,
+        "name":  "Bedong"
+    },
+    {
+        "id":  88431,
+        "name":  "Behrang Stesen"
+    },
+    {
+        "id":  88112,
+        "name":  "Bekenu"
+    },
+    {
+        "id":  87825,
+        "name":  "Bekok"
+    },
+    {
+        "id":  88100,
+        "name":  "Belaga"
+    },
+    {
+        "id":  88037,
+        "name":  "Belawai"
+    },
+    {
+        "id":  87857,
+        "name":  "Beluran"
+    },
+    {
+        "id":  88110,
+        "name":  "Beluru"
+    },
+    {
+        "id":  88266,
+        "name":  "Bemban"
+    },
+    {
+        "id":  88265,
+        "name":  "Bentong Town"
+    },
+    {
+        "id":  87775,
+        "name":  "Bentung"
+    },
+    {
+        "id":  88308,
+        "name":  "Bercham"
+    },
+    {
+        "id":  87896,
+        "name":  "Berincang"
+    },
+    {
+        "id":  87895,
+        "name":  "Beruas"
+    },
+    {
+        "id":  88092,
+        "name":  "Betong"
+    },
+    {
+        "id":  88005,
+        "name":  "Bidur"
+    },
+    {
+        "id":  88040,
+        "name":  "Binatang"
+    },
+    {
+        "id":  88101,
+        "name":  "Bintulu"
+    },
+    {
+        "id":  88447,
+        "name":  "Blue Valley"
+    },
+    {
+        "id":  87843,
+        "name":  "Bongawan"
+    },
+    {
+        "id":  88486,
+        "name":  "Brickfields"
+    },
+    {
+        "id":  88446,
+        "name":  "Brinchang"
+    },
+    {
+        "id":  88082,
+        "name":  "Budu"
+    },
+    {
+        "id":  88439,
+        "name":  "Bukit Beruntung"
+    },
+    {
+        "id":  88378,
+        "name":  "Bukit Bintang"
+    },
+    {
+        "id":  88406,
+        "name":  "Bukit Damansara"
+    },
+    {
+        "id":  88262,
+        "name":  "Bukit Gambir"
+    },
+    {
+        "id":  88415,
+        "name":  "Bukit Gemuroh"
+    },
+    {
+        "id":  87951,
+        "name":  "Bukit Ibam"
+    },
+    {
+        "id":  88408,
+        "name":  "Bukit Indah"
+    },
+    {
+        "id":  88487,
+        "name":  "Bukit Jalil"
+    },
+    {
+        "id":  88427,
+        "name":  "Bukit Jambul"
+    },
+    {
+        "id":  88050,
+        "name":  "Bukit Kayu Hitam"
+    },
+    {
+        "id":  88472,
+        "name":  "Bukit Kerinchi"
+    },
+    {
+        "id":  87959,
+        "name":  "Bukit Mertajam"
+    },
+    {
+        "id":  88231,
+        "name":  "Bukit Pinang"
+    },
+    {
+        "id":  88467,
+        "name":  "Bukit Rahman Putra"
+    },
+    {
+        "id":  88261,
+        "name":  "Bukit Rambai"
+    },
+    {
+        "id":  88260,
+        "name":  "Bukit Tambun"
+    },
+    {
+        "id":  88259,
+        "name":  "Bukit Tengah"
+    },
+    {
+        "id":  87943,
+        "name":  "Buloh Kasap"
+    },
+    {
+        "id":  87957,
+        "name":  "Butterworth"
+    },
+    {
+        "id":  87835,
+        "name":  "Cangkat Jong"
+    },
+    {
+        "id":  88003,
+        "name":  "Cenderiang"
+    },
+    {
+        "id":  87771,
+        "name":  "Ceruh"
+    },
+    {
+        "id":  87826,
+        "name":  "Chaah"
+    },
+    {
+        "id":  88419,
+        "name":  "Chaah Bahru"
+    },
+    {
+        "id":  88051,
+        "name":  "Changloon"
+    },
+    {
+        "id":  87897,
+        "name":  "Chemor"
+    },
+    {
+        "id":  88258,
+        "name":  "Chenderong"
+    },
+    {
+        "id":  88029,
+        "name":  "Cherang Ruku"
+    },
+    {
+        "id":  88257,
+        "name":  "Cheras"
+    },
+    {
+        "id":  87839,
+        "name":  "Cukai"
+    },
+    {
+        "id":  88305,
+        "name":  "Cyberjaya"
+    },
+    {
+        "id":  87974,
+        "name":  "Dabong"
+    },
+    {
+        "id":  88093,
+        "name":  "Dalat"
+    },
+    {
+        "id":  88383,
+        "name":  "Damansara Damai"
+    },
+    {
+        "id":  88086,
+        "name":  "Daro"
+    },
+    {
+        "id":  88368,
+        "name":  "Data Kakus"
+    },
+    {
+        "id":  88081,
+        "name":  "Debak"
+    },
+    {
+        "id":  88391,
+        "name":  "Denai Alam"
+    },
+    {
+        "id":  88335,
+        "name":  "Dengkil"
+    },
+    {
+        "id":  88224,
+        "name":  "Derga"
+    },
+    {
+        "id":  88397,
+        "name":  "Desa Parkcity"
+    },
+    {
+        "id":  88471,
+        "name":  "Desa Petaling"
+    },
+    {
+        "id":  87846,
+        "name":  "Donggongon"
+    },
+    {
+        "id":  87863,
+        "name":  "Dungun"
+    },
+    {
+        "id":  87914,
+        "name":  "Durian Tunggal"
+    },
+    {
+        "id":  88409,
+        "name":  "Eco Sanctuary"
+    },
+    {
+        "id":  88390,
+        "name":  "Elmina"
+    },
+    {
+        "id":  88256,
+        "name":  "Empaong"
+    },
+    {
+        "id":  88091,
+        "name":  "Engkilili"
+    },
+    {
+        "id":  88460,
+        "name":  "FELCRA Lubek Sireh"
+    },
+    {
+        "id":  88330,
+        "name":  "FELDA Bukit Damar"
+    },
+    {
+        "id":  88482,
+        "name":  "FELDA Chini"
+    },
+    {
+        "id":  88440,
+        "name":  "Felda Gugusan Adela"
+    },
+    {
+        "id":  88433,
+        "name":  "FELDA Kemansul"
+    },
+    {
+        "id":  88468,
+        "name":  "FELDA Maokil"
+    },
+    {
+        "id":  88481,
+        "name":  "FELDA Semenchu"
+    },
+    {
+        "id":  88459,
+        "name":  "FELDA Soeharto"
+    },
+    {
+        "id":  88490,
+        "name":  "FELDA Taib Andak"
+    },
+    {
+        "id":  88416,
+        "name":  "Forest City"
+    },
+    {
+        "id":  87994,
+        "name":  "Gambang"
+    },
+    {
+        "id":  87834,
+        "name":  "Gedangsa"
+    },
+    {
+        "id":  87809,
+        "name":  "Gelang Patah"
+    },
+    {
+        "id":  88437,
+        "name":  "Gelung Pepuyu"
+    },
+    {
+        "id":  87946,
+        "name":  "Gemas"
+    },
+    {
+        "id":  87942,
+        "name":  "Gemencheh"
+    },
+    {
+        "id":  87972,
+        "name":  "George Town"
+    },
+    {
+        "id":  87867,
+        "name":  "Gerik"
+    },
+    {
+        "id":  87819,
+        "name":  "Gerisek"
+    },
+    {
+        "id":  88255,
+        "name":  "Glenmarie Estate"
+    },
+    {
+        "id":  88297,
+        "name":  "Glugor"
+    },
+    {
+        "id":  87999,
+        "name":  "Gopeng"
+    },
+    {
+        "id":  87902,
+        "name":  "Gua Musang"
+    },
+    {
+        "id":  88254,
+        "name":  "Guar Chempedak"
+    },
+    {
+        "id":  88291,
+        "name":  "Gunong"
+    },
+    {
+        "id":  88020,
+        "name":  "Gurun"
+    },
+    {
+        "id":  88423,
+        "name":  "Hendrop"
+    },
+    {
+        "id":  88477,
+        "name":  "Horizon Hills"
+    },
+    {
+        "id":  87987,
+        "name":  "Hulu Langat"
+    },
+    {
+        "id":  87977,
+        "name":  "Hulu Yam Lama"
+    },
+    {
+        "id":  87989,
+        "name":  "Hutan Melintang"
+    },
+    {
+        "id":  88088,
+        "name":  "Igan"
+    },
+    {
+        "id":  88221,
+        "name":  "Ijok"
+    },
+    {
+        "id":  88253,
+        "name":  "Inanam"
+    },
+    {
+        "id":  87899,
+        "name":  "Ipoh"
+    },
+    {
+        "id":  88372,
+        "name":  "Iskandar Puteri"
+    },
+    {
+        "id":  88252,
+        "name":  "Jawi"
+    },
+    {
+        "id":  88251,
+        "name":  "Jelutong"
+    },
+    {
+        "id":  87927,
+        "name":  "Jenjarum"
+    },
+    {
+        "id":  87768,
+        "name":  "Jerantut"
+    },
+    {
+        "id":  88073,
+        "name":  "Jertih"
+    },
+    {
+        "id":  88250,
+        "name":  "Jinjang"
+    },
+    {
+        "id":  88056,
+        "name":  "Jitra"
+    },
+    {
+        "id":  87808,
+        "name":  "Johor Bahru"
+    },
+    {
+        "id":  88314,
+        "name":  "Johor Jaya"
+    },
+    {
+        "id":  88041,
+        "name":  "Julau"
+    },
+    {
+        "id":  88249,
+        "name":  "Juru"
+    },
+    {
+        "id":  88376,
+        "name":  "Kajang"
+    },
+    {
+        "id":  88002,
+        "name":  "Kampar"
+    },
+    {
+        "id":  88242,
+        "name":  "Kampong Baharu Cheras Batu Sebelas"
+    },
+    {
+        "id":  88239,
+        "name":  "Kampong Bakai"
+    },
+    {
+        "id":  88229,
+        "name":  "Kampong Chap"
+    },
+    {
+        "id":  88228,
+        "name":  "Kampong Chenderong Balai"
+    },
+    {
+        "id":  88226,
+        "name":  "Kampong Cherang Hangus"
+    },
+    {
+        "id":  88218,
+        "name":  "Kampong Datuk Keramat"
+    },
+    {
+        "id":  88223,
+        "name":  "Kampong Dungun"
+    },
+    {
+        "id":  88222,
+        "name":  "Kampong Gunong"
+    },
+    {
+        "id":  88219,
+        "name":  "Kampong Kadok"
+    },
+    {
+        "id":  88208,
+        "name":  "Kampong Masjid Tanah"
+    },
+    {
+        "id":  88207,
+        "name":  "Kampong Menumbok"
+    },
+    {
+        "id":  88206,
+        "name":  "Kampong Merbok"
+    },
+    {
+        "id":  88200,
+        "name":  "Kampong Pangkal Kalong"
+    },
+    {
+        "id":  88186,
+        "name":  "Kampong Sidam"
+    },
+    {
+        "id":  88185,
+        "name":  "Kampong Sijangkang"
+    },
+    {
+        "id":  88178,
+        "name":  "Kampong Sungai Batu"
+    },
+    {
+        "id":  88175,
+        "name":  "Kampong Sungai Kechil Ulu"
+    },
+    {
+        "id":  88173,
+        "name":  "Kampong Sungai Rusa"
+    },
+    {
+        "id":  88170,
+        "name":  "Kampong Tajar"
+    },
+    {
+        "id":  88169,
+        "name":  "Kampong Tanjong Chat"
+    },
+    {
+        "id":  88160,
+        "name":  "Kampong Tok Bali"
+    },
+    {
+        "id":  88158,
+        "name":  "Kampong Wang Tepus"
+    },
+    {
+        "id":  87880,
+        "name":  "Kampung Air Lanas"
+    },
+    {
+        "id":  88290,
+        "name":  "Kampung Alor Mengkudu"
+    },
+    {
+        "id":  88048,
+        "name":  "Kampung Asun"
+    },
+    {
+        "id":  87916,
+        "name":  "Kampung Ayer Keroh"
+    },
+    {
+        "id":  88246,
+        "name":  "Kampung Ayer Molek"
+    },
+    {
+        "id":  88245,
+        "name":  "Kampung Ayer Puteh"
+    },
+    {
+        "id":  88244,
+        "name":  "Kampung Bagan"
+    },
+    {
+        "id":  88241,
+        "name":  "Kampung Baharu Nilai"
+    },
+    {
+        "id":  88240,
+        "name":  "Kampung Baharu Paroi"
+    },
+    {
+        "id":  88473,
+        "name":  "Kampung Baru"
+    },
+    {
+        "id":  88243,
+        "name":  "Kampung Baru Balakong"
+    },
+    {
+        "id":  88238,
+        "name":  "Kampung Baru Subang"
+    },
+    {
+        "id":  88282,
+        "name":  "Kampung Baru Ulu Melaka"
+    },
+    {
+        "id":  88237,
+        "name":  "Kampung Batang Melaka Ulu"
+    },
+    {
+        "id":  88269,
+        "name":  "Kampung Batu Empat"
+    },
+    {
+        "id":  88236,
+        "name":  "Kampung Batu Feringgi"
+    },
+    {
+        "id":  88285,
+        "name":  "Kampung Batu Lima"
+    },
+    {
+        "id":  88325,
+        "name":  "Kampung Batu Sembilan Luar"
+    },
+    {
+        "id":  88264,
+        "name":  "Kampung Bertam Ulu"
+    },
+    {
+        "id":  88286,
+        "name":  "Kampung Bongor"
+    },
+    {
+        "id":  88235,
+        "name":  "Kampung Bukit Baharu"
+    },
+    {
+        "id":  88234,
+        "name":  "Kampung Bukit Beruang"
+    },
+    {
+        "id":  88233,
+        "name":  "Kampung Bukit Bunga"
+    },
+    {
+        "id":  88232,
+        "name":  "Kampung Bukit Jering"
+    },
+    {
+        "id":  87975,
+        "name":  "Kampung Bukit Tinggi, Bentong"
+    },
+    {
+        "id":  87886,
+        "name":  "Kampung Cangkat Jering"
+    },
+    {
+        "id":  88230,
+        "name":  "Kampung Cangkat Keruing"
+    },
+    {
+        "id":  88227,
+        "name":  "Kampung Cheng"
+    },
+    {
+        "id":  88225,
+        "name":  "Kampung Chui Chak"
+    },
+    {
+        "id":  88046,
+        "name":  "Kampung Chuping"
+    },
+    {
+        "id":  87772,
+        "name":  "Kampung Dong"
+    },
+    {
+        "id":  87890,
+        "name":  "Kampung Enggor"
+    },
+    {
+        "id":  88344,
+        "name":  "Kampung Gedung Siam"
+    },
+    {
+        "id":  88009,
+        "name":  "Kampung Gula"
+    },
+    {
+        "id":  88384,
+        "name":  "Kampung Haji Kudong"
+    },
+    {
+        "id":  88293,
+        "name":  "Kampung Hutan Arau"
+    },
+    {
+        "id":  87881,
+        "name":  "Kampung Jeli"
+    },
+    {
+        "id":  88365,
+        "name":  "Kampung Jelutong Tengah"
+    },
+    {
+        "id":  88220,
+        "name":  "Kampung Jerlun"
+    },
+    {
+        "id":  87803,
+        "name":  "Kampung Kangkar Pulai"
+    },
+    {
+        "id":  88157,
+        "name":  "Kampung Kangkar Teberau"
+    },
+    {
+        "id":  88217,
+        "name":  "Kampung Kerubong"
+    },
+    {
+        "id":  88281,
+        "name":  "Kampung Kilim"
+    },
+    {
+        "id":  88019,
+        "name":  "Kampung Kobah"
+    },
+    {
+        "id":  88283,
+        "name":  "Kampung Kok"
+    },
+    {
+        "id":  87866,
+        "name":  "Kampung Kuala Balah"
+    },
+    {
+        "id":  88304,
+        "name":  "Kampung Kuala Besut"
+    },
+    {
+        "id":  87908,
+        "name":  "Kampung Kuala Linggi"
+    },
+    {
+        "id":  88085,
+        "name":  "Kampung Kuala Matu"
+    },
+    {
+        "id":  88017,
+        "name":  "Kampung Kuala Muda"
+    },
+    {
+        "id":  88215,
+        "name":  "Kampung Kuala Selama"
+    },
+    {
+        "id":  88340,
+        "name":  "Kampung Kuala Sepetang"
+    },
+    {
+        "id":  88076,
+        "name":  "Kampung Kundassang"
+    },
+    {
+        "id":  87878,
+        "name":  "Kampung Kupang"
+    },
+    {
+        "id":  88214,
+        "name":  "Kampung Labohan Dagang"
+    },
+    {
+        "id":  88345,
+        "name":  "Kampung Ladang Sawit Lepar"
+    },
+    {
+        "id":  88213,
+        "name":  "Kampung Lalang"
+    },
+    {
+        "id":  88012,
+        "name":  "Kampung Lambor Kanan"
+    },
+    {
+        "id":  87797,
+        "name":  "Kampung Larkin Lama"
+    },
+    {
+        "id":  88306,
+        "name":  "Kampung Lemal"
+    },
+    {
+        "id":  88210,
+        "name":  "Kampung Lubok Merbau"
+    },
+    {
+        "id":  88209,
+        "name":  "Kampung Machap Baru"
+    },
+    {
+        "id":  88309,
+        "name":  "Kampung Manjoi"
+    },
+    {
+        "id":  88205,
+        "name":  "Kampung Minyak Beku"
+    },
+    {
+        "id":  88204,
+        "name":  "Kampung Naga Lilit"
+    },
+    {
+        "id":  87769,
+        "name":  "Kampung New Zealand"
+    },
+    {
+        "id":  88444,
+        "name":  "Kampung Olak Lempit"
+    },
+    {
+        "id":  88145,
+        "name":  "Kampung On Lok"
+    },
+    {
+        "id":  88044,
+        "name":  "Kampung Oran"
+    },
+    {
+        "id":  88203,
+        "name":  "Kampung Padang Cina"
+    },
+    {
+        "id":  88201,
+        "name":  "Kampung Padang Lalang"
+    },
+    {
+        "id":  87969,
+        "name":  "Kampung Pantai Aceh"
+    },
+    {
+        "id":  88316,
+        "name":  "Kampung Parit Belahan Tampok"
+    },
+    {
+        "id":  88199,
+        "name":  "Kampung Parit Panjang"
+    },
+    {
+        "id":  87795,
+        "name":  "Kampung Pasir Gudang Baru"
+    },
+    {
+        "id":  88197,
+        "name":  "Kampung Pengkalan Gelong"
+    },
+    {
+        "id":  88310,
+        "name":  "Kampung Perak"
+    },
+    {
+        "id":  88195,
+        "name":  "Kampung Pering"
+    },
+    {
+        "id":  88194,
+        "name":  "Kampung Permatang Pasir"
+    },
+    {
+        "id":  88192,
+        "name":  "Kampung Pondok Upih"
+    },
+    {
+        "id":  88191,
+        "name":  "Kampung Pulai"
+    },
+    {
+        "id":  88190,
+        "name":  "Kampung Ramuan China Kechil"
+    },
+    {
+        "id":  88189,
+        "name":  "Kampung Relau"
+    },
+    {
+        "id":  87799,
+        "name":  "Kampung Sedenak"
+    },
+    {
+        "id":  88187,
+        "name":  "Kampung Selang"
+    },
+    {
+        "id":  88398,
+        "name":  "Kampung Setia"
+    },
+    {
+        "id":  88332,
+        "name":  "Kampung Simpang Durian"
+    },
+    {
+        "id":  88184,
+        "name":  "Kampung Simpang Pulai"
+    },
+    {
+        "id":  88183,
+        "name":  "Kampung Simpang Renggam"
+    },
+    {
+        "id":  88182,
+        "name":  "Kampung Siong"
+    },
+    {
+        "id":  88181,
+        "name":  "Kampung Sirusa"
+    },
+    {
+        "id":  88288,
+        "name":  "Kampung Sok"
+    },
+    {
+        "id":  88326,
+        "name":  "Kampung Sri Jaya"
+    },
+    {
+        "id":  87963,
+        "name":  "Kampung Sungai Acheh"
+    },
+    {
+        "id":  88180,
+        "name":  "Kampung Sungai Ara"
+    },
+    {
+        "id":  88177,
+        "name":  "Kampung Sungai Glugur"
+    },
+    {
+        "id":  88176,
+        "name":  "Kampung Sungai Kajang"
+    },
+    {
+        "id":  88174,
+        "name":  "Kampung Sungai Penchala"
+    },
+    {
+        "id":  88294,
+        "name":  "Kampung Sungai Rusa"
+    },
+    {
+        "id":  88172,
+        "name":  "Kampung Sungai Terap"
+    },
+    {
+        "id":  88171,
+        "name":  "Kampung Sungai Udang Besar"
+    },
+    {
+        "id":  88168,
+        "name":  "Kampung Tanjung Karang"
+    },
+    {
+        "id":  88167,
+        "name":  "Kampung Tanjung Keling"
+    },
+    {
+        "id":  88166,
+        "name":  "Kampung Tanjung Minyak"
+    },
+    {
+        "id":  88165,
+        "name":  "Kampung Tawar Besar"
+    },
+    {
+        "id":  87911,
+        "name":  "Kampung Tebong"
+    },
+    {
+        "id":  88342,
+        "name":  "Kampung Teh"
+    },
+    {
+        "id":  87949,
+        "name":  "Kampung Tekek"
+    },
+    {
+        "id":  88162,
+        "name":  "Kampung Telaga Papan"
+    },
+    {
+        "id":  87955,
+        "name":  "Kampung Teluk Air Tawar"
+    },
+    {
+        "id":  87906,
+        "name":  "Kampung Teluk Kemang"
+    },
+    {
+        "id":  88278,
+        "name":  "Kampung Teluk Kumbar"
+    },
+    {
+        "id":  88045,
+        "name":  "Kampung Titi Tinggi"
+    },
+    {
+        "id":  88159,
+        "name":  "Kampung Ulu Tris"
+    },
+    {
+        "id":  87921,
+        "name":  "Kampung Umbai"
+    },
+    {
+        "id":  88428,
+        "name":  "Kampung Wakaf Sku"
+    },
+    {
+        "id":  88429,
+        "name":  "Kampung Wakaf Stan"
+    },
+    {
+        "id":  87888,
+        "name":  "Kamunting"
+    },
+    {
+        "id":  88049,
+        "name":  "Kangar"
+    },
+    {
+        "id":  88357,
+        "name":  "Kangkar Baru"
+    },
+    {
+        "id":  87810,
+        "name":  "Kangkar Sedili Kecil"
+    },
+    {
+        "id":  88062,
+        "name":  "Kangkong"
+    },
+    {
+        "id":  88094,
+        "name":  "Kanowit"
+    },
+    {
+        "id":  87830,
+        "name":  "Kapar"
+    },
+    {
+        "id":  88098,
+        "name":  "Kapit"
+    },
+    {
+        "id":  87952,
+        "name":  "Karak"
+    },
+    {
+        "id":  88319,
+        "name":  "Kawasan Penempatan Ulu Benut Lima"
+    },
+    {
+        "id":  88318,
+        "name":  "Kawasan Penempatan Ulu Benut Tiga"
+    },
+    {
+        "id":  88317,
+        "name":  "Kawasan Penempatan Ulu Sungai Benut"
+    },
+    {
+        "id":  88353,
+        "name":  "Kawasan Perindustrian Cheng"
+    },
+    {
+        "id":  88156,
+        "name":  "Kelapa Sawit"
+    },
+    {
+        "id":  88358,
+        "name":  "Kemajuan Tanah Bukit Aping Barat"
+    },
+    {
+        "id":  88359,
+        "name":  "Kemajuan Tanah Bukit Aping Timur"
+    },
+    {
+        "id":  88320,
+        "name":  "Kemajuan Tanah Bukit Besar"
+    },
+    {
+        "id":  88361,
+        "name":  "Kemajuan Tanah Bukit Easter"
+    },
+    {
+        "id":  88328,
+        "name":  "Kemajuan Tanah Bukit Goh"
+    },
+    {
+        "id":  88347,
+        "name":  "Kemajuan Tanah Bukit Kepayang"
+    },
+    {
+        "id":  88322,
+        "name":  "Kemajuan Tanah Bukit Ramon"
+    },
+    {
+        "id":  88355,
+        "name":  "Kemajuan Tanah Chemplak"
+    },
+    {
+        "id":  88356,
+        "name":  "Kemajuan Tanah Chemplak Barat"
+    },
+    {
+        "id":  88312,
+        "name":  "Kemajuan Tanah Inas Utara dan Selatan"
+    },
+    {
+        "id":  88362,
+        "name":  "Kemajuan Tanah Lok Heng Barat"
+    },
+    {
+        "id":  88321,
+        "name":  "Kemajuan Tanah Pasir Raja"
+    },
+    {
+        "id":  88350,
+        "name":  "Kemajuan Tanah Rentam"
+    },
+    {
+        "id":  88348,
+        "name":  "Kemajuan Tanah Sebertak"
+    },
+    {
+        "id":  88360,
+        "name":  "Kemajuan Tanah Simpang Waha"
+    },
+    {
+        "id":  88331,
+        "name":  "Kemajuan Tanah Sungai Pancing Selatan"
+    },
+    {
+        "id":  88329,
+        "name":  "Kemajuan Tanah Sungai Pancing Timur"
+    },
+    {
+        "id":  88370,
+        "name":  "Kemajuan Tanah Sungai Pancing Utara"
+    },
+    {
+        "id":  88333,
+        "name":  "Kemajuan Tanah Tembangau"
+    },
+    {
+        "id":  88349,
+        "name":  "Kemajuan Tanah Tementi"
+    },
+    {
+        "id":  88323,
+        "name":  "Kemajuan Tanah Ulu Tebrau"
+    },
+    {
+        "id":  88366,
+        "name":  "Kemayan"
+    },
+    {
+        "id":  87805,
+        "name":  "Kempas"
+    },
+    {
+        "id":  87859,
+        "name":  "Keningau"
+    },
+    {
+        "id":  88057,
+        "name":  "Kepala Batas"
+    },
+    {
+        "id":  88023,
+        "name":  "Kepala Batas"
+    },
+    {
+        "id":  88154,
+        "name":  "Kepong"
+    },
+    {
+        "id":  87777,
+        "name":  "Kerling"
+    },
+    {
+        "id":  87865,
+        "name":  "Kertih"
+    },
+    {
+        "id":  88024,
+        "name":  "Keruh"
+    },
+    {
+        "id":  88448,
+        "name":  "Ketengah Jaya"
+    },
+    {
+        "id":  88026,
+        "name":  "Ketereh"
+    },
+    {
+        "id":  88443,
+        "name":  "Kinabatangan"
+    },
+    {
+        "id":  87848,
+        "name":  "Kinarut"
+    },
+    {
+        "id":  87833,
+        "name":  "Klang"
+    },
+    {
+        "id":  88155,
+        "name":  "Klebang Besar"
+    },
+    {
+        "id":  87813,
+        "name":  "Kluang"
+    },
+    {
+        "id":  88216,
+        "name":  "Kobang"
+    },
+    {
+        "id":  88052,
+        "name":  "Kodiang"
+    },
+    {
+        "id":  88077,
+        "name":  "Kota Belud"
+    },
+    {
+        "id":  88071,
+        "name":  "Kota Bharu"
+    },
+    {
+        "id":  88382,
+        "name":  "Kota Damansara"
+    },
+    {
+        "id":  87845,
+        "name":  "Kota Kinabalu"
+    },
+    {
+        "id":  88300,
+        "name":  "Kota Kuala Muda"
+    },
+    {
+        "id":  88438,
+        "name":  "Kota Samarahan"
+    },
+    {
+        "id":  88400,
+        "name":  "Kota Sarang Samut"
+    },
+    {
+        "id":  87800,
+        "name":  "Kota Tinggi"
+    },
+    {
+        "id":  88483,
+        "name":  "Kota Warisan"
+    },
+    {
+        "id":  87767,
+        "name":  "Kuah"
+    },
+    {
+        "id":  88114,
+        "name":  "Kuala Baram"
+    },
+    {
+        "id":  88072,
+        "name":  "Kuala Besut"
+    },
+    {
+        "id":  87973,
+        "name":  "Kuala Geris"
+    },
+    {
+        "id":  87894,
+        "name":  "Kuala Kangsar"
+    },
+    {
+        "id":  88058,
+        "name":  "Kuala Kedah"
+    },
+    {
+        "id":  88153,
+        "name":  "Kuala Ketil"
+    },
+    {
+        "id":  87930,
+        "name":  "Kuala Klawang"
+    },
+    {
+        "id":  88031,
+        "name":  "Kuala Krai"
+    },
+    {
+        "id":  87778,
+        "name":  "Kuala Kubu Baharu"
+    },
+    {
+        "id":  87967,
+        "name":  "Kuala Kurau"
+    },
+    {
+        "id":  87840,
+        "name":  "Kuala Lipis"
+    },
+    {
+        "id":  87983,
+        "name":  "Kuala Lumpur"
+    },
+    {
+        "id":  88064,
+        "name":  "Kuala Nerang"
+    },
+    {
+        "id":  88386,
+        "name":  "Kuala Nerus"
+    },
+    {
+        "id":  88152,
+        "name":  "Kuala Pegang"
+    },
+    {
+        "id":  87844,
+        "name":  "Kuala Penyu"
+    },
+    {
+        "id":  88053,
+        "name":  "Kuala Perlis"
+    },
+    {
+        "id":  87940,
+        "name":  "Kuala Pilah"
+    },
+    {
+        "id":  87948,
+        "name":  "Kuala Rompin"
+    },
+    {
+        "id":  88055,
+        "name":  "Kuala Sanglang"
+    },
+    {
+        "id":  87827,
+        "name":  "Kuala Selangor"
+    },
+    {
+        "id":  88151,
+        "name":  "Kuala Sungai Baru"
+    },
+    {
+        "id":  87903,
+        "name":  "Kuala Terengganu"
+    },
+    {
+        "id":  88284,
+        "name":  "Kuala Teriang"
+    },
+    {
+        "id":  88150,
+        "name":  "Kuang"
+    },
+    {
+        "id":  87993,
+        "name":  "Kuantan"
+    },
+    {
+        "id":  88149,
+        "name":  "Kubang Semang"
+    },
+    {
+        "id":  88413,
+        "name":  "Kuchai Lama"
+    },
+    {
+        "id":  88032,
+        "name":  "Kuching"
+    },
+    {
+        "id":  88074,
+        "name":  "Kudat"
+    },
+    {
+        "id":  87794,
+        "name":  "Kukup"
+    },
+    {
+        "id":  87802,
+        "name":  "Kulai"
+    },
+    {
+        "id":  87869,
+        "name":  "Kulim"
+    },
+    {
+        "id":  87824,
+        "name":  "Labis"
+    },
+    {
+        "id":  87852,
+        "name":  "Labuan"
+    },
+    {
+        "id":  88142,
+        "name":  "Ladang Seri Kundang"
+    },
+    {
+        "id":  87856,
+        "name":  "Lahad Datu"
+    },
+    {
+        "id":  87900,
+        "name":  "Lahat"
+    },
+    {
+        "id":  88393,
+        "name":  "Laman Permai"
+    },
+    {
+        "id":  88059,
+        "name":  "Langgar"
+    },
+    {
+        "id":  88104,
+        "name":  "Lawas"
+    },
+    {
+        "id":  87786,
+        "name":  "Layang Layang"
+    },
+    {
+        "id":  87931,
+        "name":  "Lenggeng"
+    },
+    {
+        "id":  88212,
+        "name":  "Lenggong"
+    },
+    {
+        "id":  88289,
+        "name":  "Lengkuas"
+    },
+    {
+        "id":  88193,
+        "name":  "Lepai"
+    },
+    {
+        "id":  88373,
+        "name":  "Lidung Jelo"
+    },
+    {
+        "id":  88107,
+        "name":  "Limbang"
+    },
+    {
+        "id":  88211,
+        "name":  "Limbong"
+    },
+    {
+        "id":  88035,
+        "name":  "Lingga"
+    },
+    {
+        "id":  88367,
+        "name":  "Linggi"
+    },
+    {
+        "id":  88374,
+        "name":  "Long Ampan Aing or Abanang"
+    },
+    {
+        "id":  88108,
+        "name":  "Long Bedian"
+    },
+    {
+        "id":  88111,
+        "name":  "Long Lama"
+    },
+    {
+        "id":  88090,
+        "name":  "Lubok Antu"
+    },
+    {
+        "id":  88148,
+        "name":  "Lubok Buntar"
+    },
+    {
+        "id":  87909,
+        "name":  "Lubok China"
+    },
+    {
+        "id":  88147,
+        "name":  "Lukut"
+    },
+    {
+        "id":  88014,
+        "name":  "Lumut"
+    },
+    {
+        "id":  87868,
+        "name":  "Lunas"
+    },
+    {
+        "id":  88095,
+        "name":  "Lundu"
+    },
+    {
+        "id":  88343,
+        "name":  "Lurah Bilut"
+    },
+    {
+        "id":  88263,
+        "name":  "Machap"
+    },
+    {
+        "id":  87870,
+        "name":  "Mahang"
+    },
+    {
+        "id":  87919,
+        "name":  "Malacca"
+    },
+    {
+        "id":  88001,
+        "name":  "Malim Nawar"
+    },
+    {
+        "id":  88083,
+        "name":  "Maludam"
+    },
+    {
+        "id":  87995,
+        "name":  "Mambang Di Awan"
+    },
+    {
+        "id":  87932,
+        "name":  "Mantin"
+    },
+    {
+        "id":  88039,
+        "name":  "Maradong"
+    },
+    {
+        "id":  87770,
+        "name":  "Maran"
+    },
+    {
+        "id":  87904,
+        "name":  "Marang"
+    },
+    {
+        "id":  88109,
+        "name":  "Marudi"
+    },
+    {
+        "id":  87807,
+        "name":  "Masai"
+    },
+    {
+        "id":  88089,
+        "name":  "Matu"
+    },
+    {
+        "id":  87798,
+        "name":  "Mawai"
+    },
+    {
+        "id":  88025,
+        "name":  "Melor"
+    },
+    {
+        "id":  87901,
+        "name":  "Menglembu"
+    },
+    {
+        "id":  87953,
+        "name":  "Mentakab"
+    },
+    {
+        "id":  87922,
+        "name":  "Merlimau"
+    },
+    {
+        "id":  87816,
+        "name":  "Mersing"
+    },
+    {
+        "id":  87831,
+        "name":  "Meru"
+    },
+    {
+        "id":  88475,
+        "name":  "Metro City New Township"
+    },
+    {
+        "id":  88113,
+        "name":  "Miri"
+    },
+    {
+        "id":  88401,
+        "name":  "Mont Kiara"
+    },
+    {
+        "id":  87926,
+        "name":  "Morib"
+    },
+    {
+        "id":  88334,
+        "name":  "Muadzam Shah"
+    },
+    {
+        "id":  87822,
+        "name":  "Muar"
+    },
+    {
+        "id":  88006,
+        "name":  "Mukah"
+    },
+    {
+        "id":  88420,
+        "name":  "Mukim Pulai"
+    },
+    {
+        "id":  88425,
+        "name":  "Mukim Tioman"
+    },
+    {
+        "id":  88134,
+        "name":  "Mulu"
+    },
+    {
+        "id":  88488,
+        "name":  "Mutiara Damansara"
+    },
+    {
+        "id":  88106,
+        "name":  "Nanga Medamit"
+    },
+    {
+        "id":  88146,
+        "name":  "Nanga Merit"
+    },
+    {
+        "id":  88327,
+        "name":  "Neram Satu"
+    },
+    {
+        "id":  88099,
+        "name":  "Niah"
+    },
+    {
+        "id":  87962,
+        "name":  "Nibong Tebal"
+    },
+    {
+        "id":  87814,
+        "name":  "Niyor"
+    },
+    {
+        "id":  87912,
+        "name":  "Nyalas"
+    },
+    {
+        "id":  88087,
+        "name":  "Oya"
+    },
+    {
+        "id":  88144,
+        "name":  "Padang Besar"
+    },
+    {
+        "id":  87947,
+        "name":  "Padang Endau"
+    },
+    {
+        "id":  88202,
+        "name":  "Padang Hang"
+    },
+    {
+        "id":  87765,
+        "name":  "Padang Mat Sirat"
+    },
+    {
+        "id":  87892,
+        "name":  "Padang Rengas"
+    },
+    {
+        "id":  87876,
+        "name":  "Padang Serai"
+    },
+    {
+        "id":  88054,
+        "name":  "Padang Sira"
+    },
+    {
+        "id":  88464,
+        "name":  "Padang Tengku"
+    },
+    {
+        "id":  87820,
+        "name":  "Pagoh"
+    },
+    {
+        "id":  87864,
+        "name":  "Paka"
+    },
+    {
+        "id":  88043,
+        "name":  "Pakan"
+    },
+    {
+        "id":  87812,
+        "name":  "Paloh"
+    },
+    {
+        "id":  88452,
+        "name":  "Pandamaran"
+    },
+    {
+        "id":  88013,
+        "name":  "Pangkor"
+    },
+    {
+        "id":  88267,
+        "name":  "Pantai Belimbing"
+    },
+    {
+        "id":  88377,
+        "name":  "Pantai Cenang"
+    },
+    {
+        "id":  88143,
+        "name":  "Pantai Remis"
+    },
+    {
+        "id":  88034,
+        "name":  "Pantu"
+    },
+    {
+        "id":  87842,
+        "name":  "Papar"
+    },
+    {
+        "id":  88010,
+        "name":  "Parit"
+    },
+    {
+        "id":  87964,
+        "name":  "Parit Buntar"
+    },
+    {
+        "id":  87780,
+        "name":  "Parit Jawa"
+    },
+    {
+        "id":  87785,
+        "name":  "Parit Raja"
+    },
+    {
+        "id":  87779,
+        "name":  "Parit Sulung"
+    },
+    {
+        "id":  87796,
+        "name":  "Pasir Gudang"
+    },
+    {
+        "id":  88070,
+        "name":  "Pasir Mas"
+    },
+    {
+        "id":  87907,
+        "name":  "Pasir Panjang"
+    },
+    {
+        "id":  88028,
+        "name":  "Pasir Puteh"
+    },
+    {
+        "id":  88426,
+        "name":  "Paya Terubong"
+    },
+    {
+        "id":  87950,
+        "name":  "Pekan"
+    },
+    {
+        "id":  87790,
+        "name":  "Pekan Nenas"
+    },
+    {
+        "id":  88363,
+        "name":  "Pekan Serkat"
+    },
+    {
+        "id":  87924,
+        "name":  "Pelabuhan Klang"
+    },
+    {
+        "id":  87806,
+        "name":  "Pelentong"
+    },
+    {
+        "id":  88277,
+        "name":  "Penaga"
+    },
+    {
+        "id":  88198,
+        "name":  "Pendang"
+    },
+    {
+        "id":  87811,
+        "name":  "Pengerang"
+    },
+    {
+        "id":  88067,
+        "name":  "Pengkalan Chepa"
+    },
+    {
+        "id":  88196,
+        "name":  "Pengkalan Kundor"
+    },
+    {
+        "id":  88421,
+        "name":  "Penyabong"
+    },
+    {
+        "id":  87958,
+        "name":  "Perai"
+    },
+    {
+        "id":  88141,
+        "name":  "Peringat"
+    },
+    {
+        "id":  88418,
+        "name":  "Perling"
+    },
+    {
+        "id":  88140,
+        "name":  "Permatang Kuching"
+    },
+    {
+        "id":  88139,
+        "name":  "Permatang Pasir"
+    },
+    {
+        "id":  88442,
+        "name":  "Petagas"
+    },
+    {
+        "id":  87982,
+        "name":  "Petaling Jaya"
+    },
+    {
+        "id":  88065,
+        "name":  "Pokok Sena"
+    },
+    {
+        "id":  87792,
+        "name":  "Pontian Besar"
+    },
+    {
+        "id":  87793,
+        "name":  "Pontian Kechil"
+    },
+    {
+        "id":  87934,
+        "name":  "Port Dickson"
+    },
+    {
+        "id":  88458,
+        "name":  "Proton City"
+    },
+    {
+        "id":  88138,
+        "name":  "Puchong"
+    },
+    {
+        "id":  88137,
+        "name":  "Pudu"
+    },
+    {
+        "id":  87879,
+        "name":  "Pulai"
+    },
+    {
+        "id":  88027,
+        "name":  "Pulai Chondong"
+    },
+    {
+        "id":  88136,
+        "name":  "Pulau Sebang"
+    },
+    {
+        "id":  88080,
+        "name":  "Pusa"
+    },
+    {
+        "id":  88011,
+        "name":  "Pusing"
+    },
+    {
+        "id":  87847,
+        "name":  "Putatan"
+    },
+    {
+        "id":  88375,
+        "name":  "Putra Heights"
+    },
+    {
+        "id":  88280,
+        "name":  "Putrajaya"
+    },
+    {
+        "id":  87850,
+        "name":  "Ranau"
+    },
+    {
+        "id":  88069,
+        "name":  "Rantau Panjang"
+    },
+    {
+        "id":  87976,
+        "name":  "Rasa"
+    },
+    {
+        "id":  87773,
+        "name":  "Raub"
+    },
+    {
+        "id":  87979,
+        "name":  "Rawang"
+    },
+    {
+        "id":  87872,
+        "name":  "Redang Panjang"
+    },
+    {
+        "id":  88135,
+        "name":  "Relau"
+    },
+    {
+        "id":  87941,
+        "name":  "Rembau"
+    },
+    {
+        "id":  87915,
+        "name":  "Rembia"
+    },
+    {
+        "id":  87789,
+        "name":  "Rengit"
+    },
+    {
+        "id":  87997,
+        "name":  "Ringlet"
+    },
+    {
+        "id":  88079,
+        "name":  "Roban"
+    },
+    {
+        "id":  87945,
+        "name":  "Rompin"
+    },
+    {
+        "id":  87990,
+        "name":  "Sabak Bernam"
+    },
+    {
+        "id":  88188,
+        "name":  "Sala Kechik"
+    },
+    {
+        "id":  87858,
+        "name":  "Sandakan"
+    },
+    {
+        "id":  88084,
+        "name":  "Saratok"
+    },
+    {
+        "id":  88038,
+        "name":  "Sarikei"
+    },
+    {
+        "id":  88102,
+        "name":  "Sebauh"
+    },
+    {
+        "id":  87885,
+        "name":  "Sebuyau"
+    },
+    {
+        "id":  87817,
+        "name":  "Segamat"
+    },
+    {
+        "id":  87838,
+        "name":  "Sekinchan"
+    },
+    {
+        "id":  87871,
+        "name":  "Selama"
+    },
+    {
+        "id":  88301,
+        "name":  "Selama Kedah"
+    },
+    {
+        "id":  88388,
+        "name":  "Selangau"
+    },
+    {
+        "id":  88346,
+        "name":  "Selayang Baru Utara"
+    },
+    {
+        "id":  88096,
+        "name":  "Sematan"
+    },
+    {
+        "id":  87929,
+        "name":  "Semenyih"
+    },
+    {
+        "id":  87783,
+        "name":  "Semerah"
+    },
+    {
+        "id":  88412,
+        "name":  "Seminyih"
+    },
+    {
+        "id":  87851,
+        "name":  "Semporna"
+    },
+    {
+        "id":  87788,
+        "name":  "Senggarang"
+    },
+    {
+        "id":  88133,
+        "name":  "Sentul"
+    },
+    {
+        "id":  87935,
+        "name":  "Sepang"
+    },
+    {
+        "id":  88132,
+        "name":  "Seputeh"
+    },
+    {
+        "id":  88131,
+        "name":  "Serdang"
+    },
+    {
+        "id":  87933,
+        "name":  "Seremban"
+    },
+    {
+        "id":  88407,
+        "name":  "Seremban 2"
+    },
+    {
+        "id":  88422,
+        "name":  "Seremban 3"
+    },
+    {
+        "id":  87978,
+        "name":  "Serendah"
+    },
+    {
+        "id":  88380,
+        "name":  "Seri Iskandar"
+    },
+    {
+        "id":  88129,
+        "name":  "Seri Kembangan"
+    },
+    {
+        "id":  88341,
+        "name":  "Seri Manjung"
+    },
+    {
+        "id":  88130,
+        "name":  "Serian"
+    },
+    {
+        "id":  87984,
+        "name":  "Setapak"
+    },
+    {
+        "id":  88445,
+        "name":  "Setia Alam"
+    },
+    {
+        "id":  88469,
+        "name":  "Setia Tropika"
+    },
+    {
+        "id":  87832,
+        "name":  "Shah Alam"
+    },
+    {
+        "id":  88042,
+        "name":  "Sibu"
+    },
+    {
+        "id":  88441,
+        "name":  "Sibu Jaya"
+    },
+    {
+        "id":  87882,
+        "name":  "Siburan"
+    },
+    {
+        "id":  88287,
+        "name":  "Sik"
+    },
+    {
+        "id":  88128,
+        "name":  "Simpang"
+    },
+    {
+        "id":  87887,
+        "name":  "Simpang Empat"
+    },
+    {
+        "id":  87960,
+        "name":  "Simpang Empat"
+    },
+    {
+        "id":  88292,
+        "name":  "Simpang Empat"
+    },
+    {
+        "id":  87937,
+        "name":  "Simpang Pertang"
+    },
+    {
+        "id":  87787,
+        "name":  "Simpang Renggam"
+    },
+    {
+        "id":  88033,
+        "name":  "Simunjan"
+    },
+    {
+        "id":  88063,
+        "name":  "Sintok"
+    },
+    {
+        "id":  87853,
+        "name":  "Sipitang"
+    },
+    {
+        "id":  88015,
+        "name":  "Sitiawan"
+    },
+    {
+        "id":  87804,
+        "name":  "Skudai"
+    },
+    {
+        "id":  87837,
+        "name":  "Slim River"
+    },
+    {
+        "id":  88097,
+        "name":  "Song"
+    },
+    {
+        "id":  88078,
+        "name":  "Spaoh"
+    },
+    {
+        "id":  88036,
+        "name":  "Sri Aman"
+    },
+    {
+        "id":  88339,
+        "name":  "Sri Petaling"
+    },
+    {
+        "id":  88462,
+        "name":  "SS2"
+    },
+    {
+        "id":  88369,
+        "name":  "Subang Jaya"
+    },
+    {
+        "id":  88105,
+        "name":  "Sundar"
+    },
+    {
+        "id":  88179,
+        "name":  "Sungai Baharu"
+    },
+    {
+        "id":  87961,
+        "name":  "Sungai Bakap"
+    },
+    {
+        "id":  87991,
+        "name":  "Sungai Besar"
+    },
+    {
+        "id":  87980,
+        "name":  "Sungai Buloh"
+    },
+    {
+        "id":  88436,
+        "name":  "Sungai Chenaam"
+    },
+    {
+        "id":  88126,
+        "name":  "Sungai Dua"
+    },
+    {
+        "id":  88125,
+        "name":  "Sungai Durian"
+    },
+    {
+        "id":  88465,
+        "name":  "Sungai Jawi"
+    },
+    {
+        "id":  88124,
+        "name":  "Sungai Kob"
+    },
+    {
+        "id":  88463,
+        "name":  "Sungai Koyan"
+    },
+    {
+        "id":  88123,
+        "name":  "Sungai Lalang"
+    },
+    {
+        "id":  87992,
+        "name":  "Sungai Lembing"
+    },
+    {
+        "id":  88122,
+        "name":  "Sungai Pelek New Village"
+    },
+    {
+        "id":  88022,
+        "name":  "Sungai Petani"
+    },
+    {
+        "id":  87998,
+        "name":  "Sungai Siput"
+    },
+    {
+        "id":  88127,
+        "name":  "Sungai Sumun"
+    },
+    {
+        "id":  87918,
+        "name":  "Sungai Udang"
+    },
+    {
+        "id":  87836,
+        "name":  "Sungkai"
+    },
+    {
+        "id":  87891,
+        "name":  "Taiping"
+    },
+    {
+        "id":  88489,
+        "name":  "Taman Desa"
+    },
+    {
+        "id":  88351,
+        "name":  "Taman Dusun Setia"
+    },
+    {
+        "id":  88394,
+        "name":  "Taman Greenwood"
+    },
+    {
+        "id":  88403,
+        "name":  "Taman Ikan Emas"
+    },
+    {
+        "id":  88018,
+        "name":  "Taman Kota Sarang Semut"
+    },
+    {
+        "id":  88395,
+        "name":  "Taman Melati"
+    },
+    {
+        "id":  88417,
+        "name":  "Taman Melawati"
+    },
+    {
+        "id":  88313,
+        "name":  "Taman Mount Austin"
+    },
+    {
+        "id":  88414,
+        "name":  "Taman Naga Emas"
+    },
+    {
+        "id":  88402,
+        "name":  "Taman OUG"
+    },
+    {
+        "id":  88354,
+        "name":  "Taman Pelangi"
+    },
+    {
+        "id":  88315,
+        "name":  "Taman Permas Jaya"
+    },
+    {
+        "id":  88389,
+        "name":  "Taman Petaling"
+    },
+    {
+        "id":  88371,
+        "name":  "Taman Rajawali"
+    },
+    {
+        "id":  88479,
+        "name":  "Taman Scientex"
+    },
+    {
+        "id":  87801,
+        "name":  "Taman Senai"
+    },
+    {
+        "id":  87936,
+        "name":  "Taman Senawang Indah"
+    },
+    {
+        "id":  88337,
+        "name":  "Taman Sepang Putra"
+    },
+    {
+        "id":  88352,
+        "name":  "Taman Seremban Jaya"
+    },
+    {
+        "id":  88449,
+        "name":  "Taman Sri Sinar"
+    },
+    {
+        "id":  88404,
+        "name":  "Taman Tun Dr Ismail"
+    },
+    {
+        "id":  88364,
+        "name":  "Taman Universiti"
+    },
+    {
+        "id":  87849,
+        "name":  "Tambunan"
+    },
+    {
+        "id":  87910,
+        "name":  "Tampin"
+    },
+    {
+        "id":  88030,
+        "name":  "Tanah Merah"
+    },
+    {
+        "id":  87996,
+        "name":  "Tanah Rata"
+    },
+    {
+        "id":  87818,
+        "name":  "Tangkak"
+    },
+    {
+        "id":  87776,
+        "name":  "Tanjong Malim"
+    },
+    {
+        "id":  88296,
+        "name":  "Tanjung Bungah"
+    },
+    {
+        "id":  87966,
+        "name":  "Tanjung Piandang"
+    },
+    {
+        "id":  87898,
+        "name":  "Tanjung Rambutan"
+    },
+    {
+        "id":  88121,
+        "name":  "Tanjung Sepat"
+    },
+    {
+        "id":  88120,
+        "name":  "Tanjung Tokong"
+    },
+    {
+        "id":  88004,
+        "name":  "Tapah Road"
+    },
+    {
+        "id":  87968,
+        "name":  "Tasek Glugor"
+    },
+    {
+        "id":  88007,
+        "name":  "Tatau"
+    },
+    {
+        "id":  87862,
+        "name":  "Tawau"
+    },
+    {
+        "id":  87883,
+        "name":  "Tebedu"
+    },
+    {
+        "id":  88164,
+        "name":  "Tebengau"
+    },
+    {
+        "id":  88119,
+        "name":  "Telaga Batu"
+    },
+    {
+        "id":  88163,
+        "name":  "Telaga Mas"
+    },
+    {
+        "id":  88298,
+        "name":  "Teloi Kanan"
+    },
+    {
+        "id":  88118,
+        "name":  "Teluk Bahang"
+    },
+    {
+        "id":  88016,
+        "name":  "Teluk Intan"
+    },
+    {
+        "id":  87920,
+        "name":  "Teluk Mas"
+    },
+    {
+        "id":  87923,
+        "name":  "Teluk Panglima Garang"
+    },
+    {
+        "id":  87954,
+        "name":  "Temerluh"
+    },
+    {
+        "id":  88279,
+        "name":  "Templer Bestari"
+    },
+    {
+        "id":  87855,
+        "name":  "Tenom"
+    },
+    {
+        "id":  87774,
+        "name":  "Teras"
+    },
+    {
+        "id":  87893,
+        "name":  "Terung"
+    },
+    {
+        "id":  88299,
+        "name":  "Tikam Batu"
+    },
+    {
+        "id":  87938,
+        "name":  "Titi"
+    },
+    {
+        "id":  88161,
+        "name":  "Titi Gajah"
+    },
+    {
+        "id":  88474,
+        "name":  "Titiwangsa"
+    },
+    {
+        "id":  88061,
+        "name":  "Tokai"
+    },
+    {
+        "id":  87781,
+        "name":  "Tongkang Pechah"
+    },
+    {
+        "id":  88392,
+        "name":  "Tropicana Indah"
+    },
+    {
+        "id":  88103,
+        "name":  "Trusan"
+    },
+    {
+        "id":  88066,
+        "name":  "Tumpat"
+    },
+    {
+        "id":  88430,
+        "name":  "Ujong Pasir"
+    },
+    {
+        "id":  88117,
+        "name":  "Ulu Kelang"
+    },
+    {
+        "id":  88116,
+        "name":  "Ulu Kinta"
+    },
+    {
+        "id":  88115,
+        "name":  "Ulu Tiram"
+    },
+    {
+        "id":  87841,
+        "name":  "Val Dor"
+    },
+    {
+        "id":  88068,
+        "name":  "Wakaf Baharu"
+    },
+    {
+        "id":  87861,
+        "name":  "Wallace Bay"
+    },
+    {
+        "id":  88411,
+        "name":  "Wangsa Maju"
+    },
+    {
+        "id":  88021,
+        "name":  "Yan Besar"
+    },
+    {
+        "id":  87815,
+        "name":  "Yong Peng"
+    }
+]

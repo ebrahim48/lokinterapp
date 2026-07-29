@@ -1,0 +1,7942 @@
+[
+    {
+        "id":  58504,
+        "name":  "Abang"
+    },
+    {
+        "id":  58445,
+        "name":  "Abepura"
+    },
+    {
+        "id":  58844,
+        "name":  "Adil Makmur"
+    },
+    {
+        "id":  58356,
+        "name":  "Adipala"
+    },
+    {
+        "id":  58355,
+        "name":  "Adiwerna"
+    },
+    {
+        "id":  58464,
+        "name":  "Aek Kanopan"
+    },
+    {
+        "id":  58560,
+        "name":  "Aelande"
+    },
+    {
+        "id":  58354,
+        "name":  "Aenganyar"
+    },
+    {
+        "id":  58352,
+        "name":  "Agats"
+    },
+    {
+        "id":  58953,
+        "name":  "Aifat"
+    },
+    {
+        "id":  58501,
+        "name":  "Aikmel"
+    },
+    {
+        "id":  59000,
+        "name":  "Aimas"
+    },
+    {
+        "id":  58351,
+        "name":  "Aimere"
+    },
+    {
+        "id":  57162,
+        "name":  "Air Bangis"
+    },
+    {
+        "id":  58349,
+        "name":  "Air Molek"
+    },
+    {
+        "id":  58353,
+        "name":  "Airbuaya"
+    },
+    {
+        "id":  58350,
+        "name":  "Airmadidi"
+    },
+    {
+        "id":  58324,
+        "name":  "Aitinyo"
+    },
+    {
+        "id":  58348,
+        "name":  "Alabio"
+    },
+    {
+        "id":  58347,
+        "name":  "Alahanpanjang"
+    },
+    {
+        "id":  58946,
+        "name":  "Allealle"
+    },
+    {
+        "id":  58552,
+        "name":  "Allu"
+    },
+    {
+        "id":  58849,
+        "name":  "Alue Bilie"
+    },
+    {
+        "id":  58846,
+        "name":  "Alue Glumpang"
+    },
+    {
+        "id":  58346,
+        "name":  "Aluhaluh"
+    },
+    {
+        "id":  58037,
+        "name":  "Alung"
+    },
+    {
+        "id":  58345,
+        "name":  "Amahai"
+    },
+    {
+        "id":  58484,
+        "name":  "Amahusu"
+    },
+    {
+        "id":  58344,
+        "name":  "Ambarawa"
+    },
+    {
+        "id":  57161,
+        "name":  "Ambarita"
+    },
+    {
+        "id":  58343,
+        "name":  "Ambon"
+    },
+    {
+        "id":  58342,
+        "name":  "Ambuten"
+    },
+    {
+        "id":  57961,
+        "name":  "Amlapura"
+    },
+    {
+        "id":  59011,
+        "name":  "Amlapura city"
+    },
+    {
+        "id":  58341,
+        "name":  "Ampana"
+    },
+    {
+        "id":  58393,
+        "name":  "Amparita"
+    },
+    {
+        "id":  58340,
+        "name":  "Amuntai"
+    },
+    {
+        "id":  58339,
+        "name":  "Andoolo"
+    },
+    {
+        "id":  58826,
+        "name":  "Angan"
+    },
+    {
+        "id":  58338,
+        "name":  "Anggana"
+    },
+    {
+        "id":  58922,
+        "name":  "Angkimang"
+    },
+    {
+        "id":  58463,
+        "name":  "Angkup"
+    },
+    {
+        "id":  58930,
+        "name":  "Anjirmuara"
+    },
+    {
+        "id":  58928,
+        "name":  "Anjirserapat"
+    },
+    {
+        "id":  58337,
+        "name":  "Ankola"
+    },
+    {
+        "id":  58336,
+        "name":  "Ansus"
+    },
+    {
+        "id":  58557,
+        "name":  "Anyar"
+    },
+    {
+        "id":  58409,
+        "name":  "Apala"
+    },
+    {
+        "id":  58730,
+        "name":  "Apui"
+    },
+    {
+        "id":  58775,
+        "name":  "Arbais"
+    },
+    {
+        "id":  58335,
+        "name":  "Argamakmur"
+    },
+    {
+        "id":  58641,
+        "name":  "Argasari"
+    },
+    {
+        "id":  58334,
+        "name":  "Arjasa"
+    },
+    {
+        "id":  58332,
+        "name":  "Arjasa"
+    },
+    {
+        "id":  58639,
+        "name":  "Arjasari"
+    },
+    {
+        "id":  58333,
+        "name":  "Arjawinangun"
+    },
+    {
+        "id":  58331,
+        "name":  "Armopa"
+    },
+    {
+        "id":  58330,
+        "name":  "Arosbaya"
+    },
+    {
+        "id":  59006,
+        "name":  "Arosuka"
+    },
+    {
+        "id":  58444,
+        "name":  "Arso"
+    },
+    {
+        "id":  57160,
+        "name":  "Asan Kumbang"
+    },
+    {
+        "id":  58329,
+        "name":  "Asembagus"
+    },
+    {
+        "id":  58328,
+        "name":  "Asera"
+    },
+    {
+        "id":  58935,
+        "name":  "Astambul"
+    },
+    {
+        "id":  58327,
+        "name":  "Astanajapura"
+    },
+    {
+        "id":  58326,
+        "name":  "Atambua"
+    },
+    {
+        "id":  58325,
+        "name":  "Atap"
+    },
+    {
+        "id":  58910,
+        "name":  "Awayan"
+    },
+    {
+        "id":  58323,
+        "name":  "Ayamaru"
+    },
+    {
+        "id":  58725,
+        "name":  "Ayotupas"
+    },
+    {
+        "id":  58433,
+        "name":  "Baa"
+    },
+    {
+        "id":  58867,
+        "name":  "Babah Rot"
+    },
+    {
+        "id":  58322,
+        "name":  "Babana"
+    },
+    {
+        "id":  58321,
+        "name":  "Babat"
+    },
+    {
+        "id":  58320,
+        "name":  "Babat"
+    },
+    {
+        "id":  58432,
+        "name":  "Babau"
+    },
+    {
+        "id":  58319,
+        "name":  "Babirik"
+    },
+    {
+        "id":  58317,
+        "name":  "Bade"
+    },
+    {
+        "id":  58316,
+        "name":  "Baekrajan"
+    },
+    {
+        "id":  58315,
+        "name":  "Bagan Si Api-api"
+    },
+    {
+        "id":  58816,
+        "name":  "Bagok"
+    },
+    {
+        "id":  58468,
+        "name":  "Bahoi"
+    },
+    {
+        "id":  58314,
+        "name":  "Bajawa"
+    },
+    {
+        "id":  58313,
+        "name":  "Bajo"
+    },
+    {
+        "id":  58938,
+        "name":  "Bakau"
+    },
+    {
+        "id":  58312,
+        "name":  "Baki"
+    },
+    {
+        "id":  58668,
+        "name":  "Bakung"
+    },
+    {
+        "id":  57159,
+        "name":  "Bakungan"
+    },
+    {
+        "id":  58310,
+        "name":  "Balai Pungut"
+    },
+    {
+        "id":  58311,
+        "name":  "Balaiberkuak"
+    },
+    {
+        "id":  58309,
+        "name":  "Balapulang"
+    },
+    {
+        "id":  58308,
+        "name":  "Balauring"
+    },
+    {
+        "id":  57158,
+        "name":  "Balige"
+    },
+    {
+        "id":  58307,
+        "name":  "Balikpapan"
+    },
+    {
+        "id":  58306,
+        "name":  "Balong"
+    },
+    {
+        "id":  58220,
+        "name":  "Baluburlimbangan"
+    },
+    {
+        "id":  58304,
+        "name":  "Balung"
+    },
+    {
+        "id":  58305,
+        "name":  "Balung"
+    },
+    {
+        "id":  58303,
+        "name":  "Bambanglipuro"
+    },
+    {
+        "id":  58811,
+        "name":  "Bambol"
+    },
+    {
+        "id":  58302,
+        "name":  "Bancar"
+    },
+    {
+        "id":  58778,
+        "name":  "Banda"
+    },
+    {
+        "id":  57157,
+        "name":  "Banda Aceh"
+    },
+    {
+        "id":  58838,
+        "name":  "Banda Layung"
+    },
+    {
+        "id":  57156,
+        "name":  "Bandar"
+    },
+    {
+        "id":  57282,
+        "name":  "Bandar Lampung"
+    },
+    {
+        "id":  58986,
+        "name":  "Bandar Seri Bentan"
+    },
+    {
+        "id":  58587,
+        "name":  "Bandaragung"
+    },
+    {
+        "id":  58300,
+        "name":  "Banding Agung"
+    },
+    {
+        "id":  58299,
+        "name":  "Bandung"
+    },
+    {
+        "id":  58298,
+        "name":  "Bandung"
+    },
+    {
+        "id":  58297,
+        "name":  "Banggai"
+    },
+    {
+        "id":  58296,
+        "name":  "Bangil"
+    },
+    {
+        "id":  58295,
+        "name":  "Bangilan"
+    },
+    {
+        "id":  58294,
+        "name":  "Bangkalan"
+    },
+    {
+        "id":  58293,
+        "name":  "Bangkinang"
+    },
+    {
+        "id":  58292,
+        "name":  "Bangkir"
+    },
+    {
+        "id":  58661,
+        "name":  "Bangkle"
+    },
+    {
+        "id":  58291,
+        "name":  "Bangko"
+    },
+    {
+        "id":  58290,
+        "name":  "Bangli"
+    },
+    {
+        "id":  58682,
+        "name":  "Bangsalsari"
+    },
+    {
+        "id":  58367,
+        "name":  "Bangunrejo"
+    },
+    {
+        "id":  58739,
+        "name":  "Baniona"
+    },
+    {
+        "id":  58289,
+        "name":  "Banjar"
+    },
+    {
+        "id":  58287,
+        "name":  "Banjar"
+    },
+    {
+        "id":  58288,
+        "name":  "Banjar"
+    },
+    {
+        "id":  58524,
+        "name":  "Banjar Mandung"
+    },
+    {
+        "id":  58487,
+        "name":  "Banjar Wangsian"
+    },
+    {
+        "id":  58286,
+        "name":  "Banjaran"
+    },
+    {
+        "id":  58670,
+        "name":  "Banjaranyar"
+    },
+    {
+        "id":  58285,
+        "name":  "Banjarbaru"
+    },
+    {
+        "id":  58282,
+        "name":  "Banjarejo"
+    },
+    {
+        "id":  58284,
+        "name":  "Banjarmasin"
+    },
+    {
+        "id":  58283,
+        "name":  "Banjarnegara"
+    },
+    {
+        "id":  58281,
+        "name":  "Banjarsari"
+    },
+    {
+        "id":  58280,
+        "name":  "Banjarwangi"
+    },
+    {
+        "id":  58279,
+        "name":  "Bantaeng"
+    },
+    {
+        "id":  58656,
+        "name":  "Bantengan"
+    },
+    {
+        "id":  58278,
+        "name":  "Bantul"
+    },
+    {
+        "id":  58926,
+        "name":  "Bantul"
+    },
+    {
+        "id":  58277,
+        "name":  "Bantur"
+    },
+    {
+        "id":  58276,
+        "name":  "Banyuates"
+    },
+    {
+        "id":  58275,
+        "name":  "Banyumas"
+    },
+    {
+        "id":  58274,
+        "name":  "Banyuresmi"
+    },
+    {
+        "id":  58273,
+        "name":  "Banyuwangi"
+    },
+    {
+        "id":  58698,
+        "name":  "Bara Datu"
+    },
+    {
+        "id":  58272,
+        "name":  "Barabai"
+    },
+    {
+        "id":  58397,
+        "name":  "Baraka"
+    },
+    {
+        "id":  58395,
+        "name":  "Baranti"
+    },
+    {
+        "id":  58223,
+        "name":  "Baranusa"
+    },
+    {
+        "id":  58271,
+        "name":  "Barapas"
+    },
+    {
+        "id":  58968,
+        "name":  "Barikin"
+    },
+    {
+        "id":  58927,
+        "name":  "Barimba"
+    },
+    {
+        "id":  58270,
+        "name":  "Barru"
+    },
+    {
+        "id":  57155,
+        "name":  "Barus"
+    },
+    {
+        "id":  58483,
+        "name":  "Basa"
+    },
+    {
+        "id":  58929,
+        "name":  "Basarang"
+    },
+    {
+        "id":  58269,
+        "name":  "Baserah"
+    },
+    {
+        "id":  58958,
+        "name":  "Basiong"
+    },
+    {
+        "id":  58268,
+        "name":  "Baso"
+    },
+    {
+        "id":  58710,
+        "name":  "Batakte"
+    },
+    {
+        "id":  58448,
+        "name":  "Batam"
+    },
+    {
+        "id":  58267,
+        "name":  "Batang"
+    },
+    {
+        "id":  58982,
+        "name":  "Batang"
+    },
+    {
+        "id":  58265,
+        "name":  "Batangan"
+    },
+    {
+        "id":  58370,
+        "name":  "Batanghari"
+    },
+    {
+        "id":  57154,
+        "name":  "Batangtoru"
+    },
+    {
+        "id":  58266,
+        "name":  "Batauga"
+    },
+    {
+        "id":  58264,
+        "name":  "Batibati"
+    },
+    {
+        "id":  58263,
+        "name":  "Batu"
+    },
+    {
+        "id":  58259,
+        "name":  "Batu Panjang"
+    },
+    {
+        "id":  58965,
+        "name":  "Batuampar"
+    },
+    {
+        "id":  58262,
+        "name":  "Batubantar"
+    },
+    {
+        "id":  58261,
+        "name":  "Batulicin"
+    },
+    {
+        "id":  58260,
+        "name":  "Batumandi"
+    },
+    {
+        "id":  58414,
+        "name":  "Batuputih"
+    },
+    {
+        "id":  58258,
+        "name":  "Batuputih"
+    },
+    {
+        "id":  58257,
+        "name":  "Baturaden"
+    },
+    {
+        "id":  58256,
+        "name":  "Baturaja"
+    },
+    {
+        "id":  58255,
+        "name":  "Baturiti"
+    },
+    {
+        "id":  58254,
+        "name":  "Batusangkar"
+    },
+    {
+        "id":  58909,
+        "name":  "Batusopang"
+    },
+    {
+        "id":  58705,
+        "name":  "Batutua"
+    },
+    {
+        "id":  58253,
+        "name":  "Baubau"
+    },
+    {
+        "id":  57153,
+        "name":  "Bayeuen"
+    },
+    {
+        "id":  58252,
+        "name":  "Bayongbong"
+    },
+    {
+        "id":  58251,
+        "name":  "Bayunglincir"
+    },
+    {
+        "id":  58250,
+        "name":  "Bebandem"
+    },
+    {
+        "id":  58503,
+        "name":  "Bedugul"
+    },
+    {
+        "id":  58667,
+        "name":  "Bejagung Kidul"
+    },
+    {
+        "id":  58249,
+        "name":  "Bejubang Dua"
+    },
+    {
+        "id":  58248,
+        "name":  "Bekasi"
+    },
+    {
+        "id":  58581,
+        "name":  "Belajen"
+    },
+    {
+        "id":  58247,
+        "name":  "Belakangpadang"
+    },
+    {
+        "id":  57152,
+        "name":  "Belawan"
+    },
+    {
+        "id":  58359,
+        "name":  "Belawang"
+    },
+    {
+        "id":  58244,
+        "name":  "Belimbing"
+    },
+    {
+        "id":  58243,
+        "name":  "Belopa"
+    },
+    {
+        "id":  58693,
+        "name":  "Bendo"
+    },
+    {
+        "id":  58242,
+        "name":  "Bengkalis"
+    },
+    {
+        "id":  58241,
+        "name":  "Bengkayang"
+    },
+    {
+        "id":  58240,
+        "name":  "Bengkulu"
+    },
+    {
+        "id":  58239,
+        "name":  "Benteng"
+    },
+    {
+        "id":  58577,
+        "name":  "Bentengjawa"
+    },
+    {
+        "id":  58470,
+        "name":  "Bentung"
+    },
+    {
+        "id":  57471,
+        "name":  "Benua Baru"
+    },
+    {
+        "id":  58238,
+        "name":  "Beo"
+    },
+    {
+        "id":  58773,
+        "name":  "Beoga"
+    },
+    {
+        "id":  57151,
+        "name":  "Berastagi"
+    },
+    {
+        "id":  58400,
+        "name":  "Beringinjaya"
+    },
+    {
+        "id":  58237,
+        "name":  "Besuki"
+    },
+    {
+        "id":  58236,
+        "name":  "Besuki Satu"
+    },
+    {
+        "id":  58235,
+        "name":  "Betaf"
+    },
+    {
+        "id":  58364,
+        "name":  "Betun"
+    },
+    {
+        "id":  58401,
+        "name":  "Beuma"
+    },
+    {
+        "id":  58817,
+        "name":  "Beusa Seberang"
+    },
+    {
+        "id":  58848,
+        "name":  "Beutong Ateuh"
+    },
+    {
+        "id":  58234,
+        "name":  "Biak"
+    },
+    {
+        "id":  58233,
+        "name":  "Biha"
+    },
+    {
+        "id":  58210,
+        "name":  "Bikondini"
+    },
+    {
+        "id":  58412,
+        "name":  "Bilalang"
+    },
+    {
+        "id":  58772,
+        "name":  "Bilogai"
+    },
+    {
+        "id":  58232,
+        "name":  "Bilungala"
+    },
+    {
+        "id":  58231,
+        "name":  "Bima"
+    },
+    {
+        "id":  58892,
+        "name":  "Binalawan"
+    },
+    {
+        "id":  57150,
+        "name":  "Binanga"
+    },
+    {
+        "id":  58230,
+        "name":  "Binangun"
+    },
+    {
+        "id":  58944,
+        "name":  "Binawara"
+    },
+    {
+        "id":  58229,
+        "name":  "Bingintelok"
+    },
+    {
+        "id":  57149,
+        "name":  "Binjai"
+    },
+    {
+        "id":  58228,
+        "name":  "Bintuhan"
+    },
+    {
+        "id":  58227,
+        "name":  "Bintuni"
+    },
+    {
+        "id":  58226,
+        "name":  "Binuang"
+    },
+    {
+        "id":  58225,
+        "name":  "Birayang"
+    },
+    {
+        "id":  57148,
+        "name":  "Bireun"
+    },
+    {
+        "id":  59021,
+        "name":  "Biscoop"
+    },
+    {
+        "id":  58224,
+        "name":  "Bitung"
+    },
+    {
+        "id":  58726,
+        "name":  "Biudukfoho"
+    },
+    {
+        "id":  58245,
+        "name":  "Blambangan Umpu"
+    },
+    {
+        "id":  58847,
+        "name":  "Blang Ara"
+    },
+    {
+        "id":  58866,
+        "name":  "Blang Ara"
+    },
+    {
+        "id":  58854,
+        "name":  "Blang Dalam"
+    },
+    {
+        "id":  58851,
+        "name":  "Blang Mane"
+    },
+    {
+        "id":  57147,
+        "name":  "Blangkejeren"
+    },
+    {
+        "id":  57146,
+        "name":  "Blangpidie"
+    },
+    {
+        "id":  58886,
+        "name":  "Blangpulo"
+    },
+    {
+        "id":  58222,
+        "name":  "Blitar"
+    },
+    {
+        "id":  58221,
+        "name":  "Blora"
+    },
+    {
+        "id":  58219,
+        "name":  "Bluto"
+    },
+    {
+        "id":  58218,
+        "name":  "Boawae"
+    },
+    {
+        "id":  58217,
+        "name":  "Bobong"
+    },
+    {
+        "id":  58767,
+        "name":  "Bofuer"
+    },
+    {
+        "id":  58216,
+        "name":  "Bogor"
+    },
+    {
+        "id":  58215,
+        "name":  "Bogorejo"
+    },
+    {
+        "id":  58214,
+        "name":  "Bojonegara"
+    },
+    {
+        "id":  58213,
+        "name":  "Bojonegoro"
+    },
+    {
+        "id":  58212,
+        "name":  "Bojongmanik Girang"
+    },
+    {
+        "id":  58211,
+        "name":  "Bokat"
+    },
+    {
+        "id":  58209,
+        "name":  "Bola"
+    },
+    {
+        "id":  58207,
+        "name":  "Bolaang"
+    },
+    {
+        "id":  58208,
+        "name":  "Bolangitang"
+    },
+    {
+        "id":  58703,
+        "name":  "Bolou"
+    },
+    {
+        "id":  58765,
+        "name":  "Bomomani"
+    },
+    {
+        "id":  58206,
+        "name":  "Bondokodi"
+    },
+    {
+        "id":  58205,
+        "name":  "Bondowoso"
+    },
+    {
+        "id":  58204,
+        "name":  "Bonebone"
+    },
+    {
+        "id":  58203,
+        "name":  "Bonjol"
+    },
+    {
+        "id":  58201,
+        "name":  "Bontang"
+    },
+    {
+        "id":  58787,
+        "name":  "Bontang Baru"
+    },
+    {
+        "id":  58200,
+        "name":  "Boroko"
+    },
+    {
+        "id":  57755,
+        "name":  "Borong"
+    },
+    {
+        "id":  58563,
+        "name":  "Boru"
+    },
+    {
+        "id":  58199,
+        "name":  "Bosnik"
+    },
+    {
+        "id":  58996,
+        "name":  "Botawa"
+    },
+    {
+        "id":  58198,
+        "name":  "Boyolali"
+    },
+    {
+        "id":  58197,
+        "name":  "Boyolangu"
+    },
+    {
+        "id":  58196,
+        "name":  "Brakas"
+    },
+    {
+        "id":  58195,
+        "name":  "Brebes"
+    },
+    {
+        "id":  58194,
+        "name":  "Brondong"
+    },
+    {
+        "id":  57768,
+        "name":  "Buakayu"
+    },
+    {
+        "id":  58193,
+        "name":  "Buaran"
+    },
+    {
+        "id":  59027,
+        "name":  "Buduan Ghejeh"
+    },
+    {
+        "id":  58192,
+        "name":  "Buduran"
+    },
+    {
+        "id":  59031,
+        "name":  "Bugalaga"
+    },
+    {
+        "id":  58820,
+        "name":  "Buket Teukuh"
+    },
+    {
+        "id":  58191,
+        "name":  "Bukitkemuning"
+    },
+    {
+        "id":  58190,
+        "name":  "Bukittinggi"
+    },
+    {
+        "id":  58189,
+        "name":  "Bula"
+    },
+    {
+        "id":  58865,
+        "name":  "Bulahblangaro"
+    },
+    {
+        "id":  58188,
+        "name":  "Bulakamba"
+    },
+    {
+        "id":  58957,
+        "name":  "Buli"
+    },
+    {
+        "id":  58187,
+        "name":  "Bulu"
+    },
+    {
+        "id":  58411,
+        "name":  "Bulubulu"
+    },
+    {
+        "id":  58186,
+        "name":  "Bulukumba"
+    },
+    {
+        "id":  58185,
+        "name":  "Bunga Mas"
+    },
+    {
+        "id":  58469,
+        "name":  "Bungalawang"
+    },
+    {
+        "id":  58184,
+        "name":  "Bungbulang"
+    },
+    {
+        "id":  58183,
+        "name":  "Bungkal"
+    },
+    {
+        "id":  58182,
+        "name":  "Bungku"
+    },
+    {
+        "id":  58614,
+        "name":  "Buniasih"
+    },
+    {
+        "id":  58633,
+        "name":  "Bunisari"
+    },
+    {
+        "id":  58181,
+        "name":  "Buniseuri"
+    },
+    {
+        "id":  58202,
+        "name":  "Bunobogu"
+    },
+    {
+        "id":  58180,
+        "name":  "Buntok"
+    },
+    {
+        "id":  58179,
+        "name":  "Buol"
+    },
+    {
+        "id":  59003,
+        "name":  "Buranga"
+    },
+    {
+        "id":  58991,
+        "name":  "Burmeso"
+    },
+    {
+        "id":  58706,
+        "name":  "Busalangga"
+    },
+    {
+        "id":  58547,
+        "name":  "Busungbiu"
+    },
+    {
+        "id":  58178,
+        "name":  "Cakke"
+    },
+    {
+        "id":  57145,
+        "name":  "Calang"
+    },
+    {
+        "id":  58861,
+        "name":  "Caloue"
+    },
+    {
+        "id":  58177,
+        "name":  "Camming"
+    },
+    {
+        "id":  58431,
+        "name":  "Camplong"
+    },
+    {
+        "id":  58175,
+        "name":  "Campor"
+    },
+    {
+        "id":  58174,
+        "name":  "Campurdarat"
+    },
+    {
+        "id":  57548,
+        "name":  "Candi Prambanan"
+    },
+    {
+        "id":  58173,
+        "name":  "Caringin"
+    },
+    {
+        "id":  58172,
+        "name":  "Caruban"
+    },
+    {
+        "id":  57144,
+        "name":  "Celala"
+    },
+    {
+        "id":  58973,
+        "name":  "Cemaga"
+    },
+    {
+        "id":  58567,
+        "name":  "Cempa Pasar"
+    },
+    {
+        "id":  58171,
+        "name":  "Cempaka"
+    },
+    {
+        "id":  58170,
+        "name":  "Ceper"
+    },
+    {
+        "id":  58169,
+        "name":  "Cepu"
+    },
+    {
+        "id":  58168,
+        "name":  "Cerenti"
+    },
+    {
+        "id":  58167,
+        "name":  "Cermee"
+    },
+    {
+        "id":  58166,
+        "name":  "Ciamis"
+    },
+    {
+        "id":  58176,
+        "name":  "Ciampea"
+    },
+    {
+        "id":  58165,
+        "name":  "Cianjur"
+    },
+    {
+        "id":  58164,
+        "name":  "Cibaliung"
+    },
+    {
+        "id":  58163,
+        "name":  "Cibalong"
+    },
+    {
+        "id":  57979,
+        "name":  "Cibaregbeg"
+    },
+    {
+        "id":  58162,
+        "name":  "Cibeureum"
+    },
+    {
+        "id":  58161,
+        "name":  "Cibingbin"
+    },
+    {
+        "id":  58160,
+        "name":  "Cibinong"
+    },
+    {
+        "id":  58649,
+        "name":  "Cibitung"
+    },
+    {
+        "id":  58631,
+        "name":  "Cibitung"
+    },
+    {
+        "id":  58647,
+        "name":  "Cibongas"
+    },
+    {
+        "id":  58622,
+        "name":  "Cibungur"
+    },
+    {
+        "id":  58159,
+        "name":  "Cicurug"
+    },
+    {
+        "id":  58158,
+        "name":  "Ciemas"
+    },
+    {
+        "id":  58601,
+        "name":  "Cigeulis"
+    },
+    {
+        "id":  58651,
+        "name":  "Cigugur"
+    },
+    {
+        "id":  58157,
+        "name":  "Cihaurbeuti"
+    },
+    {
+        "id":  58156,
+        "name":  "Cijeungjing"
+    },
+    {
+        "id":  58155,
+        "name":  "Cijulang"
+    },
+    {
+        "id":  58154,
+        "name":  "Cikajang"
+    },
+    {
+        "id":  58153,
+        "name":  "Cikalong"
+    },
+    {
+        "id":  58152,
+        "name":  "Cikampek"
+    },
+    {
+        "id":  58151,
+        "name":  "Cikarang"
+    },
+    {
+        "id":  58150,
+        "name":  "Cikatomas"
+    },
+    {
+        "id":  58149,
+        "name":  "Cikelet"
+    },
+    {
+        "id":  58148,
+        "name":  "Cikeusik"
+    },
+    {
+        "id":  58147,
+        "name":  "Cikijing"
+    },
+    {
+        "id":  58146,
+        "name":  "Cikoneng"
+    },
+    {
+        "id":  58416,
+        "name":  "Cikupa"
+    },
+    {
+        "id":  58145,
+        "name":  "Cilacap"
+    },
+    {
+        "id":  58144,
+        "name":  "Cilawu"
+    },
+    {
+        "id":  58143,
+        "name":  "Cilegong"
+    },
+    {
+        "id":  58142,
+        "name":  "Cileungsir"
+    },
+    {
+        "id":  58141,
+        "name":  "Cileunyi"
+    },
+    {
+        "id":  58140,
+        "name":  "Cimahi"
+    },
+    {
+        "id":  58139,
+        "name":  "Cimanggu"
+    },
+    {
+        "id":  58138,
+        "name":  "Cimaragas"
+    },
+    {
+        "id":  58137,
+        "name":  "Cimerak"
+    },
+    {
+        "id":  58136,
+        "name":  "Ciomas"
+    },
+    {
+        "id":  58657,
+        "name":  "Cipadung Timur"
+    },
+    {
+        "id":  58135,
+        "name":  "Cipari"
+    },
+    {
+        "id":  58134,
+        "name":  "Cipatujah"
+    },
+    {
+        "id":  58133,
+        "name":  "Ciputat"
+    },
+    {
+        "id":  58132,
+        "name":  "Ciracap"
+    },
+    {
+        "id":  58374,
+        "name":  "Ciranjang-hilir"
+    },
+    {
+        "id":  58131,
+        "name":  "Cirebon"
+    },
+    {
+        "id":  58648,
+        "name":  "Ciriri"
+    },
+    {
+        "id":  58130,
+        "name":  "Ciruas"
+    },
+    {
+        "id":  58129,
+        "name":  "Cisaga"
+    },
+    {
+        "id":  58128,
+        "name":  "Cisayong"
+    },
+    {
+        "id":  58127,
+        "name":  "Cisewu"
+    },
+    {
+        "id":  58615,
+        "name":  "Cisiih"
+    },
+    {
+        "id":  58126,
+        "name":  "Cisolok"
+    },
+    {
+        "id":  58125,
+        "name":  "Cisompet"
+    },
+    {
+        "id":  58124,
+        "name":  "Citeureup"
+    },
+    {
+        "id":  58616,
+        "name":  "Ciwaru"
+    },
+    {
+        "id":  58123,
+        "name":  "Ciwaru"
+    },
+    {
+        "id":  58122,
+        "name":  "Colomadu"
+    },
+    {
+        "id":  58121,
+        "name":  "Comal"
+    },
+    {
+        "id":  58843,
+        "name":  "Cot Baroh"
+    },
+    {
+        "id":  58120,
+        "name":  "Curug"
+    },
+    {
+        "id":  58467,
+        "name":  "Curug"
+    },
+    {
+        "id":  58119,
+        "name":  "Curup"
+    },
+    {
+        "id":  58118,
+        "name":  "Dabra"
+    },
+    {
+        "id":  57892,
+        "name":  "Daik Lingga"
+    },
+    {
+        "id":  58564,
+        "name":  "Dajan Tangluk"
+    },
+    {
+        "id":  58117,
+        "name":  "Dalududalu"
+    },
+    {
+        "id":  58116,
+        "name":  "Dampit"
+    },
+    {
+        "id":  58913,
+        "name":  "Danaupanggang"
+    },
+    {
+        "id":  58798,
+        "name":  "Danauparis"
+    },
+    {
+        "id":  58115,
+        "name":  "Darma"
+    },
+    {
+        "id":  58114,
+        "name":  "Daruba"
+    },
+    {
+        "id":  58481,
+        "name":  "Darungan Lor"
+    },
+    {
+        "id":  58113,
+        "name":  "Dasuk"
+    },
+    {
+        "id":  58742,
+        "name":  "Data Dian"
+    },
+    {
+        "id":  58677,
+        "name":  "Dawang"
+    },
+    {
+        "id":  58112,
+        "name":  "Dayeuhluhur"
+    },
+    {
+        "id":  58111,
+        "name":  "Delanggu"
+    },
+    {
+        "id":  57143,
+        "name":  "Deli Tua"
+    },
+    {
+        "id":  58110,
+        "name":  "Demak"
+    },
+    {
+        "id":  58443,
+        "name":  "Demta"
+    },
+    {
+        "id":  58109,
+        "name":  "Denpasar"
+    },
+    {
+        "id":  58442,
+        "name":  "Depapre"
+    },
+    {
+        "id":  58108,
+        "name":  "Depok"
+    },
+    {
+        "id":  58107,
+        "name":  "Depok"
+    },
+    {
+        "id":  58555,
+        "name":  "Detung"
+    },
+    {
+        "id":  58586,
+        "name":  "Detusoko"
+    },
+    {
+        "id":  58688,
+        "name":  "Dibee"
+    },
+    {
+        "id":  58106,
+        "name":  "Diwek"
+    },
+    {
+        "id":  58399,
+        "name":  "Dlemmer"
+    },
+    {
+        "id":  58105,
+        "name":  "Dobo"
+    },
+    {
+        "id":  58104,
+        "name":  "Dofa"
+    },
+    {
+        "id":  57142,
+        "name":  "Dolok Sanggul"
+    },
+    {
+        "id":  58103,
+        "name":  "Dompu"
+    },
+    {
+        "id":  58102,
+        "name":  "Donggala"
+    },
+    {
+        "id":  58539,
+        "name":  "Donggo"
+    },
+    {
+        "id":  58101,
+        "name":  "Dongko"
+    },
+    {
+        "id":  58100,
+        "name":  "Donomulyo"
+    },
+    {
+        "id":  58952,
+        "name":  "Doom"
+    },
+    {
+        "id":  58462,
+        "name":  "Drien Rampak"
+    },
+    {
+        "id":  58098,
+        "name":  "Driyorejo"
+    },
+    {
+        "id":  58486,
+        "name":  "Duda"
+    },
+    {
+        "id":  58961,
+        "name":  "Dufa-Dufa"
+    },
+    {
+        "id":  58097,
+        "name":  "Dukuhseti"
+    },
+    {
+        "id":  58096,
+        "name":  "Dukuhturi"
+    },
+    {
+        "id":  58095,
+        "name":  "Dulanpokpok"
+    },
+    {
+        "id":  58094,
+        "name":  "Dumai"
+    },
+    {
+        "id":  58093,
+        "name":  "Dumoga"
+    },
+    {
+        "id":  57999,
+        "name":  "Dungkek"
+    },
+    {
+        "id":  58492,
+        "name":  "Durenan"
+    },
+    {
+        "id":  58092,
+        "name":  "Durenan"
+    },
+    {
+        "id":  58091,
+        "name":  "Duri"
+    },
+    {
+        "id":  58430,
+        "name":  "Eahun"
+    },
+    {
+        "id":  58720,
+        "name":  "Eban"
+    },
+    {
+        "id":  58759,
+        "name":  "Eci"
+    },
+    {
+        "id":  58301,
+        "name":  "Elat"
+    },
+    {
+        "id":  58998,
+        "name":  "Elelim"
+    },
+    {
+        "id":  58090,
+        "name":  "Elopada"
+    },
+    {
+        "id":  58089,
+        "name":  "Enarotali"
+    },
+    {
+        "id":  58088,
+        "name":  "Ende"
+    },
+    {
+        "id":  58087,
+        "name":  "Enemawira"
+    },
+    {
+        "id":  58086,
+        "name":  "Enok"
+    },
+    {
+        "id":  58085,
+        "name":  "Enrekang"
+    },
+    {
+        "id":  58084,
+        "name":  "Essang"
+    },
+    {
+        "id":  58083,
+        "name":  "Fakfak"
+    },
+    {
+        "id":  59001,
+        "name":  "Fef"
+    },
+    {
+        "id":  58588,
+        "name":  "Gadingrejo"
+    },
+    {
+        "id":  58039,
+        "name":  "Gajrug"
+    },
+    {
+        "id":  58082,
+        "name":  "Galela"
+    },
+    {
+        "id":  58081,
+        "name":  "Galesong"
+    },
+    {
+        "id":  58080,
+        "name":  "Galis"
+    },
+    {
+        "id":  58078,
+        "name":  "Galunggalung"
+    },
+    {
+        "id":  58449,
+        "name":  "Gambarsari"
+    },
+    {
+        "id":  58077,
+        "name":  "Gambiran Satu"
+    },
+    {
+        "id":  58934,
+        "name":  "Gambut"
+    },
+    {
+        "id":  58076,
+        "name":  "Gampang"
+    },
+    {
+        "id":  58075,
+        "name":  "Gampengrejo"
+    },
+    {
+        "id":  58418,
+        "name":  "Gamping Lor"
+    },
+    {
+        "id":  58074,
+        "name":  "Ganding"
+    },
+    {
+        "id":  58073,
+        "name":  "Gandrungmangu"
+    },
+    {
+        "id":  58071,
+        "name":  "Gandusari"
+    },
+    {
+        "id":  58072,
+        "name":  "Gandusari"
+    },
+    {
+        "id":  58070,
+        "name":  "Gapura"
+    },
+    {
+        "id":  58069,
+        "name":  "Garawangi"
+    },
+    {
+        "id":  58607,
+        "name":  "Gardutanjak"
+    },
+    {
+        "id":  58068,
+        "name":  "Garut"
+    },
+    {
+        "id":  58422,
+        "name":  "Gatak"
+    },
+    {
+        "id":  58067,
+        "name":  "Gayam"
+    },
+    {
+        "id":  58066,
+        "name":  "Gebog"
+    },
+    {
+        "id":  58065,
+        "name":  "Gedangan"
+    },
+    {
+        "id":  58675,
+        "name":  "Gedangan"
+    },
+    {
+        "id":  58064,
+        "name":  "Gedong Tataan"
+    },
+    {
+        "id":  58666,
+        "name":  "Gedongombo"
+    },
+    {
+        "id":  58062,
+        "name":  "Genteng"
+    },
+    {
+        "id":  58441,
+        "name":  "Genyem"
+    },
+    {
+        "id":  58061,
+        "name":  "Gerung"
+    },
+    {
+        "id":  58060,
+        "name":  "Geser"
+    },
+    {
+        "id":  58398,
+        "name":  "Getengan"
+    },
+    {
+        "id":  58760,
+        "name":  "Getentiri"
+    },
+    {
+        "id":  58831,
+        "name":  "Geuleumpangminyeuk"
+    },
+    {
+        "id":  58857,
+        "name":  "Geumpang"
+    },
+    {
+        "id":  58059,
+        "name":  "Gianyar"
+    },
+    {
+        "id":  58453,
+        "name":  "Gili Air"
+    },
+    {
+        "id":  58612,
+        "name":  "Gili Trawangan"
+    },
+    {
+        "id":  58689,
+        "name":  "Glagahwero"
+    },
+    {
+        "id":  58063,
+        "name":  "Glumbang"
+    },
+    {
+        "id":  58058,
+        "name":  "Godean"
+    },
+    {
+        "id":  58057,
+        "name":  "Godo"
+    },
+    {
+        "id":  58056,
+        "name":  "Gombong"
+    },
+    {
+        "id":  58055,
+        "name":  "Gondang"
+    },
+    {
+        "id":  58785,
+        "name":  "Gondang"
+    },
+    {
+        "id":  58054,
+        "name":  "Gongdanglegi Kulon"
+    },
+    {
+        "id":  58053,
+        "name":  "Gorontalo"
+    },
+    {
+        "id":  57141,
+        "name":  "Gosong Telaga"
+    },
+    {
+        "id":  58052,
+        "name":  "Gresik"
+    },
+    {
+        "id":  58051,
+        "name":  "Grogol"
+    },
+    {
+        "id":  58777,
+        "name":  "Guay"
+    },
+    {
+        "id":  58415,
+        "name":  "Gubengairlangga"
+    },
+    {
+        "id":  58628,
+        "name":  "Gudang"
+    },
+    {
+        "id":  58511,
+        "name":  "Guguk"
+    },
+    {
+        "id":  58050,
+        "name":  "Gulukguluk"
+    },
+    {
+        "id":  58049,
+        "name":  "Gunem"
+    },
+    {
+        "id":  58376,
+        "name":  "Gunung Kendil"
+    },
+    {
+        "id":  58044,
+        "name":  "Gunung Sugih"
+    },
+    {
+        "id":  58516,
+        "name":  "Gunung Talang"
+    },
+    {
+        "id":  57139,
+        "name":  "Gunung Tua"
+    },
+    {
+        "id":  58363,
+        "name":  "Gununganyar"
+    },
+    {
+        "id":  58048,
+        "name":  "Gunungbatubesar"
+    },
+    {
+        "id":  58047,
+        "name":  "Gunungkencana"
+    },
+    {
+        "id":  58635,
+        "name":  "Gununglimbangan"
+    },
+    {
+        "id":  58046,
+        "name":  "Gunungmegang Dalam"
+    },
+    {
+        "id":  58045,
+        "name":  "Gunungmenang"
+    },
+    {
+        "id":  57140,
+        "name":  "Gunungsitoli"
+    },
+    {
+        "id":  58043,
+        "name":  "Gunungwungkal"
+    },
+    {
+        "id":  58673,
+        "name":  "Gupakan"
+    },
+    {
+        "id":  58960,
+        "name":  "Guruafin"
+    },
+    {
+        "id":  58042,
+        "name":  "Hadakewa"
+    },
+    {
+        "id":  58942,
+        "name":  "Halong"
+    },
+    {
+        "id":  57974,
+        "name":  "Hampang"
+    },
+    {
+        "id":  58906,
+        "name":  "Handilenam"
+    },
+    {
+        "id":  58974,
+        "name":  "Harapan Jaya"
+    },
+    {
+        "id":  58580,
+        "name":  "Harapankarya"
+    },
+    {
+        "id":  58595,
+        "name":  "Harian"
+    },
+    {
+        "id":  58041,
+        "name":  "Haruai"
+    },
+    {
+        "id":  58040,
+        "name":  "Haruyan"
+    },
+    {
+        "id":  58654,
+        "name":  "Hegarsari"
+    },
+    {
+        "id":  58038,
+        "name":  "Hila"
+    },
+    {
+        "id":  58769,
+        "name":  "Homeyo"
+    },
+    {
+        "id":  58815,
+        "name":  "Idi Cut"
+    },
+    {
+        "id":  58814,
+        "name":  "Idi Rayeuk"
+    },
+    {
+        "id":  58995,
+        "name":  "Ilaga"
+    },
+    {
+        "id":  58035,
+        "name":  "Indralaya"
+    },
+    {
+        "id":  58034,
+        "name":  "Indramayu"
+    },
+    {
+        "id":  58825,
+        "name":  "Indrapuri"
+    },
+    {
+        "id":  57382,
+        "name":  "Insrom"
+    },
+    {
+        "id":  58033,
+        "name":  "Ipuh"
+    },
+    {
+        "id":  58318,
+        "name":  "Irarututiga"
+    },
+    {
+        "id":  57137,
+        "name":  "Isak"
+    },
+    {
+        "id":  58032,
+        "name":  "Isimu"
+    },
+    {
+        "id":  58554,
+        "name":  "Iteng"
+    },
+    {
+        "id":  58566,
+        "name":  "Jabajero"
+    },
+    {
+        "id":  58031,
+        "name":  "Jabung"
+    },
+    {
+        "id":  59018,
+        "name":  "Jagiro"
+    },
+    {
+        "id":  58837,
+        "name":  "Jagongjeget"
+    },
+    {
+        "id":  58030,
+        "name":  "Jailolo"
+    },
+    {
+        "id":  58029,
+        "name":  "Jakarta"
+    },
+    {
+        "id":  58028,
+        "name":  "Jakenan"
+    },
+    {
+        "id":  58027,
+        "name":  "Jalang"
+    },
+    {
+        "id":  58646,
+        "name":  "Jamanis"
+    },
+    {
+        "id":  58461,
+        "name":  "Jambi Baru"
+    },
+    {
+        "id":  58026,
+        "name":  "Jambi City"
+    },
+    {
+        "id":  58025,
+        "name":  "Jambula"
+    },
+    {
+        "id":  58664,
+        "name":  "Jamong"
+    },
+    {
+        "id":  58024,
+        "name":  "Jampang Kulon"
+    },
+    {
+        "id":  58023,
+        "name":  "Jampang Tengah"
+    },
+    {
+        "id":  58550,
+        "name":  "Janapria"
+    },
+    {
+        "id":  58372,
+        "name":  "Jangkar"
+    },
+    {
+        "id":  58022,
+        "name":  "Jangkat"
+    },
+    {
+        "id":  58021,
+        "name":  "Japah"
+    },
+    {
+        "id":  58020,
+        "name":  "Jaten"
+    },
+    {
+        "id":  58019,
+        "name":  "Jatibarang"
+    },
+    {
+        "id":  58018,
+        "name":  "Jatinagara"
+    },
+    {
+        "id":  58017,
+        "name":  "Jatirogo"
+    },
+    {
+        "id":  58015,
+        "name":  "Jatiroto"
+    },
+    {
+        "id":  58016,
+        "name":  "Jatiroto"
+    },
+    {
+        "id":  58014,
+        "name":  "Jatiwangi"
+    },
+    {
+        "id":  58638,
+        "name":  "Jayapura"
+    },
+    {
+        "id":  58440,
+        "name":  "Jayapura"
+    },
+    {
+        "id":  58013,
+        "name":  "Jebus"
+    },
+    {
+        "id":  58012,
+        "name":  "Jekulo"
+    },
+    {
+        "id":  58011,
+        "name":  "Jelbuk"
+    },
+    {
+        "id":  58010,
+        "name":  "Jember"
+    },
+    {
+        "id":  59010,
+        "name":  "Jembrana Subdistrict"
+    },
+    {
+        "id":  58912,
+        "name":  "Jenamas"
+    },
+    {
+        "id":  58009,
+        "name":  "Jeneponto"
+    },
+    {
+        "id":  58008,
+        "name":  "Jenggawah"
+    },
+    {
+        "id":  58007,
+        "name":  "Jepara"
+    },
+    {
+        "id":  58006,
+        "name":  "Jepara"
+    },
+    {
+        "id":  58005,
+        "name":  "Jepon"
+    },
+    {
+        "id":  58663,
+        "name":  "Jetis"
+    },
+    {
+        "id":  58004,
+        "name":  "Jimbaran"
+    },
+    {
+        "id":  58003,
+        "name":  "Jogonalan"
+    },
+    {
+        "id":  58002,
+        "name":  "Jojogan"
+    },
+    {
+        "id":  58001,
+        "name":  "Jombang"
+    },
+    {
+        "id":  58000,
+        "name":  "Jorong"
+    },
+    {
+        "id":  58948,
+        "name":  "Juai"
+    },
+    {
+        "id":  58845,
+        "name":  "Juli"
+    },
+    {
+        "id":  58842,
+        "name":  "Jumpangdua"
+    },
+    {
+        "id":  57998,
+        "name":  "Juwana"
+    },
+    {
+        "id":  57136,
+        "name":  "Kabanjahe"
+    },
+    {
+        "id":  57997,
+        "name":  "Kabare"
+    },
+    {
+        "id":  57996,
+        "name":  "Kabir"
+    },
+    {
+        "id":  58551,
+        "name":  "Kabukarudi"
+    },
+    {
+        "id":  58466,
+        "name":  "Kaburon"
+    },
+    {
+        "id":  58410,
+        "name":  "Kadai"
+    },
+    {
+        "id":  57995,
+        "name":  "Kadugede"
+    },
+    {
+        "id":  57994,
+        "name":  "Kadugedong"
+    },
+    {
+        "id":  57993,
+        "name":  "Kadupandak"
+    },
+    {
+        "id":  57992,
+        "name":  "Kahala"
+    },
+    {
+        "id":  58643,
+        "name":  "Kahuripan"
+    },
+    {
+        "id":  57991,
+        "name":  "Kaimana"
+    },
+    {
+        "id":  57990,
+        "name":  "Kairatu"
+    },
+    {
+        "id":  57989,
+        "name":  "Kajen"
+    },
+    {
+        "id":  58855,
+        "name":  "Kajeung"
+    },
+    {
+        "id":  57988,
+        "name":  "Kalabahi"
+    },
+    {
+        "id":  57987,
+        "name":  "Kalangbret"
+    },
+    {
+        "id":  58852,
+        "name":  "Kalde Panga"
+    },
+    {
+        "id":  57492,
+        "name":  "Kaleroang"
+    },
+    {
+        "id":  58377,
+        "name":  "Kali"
+    },
+    {
+        "id":  57986,
+        "name":  "Kalianda"
+    },
+    {
+        "id":  57985,
+        "name":  "Kalianget"
+    },
+    {
+        "id":  58546,
+        "name":  "Kalianyar Selatan"
+    },
+    {
+        "id":  57984,
+        "name":  "Kalibunder"
+    },
+    {
+        "id":  57983,
+        "name":  "Kalidawir"
+    },
+    {
+        "id":  57982,
+        "name":  "Kaliori"
+    },
+    {
+        "id":  57981,
+        "name":  "Kalipang"
+    },
+    {
+        "id":  57980,
+        "name":  "Kalipucang"
+    },
+    {
+        "id":  58625,
+        "name":  "Kalirejo"
+    },
+    {
+        "id":  58079,
+        "name":  "Kalumpang"
+    },
+    {
+        "id":  57978,
+        "name":  "Kamal"
+    },
+    {
+        "id":  58582,
+        "name":  "Kamalaputi"
+    },
+    {
+        "id":  57977,
+        "name":  "Kambang"
+    },
+    {
+        "id":  57976,
+        "name":  "Kameri"
+    },
+    {
+        "id":  57975,
+        "name":  "Kampak"
+    },
+    {
+        "id":  58509,
+        "name":  "Kampungladang"
+    },
+    {
+        "id":  58732,
+        "name":  "Kampungraja"
+    },
+    {
+        "id":  58429,
+        "name":  "Kananggar"
+    },
+    {
+        "id":  57971,
+        "name":  "Kandangan"
+    },
+    {
+        "id":  57969,
+        "name":  "Kapan"
+    },
+    {
+        "id":  57968,
+        "name":  "Kapongan"
+    },
+    {
+        "id":  58536,
+        "name":  "Karang Daye"
+    },
+    {
+        "id":  58978,
+        "name":  "Karang Tinggi"
+    },
+    {
+        "id":  57967,
+        "name":  "Karangampel"
+    },
+    {
+        "id":  57965,
+        "name":  "Karangan"
+    },
+    {
+        "id":  57966,
+        "name":  "Karangan"
+    },
+    {
+        "id":  57964,
+        "name":  "Karanganom"
+    },
+    {
+        "id":  57963,
+        "name":  "Karanganyar"
+    },
+    {
+        "id":  58452,
+        "name":  "Karangbadar Kidul"
+    },
+    {
+        "id":  58872,
+        "name":  "Karangbaru"
+    },
+    {
+        "id":  57960,
+        "name":  "Karanggeneng"
+    },
+    {
+        "id":  57962,
+        "name":  "Karangharjo Kidul"
+    },
+    {
+        "id":  57959,
+        "name":  "Karangintan"
+    },
+    {
+        "id":  57958,
+        "name":  "Karangnunggal"
+    },
+    {
+        "id":  57957,
+        "name":  "Karangpawitan"
+    },
+    {
+        "id":  57956,
+        "name":  "Karangrejo"
+    },
+    {
+        "id":  57955,
+        "name":  "Karangsembung"
+    },
+    {
+        "id":  57954,
+        "name":  "Karawang"
+    },
+    {
+        "id":  58421,
+        "name":  "Kartasura"
+    },
+    {
+        "id":  58780,
+        "name":  "Karubaga"
+    },
+    {
+        "id":  58565,
+        "name":  "Karyadharma"
+    },
+    {
+        "id":  57953,
+        "name":  "Kasarangan"
+    },
+    {
+        "id":  57952,
+        "name":  "Kasiguncu"
+    },
+    {
+        "id":  58419,
+        "name":  "Kasihan"
+    },
+    {
+        "id":  57951,
+        "name":  "Kasonawejo"
+    },
+    {
+        "id":  57950,
+        "name":  "Kasui"
+    },
+    {
+        "id":  57949,
+        "name":  "Katobu"
+    },
+    {
+        "id":  58379,
+        "name":  "Kauditan"
+    },
+    {
+        "id":  57948,
+        "name":  "Kawali"
+    },
+    {
+        "id":  57947,
+        "name":  "Kawalu"
+    },
+    {
+        "id":  57946,
+        "name":  "Kawangkoan"
+    },
+    {
+        "id":  57945,
+        "name":  "Kawangu"
+    },
+    {
+        "id":  58899,
+        "name":  "Kayan Hulu"
+    },
+    {
+        "id":  57944,
+        "name":  "Kayu Agung"
+    },
+    {
+        "id":  58764,
+        "name":  "Kebar"
+    },
+    {
+        "id":  58457,
+        "name":  "Kebayakan"
+    },
+    {
+        "id":  57942,
+        "name":  "Kebomas"
+    },
+    {
+        "id":  58447,
+        "name":  "Kebon Gunung"
+    },
+    {
+        "id":  58534,
+        "name":  "Kebonan"
+    },
+    {
+        "id":  58680,
+        "name":  "Kebonan"
+    },
+    {
+        "id":  57941,
+        "name":  "Kebonarun"
+    },
+    {
+        "id":  58629,
+        "name":  "Kebonkai"
+    },
+    {
+        "id":  58533,
+        "name":  "Kebonsari"
+    },
+    {
+        "id":  58678,
+        "name":  "Kebonsari"
+    },
+    {
+        "id":  57940,
+        "name":  "Kebumen"
+    },
+    {
+        "id":  57939,
+        "name":  "Kedaton"
+    },
+    {
+        "id":  57937,
+        "name":  "Kediri"
+    },
+    {
+        "id":  57938,
+        "name":  "Kediri"
+    },
+    {
+        "id":  58593,
+        "name":  "Kedondong"
+    },
+    {
+        "id":  57936,
+        "name":  "Kedungwaru"
+    },
+    {
+        "id":  57935,
+        "name":  "Kedungwuni"
+    },
+    {
+        "id":  57934,
+        "name":  "Kefamenanu"
+    },
+    {
+        "id":  57933,
+        "name":  "Kelapa"
+    },
+    {
+        "id":  58428,
+        "name":  "Kelapalima"
+    },
+    {
+        "id":  57973,
+        "name":  "Kelarik"
+    },
+    {
+        "id":  57909,
+        "name":  "Kelua"
+    },
+    {
+        "id":  57932,
+        "name":  "Kema"
+    },
+    {
+        "id":  58728,
+        "name":  "Kemang"
+    },
+    {
+        "id":  58834,
+        "name":  "Kemil"
+    },
+    {
+        "id":  58099,
+        "name":  "Kempo"
+    },
+    {
+        "id":  57931,
+        "name":  "Kenali"
+    },
+    {
+        "id":  57930,
+        "name":  "Kencong"
+    },
+    {
+        "id":  57929,
+        "name":  "Kendahe"
+    },
+    {
+        "id":  57928,
+        "name":  "Kendal"
+    },
+    {
+        "id":  57927,
+        "name":  "Kendari"
+    },
+    {
+        "id":  58993,
+        "name":  "Kenyam"
+    },
+    {
+        "id":  57164,
+        "name":  "Kenyaran"
+    },
+    {
+        "id":  58966,
+        "name":  "Kenyau"
+    },
+    {
+        "id":  57970,
+        "name":  "Kepahiang"
+    },
+    {
+        "id":  57926,
+        "name":  "Kepanjen"
+    },
+    {
+        "id":  57925,
+        "name":  "Kepi"
+    },
+    {
+        "id":  57924,
+        "name":  "Kepoh"
+    },
+    {
+        "id":  57923,
+        "name":  "Kerang"
+    },
+    {
+        "id":  58898,
+        "name":  "Kerangagung"
+    },
+    {
+        "id":  57922,
+        "name":  "Kerek"
+    },
+    {
+        "id":  58619,
+        "name":  "Kertajadi"
+    },
+    {
+        "id":  57921,
+        "name":  "Kertosono"
+    },
+    {
+        "id":  57920,
+        "name":  "Kesamben"
+    },
+    {
+        "id":  57919,
+        "name":  "Kesugihan"
+    },
+    {
+        "id":  57915,
+        "name":  "Ketahun"
+    },
+    {
+        "id":  57918,
+        "name":  "Ketanggungan"
+    },
+    {
+        "id":  57917,
+        "name":  "Ketapang"
+    },
+    {
+        "id":  57215,
+        "name":  "Ketapang"
+    },
+    {
+        "id":  57916,
+        "name":  "Ketapang"
+    },
+    {
+        "id":  58839,
+        "name":  "Keudee Aron"
+    },
+    {
+        "id":  58830,
+        "name":  "Keumala"
+    },
+    {
+        "id":  57788,
+        "name":  "Khairiahmandah"
+    },
+    {
+        "id":  58723,
+        "name":  "Kie"
+    },
+    {
+        "id":  58989,
+        "name":  "Kigamani"
+    },
+    {
+        "id":  57914,
+        "name":  "Kimaam"
+    },
+    {
+        "id":  57913,
+        "name":  "Kiruru"
+    },
+    {
+        "id":  57135,
+        "name":  "Kisaran"
+    },
+    {
+        "id":  57912,
+        "name":  "Klampis"
+    },
+    {
+        "id":  57911,
+        "name":  "Klangenan"
+    },
+    {
+        "id":  58450,
+        "name":  "Klapagada"
+    },
+    {
+        "id":  57910,
+        "name":  "Klaten"
+    },
+    {
+        "id":  58491,
+        "name":  "Kloncing"
+    },
+    {
+        "id":  58738,
+        "name":  "Klubagolit"
+    },
+    {
+        "id":  57908,
+        "name":  "Klungkung"
+    },
+    {
+        "id":  57907,
+        "name":  "Koba"
+    },
+    {
+        "id":  58992,
+        "name":  "Kobakma"
+    },
+    {
+        "id":  57906,
+        "name":  "Kokar"
+    },
+    {
+        "id":  57905,
+        "name":  "Kokas Kota"
+    },
+    {
+        "id":  58786,
+        "name":  "Kokop"
+    },
+    {
+        "id":  57216,
+        "name":  "Kolaka"
+    },
+    {
+        "id":  57904,
+        "name":  "Kolonodale"
+    },
+    {
+        "id":  57903,
+        "name":  "Komodo"
+    },
+    {
+        "id":  57902,
+        "name":  "Kopang Satu"
+    },
+    {
+        "id":  58608,
+        "name":  "Kopibera"
+    },
+    {
+        "id":  57473,
+        "name":  "Kore"
+    },
+    {
+        "id":  57900,
+        "name":  "Korem"
+    },
+    {
+        "id":  57901,
+        "name":  "Korido"
+    },
+    {
+        "id":  58783,
+        "name":  "Kota Agung"
+    },
+    {
+        "id":  58823,
+        "name":  "Kota Binjai"
+    },
+    {
+        "id":  57891,
+        "name":  "Kota Pinang"
+    },
+    {
+        "id":  57890,
+        "name":  "Kota Tengah"
+    },
+    {
+        "id":  58627,
+        "name":  "Kota Ternate"
+    },
+    {
+        "id":  58807,
+        "name":  "Kota Trieng"
+    },
+    {
+        "id":  57898,
+        "name":  "Kotaagung"
+    },
+    {
+        "id":  57899,
+        "name":  "Kotaagung"
+    },
+    {
+        "id":  58885,
+        "name":  "Kotabahagia"
+    },
+    {
+        "id":  57897,
+        "name":  "Kotabaru"
+    },
+    {
+        "id":  58537,
+        "name":  "Kotabaru"
+    },
+    {
+        "id":  58407,
+        "name":  "Kotabaru"
+    },
+    {
+        "id":  57896,
+        "name":  "Kotabaru Hilir"
+    },
+    {
+        "id":  57895,
+        "name":  "Kotabesi"
+    },
+    {
+        "id":  57894,
+        "name":  "Kotabumi"
+    },
+    {
+        "id":  57893,
+        "name":  "Kotabunan"
+    },
+    {
+        "id":  57138,
+        "name":  "Kotanopan"
+    },
+    {
+        "id":  58510,
+        "name":  "Kotatua"
+    },
+    {
+        "id":  58558,
+        "name":  "Kotawaikabubak"
+    },
+    {
+        "id":  57889,
+        "name":  "Kotawaringin"
+    },
+    {
+        "id":  58519,
+        "name":  "Kototujuh"
+    },
+    {
+        "id":  57888,
+        "name":  "Kragan"
+    },
+    {
+        "id":  58679,
+        "name":  "Krajan A Wonorejo"
+    },
+    {
+        "id":  57887,
+        "name":  "Kraksaan"
+    },
+    {
+        "id":  59013,
+        "name":  "Kramongmongga"
+    },
+    {
+        "id":  57886,
+        "name":  "Kresek"
+    },
+    {
+        "id":  57885,
+        "name":  "Krian"
+    },
+    {
+        "id":  58475,
+        "name":  "Kromengan"
+    },
+    {
+        "id":  57884,
+        "name":  "Kroya"
+    },
+    {
+        "id":  59024,
+        "name":  "Krucil Timur"
+    },
+    {
+        "id":  57134,
+        "name":  "Krueng Luak"
+    },
+    {
+        "id":  57133,
+        "name":  "Kruengraya"
+    },
+    {
+        "id":  57883,
+        "name":  "Krui"
+    },
+    {
+        "id":  58796,
+        "name":  "Kuala Baru"
+    },
+    {
+        "id":  58883,
+        "name":  "Kuala Baru Sungai"
+    },
+    {
+        "id":  57132,
+        "name":  "Kuala Bhee"
+    },
+    {
+        "id":  58836,
+        "name":  "Kuala Bintang"
+    },
+    {
+        "id":  58951,
+        "name":  "Kuala Pembuang"
+    },
+    {
+        "id":  58456,
+        "name":  "Kuala Tuha"
+    },
+    {
+        "id":  57881,
+        "name":  "Kuala Tungkal"
+    },
+    {
+        "id":  57882,
+        "name":  "Kualakapuas"
+    },
+    {
+        "id":  58722,
+        "name":  "Kuanfatu"
+    },
+    {
+        "id":  57647,
+        "name":  "Kuaro"
+    },
+    {
+        "id":  57879,
+        "name":  "Kubu"
+    },
+    {
+        "id":  57878,
+        "name":  "Kubu"
+    },
+    {
+        "id":  59019,
+        "name":  "Kucir"
+    },
+    {
+        "id":  57877,
+        "name":  "Kudus"
+    },
+    {
+        "id":  57876,
+        "name":  "Kuma"
+    },
+    {
+        "id":  57875,
+        "name":  "Kumai"
+    },
+    {
+        "id":  58517,
+        "name":  "Kumanis"
+    },
+    {
+        "id":  58770,
+        "name":  "Kumopa"
+    },
+    {
+        "id":  57874,
+        "name":  "Kumurkek"
+    },
+    {
+        "id":  57873,
+        "name":  "Kuningan"
+    },
+    {
+        "id":  58427,
+        "name":  "Kupang"
+    },
+    {
+        "id":  58937,
+        "name":  "Kurau"
+    },
+    {
+        "id":  58624,
+        "name":  "Kuripan"
+    },
+    {
+        "id":  57871,
+        "name":  "Kuta"
+    },
+    {
+        "id":  58869,
+        "name":  "Kutapanjang"
+    },
+    {
+        "id":  58833,
+        "name":  "Kute Panang"
+    },
+    {
+        "id":  57870,
+        "name":  "Kutoarjo"
+    },
+    {
+        "id":  57880,
+        "name":  "Kwandang"
+    },
+    {
+        "id":  57869,
+        "name":  "Kwantisore"
+    },
+    {
+        "id":  57867,
+        "name":  "Labuan"
+    },
+    {
+        "id":  57866,
+        "name":  "Labuan Bajo"
+    },
+    {
+        "id":  57823,
+        "name":  "Labuan Lombok"
+    },
+    {
+        "id":  57868,
+        "name":  "Labuha"
+    },
+    {
+        "id":  58793,
+        "name":  "Labuhan Bajau"
+    },
+    {
+        "id":  57131,
+        "name":  "Labuhan Deli"
+    },
+    {
+        "id":  57865,
+        "name":  "Labuhanmaringgai"
+    },
+    {
+        "id":  59009,
+        "name":  "Labungkari"
+    },
+    {
+        "id":  58853,
+        "name":  "Lageun"
+    },
+    {
+        "id":  57864,
+        "name":  "Lahat"
+    },
+    {
+        "id":  57130,
+        "name":  "Lahewa"
+    },
+    {
+        "id":  57863,
+        "name":  "Laikit, Laikit II (Dimembe)"
+    },
+    {
+        "id":  57862,
+        "name":  "Lais"
+    },
+    {
+        "id":  57861,
+        "name":  "Laiwui"
+    },
+    {
+        "id":  58687,
+        "name":  "Lakbok"
+    },
+    {
+        "id":  58378,
+        "name":  "Lamadong"
+    },
+    {
+        "id":  58387,
+        "name":  "Lamasi"
+    },
+    {
+        "id":  58880,
+        "name":  "Lambaro"
+    },
+    {
+        "id":  57129,
+        "name":  "Lamno"
+    },
+    {
+        "id":  57860,
+        "name":  "Lamongan"
+    },
+    {
+        "id":  58390,
+        "name":  "Lampa"
+    },
+    {
+        "id":  57856,
+        "name":  "Lampihung"
+    },
+    {
+        "id":  58860,
+        "name":  "Lampoih"
+    },
+    {
+        "id":  58827,
+        "name":  "Lampuuk"
+    },
+    {
+        "id":  57128,
+        "name":  "Lampuyang"
+    },
+    {
+        "id":  57859,
+        "name":  "Langara"
+    },
+    {
+        "id":  57127,
+        "name":  "Langgapayung"
+    },
+    {
+        "id":  57857,
+        "name":  "Langgur"
+    },
+    {
+        "id":  57858,
+        "name":  "Langnga"
+    },
+    {
+        "id":  57126,
+        "name":  "Langsa"
+    },
+    {
+        "id":  58694,
+        "name":  "Larangan"
+    },
+    {
+        "id":  57855,
+        "name":  "Larantuka"
+    },
+    {
+        "id":  57854,
+        "name":  "Larompong"
+    },
+    {
+        "id":  57853,
+        "name":  "Lasehao"
+    },
+    {
+        "id":  57852,
+        "name":  "Lasem"
+    },
+    {
+        "id":  57324,
+        "name":  "Lasusua"
+    },
+    {
+        "id":  58665,
+        "name":  "Latsari"
+    },
+    {
+        "id":  58795,
+        "name":  "Lauke"
+    },
+    {
+        "id":  57851,
+        "name":  "Lawang"
+    },
+    {
+        "id":  58882,
+        "name":  "Lawepakam"
+    },
+    {
+        "id":  58812,
+        "name":  "Lawesigalagala Timur"
+    },
+    {
+        "id":  57125,
+        "name":  "Laweueng"
+    },
+    {
+        "id":  59004,
+        "name":  "Laworo"
+    },
+    {
+        "id":  57850,
+        "name":  "Lebaksiu"
+    },
+    {
+        "id":  57849,
+        "name":  "Lebakwangi"
+    },
+    {
+        "id":  58701,
+        "name":  "Ledeunu"
+    },
+    {
+        "id":  57848,
+        "name":  "Ledokombo"
+    },
+    {
+        "id":  58523,
+        "name":  "Legian"
+    },
+    {
+        "id":  57847,
+        "name":  "Lekebai"
+    },
+    {
+        "id":  57846,
+        "name":  "Leksula"
+    },
+    {
+        "id":  57845,
+        "name":  "Lela"
+    },
+    {
+        "id":  57844,
+        "name":  "Leles"
+    },
+    {
+        "id":  57843,
+        "name":  "Lelogama"
+    },
+    {
+        "id":  57842,
+        "name":  "Lemahputih"
+    },
+    {
+        "id":  57841,
+        "name":  "Lembang"
+    },
+    {
+        "id":  57840,
+        "name":  "Lembar"
+    },
+    {
+        "id":  57839,
+        "name":  "Lemito"
+    },
+    {
+        "id":  58403,
+        "name":  "Lempokasi"
+    },
+    {
+        "id":  57838,
+        "name":  "Lenangguar"
+    },
+    {
+        "id":  57837,
+        "name":  "Lengkong"
+    },
+    {
+        "id":  57836,
+        "name":  "Lenteng"
+    },
+    {
+        "id":  57835,
+        "name":  "Letung"
+    },
+    {
+        "id":  57834,
+        "name":  "Leuwidamar"
+    },
+    {
+        "id":  57833,
+        "name":  "Lewolaga"
+    },
+    {
+        "id":  57832,
+        "name":  "Lewoleba"
+    },
+    {
+        "id":  57124,
+        "name":  "Lhokkruet"
+    },
+    {
+        "id":  57123,
+        "name":  "Lhoknga"
+    },
+    {
+        "id":  57122,
+        "name":  "Lhokseumawe"
+    },
+    {
+        "id":  57121,
+        "name":  "Lhoong"
+    },
+    {
+        "id":  58707,
+        "name":  "Likioen"
+    },
+    {
+        "id":  57831,
+        "name":  "Likupang"
+    },
+    {
+        "id":  57120,
+        "name":  "Limapuluh"
+    },
+    {
+        "id":  57830,
+        "name":  "Limboto"
+    },
+    {
+        "id":  58652,
+        "name":  "Limusnunggal"
+    },
+    {
+        "id":  57119,
+        "name":  "Lintongnihuta"
+    },
+    {
+        "id":  57829,
+        "name":  "Lirung"
+    },
+    {
+        "id":  57828,
+        "name":  "Liwa"
+    },
+    {
+        "id":  57827,
+        "name":  "Loa Janan"
+    },
+    {
+        "id":  57826,
+        "name":  "Loakulu"
+    },
+    {
+        "id":  58737,
+        "name":  "Loang"
+    },
+    {
+        "id":  58702,
+        "name":  "Loboae"
+    },
+    {
+        "id":  57825,
+        "name":  "Lodoyo"
+    },
+    {
+        "id":  58969,
+        "name":  "Loklaga"
+    },
+    {
+        "id":  58570,
+        "name":  "Lokokrangan"
+    },
+    {
+        "id":  57824,
+        "name":  "Lolak"
+    },
+    {
+        "id":  58472,
+        "name":  "Lolayan"
+    },
+    {
+        "id":  58890,
+        "name":  "Long Bang"
+    },
+    {
+        "id":  58889,
+        "name":  "Long Beluah"
+    },
+    {
+        "id":  58893,
+        "name":  "Long Layu"
+    },
+    {
+        "id":  58895,
+        "name":  "Long Loreh"
+    },
+    {
+        "id":  58888,
+        "name":  "Long Peso"
+    },
+    {
+        "id":  57819,
+        "name":  "Long Pujungan"
+    },
+    {
+        "id":  57822,
+        "name":  "Longikis"
+    },
+    {
+        "id":  57821,
+        "name":  "Longkali"
+    },
+    {
+        "id":  57820,
+        "name":  "Longnawang"
+    },
+    {
+        "id":  58945,
+        "name":  "Lontar"
+    },
+    {
+        "id":  59008,
+        "name":  "Lotu"
+    },
+    {
+        "id":  58650,
+        "name":  "Lovina"
+    },
+    {
+        "id":  58794,
+        "name":  "Luan Balu"
+    },
+    {
+        "id":  57816,
+        "name":  "Lubuk Basung"
+    },
+    {
+        "id":  57814,
+        "name":  "Lubuk Jambi"
+    },
+    {
+        "id":  57118,
+        "name":  "Lubuk Pakam"
+    },
+    {
+        "id":  57812,
+        "name":  "Lubuk Sikaping"
+    },
+    {
+        "id":  58507,
+        "name":  "Lubukalung"
+    },
+    {
+        "id":  57818,
+        "name":  "Lubukalung"
+    },
+    {
+        "id":  57817,
+        "name":  "Lubukbergalung"
+    },
+    {
+        "id":  57815,
+        "name":  "Lubukgadang"
+    },
+    {
+        "id":  57813,
+        "name":  "Lubuklinggau"
+    },
+    {
+        "id":  58455,
+        "name":  "Lueng Putu"
+    },
+    {
+        "id":  57811,
+        "name":  "Lumajang"
+    },
+    {
+        "id":  58357,
+        "name":  "Lupak"
+    },
+    {
+        "id":  57810,
+        "name":  "Luragung"
+    },
+    {
+        "id":  58824,
+        "name":  "Luthu"
+    },
+    {
+        "id":  57809,
+        "name":  "Luwuk"
+    },
+    {
+        "id":  57808,
+        "name":  "Maba"
+    },
+    {
+        "id":  57807,
+        "name":  "Madiun"
+    },
+    {
+        "id":  57806,
+        "name":  "Maesan"
+    },
+    {
+        "id":  57805,
+        "name":  "Mafa"
+    },
+    {
+        "id":  57804,
+        "name":  "Magelang"
+    },
+    {
+        "id":  57803,
+        "name":  "Magetan"
+    },
+    {
+        "id":  58729,
+        "name":  "Mainang"
+    },
+    {
+        "id":  57802,
+        "name":  "Majalengka"
+    },
+    {
+        "id":  57801,
+        "name":  "Majenang"
+    },
+    {
+        "id":  57800,
+        "name":  "Majene"
+    },
+    {
+        "id":  58391,
+        "name":  "Majennang"
+    },
+    {
+        "id":  57799,
+        "name":  "Makale"
+    },
+    {
+        "id":  57219,
+        "name":  "Makassar"
+    },
+    {
+        "id":  57798,
+        "name":  "Makbon"
+    },
+    {
+        "id":  58544,
+        "name":  "Malahar"
+    },
+    {
+        "id":  57972,
+        "name":  "Malaju"
+    },
+    {
+        "id":  57797,
+        "name":  "Malang"
+    },
+    {
+        "id":  57796,
+        "name":  "Malangbong"
+    },
+    {
+        "id":  58959,
+        "name":  "Malifud"
+    },
+    {
+        "id":  57795,
+        "name":  "Malili"
+    },
+    {
+        "id":  57794,
+        "name":  "Malinau"
+    },
+    {
+        "id":  58389,
+        "name":  "Malunda"
+    },
+    {
+        "id":  57793,
+        "name":  "Mamasa"
+    },
+    {
+        "id":  57792,
+        "name":  "Mambi"
+    },
+    {
+        "id":  57791,
+        "name":  "Mamuju"
+    },
+    {
+        "id":  57790,
+        "name":  "Manado"
+    },
+    {
+        "id":  57789,
+        "name":  "Manalu"
+    },
+    {
+        "id":  57786,
+        "name":  "Mandalawangi"
+    },
+    {
+        "id":  58752,
+        "name":  "Mandarahan"
+    },
+    {
+        "id":  57785,
+        "name":  "Manding"
+    },
+    {
+        "id":  57784,
+        "name":  "Mandor"
+    },
+    {
+        "id":  58858,
+        "name":  "Mane"
+    },
+    {
+        "id":  57783,
+        "name":  "Manganitu"
+    },
+    {
+        "id":  57781,
+        "name":  "Mangaran"
+    },
+    {
+        "id":  57782,
+        "name":  "Mangaran"
+    },
+    {
+        "id":  57780,
+        "name":  "Manggar"
+    },
+    {
+        "id":  57779,
+        "name":  "Mangkutana"
+    },
+    {
+        "id":  58975,
+        "name":  "Mangupura"
+    },
+    {
+        "id":  57778,
+        "name":  "Maninjau"
+    },
+    {
+        "id":  57777,
+        "name":  "Manismata"
+    },
+    {
+        "id":  57776,
+        "name":  "Manna"
+    },
+    {
+        "id":  57775,
+        "name":  "Manokwari"
+    },
+    {
+        "id":  58571,
+        "name":  "Manola"
+    },
+    {
+        "id":  57774,
+        "name":  "Manonjaya"
+    },
+    {
+        "id":  58529,
+        "name":  "Mantang"
+    },
+    {
+        "id":  58943,
+        "name":  "Manunggulama"
+    },
+    {
+        "id":  58949,
+        "name":  "Mapurujaya"
+    },
+    {
+        "id":  57773,
+        "name":  "Marabahan"
+    },
+    {
+        "id":  57772,
+        "name":  "Margahayukencana"
+    },
+    {
+        "id":  58920,
+        "name":  "Margasari"
+    },
+    {
+        "id":  57771,
+        "name":  "Margasari"
+    },
+    {
+        "id":  58921,
+        "name":  "Margasarihilir"
+    },
+    {
+        "id":  57770,
+        "name":  "Maria"
+    },
+    {
+        "id":  57769,
+        "name":  "Marisa"
+    },
+    {
+        "id":  58727,
+        "name":  "Maritaing"
+    },
+    {
+        "id":  58406,
+        "name":  "Maroanging"
+    },
+    {
+        "id":  57767,
+        "name":  "Maros"
+    },
+    {
+        "id":  57765,
+        "name":  "Martapura"
+    },
+    {
+        "id":  57766,
+        "name":  "Martapura"
+    },
+    {
+        "id":  57764,
+        "name":  "Masamba"
+    },
+    {
+        "id":  57763,
+        "name":  "Masat"
+    },
+    {
+        "id":  57762,
+        "name":  "Masbagik"
+    },
+    {
+        "id":  57761,
+        "name":  "Masmambang"
+    },
+    {
+        "id":  58954,
+        "name":  "Masohi"
+    },
+    {
+        "id":  59020,
+        "name":  "Masyeta"
+    },
+    {
+        "id":  58829,
+        "name":  "Mata Ie"
+    },
+    {
+        "id":  58971,
+        "name":  "Matak"
+    },
+    {
+        "id":  58574,
+        "name":  "Mataloko"
+    },
+    {
+        "id":  58911,
+        "name":  "Matangai"
+    },
+    {
+        "id":  58862,
+        "name":  "Matangkuli"
+    },
+    {
+        "id":  58408,
+        "name":  "Matango"
+    },
+    {
+        "id":  58863,
+        "name":  "Matangpayang"
+    },
+    {
+        "id":  57760,
+        "name":  "Mataram"
+    },
+    {
+        "id":  57759,
+        "name":  "Matur"
+    },
+    {
+        "id":  57758,
+        "name":  "Maumere"
+    },
+    {
+        "id":  57757,
+        "name":  "Mauponggo"
+    },
+    {
+        "id":  58528,
+        "name":  "Maurole"
+    },
+    {
+        "id":  57756,
+        "name":  "Mayang"
+    },
+    {
+        "id":  58584,
+        "name":  "Mbay"
+    },
+    {
+        "id":  57117,
+        "name":  "Medan"
+    },
+    {
+        "id":  57754,
+        "name":  "Mega"
+    },
+    {
+        "id":  57753,
+        "name":  "Melati"
+    },
+    {
+        "id":  57752,
+        "name":  "Meliau"
+    },
+    {
+        "id":  57751,
+        "name":  "Mempawah"
+    },
+    {
+        "id":  58740,
+        "name":  "Menanga"
+    },
+    {
+        "id":  57787,
+        "name":  "Mendaha"
+    },
+    {
+        "id":  58476,
+        "name":  "Menden"
+    },
+    {
+        "id":  57750,
+        "name":  "Menes"
+    },
+    {
+        "id":  57749,
+        "name":  "Menggala"
+    },
+    {
+        "id":  57748,
+        "name":  "Mengkalip"
+    },
+    {
+        "id":  57747,
+        "name":  "Menjalin"
+    },
+    {
+        "id":  57746,
+        "name":  "Mensalong"
+    },
+    {
+        "id":  58246,
+        "name":  "Mentarang"
+    },
+    {
+        "id":  57745,
+        "name":  "Merakurak"
+    },
+    {
+        "id":  58362,
+        "name":  "Meral"
+    },
+    {
+        "id":  58439,
+        "name":  "Merauke"
+    },
+    {
+        "id":  58766,
+        "name":  "Merdey"
+    },
+    {
+        "id":  58808,
+        "name":  "Mersak"
+    },
+    {
+        "id":  57744,
+        "name":  "Mersam"
+    },
+    {
+        "id":  57743,
+        "name":  "Mertoyudan"
+    },
+    {
+        "id":  57742,
+        "name":  "Metro"
+    },
+    {
+        "id":  58805,
+        "name":  "Meukek"
+    },
+    {
+        "id":  57116,
+        "name":  "Meulaboh"
+    },
+    {
+        "id":  57115,
+        "name":  "Meureubo"
+    },
+    {
+        "id":  59017,
+        "name":  "Meyado"
+    },
+    {
+        "id":  58762,
+        "name":  "Mindiptana"
+    },
+    {
+        "id":  57741,
+        "name":  "Mlonggo"
+    },
+    {
+        "id":  58771,
+        "name":  "Moanemani"
+    },
+    {
+        "id":  58413,
+        "name":  "Modayag"
+    },
+    {
+        "id":  57114,
+        "name":  "Mogang"
+    },
+    {
+        "id":  57740,
+        "name":  "Mojoagung"
+    },
+    {
+        "id":  57739,
+        "name":  "Mojokerto"
+    },
+    {
+        "id":  57738,
+        "name":  "Mojosari"
+    },
+    {
+        "id":  57737,
+        "name":  "Molibagu"
+    },
+    {
+        "id":  57736,
+        "name":  "Molobulahe"
+    },
+    {
+        "id":  58708,
+        "name":  "Momanalu"
+    },
+    {
+        "id":  57113,
+        "name":  "Montasik"
+    },
+    {
+        "id":  57734,
+        "name":  "Moro"
+    },
+    {
+        "id":  58731,
+        "name":  "Moru"
+    },
+    {
+        "id":  59016,
+        "name":  "Moskona Barat"
+    },
+    {
+        "id":  57733,
+        "name":  "Mranggen"
+    },
+    {
+        "id":  57112,
+        "name":  "Muara"
+    },
+    {
+        "id":  57730,
+        "name":  "Muara Beliti"
+    },
+    {
+        "id":  57729,
+        "name":  "Muara Bulian"
+    },
+    {
+        "id":  57728,
+        "name":  "Muara Bungo"
+    },
+    {
+        "id":  57727,
+        "name":  "Muara Dua"
+    },
+    {
+        "id":  57726,
+        "name":  "Muara Enim"
+    },
+    {
+        "id":  57720,
+        "name":  "Muara Lembu"
+    },
+    {
+        "id":  57719,
+        "name":  "Muara Limun"
+    },
+    {
+        "id":  57716,
+        "name":  "Muara Sabak"
+    },
+    {
+        "id":  57715,
+        "name":  "Muara Siau"
+    },
+    {
+        "id":  57111,
+        "name":  "Muara Siberut"
+    },
+    {
+        "id":  57109,
+        "name":  "Muara Sipongi"
+    },
+    {
+        "id":  57108,
+        "name":  "Muara Soma"
+    },
+    {
+        "id":  57714,
+        "name":  "Muara Tebo"
+    },
+    {
+        "id":  57713,
+        "name":  "Muara Tembesi"
+    },
+    {
+        "id":  57712,
+        "name":  "Muara Teweh"
+    },
+    {
+        "id":  57731,
+        "name":  "Muarabadak"
+    },
+    {
+        "id":  57725,
+        "name":  "Muarajawa"
+    },
+    {
+        "id":  57724,
+        "name":  "Muarakomam"
+    },
+    {
+        "id":  57723,
+        "name":  "Muarakuang"
+    },
+    {
+        "id":  57722,
+        "name":  "Muaralabuh"
+    },
+    {
+        "id":  57721,
+        "name":  "Muaralakitan"
+    },
+    {
+        "id":  57718,
+        "name":  "Muarapinang"
+    },
+    {
+        "id":  57717,
+        "name":  "Muararupit"
+    },
+    {
+        "id":  57711,
+        "name":  "Muarauya"
+    },
+    {
+        "id":  57732,
+        "name":  "Muaro"
+    },
+    {
+        "id":  57710,
+        "name":  "Mujur"
+    },
+    {
+        "id":  57709,
+        "name":  "Mukomuko"
+    },
+    {
+        "id":  57708,
+        "name":  "Mulia"
+    },
+    {
+        "id":  58594,
+        "name":  "Mulyosari"
+    },
+    {
+        "id":  57707,
+        "name":  "Muncang"
+    },
+    {
+        "id":  57706,
+        "name":  "Muncar"
+    },
+    {
+        "id":  57705,
+        "name":  "Munduk"
+    },
+    {
+        "id":  58446,
+        "name":  "Mungkid"
+    },
+    {
+        "id":  58941,
+        "name":  "Mungkuruyam"
+    },
+    {
+        "id":  57704,
+        "name":  "Munjungan"
+    },
+    {
+        "id":  57735,
+        "name":  "Munse"
+    },
+    {
+        "id":  57703,
+        "name":  "Muntilan"
+    },
+    {
+        "id":  57702,
+        "name":  "Muntok"
+    },
+    {
+        "id":  57701,
+        "name":  "Muraloka"
+    },
+    {
+        "id":  58761,
+        "name":  "Muting"
+    },
+    {
+        "id":  57700,
+        "name":  "Nabire"
+    },
+    {
+        "id":  58642,
+        "name":  "Nagarasari"
+    },
+    {
+        "id":  57107,
+        "name":  "Nainggolan"
+    },
+    {
+        "id":  58365,
+        "name":  "Naisano Dua"
+    },
+    {
+        "id":  57699,
+        "name":  "Namlea"
+    },
+    {
+        "id":  57698,
+        "name":  "Namrole"
+    },
+    {
+        "id":  57697,
+        "name":  "Nanga Bulik"
+    },
+    {
+        "id":  57696,
+        "name":  "Nangah Pinoh"
+    },
+    {
+        "id":  57695,
+        "name":  "Nangaroro"
+    },
+    {
+        "id":  57694,
+        "name":  "Naringgul"
+    },
+    {
+        "id":  57693,
+        "name":  "Narmada"
+    },
+    {
+        "id":  58538,
+        "name":  "Naru"
+    },
+    {
+        "id":  57106,
+        "name":  "Natal"
+    },
+    {
+        "id":  57692,
+        "name":  "Natar"
+    },
+    {
+        "id":  58526,
+        "name":  "Ndona"
+    },
+    {
+        "id":  57691,
+        "name":  "Negara"
+    },
+    {
+        "id":  57690,
+        "name":  "Negararatu"
+    },
+    {
+        "id":  58757,
+        "name":  "Negeriagung"
+    },
+    {
+        "id":  58715,
+        "name":  "Neonmat"
+    },
+    {
+        "id":  57689,
+        "name":  "Ngabang"
+    },
+    {
+        "id":  58750,
+        "name":  "Ngalu"
+    },
+    {
+        "id":  58375,
+        "name":  "Ngamprah"
+    },
+    {
+        "id":  57688,
+        "name":  "Nganjuk"
+    },
+    {
+        "id":  57687,
+        "name":  "Ngantru"
+    },
+    {
+        "id":  58983,
+        "name":  "Ngasem"
+    },
+    {
+        "id":  57686,
+        "name":  "Ngawen"
+    },
+    {
+        "id":  57685,
+        "name":  "Ngawi"
+    },
+    {
+        "id":  58420,
+        "name":  "Ngemplak"
+    },
+    {
+        "id":  58543,
+        "name":  "Nggongi"
+    },
+    {
+        "id":  58813,
+        "name":  "Ngkan"
+    },
+    {
+        "id":  57684,
+        "name":  "Ngoro"
+    },
+    {
+        "id":  58477,
+        "name":  "Ngraho"
+    },
+    {
+        "id":  57683,
+        "name":  "Ngrayun"
+    },
+    {
+        "id":  58655,
+        "name":  "Ngulakan"
+    },
+    {
+        "id":  57682,
+        "name":  "Ngunut"
+    },
+    {
+        "id":  57681,
+        "name":  "Nikiniki"
+    },
+    {
+        "id":  57680,
+        "name":  "Nipah Panjang"
+    },
+    {
+        "id":  57679,
+        "name":  "Noemuti"
+    },
+    {
+        "id":  57678,
+        "name":  "Nunukan"
+    },
+    {
+        "id":  58522,
+        "name":  "Nusa Dua"
+    },
+    {
+        "id":  57677,
+        "name":  "Nyalindung"
+    },
+    {
+        "id":  57676,
+        "name":  "Obano"
+    },
+    {
+        "id":  58712,
+        "name":  "Oebobo"
+    },
+    {
+        "id":  58719,
+        "name":  "Oeekam"
+    },
+    {
+        "id":  58426,
+        "name":  "Oekabiti"
+    },
+    {
+        "id":  58717,
+        "name":  "Oekamusa"
+    },
+    {
+        "id":  58425,
+        "name":  "Oelamasi"
+    },
+    {
+        "id":  58699,
+        "name":  "Oganlima"
+    },
+    {
+        "id":  58380,
+        "name":  "Ogotua"
+    },
+    {
+        "id":  58724,
+        "name":  "Oinlasi"
+    },
+    {
+        "id":  57675,
+        "name":  "Okaba"
+    },
+    {
+        "id":  58994,
+        "name":  "Oksibil"
+    },
+    {
+        "id":  58423,
+        "name":  "Olafulihaa"
+    },
+    {
+        "id":  58497,
+        "name":  "Olehsari"
+    },
+    {
+        "id":  58556,
+        "name":  "Onan Ganjang Satu"
+    },
+    {
+        "id":  57674,
+        "name":  "Ondong Siau"
+    },
+    {
+        "id":  59014,
+        "name":  "Onimsari"
+    },
+    {
+        "id":  58465,
+        "name":  "Onolimbu"
+    },
+    {
+        "id":  57673,
+        "name":  "Oransbari"
+    },
+    {
+        "id":  57672,
+        "name":  "Pabuaran"
+    },
+    {
+        "id":  58493,
+        "name":  "Pacarkeling"
+    },
+    {
+        "id":  57671,
+        "name":  "Paciran"
+    },
+    {
+        "id":  57670,
+        "name":  "Pacitan"
+    },
+    {
+        "id":  57669,
+        "name":  "Padaherang"
+    },
+    {
+        "id":  58373,
+        "name":  "Padalarang"
+    },
+    {
+        "id":  57668,
+        "name":  "Padang"
+    },
+    {
+        "id":  59007,
+        "name":  "Padang Aro"
+    },
+    {
+        "id":  57667,
+        "name":  "Padangbatung"
+    },
+    {
+        "id":  57666,
+        "name":  "Padangcermin"
+    },
+    {
+        "id":  57665,
+        "name":  "Padangguci"
+    },
+    {
+        "id":  58402,
+        "name":  "Padangsappa"
+    },
+    {
+        "id":  57105,
+        "name":  "Padangsidempuan"
+    },
+    {
+        "id":  57943,
+        "name":  "Padangtepung"
+    },
+    {
+        "id":  57104,
+        "name":  "Padangtiji"
+    },
+    {
+        "id":  57664,
+        "name":  "Padangtikar"
+    },
+    {
+        "id":  57663,
+        "name":  "Padangulaktanding"
+    },
+    {
+        "id":  57662,
+        "name":  "Padarincang"
+    },
+    {
+        "id":  57661,
+        "name":  "Pademawu"
+    },
+    {
+        "id":  57660,
+        "name":  "Paga"
+    },
+    {
+        "id":  57659,
+        "name":  "Pagak"
+    },
+    {
+        "id":  57658,
+        "name":  "Pagar Alam"
+    },
+    {
+        "id":  57657,
+        "name":  "Pagat"
+    },
+    {
+        "id":  57656,
+        "name":  "Pagatan"
+    },
+    {
+        "id":  57655,
+        "name":  "Pagatan"
+    },
+    {
+        "id":  57654,
+        "name":  "Pagelaran"
+    },
+    {
+        "id":  57653,
+        "name":  "Pagerageung"
+    },
+    {
+        "id":  57618,
+        "name":  "Pagimana"
+    },
+    {
+        "id":  57652,
+        "name":  "Painan"
+    },
+    {
+        "id":  57651,
+        "name":  "Pakel"
+    },
+    {
+        "id":  58696,
+        "name":  "Pakel"
+    },
+    {
+        "id":  57650,
+        "name":  "Pakenjeng"
+    },
+    {
+        "id":  57649,
+        "name":  "Pakisaji"
+    },
+    {
+        "id":  57103,
+        "name":  "Pakkat"
+    },
+    {
+        "id":  57648,
+        "name":  "Pakong"
+    },
+    {
+        "id":  57646,
+        "name":  "Pakuan Agung"
+    },
+    {
+        "id":  57645,
+        "name":  "Pakuniran"
+    },
+    {
+        "id":  58632,
+        "name":  "Pakuwon"
+    },
+    {
+        "id":  57644,
+        "name":  "Palakka"
+    },
+    {
+        "id":  57643,
+        "name":  "Palangkaraya"
+    },
+    {
+        "id":  58907,
+        "name":  "Palaran"
+    },
+    {
+        "id":  58589,
+        "name":  "Palas"
+    },
+    {
+        "id":  57642,
+        "name":  "Palattae"
+    },
+    {
+        "id":  57640,
+        "name":  "Palembaian"
+    },
+    {
+        "id":  57641,
+        "name":  "Palembang"
+    },
+    {
+        "id":  57639,
+        "name":  "Palimanan"
+    },
+    {
+        "id":  57638,
+        "name":  "Palopo"
+    },
+    {
+        "id":  57637,
+        "name":  "Palu"
+    },
+    {
+        "id":  57636,
+        "name":  "Pamanukan"
+    },
+    {
+        "id":  57635,
+        "name":  "Pamarican"
+    },
+    {
+        "id":  57634,
+        "name":  "Pamekasan"
+    },
+    {
+        "id":  57633,
+        "name":  "Pameungpeuk"
+    },
+    {
+        "id":  57632,
+        "name":  "Pameungpeuk"
+    },
+    {
+        "id":  59022,
+        "name":  "Pamolokan"
+    },
+    {
+        "id":  57631,
+        "name":  "Pamotan"
+    },
+    {
+        "id":  57629,
+        "name":  "Pamulang"
+    },
+    {
+        "id":  58660,
+        "name":  "Pananjung"
+    },
+    {
+        "id":  57627,
+        "name":  "Panaragan"
+    },
+    {
+        "id":  57626,
+        "name":  "Panarukan"
+    },
+    {
+        "id":  57625,
+        "name":  "Panawangan"
+    },
+    {
+        "id":  57624,
+        "name":  "Pancur"
+    },
+    {
+        "id":  57622,
+        "name":  "Pandaan"
+    },
+    {
+        "id":  57623,
+        "name":  "Pandak"
+    },
+    {
+        "id":  58459,
+        "name":  "Pandan"
+    },
+    {
+        "id":  57621,
+        "name":  "Pandeglang"
+    },
+    {
+        "id":  58600,
+        "name":  "Pane Tongah"
+    },
+    {
+        "id":  57566,
+        "name":  "Pangaron"
+    },
+    {
+        "id":  57620,
+        "name":  "Panggul"
+    },
+    {
+        "id":  57619,
+        "name":  "Panggungrejo"
+    },
+    {
+        "id":  57617,
+        "name":  "Pangkajene"
+    },
+    {
+        "id":  57616,
+        "name":  "Pangkalan Balai"
+    },
+    {
+        "id":  57102,
+        "name":  "Pangkalan Brandan"
+    },
+    {
+        "id":  57615,
+        "name":  "Pangkalan Bunut"
+    },
+    {
+        "id":  57613,
+        "name":  "Pangkalan Kasai"
+    },
+    {
+        "id":  57872,
+        "name":  "Pangkalan Kerinci"
+    },
+    {
+        "id":  57614,
+        "name":  "Pangkalanbuun"
+    },
+    {
+        "id":  57612,
+        "name":  "Pangkalpinang"
+    },
+    {
+        "id":  57101,
+        "name":  "Pangururan"
+    },
+    {
+        "id":  58605,
+        "name":  "Panimbang"
+    },
+    {
+        "id":  58721,
+        "name":  "Panite"
+    },
+    {
+        "id":  57611,
+        "name":  "Panjalu"
+    },
+    {
+        "id":  57610,
+        "name":  "Panjang"
+    },
+    {
+        "id":  57609,
+        "name":  "Panji"
+    },
+    {
+        "id":  57608,
+        "name":  "Pantai"
+    },
+    {
+        "id":  58840,
+        "name":  "Pantai Ceuremen"
+    },
+    {
+        "id":  57607,
+        "name":  "Pantaihambawang"
+    },
+    {
+        "id":  58879,
+        "name":  "Pante Raja"
+    },
+    {
+        "id":  57606,
+        "name":  "Panti"
+    },
+    {
+        "id":  57100,
+        "name":  "Panyambungan"
+    },
+    {
+        "id":  58630,
+        "name":  "Parabon"
+    },
+    {
+        "id":  57088,
+        "name":  "Parapat"
+    },
+    {
+        "id":  57605,
+        "name":  "Pare"
+    },
+    {
+        "id":  57604,
+        "name":  "Parepare"
+    },
+    {
+        "id":  57603,
+        "name":  "Pariaman"
+    },
+    {
+        "id":  57601,
+        "name":  "Parigi"
+    },
+    {
+        "id":  57602,
+        "name":  "Parigi"
+    },
+    {
+        "id":  57600,
+        "name":  "Paringin"
+    },
+    {
+        "id":  57599,
+        "name":  "Parit Malintang"
+    },
+    {
+        "id":  57099,
+        "name":  "Parlilitan"
+    },
+    {
+        "id":  57097,
+        "name":  "Parmonangan"
+    },
+    {
+        "id":  57098,
+        "name":  "Parmonangan"
+    },
+    {
+        "id":  57096,
+        "name":  "Paropo"
+    },
+    {
+        "id":  57598,
+        "name":  "Parung"
+    },
+    {
+        "id":  58604,
+        "name":  "Pasanggrahan"
+    },
+    {
+        "id":  57594,
+        "name":  "Pasar Wajo"
+    },
+    {
+        "id":  58916,
+        "name":  "Pasararba"
+    },
+    {
+        "id":  57597,
+        "name":  "Pasarbaru"
+    },
+    {
+        "id":  57596,
+        "name":  "Pasarkemis"
+    },
+    {
+        "id":  57595,
+        "name":  "Pasarkuok"
+    },
+    {
+        "id":  58900,
+        "name":  "Pasarujungbatu"
+    },
+    {
+        "id":  57591,
+        "name":  "Pasean"
+    },
+    {
+        "id":  57593,
+        "name":  "Paseh"
+    },
+    {
+        "id":  58923,
+        "name":  "Pasingkan"
+    },
+    {
+        "id":  58881,
+        "name":  "Pasir Panjang"
+    },
+    {
+        "id":  57589,
+        "name":  "Pasir Pengaraian"
+    },
+    {
+        "id":  58611,
+        "name":  "Pasirgeleng"
+    },
+    {
+        "id":  57590,
+        "name":  "Pasirian"
+    },
+    {
+        "id":  58634,
+        "name":  "Pasirluhur"
+    },
+    {
+        "id":  58683,
+        "name":  "Pasirpanjang"
+    },
+    {
+        "id":  57587,
+        "name":  "Pasongsongan"
+    },
+    {
+        "id":  57592,
+        "name":  "Passi"
+    },
+    {
+        "id":  57588,
+        "name":  "Passo"
+    },
+    {
+        "id":  57586,
+        "name":  "Pasuruan"
+    },
+    {
+        "id":  58591,
+        "name":  "Pasuruan"
+    },
+    {
+        "id":  57585,
+        "name":  "Pati"
+    },
+    {
+        "id":  57561,
+        "name":  "Patimuan"
+    },
+    {
+        "id":  59012,
+        "name":  "Patipi Pasir"
+    },
+    {
+        "id":  58490,
+        "name":  "Patrang"
+    },
+    {
+        "id":  57583,
+        "name":  "Pauh"
+    },
+    {
+        "id":  58506,
+        "name":  "Pauhambar"
+    },
+    {
+        "id":  58792,
+        "name":  "Paya Dapur"
+    },
+    {
+        "id":  57581,
+        "name":  "Payakumbuh"
+    },
+    {
+        "id":  57580,
+        "name":  "Payunga"
+    },
+    {
+        "id":  57579,
+        "name":  "Pecangaan"
+    },
+    {
+        "id":  57578,
+        "name":  "Pedamaran"
+    },
+    {
+        "id":  58835,
+        "name":  "Pegasing"
+    },
+    {
+        "id":  57577,
+        "name":  "Pekalongan"
+    },
+    {
+        "id":  58369,
+        "name":  "Pekalongan"
+    },
+    {
+        "id":  58751,
+        "name":  "Pekan Bahapal"
+    },
+    {
+        "id":  57576,
+        "name":  "Pekanbaru"
+    },
+    {
+        "id":  58569,
+        "name":  "Pekutatan"
+    },
+    {
+        "id":  57575,
+        "name":  "Pelabuhan Dagang"
+    },
+    {
+        "id":  57574,
+        "name":  "Pelabuhanratu"
+    },
+    {
+        "id":  57573,
+        "name":  "Pelaihari"
+    },
+    {
+        "id":  57572,
+        "name":  "Pelau"
+    },
+    {
+        "id":  59028,
+        "name":  "Pemalang"
+    },
+    {
+        "id":  57571,
+        "name":  "Pemalang"
+    },
+    {
+        "id":  57570,
+        "name":  "Pemangkat"
+    },
+    {
+        "id":  57095,
+        "name":  "Pematang Raya"
+    },
+    {
+        "id":  57094,
+        "name":  "Pematangsiantar"
+    },
+    {
+        "id":  57569,
+        "name":  "Pembuanghulu"
+    },
+    {
+        "id":  57582,
+        "name":  "Pemenang"
+    },
+    {
+        "id":  57628,
+        "name":  "Penajam"
+    },
+    {
+        "id":  57093,
+        "name":  "Penaron"
+    },
+    {
+        "id":  58498,
+        "name":  "Penataban Krajan Satu"
+    },
+    {
+        "id":  58924,
+        "name":  "Pendawanbaru"
+    },
+    {
+        "id":  57568,
+        "name":  "Pendolo"
+    },
+    {
+        "id":  58592,
+        "name":  "Penengahan"
+    },
+    {
+        "id":  57567,
+        "name":  "Pengandonan"
+    },
+    {
+        "id":  58478,
+        "name":  "Pengkok"
+    },
+    {
+        "id":  57565,
+        "name":  "Peninjawan"
+    },
+    {
+        "id":  57563,
+        "name":  "Peranap"
+    },
+    {
+        "id":  57092,
+        "name":  "Perbaungan"
+    },
+    {
+        "id":  57091,
+        "name":  "Percut"
+    },
+    {
+        "id":  57562,
+        "name":  "Petakbehandang"
+    },
+    {
+        "id":  58956,
+        "name":  "Petani"
+    },
+    {
+        "id":  58553,
+        "name":  "Petoosang"
+    },
+    {
+        "id":  58856,
+        "name":  "Peukanbada"
+    },
+    {
+        "id":  58806,
+        "name":  "Peuleumat"
+    },
+    {
+        "id":  57090,
+        "name":  "Peureulak"
+    },
+    {
+        "id":  57560,
+        "name":  "Pimpi"
+    },
+    {
+        "id":  57559,
+        "name":  "Pineleng"
+    },
+    {
+        "id":  57165,
+        "name":  "Pining"
+    },
+    {
+        "id":  57558,
+        "name":  "Pinrang"
+    },
+    {
+        "id":  57089,
+        "name":  "Pintupadang"
+    },
+    {
+        "id":  57557,
+        "name":  "Piru"
+    },
+    {
+        "id":  57556,
+        "name":  "Plampang"
+    },
+    {
+        "id":  57555,
+        "name":  "Plumbon"
+    },
+    {
+        "id":  58482,
+        "name":  "Pohgending Kawan"
+    },
+    {
+        "id":  58473,
+        "name":  "Poigar"
+    },
+    {
+        "id":  57554,
+        "name":  "Poigar"
+    },
+    {
+        "id":  58718,
+        "name":  "Polen"
+    },
+    {
+        "id":  57553,
+        "name":  "Polewali"
+    },
+    {
+        "id":  58603,
+        "name":  "Polos"
+    },
+    {
+        "id":  57630,
+        "name":  "Pompanua"
+    },
+    {
+        "id":  57552,
+        "name":  "Ponorogo"
+    },
+    {
+        "id":  57551,
+        "name":  "Pontianak"
+    },
+    {
+        "id":  58967,
+        "name":  "Pontianak Barat"
+    },
+    {
+        "id":  57550,
+        "name":  "Poso"
+    },
+    {
+        "id":  57549,
+        "name":  "Pota"
+    },
+    {
+        "id":  57584,
+        "name":  "Pototano"
+    },
+    {
+        "id":  57564,
+        "name":  "Prabumulih"
+    },
+    {
+        "id":  58704,
+        "name":  "Pragaan"
+    },
+    {
+        "id":  57547,
+        "name":  "Praya"
+    },
+    {
+        "id":  57546,
+        "name":  "Prigen"
+    },
+    {
+        "id":  58691,
+        "name":  "Prigi"
+    },
+    {
+        "id":  58568,
+        "name":  "Pringgabaya"
+    },
+    {
+        "id":  57545,
+        "name":  "Pringsewu"
+    },
+    {
+        "id":  57544,
+        "name":  "Probolinggo"
+    },
+    {
+        "id":  58672,
+        "name":  "Prupuh"
+    },
+    {
+        "id":  58697,
+        "name":  "Pucanglaban"
+    },
+    {
+        "id":  58939,
+        "name":  "Pudi"
+    },
+    {
+        "id":  57543,
+        "name":  "Puger"
+    },
+    {
+        "id":  57542,
+        "name":  "Pulang Pisau"
+    },
+    {
+        "id":  57540,
+        "name":  "Pulau Kijang"
+    },
+    {
+        "id":  58979,
+        "name":  "Pulau Pramuka"
+    },
+    {
+        "id":  58789,
+        "name":  "Pulau Punjung"
+    },
+    {
+        "id":  58905,
+        "name":  "Pulau Temiang"
+    },
+    {
+        "id":  58875,
+        "name":  "Pulau Tiga"
+    },
+    {
+        "id":  57541,
+        "name":  "Pulauberingin"
+    },
+    {
+        "id":  58626,
+        "name":  "Pulaupanggung"
+    },
+    {
+        "id":  57539,
+        "name":  "Pulaupinang"
+    },
+    {
+        "id":  58480,
+        "name":  "Pule"
+    },
+    {
+        "id":  57538,
+        "name":  "Pule"
+    },
+    {
+        "id":  58799,
+        "name":  "Pulo Batal"
+    },
+    {
+        "id":  58801,
+        "name":  "Pulo Ie"
+    },
+    {
+        "id":  58800,
+        "name":  "Pulopaya"
+    },
+    {
+        "id":  58784,
+        "name":  "Pulosari"
+    },
+    {
+        "id":  58620,
+        "name":  "Puncaktugu"
+    },
+    {
+        "id":  57537,
+        "name":  "Pundong"
+    },
+    {
+        "id":  58368,
+        "name":  "Punggur"
+    },
+    {
+        "id":  57536,
+        "name":  "Purbalingga"
+    },
+    {
+        "id":  57535,
+        "name":  "Puruk Cahu"
+    },
+    {
+        "id":  57534,
+        "name":  "Purwakarta"
+    },
+    {
+        "id":  57533,
+        "name":  "Purwodadi"
+    },
+    {
+        "id":  57532,
+        "name":  "Purwoharjo"
+    },
+    {
+        "id":  57531,
+        "name":  "Purwokerto"
+    },
+    {
+        "id":  57530,
+        "name":  "Purworejo"
+    },
+    {
+        "id":  58940,
+        "name":  "Putatbasiun"
+    },
+    {
+        "id":  57529,
+        "name":  "Putussibau"
+    },
+    {
+        "id":  59025,
+        "name":  "Raas"
+    },
+    {
+        "id":  57528,
+        "name":  "Raba"
+    },
+    {
+        "id":  57527,
+        "name":  "Raduria"
+    },
+    {
+        "id":  57526,
+        "name":  "Raha"
+    },
+    {
+        "id":  57525,
+        "name":  "Rainis"
+    },
+    {
+        "id":  57524,
+        "name":  "Rajadesa"
+    },
+    {
+        "id":  57523,
+        "name":  "Rajapolah"
+    },
+    {
+        "id":  58749,
+        "name":  "Rambangaru"
+    },
+    {
+        "id":  58515,
+        "name":  "Rambatan"
+    },
+    {
+        "id":  57522,
+        "name":  "Rambipuji"
+    },
+    {
+        "id":  57521,
+        "name":  "Ranai"
+    },
+    {
+        "id":  59030,
+        "name":  "Ranai Kota"
+    },
+    {
+        "id":  57520,
+        "name":  "Rancah"
+    },
+    {
+        "id":  57519,
+        "name":  "Randuagung"
+    },
+    {
+        "id":  57518,
+        "name":  "Randudongkal"
+    },
+    {
+        "id":  57517,
+        "name":  "Rangkasbitung"
+    },
+    {
+        "id":  57516,
+        "name":  "Ransiki"
+    },
+    {
+        "id":  57515,
+        "name":  "Rantau"
+    },
+    {
+        "id":  58753,
+        "name":  "Rantau Ambacang"
+    },
+    {
+        "id":  58819,
+        "name":  "Rantau Panjang"
+    },
+    {
+        "id":  57514,
+        "name":  "Rantau Panjang"
+    },
+    {
+        "id":  57513,
+        "name":  "Rantau Panjang"
+    },
+    {
+        "id":  58745,
+        "name":  "Rantau Prapat"
+    },
+    {
+        "id":  57087,
+        "name":  "Rantauprapat"
+    },
+    {
+        "id":  57512,
+        "name":  "Rantaupulut"
+    },
+    {
+        "id":  58384,
+        "name":  "Rantepang"
+    },
+    {
+        "id":  57511,
+        "name":  "Rantepao"
+    },
+    {
+        "id":  57510,
+        "name":  "Rappang"
+    },
+    {
+        "id":  57509,
+        "name":  "Rasiei"
+    },
+    {
+        "id":  57508,
+        "name":  "Ratahan"
+    },
+    {
+        "id":  57507,
+        "name":  "Rawalo"
+    },
+    {
+        "id":  58451,
+        "name":  "Rejanegara"
+    },
+    {
+        "id":  58658,
+        "name":  "Rembang"
+    },
+    {
+        "id":  57506,
+        "name":  "Rembangan"
+    },
+    {
+        "id":  57505,
+        "name":  "Rengasdengklok"
+    },
+    {
+        "id":  57504,
+        "name":  "Rengat"
+    },
+    {
+        "id":  57086,
+        "name":  "Reuleuet"
+    },
+    {
+        "id":  57085,
+        "name":  "Rikitgaib"
+    },
+    {
+        "id":  58797,
+        "name":  "Rimo"
+    },
+    {
+        "id":  58385,
+        "name":  "Rindingallo"
+    },
+    {
+        "id":  58741,
+        "name":  "Ritaebang"
+    },
+    {
+        "id":  58561,
+        "name":  "Ritapiret"
+    },
+    {
+        "id":  57503,
+        "name":  "Riung"
+    },
+    {
+        "id":  57502,
+        "name":  "Robatal"
+    },
+    {
+        "id":  57501,
+        "name":  "Rokan"
+    },
+    {
+        "id":  58531,
+        "name":  "Rowokangkung"
+    },
+    {
+        "id":  57500,
+        "name":  "Rubaru"
+    },
+    {
+        "id":  57499,
+        "name":  "Rumbia"
+    },
+    {
+        "id":  58744,
+        "name":  "Rundeng"
+    },
+    {
+        "id":  58832,
+        "name":  "Rusip"
+    },
+    {
+        "id":  57498,
+        "name":  "Ruteng"
+    },
+    {
+        "id":  57084,
+        "name":  "Sabang"
+    },
+    {
+        "id":  57497,
+        "name":  "Sabang Barat"
+    },
+    {
+        "id":  58972,
+        "name":  "Sabang Mawang Barat"
+    },
+    {
+        "id":  57496,
+        "name":  "Sadananya"
+    },
+    {
+        "id":  57495,
+        "name":  "Sagaranten"
+    },
+    {
+        "id":  58610,
+        "name":  "Sajir"
+    },
+    {
+        "id":  57494,
+        "name":  "Saketi"
+    },
+    {
+        "id":  57493,
+        "name":  "Sakra"
+    },
+    {
+        "id":  57083,
+        "name":  "Salak"
+    },
+    {
+        "id":  57491,
+        "name":  "Salakan"
+    },
+    {
+        "id":  57490,
+        "name":  "Salatiga"
+    },
+    {
+        "id":  57489,
+        "name":  "Salawu"
+    },
+    {
+        "id":  57488,
+        "name":  "Sale"
+    },
+    {
+        "id":  57487,
+        "name":  "Salem"
+    },
+    {
+        "id":  58512,
+        "name":  "Salimpaung"
+    },
+    {
+        "id":  57486,
+        "name":  "Salinbatu"
+    },
+    {
+        "id":  57485,
+        "name":  "Salopa"
+    },
+    {
+        "id":  58803,
+        "name":  "Samadua"
+    },
+    {
+        "id":  58743,
+        "name":  "Samalantan"
+    },
+    {
+        "id":  58776,
+        "name":  "Samanente"
+    },
+    {
+        "id":  57483,
+        "name":  "Samarinda"
+    },
+    {
+        "id":  57482,
+        "name":  "Sambas"
+    },
+    {
+        "id":  58576,
+        "name":  "Sambelia"
+    },
+    {
+        "id":  57480,
+        "name":  "Samboja"
+    },
+    {
+        "id":  58479,
+        "name":  "Sambopinggir"
+    },
+    {
+        "id":  57479,
+        "name":  "Sampalan"
+    },
+    {
+        "id":  57478,
+        "name":  "Sampang"
+    },
+    {
+        "id":  57477,
+        "name":  "Sampang"
+    },
+    {
+        "id":  57476,
+        "name":  "Sampit"
+    },
+    {
+        "id":  58902,
+        "name":  "Sampuran"
+    },
+    {
+        "id":  57475,
+        "name":  "Sanana"
+    },
+    {
+        "id":  57474,
+        "name":  "Sangasangadalam"
+    },
+    {
+        "id":  57428,
+        "name":  "Sangatta"
+    },
+    {
+        "id":  57472,
+        "name":  "Sanggau"
+    },
+    {
+        "id":  58870,
+        "name":  "Sangir"
+    },
+    {
+        "id":  58361,
+        "name":  "Sanur"
+    },
+    {
+        "id":  57469,
+        "name":  "Saonek"
+    },
+    {
+        "id":  57468,
+        "name":  "Saparua"
+    },
+    {
+        "id":  57467,
+        "name":  "Sapat"
+    },
+    {
+        "id":  57466,
+        "name":  "Sape"
+    },
+    {
+        "id":  57465,
+        "name":  "Sapeken"
+    },
+    {
+        "id":  57463,
+        "name":  "Sarebe"
+    },
+    {
+        "id":  57082,
+        "name":  "Saribudolok"
+    },
+    {
+        "id":  57462,
+        "name":  "Sarilamak"
+    },
+    {
+        "id":  58599,
+        "name":  "Sarimatondang"
+    },
+    {
+        "id":  57461,
+        "name":  "Sarmi"
+    },
+    {
+        "id":  57460,
+        "name":  "Sarolangun"
+    },
+    {
+        "id":  57459,
+        "name":  "Saronggi"
+    },
+    {
+        "id":  57458,
+        "name":  "Saruaso"
+    },
+    {
+        "id":  58887,
+        "name":  "Sarulla"
+    },
+    {
+        "id":  58366,
+        "name":  "Sasi"
+    },
+    {
+        "id":  57457,
+        "name":  "Satui"
+    },
+    {
+        "id":  57456,
+        "name":  "Saukorem"
+    },
+    {
+        "id":  57470,
+        "name":  "Sausapor"
+    },
+    {
+        "id":  57455,
+        "name":  "Sawang"
+    },
+    {
+        "id":  58804,
+        "name":  "Sawang"
+    },
+    {
+        "id":  57454,
+        "name":  "Sawangan"
+    },
+    {
+        "id":  58781,
+        "name":  "Sawoi"
+    },
+    {
+        "id":  58424,
+        "name":  "Seba"
+    },
+    {
+        "id":  58532,
+        "name":  "Sebaren"
+    },
+    {
+        "id":  57453,
+        "name":  "Sebuku"
+    },
+    {
+        "id":  57452,
+        "name":  "Sebulu"
+    },
+    {
+        "id":  57451,
+        "name":  "Sedan"
+    },
+    {
+        "id":  57450,
+        "name":  "Sedanau"
+    },
+    {
+        "id":  57448,
+        "name":  "Sedinginan"
+    },
+    {
+        "id":  57447,
+        "name":  "Seget"
+    },
+    {
+        "id":  57064,
+        "name":  "Sei Rampah"
+    },
+    {
+        "id":  57446,
+        "name":  "Sekadau"
+    },
+    {
+        "id":  57445,
+        "name":  "Sekampung"
+    },
+    {
+        "id":  58896,
+        "name":  "Sekatak Bengara"
+    },
+    {
+        "id":  57443,
+        "name":  "Sekayu"
+    },
+    {
+        "id":  57444,
+        "name":  "Sekernan"
+    },
+    {
+        "id":  57442,
+        "name":  "Sekongkang Bawah"
+    },
+    {
+        "id":  58685,
+        "name":  "Sekotong Tengah"
+    },
+    {
+        "id":  57441,
+        "name":  "Sekupang"
+    },
+    {
+        "id":  57440,
+        "name":  "Selajambe"
+    },
+    {
+        "id":  57439,
+        "name":  "Selat Panjang"
+    },
+    {
+        "id":  57438,
+        "name":  "Selogiri"
+    },
+    {
+        "id":  57437,
+        "name":  "Selong"
+    },
+    {
+        "id":  57436,
+        "name":  "Selorejo"
+    },
+    {
+        "id":  57435,
+        "name":  "Semamung"
+    },
+    {
+        "id":  57434,
+        "name":  "Semarang"
+    },
+    {
+        "id":  58494,
+        "name":  "Semarapura"
+    },
+    {
+        "id":  57433,
+        "name":  "Semboro Lor"
+    },
+    {
+        "id":  57432,
+        "name":  "Semilat"
+    },
+    {
+        "id":  57431,
+        "name":  "Semongkat"
+    },
+    {
+        "id":  57430,
+        "name":  "Semuda"
+    },
+    {
+        "id":  57347,
+        "name":  "Semurup"
+    },
+    {
+        "id":  58736,
+        "name":  "Senadan"
+    },
+    {
+        "id":  58755,
+        "name":  "Senayan"
+    },
+    {
+        "id":  58970,
+        "name":  "Senayang"
+    },
+    {
+        "id":  58985,
+        "name":  "Sendawar"
+    },
+    {
+        "id":  57429,
+        "name":  "Senduro"
+    },
+    {
+        "id":  57427,
+        "name":  "Sengeti"
+    },
+    {
+        "id":  58585,
+        "name":  "Senggapi"
+    },
+    {
+        "id":  58438,
+        "name":  "Sengge"
+    },
+    {
+        "id":  58454,
+        "name":  "Senggigi"
+    },
+    {
+        "id":  57404,
+        "name":  "Sengkang"
+    },
+    {
+        "id":  57426,
+        "name":  "Senori"
+    },
+    {
+        "id":  58437,
+        "name":  "Sentani"
+    },
+    {
+        "id":  57425,
+        "name":  "Sepatan"
+    },
+    {
+        "id":  57464,
+        "name":  "Sepulu"
+    },
+    {
+        "id":  57424,
+        "name":  "Serang"
+    },
+    {
+        "id":  57423,
+        "name":  "Serasan"
+    },
+    {
+        "id":  57081,
+        "name":  "Serawai"
+    },
+    {
+        "id":  58499,
+        "name":  "Seririt"
+    },
+    {
+        "id":  58036,
+        "name":  "Serkos"
+    },
+    {
+        "id":  57422,
+        "name":  "Serpong"
+    },
+    {
+        "id":  57421,
+        "name":  "Serui"
+    },
+    {
+        "id":  57420,
+        "name":  "Sesayap"
+    },
+    {
+        "id":  57419,
+        "name":  "Seteluk"
+    },
+    {
+        "id":  57080,
+        "name":  "Seulimeum"
+    },
+    {
+        "id":  58821,
+        "name":  "Seuneubok Bayu"
+    },
+    {
+        "id":  58864,
+        "name":  "Seunudon"
+    },
+    {
+        "id":  58809,
+        "name":  "Seupakat"
+    },
+    {
+        "id":  57418,
+        "name":  "Sewon"
+    },
+    {
+        "id":  57079,
+        "name":  "Siabu"
+    },
+    {
+        "id":  57417,
+        "name":  "Siak Sri Indrapura"
+    },
+    {
+        "id":  57078,
+        "name":  "Sibigo"
+    },
+    {
+        "id":  57077,
+        "name":  "Sibolga"
+    },
+    {
+        "id":  57076,
+        "name":  "Siborong-Borong"
+    },
+    {
+        "id":  58828,
+        "name":  "Sibreh"
+    },
+    {
+        "id":  57075,
+        "name":  "Sibuhuan"
+    },
+    {
+        "id":  57416,
+        "name":  "Sidareja"
+    },
+    {
+        "id":  57449,
+        "name":  "Sidayu"
+    },
+    {
+        "id":  57415,
+        "name":  "Sidemen"
+    },
+    {
+        "id":  58394,
+        "name":  "Sidenreng"
+    },
+    {
+        "id":  57074,
+        "name":  "Sidikalang"
+    },
+    {
+        "id":  57414,
+        "name":  "Sidoarjo"
+    },
+    {
+        "id":  58381,
+        "name":  "Sidomulyo"
+    },
+    {
+        "id":  58590,
+        "name":  "Sidorejo"
+    },
+    {
+        "id":  58659,
+        "name":  "Sidowayah Kidul"
+    },
+    {
+        "id":  59002,
+        "name":  "Sigi Biromaru"
+    },
+    {
+        "id":  57073,
+        "name":  "Sigli"
+    },
+    {
+        "id":  57413,
+        "name":  "Sijunjung"
+    },
+    {
+        "id":  57110,
+        "name":  "Sikabaluan"
+    },
+    {
+        "id":  58548,
+        "name":  "Sikur"
+    },
+    {
+        "id":  57412,
+        "name":  "Sila"
+    },
+    {
+        "id":  58690,
+        "name":  "Siliragung"
+    },
+    {
+        "id":  58514,
+        "name":  "Simabur"
+    },
+    {
+        "id":  58636,
+        "name":  "Simpang"
+    },
+    {
+        "id":  57410,
+        "name":  "Simpang"
+    },
+    {
+        "id":  57411,
+        "name":  "Simpang"
+    },
+    {
+        "id":  57072,
+        "name":  "Simpang Empat"
+    },
+    {
+        "id":  58876,
+        "name":  "Simpang Teritit"
+    },
+    {
+        "id":  58458,
+        "name":  "Simpang Tiga Redelong"
+    },
+    {
+        "id":  58822,
+        "name":  "Simpang Ulim"
+    },
+    {
+        "id":  57409,
+        "name":  "Simpangempat"
+    },
+    {
+        "id":  57408,
+        "name":  "Simpur"
+    },
+    {
+        "id":  57071,
+        "name":  "Sinabang"
+    },
+    {
+        "id":  58662,
+        "name":  "Sinargalih"
+    },
+    {
+        "id":  58617,
+        "name":  "Sinarjaya"
+    },
+    {
+        "id":  57407,
+        "name":  "Sindangbarang"
+    },
+    {
+        "id":  58621,
+        "name":  "Sindangratu"
+    },
+    {
+        "id":  58644,
+        "name":  "Sindangtamu"
+    },
+    {
+        "id":  57406,
+        "name":  "Singaparna"
+    },
+    {
+        "id":  57405,
+        "name":  "Singaraja"
+    },
+    {
+        "id":  57403,
+        "name":  "Singkarak"
+    },
+    {
+        "id":  57402,
+        "name":  "Singkawang"
+    },
+    {
+        "id":  57070,
+        "name":  "Singkil"
+    },
+    {
+        "id":  57401,
+        "name":  "Singojuruh"
+    },
+    {
+        "id":  57400,
+        "name":  "Singosari"
+    },
+    {
+        "id":  57399,
+        "name":  "Sinjai"
+    },
+    {
+        "id":  57398,
+        "name":  "Sintang"
+    },
+    {
+        "id":  57069,
+        "name":  "Sipagimbar"
+    },
+    {
+        "id":  58598,
+        "name":  "Sipintuangin"
+    },
+    {
+        "id":  57068,
+        "name":  "Sipiongot"
+    },
+    {
+        "id":  57067,
+        "name":  "Sipirok"
+    },
+    {
+        "id":  58901,
+        "name":  "Sipoholon"
+    },
+    {
+        "id":  58520,
+        "name":  "Sirukam"
+    },
+    {
+        "id":  58716,
+        "name":  "Siso"
+    },
+    {
+        "id":  59023,
+        "name":  "Sitimerto"
+    },
+    {
+        "id":  57397,
+        "name":  "Situbondo"
+    },
+    {
+        "id":  58981,
+        "name":  "Siulak"
+    },
+    {
+        "id":  58754,
+        "name":  "Siulak Deras Mudik"
+    },
+    {
+        "id":  57396,
+        "name":  "Siwa"
+    },
+    {
+        "id":  57395,
+        "name":  "Slawi"
+    },
+    {
+        "id":  57394,
+        "name":  "Sleman"
+    },
+    {
+        "id":  57393,
+        "name":  "Sluke"
+    },
+    {
+        "id":  58583,
+        "name":  "Soa"
+    },
+    {
+        "id":  57392,
+        "name":  "Sodong Hilir"
+    },
+    {
+        "id":  57391,
+        "name":  "Soe"
+    },
+    {
+        "id":  57390,
+        "name":  "Sofifi"
+    },
+    {
+        "id":  57368,
+        "name":  "Sokaraja"
+    },
+    {
+        "id":  58371,
+        "name":  "Sokarame"
+    },
+    {
+        "id":  57389,
+        "name":  "Soko"
+    },
+    {
+        "id":  57388,
+        "name":  "Sokobanah"
+    },
+    {
+        "id":  57387,
+        "name":  "Solok"
+    },
+    {
+        "id":  58671,
+        "name":  "Solokuro"
+    },
+    {
+        "id":  57386,
+        "name":  "Somba"
+    },
+    {
+        "id":  57385,
+        "name":  "Sonder"
+    },
+    {
+        "id":  57066,
+        "name":  "Sondi"
+    },
+    {
+        "id":  58495,
+        "name":  "Songgon"
+    },
+    {
+        "id":  57384,
+        "name":  "Soreang"
+    },
+    {
+        "id":  57383,
+        "name":  "Sorendiweri"
+    },
+    {
+        "id":  57381,
+        "name":  "Sorong"
+    },
+    {
+        "id":  58884,
+        "name":  "South Tangerang"
+    },
+    {
+        "id":  57380,
+        "name":  "Sragen"
+    },
+    {
+        "id":  57379,
+        "name":  "Srandakan"
+    },
+    {
+        "id":  57378,
+        "name":  "Srono"
+    },
+    {
+        "id":  57065,
+        "name":  "Stabat"
+    },
+    {
+        "id":  57377,
+        "name":  "Stagen"
+    },
+    {
+        "id":  58791,
+        "name":  "Suak Bakung"
+    },
+    {
+        "id":  58505,
+        "name":  "Subagan"
+    },
+    {
+        "id":  57376,
+        "name":  "Subaim"
+    },
+    {
+        "id":  57331,
+        "name":  "Suban Jeriji"
+    },
+    {
+        "id":  57374,
+        "name":  "Subang"
+    },
+    {
+        "id":  57375,
+        "name":  "Subang"
+    },
+    {
+        "id":  58868,
+        "name":  "Suek"
+    },
+    {
+        "id":  58990,
+        "name":  "Sugapa"
+    },
+    {
+        "id":  58850,
+        "name":  "Suka Makmue"
+    },
+    {
+        "id":  57373,
+        "name":  "Sukabumi"
+    },
+    {
+        "id":  58606,
+        "name":  "Sukacai"
+    },
+    {
+        "id":  58653,
+        "name":  "Sukadana"
+    },
+    {
+        "id":  57371,
+        "name":  "Sukadana"
+    },
+    {
+        "id":  57372,
+        "name":  "Sukadana"
+    },
+    {
+        "id":  58386,
+        "name":  "Sukamaju"
+    },
+    {
+        "id":  58609,
+        "name":  "Sukamaju"
+    },
+    {
+        "id":  58640,
+        "name":  "Sukamaju Kidul"
+    },
+    {
+        "id":  58500,
+        "name":  "Sukamulia"
+    },
+    {
+        "id":  57370,
+        "name":  "Sukanagara"
+    },
+    {
+        "id":  57369,
+        "name":  "Sukaraja"
+    },
+    {
+        "id":  58645,
+        "name":  "Sukaraja"
+    },
+    {
+        "id":  58903,
+        "name":  "Sukarama"
+    },
+    {
+        "id":  58618,
+        "name":  "Sukarama"
+    },
+    {
+        "id":  57367,
+        "name":  "Sukasada"
+    },
+    {
+        "id":  57366,
+        "name":  "Sukasari"
+    },
+    {
+        "id":  57365,
+        "name":  "Sukawening"
+    },
+    {
+        "id":  57364,
+        "name":  "Sukoharjo"
+    },
+    {
+        "id":  58623,
+        "name":  "Sukoharjo Satu"
+    },
+    {
+        "id":  58489,
+        "name":  "Sukorambi"
+    },
+    {
+        "id":  58674,
+        "name":  "Sukorejo"
+    },
+    {
+        "id":  57363,
+        "name":  "Sukowono"
+    },
+    {
+        "id":  58535,
+        "name":  "Sulahan"
+    },
+    {
+        "id":  57362,
+        "name":  "Sulang Tengah"
+    },
+    {
+        "id":  57361,
+        "name":  "Sulitair"
+    },
+    {
+        "id":  58613,
+        "name":  "Sumandang"
+    },
+    {
+        "id":  57360,
+        "name":  "Sumbawa Besar"
+    },
+    {
+        "id":  57358,
+        "name":  "Sumber"
+    },
+    {
+        "id":  57359,
+        "name":  "Sumber"
+    },
+    {
+        "id":  58782,
+        "name":  "Sumberan"
+    },
+    {
+        "id":  58681,
+        "name":  "Sumberan"
+    },
+    {
+        "id":  57357,
+        "name":  "Sumberanyar"
+    },
+    {
+        "id":  57481,
+        "name":  "Sumberbaba"
+    },
+    {
+        "id":  57356,
+        "name":  "Sumberbaru"
+    },
+    {
+        "id":  58692,
+        "name":  "Sumbergedong"
+    },
+    {
+        "id":  57355,
+        "name":  "Sumberjambe"
+    },
+    {
+        "id":  57354,
+        "name":  "Sumberjati"
+    },
+    {
+        "id":  57353,
+        "name":  "Sumbermanjing Wetan"
+    },
+    {
+        "id":  57352,
+        "name":  "Sumberpucung"
+    },
+    {
+        "id":  58530,
+        "name":  "Sumberrejo"
+    },
+    {
+        "id":  58904,
+        "name":  "Sumbul"
+    },
+    {
+        "id":  57351,
+        "name":  "Sumedang"
+    },
+    {
+        "id":  57350,
+        "name":  "Sumedang Utara"
+    },
+    {
+        "id":  57349,
+        "name":  "Sumenep"
+    },
+    {
+        "id":  58997,
+        "name":  "Sumohai"
+    },
+    {
+        "id":  57348,
+        "name":  "Sumpur Kudus"
+    },
+    {
+        "id":  58871,
+        "name":  "Sungai Iyu"
+    },
+    {
+        "id":  58891,
+        "name":  "Sungai Nyamuk"
+    },
+    {
+        "id":  57340,
+        "name":  "Sungai Penuh"
+    },
+    {
+        "id":  57339,
+        "name":  "Sungai Pinyuh"
+    },
+    {
+        "id":  58984,
+        "name":  "Sungai Raya"
+    },
+    {
+        "id":  58818,
+        "name":  "Sungai Raya"
+    },
+    {
+        "id":  57338,
+        "name":  "Sungai Raya"
+    },
+    {
+        "id":  57335,
+        "name":  "Sungai Salak"
+    },
+    {
+        "id":  57346,
+        "name":  "Sungaibali"
+    },
+    {
+        "id":  58894,
+        "name":  "Sungaiboh"
+    },
+    {
+        "id":  57345,
+        "name":  "Sungaiduri"
+    },
+    {
+        "id":  58931,
+        "name":  "Sungaigampa"
+    },
+    {
+        "id":  57344,
+        "name":  "Sungaigerong"
+    },
+    {
+        "id":  57334,
+        "name":  "Sungaikakap"
+    },
+    {
+        "id":  57343,
+        "name":  "Sungaikupang"
+    },
+    {
+        "id":  57342,
+        "name":  "Sungailiat"
+    },
+    {
+        "id":  57341,
+        "name":  "Sungailimau"
+    },
+    {
+        "id":  58932,
+        "name":  "Sungaipuntik"
+    },
+    {
+        "id":  58936,
+        "name":  "Sungairaya"
+    },
+    {
+        "id":  57337,
+        "name":  "Sungairaya"
+    },
+    {
+        "id":  57336,
+        "name":  "Sungairotan"
+    },
+    {
+        "id":  58508,
+        "name":  "Sungaisarik"
+    },
+    {
+        "id":  58933,
+        "name":  "Sungaitabuk"
+    },
+    {
+        "id":  58925,
+        "name":  "Sungaitatas"
+    },
+    {
+        "id":  58915,
+        "name":  "Sungaiturak"
+    },
+    {
+        "id":  58513,
+        "name":  "Sungayang"
+    },
+    {
+        "id":  57063,
+        "name":  "Sunggal"
+    },
+    {
+        "id":  57333,
+        "name":  "Sungguminasa"
+    },
+    {
+        "id":  58873,
+        "name":  "Sungi Liput"
+    },
+    {
+        "id":  57332,
+        "name":  "Sungsang"
+    },
+    {
+        "id":  57329,
+        "name":  "Surabaya"
+    },
+    {
+        "id":  57330,
+        "name":  "Surabaya"
+    },
+    {
+        "id":  57328,
+        "name":  "Surade"
+    },
+    {
+        "id":  57327,
+        "name":  "Surakarta"
+    },
+    {
+        "id":  57326,
+        "name":  "Surian"
+    },
+    {
+        "id":  57325,
+        "name":  "Surulangun Rawas"
+    },
+    {
+        "id":  57062,
+        "name":  "Susoh"
+    },
+    {
+        "id":  57323,
+        "name":  "Susupu"
+    },
+    {
+        "id":  58980,
+        "name":  "Suwawa"
+    },
+    {
+        "id":  57322,
+        "name":  "Tabanan"
+    },
+    {
+        "id":  57321,
+        "name":  "Tabing"
+    },
+    {
+        "id":  58358,
+        "name":  "Tabunganen"
+    },
+    {
+        "id":  57320,
+        "name":  "Taccipi"
+    },
+    {
+        "id":  57319,
+        "name":  "Tagolu"
+    },
+    {
+        "id":  57318,
+        "name":  "Tais"
+    },
+    {
+        "id":  57317,
+        "name":  "Tajinan"
+    },
+    {
+        "id":  57316,
+        "name":  "Takalar"
+    },
+    {
+        "id":  58714,
+        "name":  "Takari"
+    },
+    {
+        "id":  57061,
+        "name":  "Takengon"
+    },
+    {
+        "id":  57315,
+        "name":  "Takokak"
+    },
+    {
+        "id":  57313,
+        "name":  "Talang Ubi"
+    },
+    {
+        "id":  57314,
+        "name":  "Talangbetutu"
+    },
+    {
+        "id":  58709,
+        "name":  "Talango"
+    },
+    {
+        "id":  57312,
+        "name":  "Talawi"
+    },
+    {
+        "id":  58562,
+        "name":  "Talibura"
+    },
+    {
+        "id":  57311,
+        "name":  "Talise"
+    },
+    {
+        "id":  57310,
+        "name":  "Taliwang"
+    },
+    {
+        "id":  57060,
+        "name":  "Talu"
+    },
+    {
+        "id":  57308,
+        "name":  "Talun"
+    },
+    {
+        "id":  57307,
+        "name":  "Tamako"
+    },
+    {
+        "id":  59029,
+        "name":  "Taman"
+    },
+    {
+        "id":  58579,
+        "name":  "Tamanan"
+    },
+    {
+        "id":  57306,
+        "name":  "Tambak"
+    },
+    {
+        "id":  59026,
+        "name":  "Tambakrejo"
+    },
+    {
+        "id":  57305,
+        "name":  "Tambaksari"
+    },
+    {
+        "id":  58918,
+        "name":  "Tambarangan"
+    },
+    {
+        "id":  57304,
+        "name":  "Tamberu"
+    },
+    {
+        "id":  58525,
+        "name":  "Tambolaka"
+    },
+    {
+        "id":  57303,
+        "name":  "Tambu"
+    },
+    {
+        "id":  57302,
+        "name":  "Tamiang Layang"
+    },
+    {
+        "id":  57301,
+        "name":  "Tana Paser"
+    },
+    {
+        "id":  58810,
+        "name":  "Tanah Merah"
+    },
+    {
+        "id":  58436,
+        "name":  "Tanah Merah"
+    },
+    {
+        "id":  57300,
+        "name":  "Tanahwangko"
+    },
+    {
+        "id":  58405,
+        "name":  "Tancung"
+    },
+    {
+        "id":  58460,
+        "name":  "Tangantangancut"
+    },
+    {
+        "id":  57299,
+        "name":  "Tangerang"
+    },
+    {
+        "id":  57233,
+        "name":  "Tangga"
+    },
+    {
+        "id":  57298,
+        "name":  "Tanggeung"
+    },
+    {
+        "id":  57297,
+        "name":  "Tanggul"
+    },
+    {
+        "id":  57296,
+        "name":  "Tanggulangin"
+    },
+    {
+        "id":  58474,
+        "name":  "Tanggunggunung"
+    },
+    {
+        "id":  58541,
+        "name":  "Tangratte"
+    },
+    {
+        "id":  57059,
+        "name":  "Tangse"
+    },
+    {
+        "id":  57294,
+        "name":  "Taniwel"
+    },
+    {
+        "id":  57293,
+        "name":  "Tanjung"
+    },
+    {
+        "id":  57291,
+        "name":  "Tanjung"
+    },
+    {
+        "id":  57292,
+        "name":  "Tanjung"
+    },
+    {
+        "id":  57288,
+        "name":  "Tanjung Balai"
+    },
+    {
+        "id":  58756,
+        "name":  "Tanjung Lubuk"
+    },
+    {
+        "id":  57281,
+        "name":  "Tanjung Lubuk"
+    },
+    {
+        "id":  58521,
+        "name":  "Tanjung Mas"
+    },
+    {
+        "id":  58897,
+        "name":  "Tanjung Palas"
+    },
+    {
+        "id":  57280,
+        "name":  "Tanjung Pandan"
+    },
+    {
+        "id":  57278,
+        "name":  "Tanjung Pinang"
+    },
+    {
+        "id":  57275,
+        "name":  "Tanjung Selor"
+    },
+    {
+        "id":  57290,
+        "name":  "Tanjungagung"
+    },
+    {
+        "id":  57289,
+        "name":  "Tanjungampalu"
+    },
+    {
+        "id":  58518,
+        "name":  "Tanjungampalu"
+    },
+    {
+        "id":  57058,
+        "name":  "Tanjungbalai"
+    },
+    {
+        "id":  57287,
+        "name":  "Tanjungbatu"
+    },
+    {
+        "id":  57286,
+        "name":  "Tanjungbatu"
+    },
+    {
+        "id":  57285,
+        "name":  "Tanjungbumi"
+    },
+    {
+        "id":  57284,
+        "name":  "Tanjunggadang"
+    },
+    {
+        "id":  57283,
+        "name":  "Tanjunggadang"
+    },
+    {
+        "id":  58637,
+        "name":  "Tanjungjaya"
+    },
+    {
+        "id":  57279,
+        "name":  "Tanjungpati"
+    },
+    {
+        "id":  57277,
+        "name":  "Tanjungraja"
+    },
+    {
+        "id":  57276,
+        "name":  "Tanjungsakti"
+    },
+    {
+        "id":  57484,
+        "name":  "Tanjungsamalantakan"
+    },
+    {
+        "id":  57057,
+        "name":  "Tanjungtiram"
+    },
+    {
+        "id":  58917,
+        "name":  "Tanta"
+    },
+    {
+        "id":  57266,
+        "name":  "Tanusan"
+    },
+    {
+        "id":  57274,
+        "name":  "Tapalang"
+    },
+    {
+        "id":  58919,
+        "name":  "Tapintengah"
+    },
+    {
+        "id":  57273,
+        "name":  "Taraju"
+    },
+    {
+        "id":  57272,
+        "name":  "Tarakan"
+    },
+    {
+        "id":  57271,
+        "name":  "Tarempa"
+    },
+    {
+        "id":  57270,
+        "name":  "Tarogong"
+    },
+    {
+        "id":  57269,
+        "name":  "Tarub"
+    },
+    {
+        "id":  58713,
+        "name":  "Tarus"
+    },
+    {
+        "id":  57056,
+        "name":  "Tarutung"
+    },
+    {
+        "id":  57268,
+        "name":  "Tasikmalaya"
+    },
+    {
+        "id":  57267,
+        "name":  "Tatelu"
+    },
+    {
+        "id":  58540,
+        "name":  "Tawali"
+    },
+    {
+        "id":  57265,
+        "name":  "Tayan"
+    },
+    {
+        "id":  57264,
+        "name":  "Tayu"
+    },
+    {
+        "id":  58684,
+        "name":  "Tebing"
+    },
+    {
+        "id":  57263,
+        "name":  "Tebing Tinggi"
+    },
+    {
+        "id":  57055,
+        "name":  "Tebingtinggi"
+    },
+    {
+        "id":  57262,
+        "name":  "Tegal"
+    },
+    {
+        "id":  57261,
+        "name":  "Tegalalang"
+    },
+    {
+        "id":  57260,
+        "name":  "Tehoru"
+    },
+    {
+        "id":  57259,
+        "name":  "Tekung"
+    },
+    {
+        "id":  58947,
+        "name":  "Telagalangsat"
+    },
+    {
+        "id":  58914,
+        "name":  "Telagaselaba"
+    },
+    {
+        "id":  57054,
+        "name":  "Teluk Dalam"
+    },
+    {
+        "id":  57258,
+        "name":  "Teluk Dalam"
+    },
+    {
+        "id":  57309,
+        "name":  "Teluk Kuantan"
+    },
+    {
+        "id":  57053,
+        "name":  "Teluk Nibung"
+    },
+    {
+        "id":  58790,
+        "name":  "Teluk Pinang"
+    },
+    {
+        "id":  58417,
+        "name":  "Teluknaga"
+    },
+    {
+        "id":  57257,
+        "name":  "Telukpakedai"
+    },
+    {
+        "id":  57256,
+        "name":  "Temanggung"
+    },
+    {
+        "id":  57255,
+        "name":  "Tembilahan"
+    },
+    {
+        "id":  57254,
+        "name":  "Tembuku"
+    },
+    {
+        "id":  57244,
+        "name":  "Tembuni"
+    },
+    {
+        "id":  57253,
+        "name":  "Teminabuan"
+    },
+    {
+        "id":  58545,
+        "name":  "Tempurejo"
+    },
+    {
+        "id":  58676,
+        "name":  "Tempursari"
+    },
+    {
+        "id":  57252,
+        "name":  "Tenga"
+    },
+    {
+        "id":  58874,
+        "name":  "Tenggulun"
+    },
+    {
+        "id":  57251,
+        "name":  "Tentena"
+    },
+    {
+        "id":  57250,
+        "name":  "Tepas"
+    },
+    {
+        "id":  58396,
+        "name":  "Teppo"
+    },
+    {
+        "id":  57163,
+        "name":  "Terangun"
+    },
+    {
+        "id":  58549,
+        "name":  "Terara"
+    },
+    {
+        "id":  57231,
+        "name":  "Terawas"
+    },
+    {
+        "id":  58802,
+        "name":  "Terbangan"
+    },
+    {
+        "id":  57249,
+        "name":  "Terbanggi Besar"
+    },
+    {
+        "id":  58964,
+        "name":  "Terentang"
+    },
+    {
+        "id":  58963,
+        "name":  "Teritip"
+    },
+    {
+        "id":  57248,
+        "name":  "Ternate"
+    },
+    {
+        "id":  58988,
+        "name":  "Tiakur"
+    },
+    {
+        "id":  57247,
+        "name":  "Tideng Pale"
+    },
+    {
+        "id":  58976,
+        "name":  "Tigaraksa"
+    },
+    {
+        "id":  58597,
+        "name":  "Tigarunggu"
+    },
+    {
+        "id":  57246,
+        "name":  "Tigi"
+    },
+    {
+        "id":  57052,
+        "name":  "Tiku"
+    },
+    {
+        "id":  57245,
+        "name":  "Tilamuta"
+    },
+    {
+        "id":  57243,
+        "name":  "Tinabogan"
+    },
+    {
+        "id":  57242,
+        "name":  "Tiom"
+    },
+    {
+        "id":  57241,
+        "name":  "Tiris"
+    },
+    {
+        "id":  58859,
+        "name":  "Tiro"
+    },
+    {
+        "id":  58496,
+        "name":  "Tirtopuro"
+    },
+    {
+        "id":  58686,
+        "name":  "Tlogowungu"
+    },
+    {
+        "id":  58383,
+        "name":  "Tobadak"
+    },
+    {
+        "id":  57240,
+        "name":  "Tobelo"
+    },
+    {
+        "id":  58746,
+        "name":  "Tobong"
+    },
+    {
+        "id":  57239,
+        "name":  "Toho"
+    },
+    {
+        "id":  57238,
+        "name":  "Toli-Toli"
+    },
+    {
+        "id":  57237,
+        "name":  "Tombatu"
+    },
+    {
+        "id":  57236,
+        "name":  "Tomohon"
+    },
+    {
+        "id":  57051,
+        "name":  "Tomok Bolon"
+    },
+    {
+        "id":  58382,
+        "name":  "Tompasobaru"
+    },
+    {
+        "id":  57235,
+        "name":  "Tomu"
+    },
+    {
+        "id":  57234,
+        "name":  "Tondano"
+    },
+    {
+        "id":  57050,
+        "name":  "Tongging"
+    },
+    {
+        "id":  57295,
+        "name":  "Tongkiling"
+    },
+    {
+        "id":  57232,
+        "name":  "Tongutisungi"
+    },
+    {
+        "id":  58768,
+        "name":  "Topo"
+    },
+    {
+        "id":  58575,
+        "name":  "Toroloji"
+    },
+    {
+        "id":  58542,
+        "name":  "Totumbang"
+    },
+    {
+        "id":  57230,
+        "name":  "Trenggalek"
+    },
+    {
+        "id":  58878,
+        "name":  "Trienggadeng"
+    },
+    {
+        "id":  58774,
+        "name":  "Trimuris"
+    },
+    {
+        "id":  57229,
+        "name":  "Trucuk"
+    },
+    {
+        "id":  57228,
+        "name":  "Tual"
+    },
+    {
+        "id":  57049,
+        "name":  "Tualangcut"
+    },
+    {
+        "id":  59005,
+        "name":  "Tuapejat"
+    },
+    {
+        "id":  57227,
+        "name":  "Tuban"
+    },
+    {
+        "id":  58977,
+        "name":  "Tubei"
+    },
+    {
+        "id":  58596,
+        "name":  "Tuktuk Sonak"
+    },
+    {
+        "id":  57226,
+        "name":  "Tulangan Utara"
+    },
+    {
+        "id":  58360,
+        "name":  "Tulehu"
+    },
+    {
+        "id":  57225,
+        "name":  "Tulungagung"
+    },
+    {
+        "id":  57224,
+        "name":  "Tumpang"
+    },
+    {
+        "id":  58962,
+        "name":  "Tungoo"
+    },
+    {
+        "id":  57223,
+        "name":  "Tunjungan"
+    },
+    {
+        "id":  57222,
+        "name":  "Turen"
+    },
+    {
+        "id":  58471,
+        "name":  "Tutuyan"
+    },
+    {
+        "id":  58435,
+        "name":  "Ubrub"
+    },
+    {
+        "id":  57221,
+        "name":  "Ubud"
+    },
+    {
+        "id":  58711,
+        "name":  "Uitao"
+    },
+    {
+        "id":  57220,
+        "name":  "Ujoh Bilang"
+    },
+    {
+        "id":  57047,
+        "name":  "Ujung Gading"
+    },
+    {
+        "id":  57048,
+        "name":  "Ujungbatu"
+    },
+    {
+        "id":  57218,
+        "name":  "Ujungpangkah"
+    },
+    {
+        "id":  58502,
+        "name":  "Ulakan"
+    },
+    {
+        "id":  58877,
+        "name":  "Ulee Gle"
+    },
+    {
+        "id":  58841,
+        "name":  "Uleeglee"
+    },
+    {
+        "id":  58999,
+        "name":  "Ullong"
+    },
+    {
+        "id":  57217,
+        "name":  "Ulu"
+    },
+    {
+        "id":  58392,
+        "name":  "Uluale"
+    },
+    {
+        "id":  58700,
+        "name":  "Umbulan Kapiak"
+    },
+    {
+        "id":  58404,
+        "name":  "Unaaha"
+    },
+    {
+        "id":  57214,
+        "name":  "Ungaran"
+    },
+    {
+        "id":  57213,
+        "name":  "Uta"
+    },
+    {
+        "id":  57212,
+        "name":  "Utan"
+    },
+    {
+        "id":  57211,
+        "name":  "Utan"
+    },
+    {
+        "id":  58748,
+        "name":  "Uwa"
+    },
+    {
+        "id":  58573,
+        "name":  "Waelengga"
+    },
+    {
+        "id":  58758,
+        "name":  "Waghete"
+    },
+    {
+        "id":  57210,
+        "name":  "Wahai"
+    },
+    {
+        "id":  57209,
+        "name":  "Waigama"
+    },
+    {
+        "id":  57204,
+        "name":  "Waigete"
+    },
+    {
+        "id":  57208,
+        "name":  "Waikabubak"
+    },
+    {
+        "id":  58747,
+        "name":  "Waiklibang"
+    },
+    {
+        "id":  57207,
+        "name":  "Waimangura"
+    },
+    {
+        "id":  57206,
+        "name":  "Waingapu"
+    },
+    {
+        "id":  58578,
+        "name":  "Waipare"
+    },
+    {
+        "id":  58955,
+        "name":  "Waipia"
+    },
+    {
+        "id":  57205,
+        "name":  "Waipukang"
+    },
+    {
+        "id":  58733,
+        "name":  "Wairiang"
+    },
+    {
+        "id":  57203,
+        "name":  "Waisai"
+    },
+    {
+        "id":  58735,
+        "name":  "Waiwadan"
+    },
+    {
+        "id":  57202,
+        "name":  "Waiwerang"
+    },
+    {
+        "id":  57201,
+        "name":  "Wajak"
+    },
+    {
+        "id":  58388,
+        "name":  "Walenrang"
+    },
+    {
+        "id":  57200,
+        "name":  "Wamena"
+    },
+    {
+        "id":  57199,
+        "name":  "Wanaraja"
+    },
+    {
+        "id":  57198,
+        "name":  "Wanareja"
+    },
+    {
+        "id":  57197,
+        "name":  "Wanci"
+    },
+    {
+        "id":  57196,
+        "name":  "Wangon"
+    },
+    {
+        "id":  57195,
+        "name":  "Wanurian"
+    },
+    {
+        "id":  57194,
+        "name":  "Wardo"
+    },
+    {
+        "id":  57193,
+        "name":  "Waren"
+    },
+    {
+        "id":  58434,
+        "name":  "Waris"
+    },
+    {
+        "id":  58763,
+        "name":  "Warmare"
+    },
+    {
+        "id":  57192,
+        "name":  "Waru"
+    },
+    {
+        "id":  58908,
+        "name":  "Waru"
+    },
+    {
+        "id":  58602,
+        "name":  "Warungbanten"
+    },
+    {
+        "id":  58788,
+        "name":  "Wasior"
+    },
+    {
+        "id":  57191,
+        "name":  "Watampone"
+    },
+    {
+        "id":  57190,
+        "name":  "Watansoppeng"
+    },
+    {
+        "id":  58669,
+        "name":  "Wates"
+    },
+    {
+        "id":  57189,
+        "name":  "Wates"
+    },
+    {
+        "id":  58734,
+        "name":  "Watugolok"
+    },
+    {
+        "id":  58485,
+        "name":  "Watulumbung"
+    },
+    {
+        "id":  57188,
+        "name":  "Weda"
+    },
+    {
+        "id":  57187,
+        "name":  "Wedarijaksa"
+    },
+    {
+        "id":  57186,
+        "name":  "Wedi"
+    },
+    {
+        "id":  57185,
+        "name":  "Welahan"
+    },
+    {
+        "id":  58559,
+        "name":  "Welamosa"
+    },
+    {
+        "id":  57184,
+        "name":  "Weleri"
+    },
+    {
+        "id":  58572,
+        "name":  "Werang"
+    },
+    {
+        "id":  59015,
+        "name":  "Weriagar"
+    },
+    {
+        "id":  57182,
+        "name":  "Werinama"
+    },
+    {
+        "id":  57181,
+        "name":  "Weru"
+    },
+    {
+        "id":  57183,
+        "name":  "Windesi"
+    },
+    {
+        "id":  57180,
+        "name":  "Wiradesa"
+    },
+    {
+        "id":  58987,
+        "name":  "Wiralaga Mulya"
+    },
+    {
+        "id":  57179,
+        "name":  "Witihama"
+    },
+    {
+        "id":  57178,
+        "name":  "Wlingi"
+    },
+    {
+        "id":  58950,
+        "name":  "Woha"
+    },
+    {
+        "id":  58695,
+        "name":  "Woja"
+    },
+    {
+        "id":  57177,
+        "name":  "Wolowaru"
+    },
+    {
+        "id":  58527,
+        "name":  "Wolowona"
+    },
+    {
+        "id":  57176,
+        "name":  "Wongsorejo"
+    },
+    {
+        "id":  57175,
+        "name":  "Wonogiri"
+    },
+    {
+        "id":  57174,
+        "name":  "Wonopringgo"
+    },
+    {
+        "id":  57173,
+        "name":  "Wonorejo"
+    },
+    {
+        "id":  57172,
+        "name":  "Wonosari"
+    },
+    {
+        "id":  57171,
+        "name":  "Wonosobo"
+    },
+    {
+        "id":  58488,
+        "name":  "Wonotirto"
+    },
+    {
+        "id":  57170,
+        "name":  "Wori"
+    },
+    {
+        "id":  57169,
+        "name":  "Wotu"
+    },
+    {
+        "id":  57168,
+        "name":  "Wuluhan"
+    },
+    {
+        "id":  58779,
+        "name":  "Wurigelebur"
+    },
+    {
+        "id":  57167,
+        "name":  "Yogyakarta"
+    },
+    {
+        "id":  57166,
+        "name":  "Yosowilangun"
+    }
+]

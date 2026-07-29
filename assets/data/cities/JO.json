@@ -1,0 +1,562 @@
+[
+    {
+        "id":  74568,
+        "name":  "‘Ajlūn"
+    },
+    {
+        "id":  74551,
+        "name":  "‘Allān"
+    },
+    {
+        "id":  74539,
+        "name":  "‘Anjarah"
+    },
+    {
+        "id":  74521,
+        "name":  "‘Ayn al Bāshā"
+    },
+    {
+        "id":  74520,
+        "name":  "‘Ayn Jannā"
+    },
+    {
+        "id":  74519,
+        "name":  "‘Ayy"
+    },
+    {
+        "id":  74498,
+        "name":  "‘Irjān"
+    },
+    {
+        "id":  74497,
+        "name":  "‘Izrā"
+    },
+    {
+        "id":  74575,
+        "name":  "Ad Dīsah"
+    },
+    {
+        "id":  74457,
+        "name":  "Adhruḩ"
+    },
+    {
+        "id":  74569,
+        "name":  "Adir"
+    },
+    {
+        "id":  74581,
+        "name":  "Al ‘Abdallī"
+    },
+    {
+        "id":  74566,
+        "name":  "Al ‘Arīḑ"
+    },
+    {
+        "id":  74518,
+        "name":  "Al Azraq ash Shamālī"
+    },
+    {
+        "id":  74484,
+        "name":  "Al Fayşalīyah"
+    },
+    {
+        "id":  74564,
+        "name":  "Al Fuḩayş"
+    },
+    {
+        "id":  74563,
+        "name":  "Al Ḩamrā’"
+    },
+    {
+        "id":  74562,
+        "name":  "Al Ḩasā"
+    },
+    {
+        "id":  74561,
+        "name":  "Al Hāshimīyah"
+    },
+    {
+        "id":  74560,
+        "name":  "Al Ḩişn"
+    },
+    {
+        "id":  74559,
+        "name":  "Al Ḩusaynīyah"
+    },
+    {
+        "id":  74574,
+        "name":  "Al Ḩusaynīyah"
+    },
+    {
+        "id":  74558,
+        "name":  "Al Jafr"
+    },
+    {
+        "id":  74557,
+        "name":  "Al Jīzah"
+    },
+    {
+        "id":  74556,
+        "name":  "Al Jubayhah"
+    },
+    {
+        "id":  74555,
+        "name":  "Al Juwayyidah"
+    },
+    {
+        "id":  74553,
+        "name":  "Al Karāmah"
+    },
+    {
+        "id":  74570,
+        "name":  "Al Khālidīyah"
+    },
+    {
+        "id":  74526,
+        "name":  "Al Khinzīrah"
+    },
+    {
+        "id":  74552,
+        "name":  "Al Kittah"
+    },
+    {
+        "id":  74548,
+        "name":  "Al Maşţabah"
+    },
+    {
+        "id":  74547,
+        "name":  "Al Mazār al Janūbī"
+    },
+    {
+        "id":  74546,
+        "name":  "Al Mazār ash Shamālī"
+    },
+    {
+        "id":  74477,
+        "name":  "Al Mughayyir"
+    },
+    {
+        "id":  74488,
+        "name":  "Al Murayghah"
+    },
+    {
+        "id":  74572,
+        "name":  "Al Muwaqqar"
+    },
+    {
+        "id":  74544,
+        "name":  "Al Qaşr"
+    },
+    {
+        "id":  74543,
+        "name":  "Al Qaţrānah"
+    },
+    {
+        "id":  74542,
+        "name":  "Al Quwayrah"
+    },
+    {
+        "id":  74540,
+        "name":  "Amman"
+    },
+    {
+        "id":  74567,
+        "name":  "Aqaba"
+    },
+    {
+        "id":  74538,
+        "name":  "Ar Rabbah"
+    },
+    {
+        "id":  74537,
+        "name":  "Ar Ramthā"
+    },
+    {
+        "id":  74571,
+        "name":  "Ar Rīshah"
+    },
+    {
+        "id":  74536,
+        "name":  "Ar Ruşayfah"
+    },
+    {
+        "id":  74535,
+        "name":  "Ar Ruwayshid"
+    },
+    {
+        "id":  74530,
+        "name":  "As Salţ"
+    },
+    {
+        "id":  74529,
+        "name":  "Aş Şubayḩī"
+    },
+    {
+        "id":  74534,
+        "name":  "Ash Shajarah"
+    },
+    {
+        "id":  74533,
+        "name":  "Ash Shawbak"
+    },
+    {
+        "id":  74460,
+        "name":  "Ash Shūnah al Janūbīyah"
+    },
+    {
+        "id":  74532,
+        "name":  "Ash Shūnah ash Shamālīyah"
+    },
+    {
+        "id":  74528,
+        "name":  "Aţ Ţafīlah"
+    },
+    {
+        "id":  74525,
+        "name":  "Aţ Ţayyibah"
+    },
+    {
+        "id":  74524,
+        "name":  "Aţ Ţurrah"
+    },
+    {
+        "id":  74527,
+        "name":  "At-Taybeh"
+    },
+    {
+        "id":  74523,
+        "name":  "Aydūn"
+    },
+    {
+        "id":  74522,
+        "name":  "Ayl"
+    },
+    {
+        "id":  74580,
+        "name":  "Az̧ Z̧ulayl"
+    },
+    {
+        "id":  74515,
+        "name":  "Bal‘amā"
+    },
+    {
+        "id":  74514,
+        "name":  "Balīlā"
+    },
+    {
+        "id":  74513,
+        "name":  "Bayt Īdis"
+    },
+    {
+        "id":  74512,
+        "name":  "Bayt Yāfā"
+    },
+    {
+        "id":  74487,
+        "name":  "Bīrayn"
+    },
+    {
+        "id":  74511,
+        "name":  "Burmā"
+    },
+    {
+        "id":  74510,
+        "name":  "Buşayrā"
+    },
+    {
+        "id":  74508,
+        "name":  "Dayr ‘Allā"
+    },
+    {
+        "id":  74509,
+        "name":  "Dayr Abū Sa‘īd"
+    },
+    {
+        "id":  74582,
+        "name":  "Dayr al Kahf"
+    },
+    {
+        "id":  74507,
+        "name":  "Dayr Yūsuf"
+    },
+    {
+        "id":  74506,
+        "name":  "Dhībān"
+    },
+    {
+        "id":  74505,
+        "name":  "Fuqū‘"
+    },
+    {
+        "id":  74545,
+        "name":  "Ghawr al Mazra‘ah"
+    },
+    {
+        "id":  74504,
+        "name":  "Ḩakamā"
+    },
+    {
+        "id":  74503,
+        "name":  "Ḩalāwah"
+    },
+    {
+        "id":  74502,
+        "name":  "Ḩātim"
+    },
+    {
+        "id":  74501,
+        "name":  "Ḩawshā"
+    },
+    {
+        "id":  74565,
+        "name":  "Ḩayy al Bunayyāt"
+    },
+    {
+        "id":  74541,
+        "name":  "Ḩayy al Quwaysimah"
+    },
+    {
+        "id":  74500,
+        "name":  "Ḩisbān"
+    },
+    {
+        "id":  74499,
+        "name":  "Irbid"
+    },
+    {
+        "id":  74496,
+        "name":  "Jarash"
+    },
+    {
+        "id":  74495,
+        "name":  "Jāwā"
+    },
+    {
+        "id":  74494,
+        "name":  "Judita"
+    },
+    {
+        "id":  74493,
+        "name":  "Juraynah"
+    },
+    {
+        "id":  74492,
+        "name":  "Kafr Abīl"
+    },
+    {
+        "id":  74491,
+        "name":  "Kafr Asad"
+    },
+    {
+        "id":  74490,
+        "name":  "Kafr Sawm"
+    },
+    {
+        "id":  74573,
+        "name":  "Karak City"
+    },
+    {
+        "id":  74489,
+        "name":  "Kharjā"
+    },
+    {
+        "id":  74486,
+        "name":  "Khuraybat as Sūq"
+    },
+    {
+        "id":  74485,
+        "name":  "Kitim"
+    },
+    {
+        "id":  74483,
+        "name":  "Kufrinjah"
+    },
+    {
+        "id":  74482,
+        "name":  "Kurayyimah"
+    },
+    {
+        "id":  74479,
+        "name":  "Mā‘īn"
+    },
+    {
+        "id":  74481,
+        "name":  "Ma\u0027an"
+    },
+    {
+        "id":  74480,
+        "name":  "Mādabā"
+    },
+    {
+        "id":  74550,
+        "name":  "Mafraq"
+    },
+    {
+        "id":  74478,
+        "name":  "Malkā"
+    },
+    {
+        "id":  74549,
+        "name":  "Manshīyat Banī Ḩasan"
+    },
+    {
+        "id":  74585,
+        "name":  "Marj Al Hamam"
+    },
+    {
+        "id":  74476,
+        "name":  "Mulayḩ"
+    },
+    {
+        "id":  74517,
+        "name":  "Muthallath al Azraq"
+    },
+    {
+        "id":  74579,
+        "name":  "Muthallath Jāmi‘at Āl al Bayt"
+    },
+    {
+        "id":  74577,
+        "name":  "Muthallath Şabḩā"
+    },
+    {
+        "id":  74475,
+        "name":  "Nā‘ūr"
+    },
+    {
+        "id":  74474,
+        "name":  "Qafqafā"
+    },
+    {
+        "id":  74554,
+        "name":  "Qīr Moāv"
+    },
+    {
+        "id":  74473,
+        "name":  "Qumaym"
+    },
+    {
+        "id":  74472,
+        "name":  "Raymūn"
+    },
+    {
+        "id":  74471,
+        "name":  "Rehab"
+    },
+    {
+        "id":  74470,
+        "name":  "Rujm ash Shāmī al Gharbī"
+    },
+    {
+        "id":  74583,
+        "name":  "Rukban"
+    },
+    {
+        "id":  74576,
+        "name":  "Russeifa"
+    },
+    {
+        "id":  74469,
+        "name":  "Şabḩā"
+    },
+    {
+        "id":  74531,
+        "name":  "Safi"
+    },
+    {
+        "id":  74468,
+        "name":  "Saḩāb"
+    },
+    {
+        "id":  74467,
+        "name":  "Saḩam al Kaffārāt"
+    },
+    {
+        "id":  74466,
+        "name":  "Şakhrah"
+    },
+    {
+        "id":  74465,
+        "name":  "Sakib"
+    },
+    {
+        "id":  74464,
+        "name":  "Sāl"
+    },
+    {
+        "id":  74463,
+        "name":  "Samā as Sirḩān"
+    },
+    {
+        "id":  74462,
+        "name":  "Şammā"
+    },
+    {
+        "id":  74461,
+        "name":  "Sammā ar Rawsān"
+    },
+    {
+        "id":  74459,
+        "name":  "Sūf"
+    },
+    {
+        "id":  74584,
+        "name":  "Ṣuwayliḥ"
+    },
+    {
+        "id":  74578,
+        "name":  "Tala Bay"
+    },
+    {
+        "id":  74458,
+        "name":  "Tibnah"
+    },
+    {
+        "id":  74456,
+        "name":  "Umm al Basātīn"
+    },
+    {
+        "id":  74455,
+        "name":  "Umm al Jimāl"
+    },
+    {
+        "id":  74454,
+        "name":  "Umm al Qiţţayn"
+    },
+    {
+        "id":  74453,
+        "name":  "Umm ar Raşāş"
+    },
+    {
+        "id":  74452,
+        "name":  "Umm as Summāq"
+    },
+    {
+        "id":  74451,
+        "name":  "Umm Qays"
+    },
+    {
+        "id":  74450,
+        "name":  "Wādī as Sīr"
+    },
+    {
+        "id":  74449,
+        "name":  "Wādī Mūsá"
+    },
+    {
+        "id":  74448,
+        "name":  "Waqqāş"
+    },
+    {
+        "id":  74447,
+        "name":  "Yarqā"
+    },
+    {
+        "id":  74446,
+        "name":  "Zaḩar"
+    },
+    {
+        "id":  74516,
+        "name":  "Zarqa"
+    }
+]

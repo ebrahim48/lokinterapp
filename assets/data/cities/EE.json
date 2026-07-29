@@ -1,0 +1,450 @@
+[
+    {
+        "id":  32157,
+        "name":  "Abja-Paluoja"
+    },
+    {
+        "id":  32156,
+        "name":  "Alatskivi"
+    },
+    {
+        "id":  32155,
+        "name":  "Antsla"
+    },
+    {
+        "id":  32154,
+        "name":  "Aruküla"
+    },
+    {
+        "id":  32153,
+        "name":  "Aseri"
+    },
+    {
+        "id":  32152,
+        "name":  "Audru"
+    },
+    {
+        "id":  32151,
+        "name":  "Elva"
+    },
+    {
+        "id":  32150,
+        "name":  "Haabneeme"
+    },
+    {
+        "id":  32149,
+        "name":  "Haapsalu"
+    },
+    {
+        "id":  32148,
+        "name":  "Haljala"
+    },
+    {
+        "id":  32160,
+        "name":  "Harku"
+    },
+    {
+        "id":  32147,
+        "name":  "Hullo"
+    },
+    {
+        "id":  32146,
+        "name":  "Iisaku"
+    },
+    {
+        "id":  32145,
+        "name":  "Järva-Jaani"
+    },
+    {
+        "id":  32144,
+        "name":  "Järvakandi"
+    },
+    {
+        "id":  32143,
+        "name":  "Jõgeva"
+    },
+    {
+        "id":  32142,
+        "name":  "Jõhvi"
+    },
+    {
+        "id":  32141,
+        "name":  "Jüri"
+    },
+    {
+        "id":  32140,
+        "name":  "Kadrina"
+    },
+    {
+        "id":  32139,
+        "name":  "Kanepi"
+    },
+    {
+        "id":  32138,
+        "name":  "Kärdla"
+    },
+    {
+        "id":  32106,
+        "name":  "Karksi-Nuia"
+    },
+    {
+        "id":  32137,
+        "name":  "Kehra"
+    },
+    {
+        "id":  32136,
+        "name":  "Kehtna"
+    },
+    {
+        "id":  32135,
+        "name":  "Keila"
+    },
+    {
+        "id":  32134,
+        "name":  "Kiili"
+    },
+    {
+        "id":  32133,
+        "name":  "Kilingi-Nõmme"
+    },
+    {
+        "id":  32132,
+        "name":  "Kiviõli"
+    },
+    {
+        "id":  32131,
+        "name":  "Koeru"
+    },
+    {
+        "id":  32130,
+        "name":  "Kohila"
+    },
+    {
+        "id":  32128,
+        "name":  "Kohtla-Järve"
+    },
+    {
+        "id":  32129,
+        "name":  "Kohtla-Nõmme"
+    },
+    {
+        "id":  32127,
+        "name":  "Kõrveküla"
+    },
+    {
+        "id":  32126,
+        "name":  "Kose"
+    },
+    {
+        "id":  32125,
+        "name":  "Kose"
+    },
+    {
+        "id":  32124,
+        "name":  "Kunda"
+    },
+    {
+        "id":  32123,
+        "name":  "Kunda"
+    },
+    {
+        "id":  32122,
+        "name":  "Kurepalu"
+    },
+    {
+        "id":  32121,
+        "name":  "Kuressaare"
+    },
+    {
+        "id":  32120,
+        "name":  "Kuusalu"
+    },
+    {
+        "id":  32161,
+        "name":  "Laagri"
+    },
+    {
+        "id":  32119,
+        "name":  "Lihula"
+    },
+    {
+        "id":  32118,
+        "name":  "Liiva"
+    },
+    {
+        "id":  32117,
+        "name":  "Linaküla"
+    },
+    {
+        "id":  32116,
+        "name":  "Loksa"
+    },
+    {
+        "id":  32115,
+        "name":  "Loo"
+    },
+    {
+        "id":  32114,
+        "name":  "Luunja"
+    },
+    {
+        "id":  32113,
+        "name":  "Maardu"
+    },
+    {
+        "id":  32112,
+        "name":  "Märjamaa"
+    },
+    {
+        "id":  32111,
+        "name":  "Mustvee"
+    },
+    {
+        "id":  32110,
+        "name":  "Narva"
+    },
+    {
+        "id":  32109,
+        "name":  "Narva-Jõesuu"
+    },
+    {
+        "id":  32108,
+        "name":  "Nõmme"
+    },
+    {
+        "id":  32107,
+        "name":  "Nõo"
+    },
+    {
+        "id":  32105,
+        "name":  "Orissaare"
+    },
+    {
+        "id":  32104,
+        "name":  "Otepää"
+    },
+    {
+        "id":  32103,
+        "name":  "Paide"
+    },
+    {
+        "id":  32102,
+        "name":  "Paikuse"
+    },
+    {
+        "id":  32101,
+        "name":  "Pajusti"
+    },
+    {
+        "id":  32100,
+        "name":  "Paldiski"
+    },
+    {
+        "id":  32099,
+        "name":  "Pärnu"
+    },
+    {
+        "id":  32098,
+        "name":  "Pärnu-Jaagupi"
+    },
+    {
+        "id":  32097,
+        "name":  "Põltsamaa"
+    },
+    {
+        "id":  32096,
+        "name":  "Põlva"
+    },
+    {
+        "id":  32095,
+        "name":  "Pringi"
+    },
+    {
+        "id":  32094,
+        "name":  "Puhja"
+    },
+    {
+        "id":  32093,
+        "name":  "Raasiku"
+    },
+    {
+        "id":  32092,
+        "name":  "Rakke"
+    },
+    {
+        "id":  32091,
+        "name":  "Rakvere"
+    },
+    {
+        "id":  32090,
+        "name":  "Räpina"
+    },
+    {
+        "id":  32089,
+        "name":  "Rapla"
+    },
+    {
+        "id":  32088,
+        "name":  "Riisipere"
+    },
+    {
+        "id":  32087,
+        "name":  "Rõuge"
+    },
+    {
+        "id":  32086,
+        "name":  "Ruhnu"
+    },
+    {
+        "id":  32085,
+        "name":  "Rummu"
+    },
+    {
+        "id":  32084,
+        "name":  "Saku"
+    },
+    {
+        "id":  32083,
+        "name":  "Särevere"
+    },
+    {
+        "id":  32082,
+        "name":  "Saue"
+    },
+    {
+        "id":  32081,
+        "name":  "Sauga"
+    },
+    {
+        "id":  32080,
+        "name":  "Sillamäe"
+    },
+    {
+        "id":  32079,
+        "name":  "Sindi"
+    },
+    {
+        "id":  32159,
+        "name":  "Sõmeru"
+    },
+    {
+        "id":  32078,
+        "name":  "Suure-Jaani"
+    },
+    {
+        "id":  32077,
+        "name":  "Tabasalu"
+    },
+    {
+        "id":  32076,
+        "name":  "Taebla"
+    },
+    {
+        "id":  32075,
+        "name":  "Tallinn"
+    },
+    {
+        "id":  32074,
+        "name":  "Tamsalu"
+    },
+    {
+        "id":  32073,
+        "name":  "Tapa"
+    },
+    {
+        "id":  32072,
+        "name":  "Tartu"
+    },
+    {
+        "id":  32071,
+        "name":  "Tehumardi"
+    },
+    {
+        "id":  32070,
+        "name":  "Toila"
+    },
+    {
+        "id":  32069,
+        "name":  "Tori"
+    },
+    {
+        "id":  32068,
+        "name":  "Tõrva"
+    },
+    {
+        "id":  32067,
+        "name":  "Turba"
+    },
+    {
+        "id":  32066,
+        "name":  "Türi"
+    },
+    {
+        "id":  32065,
+        "name":  "Ülenurme"
+    },
+    {
+        "id":  32064,
+        "name":  "Uuemõisa"
+    },
+    {
+        "id":  32063,
+        "name":  "Uulu"
+    },
+    {
+        "id":  32158,
+        "name":  "Vaiatu"
+    },
+    {
+        "id":  32062,
+        "name":  "Vaida"
+    },
+    {
+        "id":  32061,
+        "name":  "Väike-Maarja"
+    },
+    {
+        "id":  32060,
+        "name":  "Valga"
+    },
+    {
+        "id":  32059,
+        "name":  "Vana-Antsla"
+    },
+    {
+        "id":  32051,
+        "name":  "Vändra"
+    },
+    {
+        "id":  32058,
+        "name":  "Värska"
+    },
+    {
+        "id":  32162,
+        "name":  "Viimsi"
+    },
+    {
+        "id":  32057,
+        "name":  "Viimsi"
+    },
+    {
+        "id":  32056,
+        "name":  "Viiratsi"
+    },
+    {
+        "id":  32055,
+        "name":  "Viljandi"
+    },
+    {
+        "id":  32054,
+        "name":  "Vinni"
+    },
+    {
+        "id":  32053,
+        "name":  "Võhma"
+    },
+    {
+        "id":  32052,
+        "name":  "Võru"
+    }
+]

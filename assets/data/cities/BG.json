@@ -1,0 +1,1162 @@
+[
+    {
+        "id":  10827,
+        "name":  "Aheloy"
+    },
+    {
+        "id":  10825,
+        "name":  "Ahtopol"
+    },
+    {
+        "id":  10824,
+        "name":  "Aksakovo"
+    },
+    {
+        "id":  10823,
+        "name":  "Alfatar"
+    },
+    {
+        "id":  10822,
+        "name":  "Anton"
+    },
+    {
+        "id":  10821,
+        "name":  "Antonovo"
+    },
+    {
+        "id":  10820,
+        "name":  "Apriltsi"
+    },
+    {
+        "id":  10819,
+        "name":  "Ardino"
+    },
+    {
+        "id":  10818,
+        "name":  "Asenovgrad"
+    },
+    {
+        "id":  10817,
+        "name":  "Asparuhovo"
+    },
+    {
+        "id":  10816,
+        "name":  "Aytos"
+    },
+    {
+        "id":  10815,
+        "name":  "Balchik"
+    },
+    {
+        "id":  10828,
+        "name":  "Balgarevo"
+    },
+    {
+        "id":  10814,
+        "name":  "Banite"
+    },
+    {
+        "id":  10813,
+        "name":  "Bansko"
+    },
+    {
+        "id":  10812,
+        "name":  "Bata"
+    },
+    {
+        "id":  10811,
+        "name":  "Batak"
+    },
+    {
+        "id":  10577,
+        "name":  "Batanovtsi"
+    },
+    {
+        "id":  10810,
+        "name":  "Belene"
+    },
+    {
+        "id":  10809,
+        "name":  "Belitsa"
+    },
+    {
+        "id":  10808,
+        "name":  "Belogradchik"
+    },
+    {
+        "id":  10539,
+        "name":  "Beloslav"
+    },
+    {
+        "id":  10807,
+        "name":  "Belovo"
+    },
+    {
+        "id":  10806,
+        "name":  "Berkovitsa"
+    },
+    {
+        "id":  10805,
+        "name":  "Blagoevgrad"
+    },
+    {
+        "id":  10804,
+        "name":  "Boboshevo"
+    },
+    {
+        "id":  10803,
+        "name":  "Bobov Dol"
+    },
+    {
+        "id":  10802,
+        "name":  "Bolyarovo"
+    },
+    {
+        "id":  10801,
+        "name":  "Borino"
+    },
+    {
+        "id":  10800,
+        "name":  "Borovan"
+    },
+    {
+        "id":  10799,
+        "name":  "Borovo"
+    },
+    {
+        "id":  10798,
+        "name":  "Botevgrad"
+    },
+    {
+        "id":  10797,
+        "name":  "Bov"
+    },
+    {
+        "id":  10796,
+        "name":  "Boychinovtsi"
+    },
+    {
+        "id":  10795,
+        "name":  "Boynitsa"
+    },
+    {
+        "id":  10794,
+        "name":  "Bozhurishte"
+    },
+    {
+        "id":  10793,
+        "name":  "Bratsigovo"
+    },
+    {
+        "id":  10792,
+        "name":  "Bregovo"
+    },
+    {
+        "id":  10791,
+        "name":  "Breznik"
+    },
+    {
+        "id":  10790,
+        "name":  "Brezovo"
+    },
+    {
+        "id":  10789,
+        "name":  "Brusartsi"
+    },
+    {
+        "id":  10788,
+        "name":  "Buhovo"
+    },
+    {
+        "id":  10787,
+        "name":  "Burgas"
+    },
+    {
+        "id":  10786,
+        "name":  "Byala"
+    },
+    {
+        "id":  10785,
+        "name":  "Byala Cherkva"
+    },
+    {
+        "id":  10784,
+        "name":  "Byala Slatina"
+    },
+    {
+        "id":  10783,
+        "name":  "Chavdar"
+    },
+    {
+        "id":  10782,
+        "name":  "Chelopech"
+    },
+    {
+        "id":  10781,
+        "name":  "Chepelare"
+    },
+    {
+        "id":  10780,
+        "name":  "Chernomorets"
+    },
+    {
+        "id":  10779,
+        "name":  "Cherven Bryag"
+    },
+    {
+        "id":  10778,
+        "name":  "Chiprovtsi"
+    },
+    {
+        "id":  10777,
+        "name":  "Chirpan"
+    },
+    {
+        "id":  10776,
+        "name":  "Chuprene"
+    },
+    {
+        "id":  10764,
+        "name":  "Dalgopol"
+    },
+    {
+        "id":  10775,
+        "name":  "Debelets"
+    },
+    {
+        "id":  10774,
+        "name":  "Devin"
+    },
+    {
+        "id":  10773,
+        "name":  "Devnya"
+    },
+    {
+        "id":  10772,
+        "name":  "Dimitrovgrad"
+    },
+    {
+        "id":  10771,
+        "name":  "Dimovo"
+    },
+    {
+        "id":  10573,
+        "name":  "Dobrich"
+    },
+    {
+        "id":  10770,
+        "name":  "Dolna Banya"
+    },
+    {
+        "id":  10769,
+        "name":  "Dolna Mitropolia"
+    },
+    {
+        "id":  10750,
+        "name":  "Dolni Chiflik"
+    },
+    {
+        "id":  10768,
+        "name":  "Dolni Dabnik"
+    },
+    {
+        "id":  10767,
+        "name":  "Dospat"
+    },
+    {
+        "id":  10766,
+        "name":  "Dragoman"
+    },
+    {
+        "id":  10765,
+        "name":  "Dryanovo"
+    },
+    {
+        "id":  10763,
+        "name":  "Dulovo"
+    },
+    {
+        "id":  10762,
+        "name":  "Dunavtsi"
+    },
+    {
+        "id":  10592,
+        "name":  "Dupnitsa"
+    },
+    {
+        "id":  10761,
+        "name":  "Dve Mogili"
+    },
+    {
+        "id":  10760,
+        "name":  "Dzhebel"
+    },
+    {
+        "id":  10759,
+        "name":  "Elena"
+    },
+    {
+        "id":  10757,
+        "name":  "Elhovo"
+    },
+    {
+        "id":  10758,
+        "name":  "Elin Pelin"
+    },
+    {
+        "id":  10756,
+        "name":  "Elkhovo"
+    },
+    {
+        "id":  10755,
+        "name":  "Etropole"
+    },
+    {
+        "id":  10753,
+        "name":  "Gabrovo"
+    },
+    {
+        "id":  10754,
+        "name":  "Gabrovo"
+    },
+    {
+        "id":  10752,
+        "name":  "Gara Hitrino"
+    },
+    {
+        "id":  10737,
+        "name":  "Garmen"
+    },
+    {
+        "id":  10751,
+        "name":  "General Toshevo"
+    },
+    {
+        "id":  10749,
+        "name":  "Glavinitsa"
+    },
+    {
+        "id":  10748,
+        "name":  "Godech"
+    },
+    {
+        "id":  10747,
+        "name":  "Gorichevo"
+    },
+    {
+        "id":  10746,
+        "name":  "Gorna Malina"
+    },
+    {
+        "id":  10745,
+        "name":  "Gorna Oryahovitsa"
+    },
+    {
+        "id":  10744,
+        "name":  "Gotse Delchev"
+    },
+    {
+        "id":  10742,
+        "name":  "Gramada"
+    },
+    {
+        "id":  10740,
+        "name":  "Gŭlŭbovo"
+    },
+    {
+        "id":  10739,
+        "name":  "Gulyantsi"
+    },
+    {
+        "id":  10738,
+        "name":  "Gurkovo"
+    },
+    {
+        "id":  10743,
+        "name":  "Gyovren"
+    },
+    {
+        "id":  10720,
+        "name":  "Hadzhidimovo"
+    },
+    {
+        "id":  10719,
+        "name":  "Harmanli"
+    },
+    {
+        "id":  10718,
+        "name":  "Haskovo"
+    },
+    {
+        "id":  10717,
+        "name":  "Hayredin"
+    },
+    {
+        "id":  10716,
+        "name":  "Hisarya"
+    },
+    {
+        "id":  10736,
+        "name":  "Ihtiman"
+    },
+    {
+        "id":  10735,
+        "name":  "Iskar"
+    },
+    {
+        "id":  10651,
+        "name":  "Iskar"
+    },
+    {
+        "id":  10734,
+        "name":  "Isperih"
+    },
+    {
+        "id":  10733,
+        "name":  "Ivanovo"
+    },
+    {
+        "id":  10732,
+        "name":  "Ivaylovgrad"
+    },
+    {
+        "id":  10731,
+        "name":  "Kalofer"
+    },
+    {
+        "id":  10730,
+        "name":  "Kaloyanovo"
+    },
+    {
+        "id":  10729,
+        "name":  "Kameno"
+    },
+    {
+        "id":  10728,
+        "name":  "Kaolinovo"
+    },
+    {
+        "id":  10694,
+        "name":  "Kardzhali"
+    },
+    {
+        "id":  10727,
+        "name":  "Karlovo"
+    },
+    {
+        "id":  10726,
+        "name":  "Karnobat"
+    },
+    {
+        "id":  10725,
+        "name":  "Kaspichan"
+    },
+    {
+        "id":  10724,
+        "name":  "Kavarna"
+    },
+    {
+        "id":  10723,
+        "name":  "Kaynardzha"
+    },
+    {
+        "id":  10722,
+        "name":  "Kazanlak"
+    },
+    {
+        "id":  10721,
+        "name":  "Kermen"
+    },
+    {
+        "id":  10714,
+        "name":  "Kilifarevo"
+    },
+    {
+        "id":  10713,
+        "name":  "Kirkovo"
+    },
+    {
+        "id":  10711,
+        "name":  "Kiten"
+    },
+    {
+        "id":  10712,
+        "name":  "Kiten"
+    },
+    {
+        "id":  10710,
+        "name":  "Klisura"
+    },
+    {
+        "id":  10709,
+        "name":  "Knezha"
+    },
+    {
+        "id":  10708,
+        "name":  "Kocherinovo"
+    },
+    {
+        "id":  10707,
+        "name":  "Kolarovo"
+    },
+    {
+        "id":  10706,
+        "name":  "Koprivshtitsa"
+    },
+    {
+        "id":  10705,
+        "name":  "Kostinbrod"
+    },
+    {
+        "id":  10704,
+        "name":  "Kotel"
+    },
+    {
+        "id":  10703,
+        "name":  "Koynare"
+    },
+    {
+        "id":  10702,
+        "name":  "Kozloduy"
+    },
+    {
+        "id":  10701,
+        "name":  "Kresna"
+    },
+    {
+        "id":  10700,
+        "name":  "Krichim"
+    },
+    {
+        "id":  10699,
+        "name":  "Krivodol"
+    },
+    {
+        "id":  10698,
+        "name":  "Krumovgrad"
+    },
+    {
+        "id":  10697,
+        "name":  "Krushari"
+    },
+    {
+        "id":  10696,
+        "name":  "Kubrat"
+    },
+    {
+        "id":  10695,
+        "name":  "Kula"
+    },
+    {
+        "id":  10693,
+        "name":  "Kyustendil"
+    },
+    {
+        "id":  10692,
+        "name":  "Lakatnik"
+    },
+    {
+        "id":  10685,
+        "name":  "Laki"
+    },
+    {
+        "id":  10691,
+        "name":  "Lesichovo"
+    },
+    {
+        "id":  10690,
+        "name":  "Letnitsa"
+    },
+    {
+        "id":  10689,
+        "name":  "Levski"
+    },
+    {
+        "id":  10688,
+        "name":  "Lom"
+    },
+    {
+        "id":  10687,
+        "name":  "Lovech"
+    },
+    {
+        "id":  10686,
+        "name":  "Loznitsa"
+    },
+    {
+        "id":  10684,
+        "name":  "Lukovit"
+    },
+    {
+        "id":  10683,
+        "name":  "Lyaskovets"
+    },
+    {
+        "id":  10682,
+        "name":  "Lyubimets"
+    },
+    {
+        "id":  10681,
+        "name":  "Madan"
+    },
+    {
+        "id":  10680,
+        "name":  "Madzharovo"
+    },
+    {
+        "id":  10669,
+        "name":  "Maglizh"
+    },
+    {
+        "id":  10679,
+        "name":  "Makresh"
+    },
+    {
+        "id":  10678,
+        "name":  "Malko Tarnovo"
+    },
+    {
+        "id":  10677,
+        "name":  "Medkovets"
+    },
+    {
+        "id":  10676,
+        "name":  "Medovene"
+    },
+    {
+        "id":  10675,
+        "name":  "Mezdra"
+    },
+    {
+        "id":  10672,
+        "name":  "Mineralni Bani"
+    },
+    {
+        "id":  10671,
+        "name":  "Mirkovo"
+    },
+    {
+        "id":  10670,
+        "name":  "Mizia"
+    },
+    {
+        "id":  10673,
+        "name":  "Montana"
+    },
+    {
+        "id":  10667,
+        "name":  "Nedelino"
+    },
+    {
+        "id":  10666,
+        "name":  "Nesebar"
+    },
+    {
+        "id":  10665,
+        "name":  "Nevestino"
+    },
+    {
+        "id":  10664,
+        "name":  "Nikolaevo"
+    },
+    {
+        "id":  10663,
+        "name":  "Nikopol"
+    },
+    {
+        "id":  10662,
+        "name":  "Nova Zagora"
+    },
+    {
+        "id":  10661,
+        "name":  "Novi Pazar"
+    },
+    {
+        "id":  10660,
+        "name":  "Novo Selo"
+    },
+    {
+        "id":  10659,
+        "name":  "Obzor"
+    },
+    {
+        "id":  10658,
+        "name":  "Omurtag"
+    },
+    {
+        "id":  10657,
+        "name":  "Opaka"
+    },
+    {
+        "id":  10656,
+        "name":  "Oryahovo"
+    },
+    {
+        "id":  10655,
+        "name":  "Panagyurishte"
+    },
+    {
+        "id":  10634,
+        "name":  "Parvomay"
+    },
+    {
+        "id":  10633,
+        "name":  "Parvomaytsi"
+    },
+    {
+        "id":  10654,
+        "name":  "Pavel Banya"
+    },
+    {
+        "id":  10653,
+        "name":  "Pavlikeni"
+    },
+    {
+        "id":  10652,
+        "name":  "Pazardzhik"
+    },
+    {
+        "id":  10650,
+        "name":  "Pernik"
+    },
+    {
+        "id":  10649,
+        "name":  "Perushtitsa"
+    },
+    {
+        "id":  10648,
+        "name":  "Peshtera"
+    },
+    {
+        "id":  10647,
+        "name":  "Petrich"
+    },
+    {
+        "id":  10646,
+        "name":  "Pirdop"
+    },
+    {
+        "id":  10645,
+        "name":  "Pleven"
+    },
+    {
+        "id":  10644,
+        "name":  "Pliska"
+    },
+    {
+        "id":  10643,
+        "name":  "Plovdiv"
+    },
+    {
+        "id":  10642,
+        "name":  "Polski Trambesh"
+    },
+    {
+        "id":  10641,
+        "name":  "Pomorie"
+    },
+    {
+        "id":  10640,
+        "name":  "Popovo"
+    },
+    {
+        "id":  10639,
+        "name":  "Pordim"
+    },
+    {
+        "id":  10638,
+        "name":  "Pravets"
+    },
+    {
+        "id":  10636,
+        "name":  "Primorsko"
+    },
+    {
+        "id":  10635,
+        "name":  "Provadia"
+    },
+    {
+        "id":  10632,
+        "name":  "Radnevo"
+    },
+    {
+        "id":  10631,
+        "name":  "Radomir"
+    },
+    {
+        "id":  10630,
+        "name":  "Rakitovo"
+    },
+    {
+        "id":  10629,
+        "name":  "Rakovski"
+    },
+    {
+        "id":  10628,
+        "name":  "Ravda"
+    },
+    {
+        "id":  10627,
+        "name":  "Razgrad"
+    },
+    {
+        "id":  10626,
+        "name":  "Razlog"
+    },
+    {
+        "id":  10625,
+        "name":  "Rila"
+    },
+    {
+        "id":  10624,
+        "name":  "Roman"
+    },
+    {
+        "id":  10623,
+        "name":  "Rudozem"
+    },
+    {
+        "id":  10622,
+        "name":  "Ruen"
+    },
+    {
+        "id":  10668,
+        "name":  "Rupite"
+    },
+    {
+        "id":  10621,
+        "name":  "Ruse"
+    },
+    {
+        "id":  10620,
+        "name":  "Ruzhintsi"
+    },
+    {
+        "id":  10619,
+        "name":  "Sadovo"
+    },
+    {
+        "id":  10585,
+        "name":  "Saedinenie"
+    },
+    {
+        "id":  10618,
+        "name":  "Samokov"
+    },
+    {
+        "id":  10617,
+        "name":  "Samuil"
+    },
+    {
+        "id":  10616,
+        "name":  "Sandanski"
+    },
+    {
+        "id":  10615,
+        "name":  "Sapareva Banya"
+    },
+    {
+        "id":  10614,
+        "name":  "Sarafovo"
+    },
+    {
+        "id":  10582,
+        "name":  "Sarnitsa"
+    },
+    {
+        "id":  10613,
+        "name":  "Satovcha"
+    },
+    {
+        "id":  10612,
+        "name":  "Senovo"
+    },
+    {
+        "id":  10611,
+        "name":  "Septemvri"
+    },
+    {
+        "id":  10610,
+        "name":  "Sevlievo"
+    },
+    {
+        "id":  10609,
+        "name":  "Shabla"
+    },
+    {
+        "id":  10608,
+        "name":  "Shipka"
+    },
+    {
+        "id":  10607,
+        "name":  "Shumen"
+    },
+    {
+        "id":  10606,
+        "name":  "Silistra"
+    },
+    {
+        "id":  10605,
+        "name":  "Simeonovgrad"
+    },
+    {
+        "id":  10604,
+        "name":  "Simitli"
+    },
+    {
+        "id":  10603,
+        "name":  "Sitovo"
+    },
+    {
+        "id":  10602,
+        "name":  "Slavyanovo"
+    },
+    {
+        "id":  10601,
+        "name":  "Sliven"
+    },
+    {
+        "id":  10600,
+        "name":  "Slivnitsa"
+    },
+    {
+        "id":  10599,
+        "name":  "Slivo Pole"
+    },
+    {
+        "id":  10598,
+        "name":  "Smolyan"
+    },
+    {
+        "id":  10597,
+        "name":  "Smyadovo"
+    },
+    {
+        "id":  10596,
+        "name":  "Sofia"
+    },
+    {
+        "id":  10595,
+        "name":  "Sozopol"
+    },
+    {
+        "id":  10594,
+        "name":  "Spasovo"
+    },
+    {
+        "id":  10741,
+        "name":  "Sredets"
+    },
+    {
+        "id":  10593,
+        "name":  "Stamboliyski"
+    },
+    {
+        "id":  10591,
+        "name":  "Stara Kresna"
+    },
+    {
+        "id":  10590,
+        "name":  "Stara Zagora"
+    },
+    {
+        "id":  10589,
+        "name":  "Straldzha"
+    },
+    {
+        "id":  10588,
+        "name":  "Strazhitsa"
+    },
+    {
+        "id":  10587,
+        "name":  "Strelcha"
+    },
+    {
+        "id":  10586,
+        "name":  "Strumyani"
+    },
+    {
+        "id":  10584,
+        "name":  "Suhindol"
+    },
+    {
+        "id":  10583,
+        "name":  "Sungurlare"
+    },
+    {
+        "id":  10581,
+        "name":  "Suvorovo"
+    },
+    {
+        "id":  10555,
+        "name":  "Sveti Vlas"
+    },
+    {
+        "id":  10580,
+        "name":  "Svilengrad"
+    },
+    {
+        "id":  10579,
+        "name":  "Svishtov"
+    },
+    {
+        "id":  10578,
+        "name":  "Svoge"
+    },
+    {
+        "id":  10566,
+        "name":  "Targovishte"
+    },
+    {
+        "id":  10576,
+        "name":  "Tervel"
+    },
+    {
+        "id":  10575,
+        "name":  "Teteven"
+    },
+    {
+        "id":  10574,
+        "name":  "Tochilari"
+    },
+    {
+        "id":  10572,
+        "name":  "Topolovgrad"
+    },
+    {
+        "id":  10571,
+        "name":  "Topolovo"
+    },
+    {
+        "id":  10569,
+        "name":  "Tran"
+    },
+    {
+        "id":  10570,
+        "name":  "Troyan"
+    },
+    {
+        "id":  10568,
+        "name":  "Tryavna"
+    },
+    {
+        "id":  10715,
+        "name":  "Tsar Kaloyan"
+    },
+    {
+        "id":  10674,
+        "name":  "Tsarevo"
+    },
+    {
+        "id":  10567,
+        "name":  "Tsenovo"
+    },
+    {
+        "id":  10565,
+        "name":  "Tutrakan"
+    },
+    {
+        "id":  10564,
+        "name":  "Tvarditsa"
+    },
+    {
+        "id":  10563,
+        "name":  "Ugarchin"
+    },
+    {
+        "id":  10553,
+        "name":  "Valchedram"
+    },
+    {
+        "id":  10552,
+        "name":  "Valchidol"
+    },
+    {
+        "id":  10551,
+        "name":  "Varbitsa"
+    },
+    {
+        "id":  10562,
+        "name":  "Varna"
+    },
+    {
+        "id":  10550,
+        "name":  "Varshets"
+    },
+    {
+        "id":  10637,
+        "name":  "Veliki Preslav"
+    },
+    {
+        "id":  10561,
+        "name":  "Veliko Tŭrnovo"
+    },
+    {
+        "id":  10560,
+        "name":  "Velingrad"
+    },
+    {
+        "id":  10559,
+        "name":  "Venets"
+    },
+    {
+        "id":  10558,
+        "name":  "Vetovo"
+    },
+    {
+        "id":  10557,
+        "name":  "Vetrino"
+    },
+    {
+        "id":  10556,
+        "name":  "Vidin"
+    },
+    {
+        "id":  10554,
+        "name":  "Vratsa"
+    },
+    {
+        "id":  10549,
+        "name":  "Yablanitsa"
+    },
+    {
+        "id":  10548,
+        "name":  "Yakimovo"
+    },
+    {
+        "id":  10547,
+        "name":  "Yakoruda"
+    },
+    {
+        "id":  10546,
+        "name":  "Yambol"
+    },
+    {
+        "id":  10545,
+        "name":  "Zavet"
+    },
+    {
+        "id":  10544,
+        "name":  "Zelenikovo"
+    },
+    {
+        "id":  10543,
+        "name":  "Zemen"
+    },
+    {
+        "id":  10542,
+        "name":  "Zlataritsa"
+    },
+    {
+        "id":  10541,
+        "name":  "Zlatitsa"
+    },
+    {
+        "id":  10826,
+        "name":  "Zlatni Pyasatsi"
+    },
+    {
+        "id":  10540,
+        "name":  "Zlatograd"
+    }
+]

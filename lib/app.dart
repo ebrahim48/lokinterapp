@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'core/services/api_service.dart';
 import 'core/services/session_service.dart';
+import 'core/i18n/app_translations.dart';
+import 'core/services/language_service.dart';
 import 'core/services/socket_service.dart';
 import 'core/theme/lokinter_theme.dart';
 import 'features/auth/presentation/welcome_page.dart';
@@ -30,6 +32,9 @@ class MyApp extends StatelessWidget {
           theme: LokinterTheme.light,
           darkTheme: LokinterTheme.dark,
           themeMode: ThemeMode.light, // toggle from the app bar
+          translations: AppTranslations(),
+          locale: Get.find<LanguageService>().locale,
+          fallbackLocale: const Locale(LanguageService.fallback),
           home: child,
         );
       },

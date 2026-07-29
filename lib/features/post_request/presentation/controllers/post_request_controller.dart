@@ -157,10 +157,16 @@ class PostRequestController extends GetxController {
       toast('Pick a destination country');
       return;
     }
-    if (pickupLocation.text.trim().isEmpty || dropoffLocation.text.trim().isEmpty) {
+    // only a local request asks for these; international falls back to the route
+    if (isLocal &&
+        (pickupLocation.text.trim().isEmpty || dropoffLocation.text.trim().isEmpty)) {
       toast('Add the pickup and dropoff locations');
       return;
     }
+    // international requests hide these; the repository posts the website's
+    // placeholder for whatever is left blank
+    final pickup = pickupLocation.text.trim();
+    final dropoff = dropoffLocation.text.trim();
     if (!acceptedTerms.value) {
       toast('Accept the terms and conditions first');
       return;
@@ -184,8 +190,8 @@ class PostRequestController extends GetxController {
           date: beforeDate.value!,
           weight: kg,
           categoryId: cat.id,
-          pickupLocation: pickupLocation.text.trim(),
-          dropoffLocation: dropoffLocation.text.trim(),
+          pickupLocation: pickup,
+          dropoffLocation: dropoff,
           description: description.text.trim(),
           attachFilePath: picturePath.value,
         );
@@ -206,8 +212,8 @@ class PostRequestController extends GetxController {
         date: beforeDate.value!,
         weight: kg,
         categoryId: cat.id,
-        pickupLocation: pickupLocation.text.trim(),
-        dropoffLocation: dropoffLocation.text.trim(),
+        pickupLocation: pickup,
+        dropoffLocation: dropoff,
         description: description.text.trim(),
         attachFilePath: picturePath.value,
       );

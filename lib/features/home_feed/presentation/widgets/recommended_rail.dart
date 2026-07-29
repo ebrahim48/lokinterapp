@@ -86,7 +86,7 @@ class _TravelerCard extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
           ),
           SizedBox(height: 2.h),
-          Text(shortDate(post.date), style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
+          Text(post.dateText, style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 6.h),
           Text(
             '${kg(post.remainingWeight ?? post.weight)} space left',

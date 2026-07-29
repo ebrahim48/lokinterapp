@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/utils/notify.dart';
 import '../data/mock_brands.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BrandsPage extends StatelessWidget {
   const BrandsPage({super.key});
@@ -63,7 +64,14 @@ class _BrandCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return GestureDetector(
-      onTap: () => toast('Opening ${brand.url}'),
+      // open the brand's own site in the browser
+      onTap: () async {
+        final uri = Uri.parse(
+            brand.url.startsWith('http') ? brand.url : 'https://${brand.url}');
+        if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+          toast('Could not open ${brand.url}');
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           color: cs.surface,

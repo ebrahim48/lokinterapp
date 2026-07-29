@@ -9,13 +9,18 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
 import '../../../core/utils/verify_gate.dart';
+import '../../../core/widgets/image_viewer.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../deals/data/deals_repository.dart';
 import '../../deals/presentation/deal_details_page.dart';
+import '../../lookups/data/lookup_models.dart';
+import '../../lookups/data/lookups_repository.dart';
 import '../../posts/data/models/post_model.dart';
 import '../data/chat_model.dart';
 import 'controllers/chat_conversation_controller.dart';
 import 'widgets/report_profile_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../reviews/presentation/user_reviews_page.dart';
 
 class ChatConversationPage extends StatelessWidget {
   final PostUser user;
@@ -39,12 +44,25 @@ class ChatConversationPage extends StatelessWidget {
       ),
       tag: 'chat_${user.id}',
     );
+    // the controller is cached per peer, so reopening this conversation from a
+    // different post (or from the inbox, which carries none) has to re-read the
+    // context with that postId — otherwise it stays on the first post's roles
+    if (c.postId != postId) {
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => c.switchPost(postId));
+    }
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        title: Row(
+        // tapping the header opens the other person's public profile
+        title: GestureDetector(
+          onTap: user.id == 0
+              ? null
+              : () => Get.to(() =>
+                  UserReviewsPage(userId: user.id, userName: user.name)),
+          child: Row(
           children: [
             CircleAvatar(
               radius: 16.r,
@@ -68,6 +86,7 @@ class ChatConversationPage extends StatelessWidget {
               ),
             ),
           ],
+          ),
         ),
         actions: [
           TextButton.icon(
@@ -126,12 +145,22 @@ class ChatConversationPage extends StatelessWidget {
             }),
           ),
           Obx(() {
-            // once an agreement exists the bar links to it instead of
-            // disappearing (and instead of allowing a duplicate deal)
-            if (c.deal.value != null) return _dealBar(context, c);
-            return c.post.value == null
-                ? const SizedBox.shrink()
-                : _confirmBar(context, c);
+            final post = c.post.value;
+            final deal = c.deal.value;
+            final myId = Get.find<SessionService>().user.value?.id ?? 0;
+
+            // no post in this chat → no deal actions at all
+            if (post == null) return const SizedBox.shrink();
+
+            // Exactly one of these ever shows, so the two sides of a chat can
+            // never both propose: only the deal SENDER gets Confirm (the
+            // delivery creator, or the trip finder), and only while no deal is
+            // live. Anyone else with a deal gets its status button instead.
+            if (post.canRequestDeal(myId, deal?.status)) {
+              return _confirmBar(context, c);
+            }
+            if (deal != null) return _dealBar(context, c);
+            return const SizedBox.shrink();
           }),
           _composer(context, c, cs),
         ],
@@ -169,7 +198,10 @@ class ChatConversationPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
-                'Before ${post.beforeDate}',
+                // website (from-to): only a DELIVER post prefixes "Before"
+                post.isDeliver
+                    ? 'Before ${post.beforeDate}'
+                    : '${post.beforeDate}',
                 style: TextStyle(fontSize: 9.5.sp, color: Colors.white),
               ),
             ),
@@ -215,10 +247,22 @@ class ChatConversationPage extends StatelessWidget {
     );
   }
 
-  // an agreement already exists for this chat — offer it instead of a duplicate
+  // an agreement already exists for this chat — offer it instead of a duplicate.
+  // Labels and colours mirror the website's deals-actions buttons.
   Widget _dealBar(BuildContext context, ChatConversationController c) {
     final cs = Theme.of(context).colorScheme;
     final status = c.deal.value?.status ?? '';
+    final (label, colour) = switch (status) {
+      // same amber the deal status badge uses for PENDING
+      'PENDING' => ('Deal Pending', const Color(0xFF854D0E)),
+      'ACCEPTED' => ('Deal accepted', AppPalette.confirmGreen),
+      'OUTGOING' => ('Deal Ongoing', AppPalette.intlAccent),
+      'COMPLETED' => ('Completed Deal', AppPalette.confirmGreen),
+      'DISPUTED' => ('View Dispute', AppPalette.primary),
+      'CANCELED' || 'CANCELLED' => ('Deal Canceled', AppPalette.grey),
+      'REJECTED' => ('Deal Rejected', AppPalette.grey),
+      _ => ('Show Deal', AppPalette.confirmGreen),
+    };
     return Container(
       padding: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 10.h),
       decoration: BoxDecoration(
@@ -230,11 +274,11 @@ class ChatConversationPage extends StatelessWidget {
         child: OutlinedButton.icon(
           onPressed: () => _openDeal(c),
           icon: Icon(Icons.receipt_long_outlined, size: 18.sp),
-          label: Text(status.isEmpty ? 'Show Deal' : 'Show Deal · $status'),
+          label: Text(label),
           style: OutlinedButton.styleFrom(
             minimumSize: Size(0, 46.h),
-            foregroundColor: AppPalette.confirmGreen,
-            side: const BorderSide(color: AppPalette.confirmGreen),
+            foregroundColor: colour,
+            side: BorderSide(color: colour),
           ),
         ),
       ),
@@ -356,13 +400,50 @@ class _AgreementSheetState extends State<_AgreementSheet> {
   final _receiverPhone = TextEditingController();
   DateTime? _tripDate;
   DateTime? _arrivalDate;
-  String? _payment = 'Card (Stripe)';
+  String? _payment = 'Pay Online';
   bool _securityDeposit = false;
   bool _sending = false;
   final List<XFile> _photos = [];
 
-  bool get _isBuyAndDeliver => widget.post.wantTo == 'BUY_AND_DELIVER';
-  bool get _isStripe => _payment == 'Card (Stripe)';
+  // receiver country drives the phone prefix (website: the country picker)
+  final _lookups = LookupsRepository();
+  List<Country> _countries = [];
+  String? _receiverCountry;
+
+  // the sender chooses what they want (website: the "I want to" dropdown),
+  // seeded from the post — each choice shows its own linked fields
+  static const _sendLabel = 'Deliver Ready Items';
+  static const _buyLabel = 'Buy for Me and Deliver';
+  late String _wantTo =
+      widget.post.wantTo == 'BUY_AND_DELIVER' ? _buyLabel : _sendLabel;
+
+  bool get _isBuyAndDeliver => _wantTo == _buyLabel;
+  bool get _isStripe => _payment == 'Pay Online';
+
+  List<String> get _countryNames => _countries.map((e) => e.name).toList();
+
+  @override
+  void initState() {
+    super.initState();
+    _lookups.countries().then((list) {
+      if (mounted) setState(() => _countries = list);
+    }).catchError((_) {});
+  }
+
+  // picking a country stamps the matching dial code onto the phone field,
+  // same as the website's receiver-country picker
+  void _onReceiverCountry(String name) {
+    final c = _countries.firstWhereOrNull((e) => e.name == name);
+    setState(() {
+      _receiverCountry = name;
+      if (c != null && c.phoneCode.isNotEmpty) {
+        _receiverPhone.text = '+${c.phoneCode}';
+        _receiverPhone.selection = TextSelection.fromPosition(
+          TextPosition(offset: _receiverPhone.text.length),
+        );
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -399,8 +480,11 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('Cost, weight and trip date are required');
       return;
     }
-    if (itemValue == null) {
-      toast('Add the estimated item value');
+    // website rule: item value only required for a card-paid buy-and-deliver or
+    // a card-paid send with a security deposit; cash deals send 0
+    final itemValueRequired = _isStripe && (_isBuyAndDeliver || _securityDeposit);
+    if (itemValueRequired && (itemValue == null || itemValue <= 0)) {
+      toast(_isBuyAndDeliver ? 'Add the item value' : 'Add the security deposit amount');
       return;
     }
     if (_arrivalDate == null) {
@@ -416,9 +500,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('Arrival must be within 3 days of the trip date');
       return;
     }
-    // buy-and-deliver needs the item identified and paid through Stripe
+    // buy-and-deliver needs the item named, linked and paid through Stripe
     if (_isBuyAndDeliver && _itemName.text.trim().isEmpty) {
       toast('Add the item name');
+      return;
+    }
+    if (_isBuyAndDeliver && _itemLink.text.trim().isEmpty) {
+      toast('Add the item link');
       return;
     }
     if (_isBuyAndDeliver && !_isStripe) {
@@ -436,23 +524,28 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('Add the receiver name and phone');
       return;
     }
+    // country picker drives the phone prefix (skip only if the list never loaded)
+    if (_countries.isNotEmpty && _receiverCountry == null) {
+      toast('Pick the receiver country');
+      return;
+    }
     // identity verification is required to create a deal (not to chat)
     if (!await requireVerified()) return;
     if (!mounted) return;
 
+    // only the sender can open this form, so the current user is the sender
+    // and the chat peer is the traveler
     final myId = Get.find<SessionService>().user.value?.id ?? 0;
-    // on a trip post the other side is the traveler; on a delivery it's the sender
-    final peerIsTraveler = widget.post.type == 'TRIP';
 
     setState(() => _sending = true);
     try {
       await _repo.create(
-        senderId: peerIsTraveler ? myId : widget.peer.id,
-        travelerId: peerIsTraveler ? widget.peer.id : myId,
+        senderId: myId,
+        travelerId: widget.peer.id,
         postId: widget.post.id,
-        wantTo: widget.post.wantTo ?? 'SEND',
+        wantTo: _isBuyAndDeliver ? 'BUY_AND_DELIVER' : 'SEND',
         cost: cost,
-        itemEstimatedCost: itemValue,
+        itemEstimatedCost: itemValue ?? 0,
         weight: weight,
         tripDate: _tripDate!,
         arrivalDate: _arrivalDate!,
@@ -532,7 +625,26 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       ),
                     ),
                     SizedBox(height: 18.h),
+                    // I want to: Deliver Ready Items vs Buy for Me and Deliver —
+                    // each shows its own linked fields (website: wantTo dropdown)
+                    LokDropdownField(
+                      label: 'I want to',
+                      hint: 'choose',
+                      icon: Icons.local_shipping_outlined,
+                      required: true,
+                      options: const [_sendLabel, _buyLabel],
+                      value: _wantTo,
+                      onChanged: (v) => setState(() {
+                        _wantTo = v;
+                        // a security deposit only applies to "deliver ready items"
+                        if (_isBuyAndDeliver) _securityDeposit = false;
+                      }),
+                    ),
+                    SizedBox(height: 14.h),
+                    // profit sits beside the value field — the item value for a
+                    // buy, the (grayed until required) deposit amount for a send
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: LokTextField(
@@ -547,43 +659,77 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                         SizedBox(width: 12.w),
                         Expanded(
                           child: LokTextField(
-                            label: 'Weight (kg)',
-                            hint: 'e.g. 2',
-                            icon: Icons.scale_outlined,
-                            required: true,
+                            label: _isBuyAndDeliver
+                                ? 'Item value'
+                                : 'Security deposit amount',
+                            hint: _isBuyAndDeliver ? 'item worth' : 'held, not charged',
+                            icon: Icons.sell_outlined,
+                            required: _isStripe && (_isBuyAndDeliver || _securityDeposit),
+                            // send: stays grayed until a deposit is required
+                            readOnly: !_isBuyAndDeliver && !_securityDeposit,
                             keyboardType: TextInputType.number,
-                            controller: _weight,
+                            controller: _itemValue,
                           ),
                         ),
                       ],
                     ),
+                    // send + card: offer the deposit hold, with the same wording
+                    // the website shows under the toggle
+                    if (!_isBuyAndDeliver && _isStripe) ...[
+                      SizedBox(height: 12.h),
+                      LokCheckbox(
+                        label: 'Require a security deposit from the traveler',
+                        value: _securityDeposit,
+                        onChanged: (v) => setState(() {
+                          _securityDeposit = v;
+                          if (!v) _itemValue.clear();
+                        }),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 34.w, top: 4.h, right: 4.w),
+                        child: Text(
+                          'A temporary hold is placed on the traveler’s card for the '
+                          'item’s value to protect against loss or damage. It is released '
+                          'after successful delivery — they are never charged unless a '
+                          'dispute is raised.',
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            color: cs.onSurfaceVariant,
+                            height: 1.35,
+                          ),
+                        ),
+                      ),
+                    ],
                     SizedBox(height: 14.h),
                     LokTextField(
-                      label: 'Item value',
-                      hint: 'what the item is worth',
-                      icon: Icons.sell_outlined,
+                      label: 'Weight (kg)',
+                      hint: 'e.g. 2',
+                      icon: Icons.scale_outlined,
                       required: true,
                       keyboardType: TextInputType.number,
-                      controller: _itemValue,
+                      controller: _weight,
                     ),
-                    SizedBox(height: 14.h),
-                    LokTextField(
-                      label: _isBuyAndDeliver
-                          ? 'Item name'
-                          : 'Item name (optional)',
-                      hint: 'what is being carried',
-                      icon: Icons.inventory_2_outlined,
-                      required: _isBuyAndDeliver,
-                      controller: _itemName,
-                    ),
-                    SizedBox(height: 14.h),
-                    LokTextField(
-                      label: 'Item link (optional)',
-                      hint: 'store / product page URL',
-                      icon: Icons.link,
-                      keyboardType: TextInputType.url,
-                      controller: _itemLink,
-                    ),
+                    // item name + link identify the thing to buy — only a
+                    // buy-and-deliver deal needs them (website: BUY-only fields)
+                    if (_isBuyAndDeliver) ...[
+                      SizedBox(height: 14.h),
+                      LokTextField(
+                        label: 'Item name',
+                        hint: 'what to buy',
+                        icon: Icons.inventory_2_outlined,
+                        required: true,
+                        controller: _itemName,
+                      ),
+                      SizedBox(height: 14.h),
+                      LokTextField(
+                        label: 'Item link',
+                        hint: 'store / product page URL',
+                        icon: Icons.link,
+                        required: true,
+                        keyboardType: TextInputType.url,
+                        controller: _itemLink,
+                      ),
+                    ],
                     SizedBox(height: 14.h),
                     LokTextField(
                       label: 'Item description (optional)',
@@ -617,7 +763,9 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                             Expanded(
                               child: Text(
                                 _photos.isEmpty
-                                    ? 'Add item photos (optional)'
+                                    ? (_isBuyAndDeliver
+                                        ? 'Add reference images (optional)'
+                                        : 'Add item photos (optional)')
                                     : '${_photos.length} photo${_photos.length > 1 ? 's' : ''} selected',
                                 style: TextStyle(
                                   fontSize: 13.sp,
@@ -643,6 +791,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'Trip date',
                       hint: 'when it travels',
                       required: true,
+                      withTime: true,
                       value: _tripDate,
                       onChanged: (d) => setState(() => _tripDate = d),
                     ),
@@ -651,14 +800,9 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'Arrival date',
                       hint: 'when it lands',
                       required: true,
+                      withTime: true,
                       value: _arrivalDate,
                       onChanged: (d) => setState(() => _arrivalDate = d),
-                    ),
-                    SizedBox(height: 14.h),
-                    LokCheckbox(
-                      label: 'Require a security deposit from the traveler',
-                      value: _securityDeposit,
-                      onChanged: (v) => setState(() => _securityDeposit = v),
                     ),
                     SizedBox(height: 14.h),
                     LokTextField(
@@ -667,6 +811,16 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       icon: Icons.person_outline,
                       required: true,
                       controller: _receiverName,
+                    ),
+                    SizedBox(height: 14.h),
+                    LokDropdownField(
+                      label: 'Receiver country',
+                      hint: 'receiver country',
+                      icon: Icons.public,
+                      required: true,
+                      options: _countryNames,
+                      value: _receiverCountry,
+                      onChanged: _onReceiverCountry,
                     ),
                     SizedBox(height: 14.h),
                     LokTextField(
@@ -682,9 +836,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'Payment method',
                       hint: 'payment method',
                       icon: Icons.credit_card,
-                      options: const ['Card (Stripe)', 'Cash on delivery'],
+                      options: const ['Pay Online', 'Cash On Delivery'],
                       value: _payment,
-                      onChanged: (v) => setState(() => _payment = v),
+                      onChanged: (v) => setState(() {
+                        _payment = v;
+                        // a security deposit is a card hold — impossible on cash
+                        if (!_isStripe) _securityDeposit = false;
+                      }),
                     ),
                     SizedBox(height: 18.h),
                     ElevatedButton(
@@ -742,20 +900,24 @@ class _Attachment extends StatelessWidget {
     final fg = me ? Colors.white : Theme.of(context).colorScheme.onSurface;
 
     if (_isImage) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(10.r),
-        child: CachedNetworkImage(
-          imageUrl: url,
-          width: 0.52.sw,
-          fit: BoxFit.cover,
-          placeholder: (_, __) => SizedBox(
+      // tap to open full screen and pinch-zoom, same as the live chat
+      return GestureDetector(
+        onTap: () => ImageViewerPage.open(context, url, title: name),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.r),
+          child: CachedNetworkImage(
+            imageUrl: url,
             width: 0.52.sw,
-            height: 120.h,
-            child: const Center(
-              child: CircularProgressIndicator(strokeWidth: 2),
+            fit: BoxFit.cover,
+            placeholder: (_, __) => SizedBox(
+              width: 0.52.sw,
+              height: 120.h,
+              child: const Center(
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
             ),
+            errorWidget: (_, __, ___) => _fileChip(fg, 'Image unavailable'),
           ),
-          errorWidget: (_, __, ___) => _fileChip(fg, 'Image unavailable'),
         ),
       );
     }
@@ -763,7 +925,11 @@ class _Attachment extends StatelessWidget {
     final label = (name != null && name!.isNotEmpty)
         ? name!
         : url.split('/').last.split('?').first;
-    return _fileChip(fg, label);
+    // videos and documents can't be zoomed, but they still open
+    return GestureDetector(
+      onTap: () => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
+      child: _fileChip(fg, label),
+    );
   }
 
   Widget _fileChip(Color fg, String label) {
