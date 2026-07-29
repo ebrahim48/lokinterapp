@@ -21,16 +21,16 @@ Future<bool> requireVerified() async {
 
   await Get.dialog<void>(
     AlertDialog(
-      title: const Text('Verify your identity'),
+      title: Text('verify_your_identity'.tr),
       content: Text(kyc.message),
       actions: [
-        TextButton(onPressed: () => Get.back(), child: const Text('Not now')),
+        TextButton(onPressed: () => Get.back(), child: Text('not_now'.tr)),
         TextButton(
           onPressed: () {
             Get.back();
             Get.to(() => const BasicInfoPage());
           },
-          child: const Text('Verify', style: TextStyle(color: AppPalette.primary)),
+          child: Text('verify'.tr, style: TextStyle(color: AppPalette.primary)),
         ),
       ],
     ),

@@ -90,15 +90,15 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
       }
       final url = await _repo.stripeOnboardingLink();
       if (url == null) {
-        toast('Stripe onboarding is not available right now');
+        toast('stripe_onboarding_is_not_available_right_now'.tr);
         return;
       }
       final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       if (!ok) {
-        toast('Could not open Stripe onboarding');
+        toast('could_not_open_stripe_onboarding'.tr);
         return;
       }
-      toast('Finish onboarding in the browser, then pull to refresh here');
+      toast('finish_onboarding_in_the_browser_then_pull_to_re'.tr);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -109,11 +109,11 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
   void _addPaypal() {
     final email = TextEditingController();
     _sheet(
-      title: 'Add PayPal',
+      title: 'add_paypal'.tr,
       fields: [
         LokTextField(
-          label: 'PayPal email',
-          hint: 'you@email.com',
+          label: 'paypal_email'.tr,
+          hint: 'you_email_com'.tr,
           icon: Icons.mail_outline,
           required: true,
           keyboardType: TextInputType.emailAddress,
@@ -122,7 +122,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
       ],
       onSubmit: () {
         if (!isValidEmail(email.text)) {
-          toast('Enter a valid PayPal email');
+          toast('enter_a_valid_paypal_email'.tr);
           return false;
         }
         _run(() => _repo.addPaypal(email.text.trim()), 'PayPal added');
@@ -140,43 +140,43 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
     final country = TextEditingController();
     final bankAddress = TextEditingController();
     _sheet(
-      title: 'Add bank (Wise)',
+      title: 'add_bank_wise'.tr,
       fields: [
         LokTextField(
-          label: 'Account holder',
-          hint: 'name on the account',
+          label: 'account_holder'.tr,
+          hint: 'name_on_the_account'.tr,
           icon: Icons.person_outline,
           required: true,
           controller: name,
         ),
         SizedBox(height: 14.h),
         LokTextField(
-          label: 'Account number / IBAN',
-          hint: 'e.g. TN59 1000 6035...',
+          label: 'account_number_iban'.tr,
+          hint: 'e_g_tn59_1000_6035'.tr,
           icon: Icons.numbers,
           required: true,
           controller: iban,
         ),
         SizedBox(height: 14.h),
         LokTextField(
-          label: 'SWIFT / BIC',
-          hint: '8 or 11 characters',
+          label: 'swift_bic'.tr,
+          hint: '8_or_11_characters'.tr,
           icon: Icons.qr_code_2,
           required: true,
           controller: swift,
         ),
         SizedBox(height: 14.h),
         LokTextField(
-          label: 'Beneficiary country',
-          hint: 'e.g. Tunisia',
+          label: 'beneficiary_country'.tr,
+          hint: 'e_g_tunisia'.tr,
           icon: Icons.public,
           required: true,
           controller: country,
         ),
         SizedBox(height: 14.h),
         LokTextField(
-          label: 'Bank address',
-          hint: 'branch address',
+          label: 'bank_address'.tr,
+          hint: 'branch_address'.tr,
           icon: Icons.location_on_outlined,
           required: true,
           maxLines: 2,
@@ -189,15 +189,15 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
         if (name.text.trim().isEmpty ||
             country.text.trim().isEmpty ||
             bankAddress.text.trim().isEmpty) {
-          toast('All bank fields are required');
+          toast('all_bank_fields_are_required'.tr);
           return false;
         }
         if (ibanText.length < 4 || ibanText.length > 34) {
-          toast('Check the account number / IBAN');
+          toast('check_the_account_number_iban'.tr);
           return false;
         }
         if (swiftText.length != 8 && swiftText.length != 11) {
-          toast('SWIFT / BIC must be 8 or 11 characters');
+          toast('swift_bic_must_be_8_or_11_characters'.tr);
           return false;
         }
         _run(
@@ -245,7 +245,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
                   onPressed: () {
                     if (onSubmit()) Navigator.pop(sheetContext);
                   },
-                  child: const Text('Save'),
+                  child: Text('save'.tr),
                 ),
               ],
             ),
@@ -258,16 +258,16 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
   void _confirmRemove(PayoutMethod m) {
     Get.dialog(
       AlertDialog(
-        title: const Text('Remove payout method?'),
+        title: Text('remove_payout_method'.tr),
         content: Text('${m.label} will no longer receive withdrawals.'),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr)),
           TextButton(
             onPressed: () {
               Get.back();
               _run(() => _repo.removeMethod(m.id), 'Payout method removed');
             },
-            child: const Text('Remove', style: TextStyle(color: AppPalette.primary)),
+            child: Text('remove'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
         ],
       ),
@@ -278,7 +278,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Payout methods')),
+      appBar: AppBar(title: Text('payout_methods'.tr)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
@@ -288,7 +288,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
                     children: [
                       Text(_error!,
                           style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                      TextButton(onPressed: _load, child: const Text('Retry')),
+                      TextButton(onPressed: _load, child: Text('retry'.tr)),
                     ],
                   ),
                 )
@@ -301,13 +301,13 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.h),
                           child: Text(
-                            'No payout methods yet — add one so you can withdraw earnings.',
+                            'no_payout_methods_yet_add_one_so_you_can_withdra'.tr,
                             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
                           ),
                         ),
                       for (final m in _methods) _methodTile(context, m),
                       SizedBox(height: 20.h),
-                      Text('Add a method',
+                      Text('add_a_method'.tr,
                           style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w700,
@@ -358,7 +358,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
                         fontSize: 13.sp, fontWeight: FontWeight.w600, color: cs.onSurface)),
                 if (m.isDefault) ...[
                   SizedBox(height: 2.h),
-                  Text('Default',
+                  Text('default'.tr,
                       style: TextStyle(fontSize: 11.sp, color: AppPalette.verified)),
                 ],
               ],
@@ -369,7 +369,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
               onPressed: _busy
                   ? null
                   : () => _run(() => _repo.setDefaultMethod(m.id), 'Default updated'),
-              child: Text('Set default', style: TextStyle(fontSize: 11.sp)),
+              child: Text('set_default'.tr, style: TextStyle(fontSize: 11.sp)),
             ),
           IconButton(
             onPressed: _busy ? null : () => _confirmRemove(m),

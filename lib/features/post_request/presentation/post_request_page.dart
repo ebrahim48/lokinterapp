@@ -32,7 +32,7 @@ class PostRequestPage extends StatelessWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            'Choose the option that best fits your needs',
+            'choose_the_option_that_best_fits_your_needs'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 20.h),
@@ -43,7 +43,7 @@ class PostRequestPage extends StatelessWidget {
                   child: OptionCard(
                     icon: Icons.shopping_bag_outlined,
                     iconColor: AppPalette.primary,
-                    title: 'Buy for me and deliver',
+                    title: 'buy_for_me_and_deliver'.tr,
                     subtitle: 'Ask a traveler to buy a product and bring it to you',
                     selected: c.wantTo.value == WantTo.buyAndDeliver,
                     onTap: () => c.wantTo.value = WantTo.buyAndDeliver,
@@ -54,7 +54,7 @@ class PostRequestPage extends StatelessWidget {
                   child: OptionCard(
                     icon: Icons.inventory_2_outlined,
                     iconColor: AppPalette.intlAccent,
-                    title: 'Deliver ready item',
+                    title: 'deliver_ready_item'.tr,
                     subtitle: 'You already have the item ready to be delivered',
                     selected: c.wantTo.value == WantTo.send,
                     onTap: () => c.wantTo.value = WantTo.send,
@@ -85,7 +85,7 @@ class PostRequestPage extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: c.loadLookups,
-                          child: const Text('Retry',
+                          child: Text('retry'.tr,
                               style: TextStyle(color: AppPalette.primary)),
                         ),
                       ],
@@ -113,7 +113,7 @@ class PostRequestPage extends StatelessWidget {
                 child: OptionCard(
                   icon: Icons.location_on,
                   iconColor: AppPalette.localAccent,
-                  title: 'Local',
+                  title: 'local'.tr,
                   subtitle: 'Inside your country',
                   selected: c.location.value == PostLocation.local,
                   onTap: () => c.location.value = PostLocation.local,
@@ -124,7 +124,7 @@ class PostRequestPage extends StatelessWidget {
                 child: OptionCard(
                   icon: Icons.flight,
                   iconColor: AppPalette.intlAccent,
-                  title: 'International',
+                  title: 'international'.tr,
                   subtitle: 'From one country to another',
                   selected: c.location.value == PostLocation.international,
                   onTap: () => c.location.value = PostLocation.international,
@@ -147,8 +147,8 @@ class PostRequestPage extends StatelessWidget {
         SizedBox(height: 22.h),
         if (c.isBuy) ...[
           LokTextField(
-            label: 'Item Name',
-            hint: 'Item Name',
+            label: 'item_name_2'.tr,
+            hint: 'item_name_2'.tr,
             icon: Icons.label_outline,
             required: true,
             controller: c.itemName,
@@ -159,8 +159,8 @@ class PostRequestPage extends StatelessWidget {
         ],
         if (c.isLocal) ...[
           Obx(() => LokDropdownField(
-                label: 'Inside',
-                hint: 'inside country',
+                label: 'inside'.tr,
+                hint: 'inside_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -169,8 +169,8 @@ class PostRequestPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'From',
-                hint: 'from city',
+                label: 'from'.tr,
+                hint: 'from_city'.tr,
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
                 options: c.cityNames,
@@ -179,8 +179,8 @@ class PostRequestPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'To',
-                hint: 'to city',
+                label: 'to'.tr,
+                hint: 'to_city'.tr,
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
                 options: c.cityNames,
@@ -189,8 +189,8 @@ class PostRequestPage extends StatelessWidget {
               )),
         ] else ...[
           Obx(() => LokDropdownField(
-                label: 'From',
-                hint: 'from country',
+                label: 'from'.tr,
+                hint: 'from_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -199,8 +199,8 @@ class PostRequestPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'To',
-                hint: 'to country',
+                label: 'to'.tr,
+                hint: 'to_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -210,8 +210,8 @@ class PostRequestPage extends StatelessWidget {
         ],
         SizedBox(height: 16.h),
         Obx(() => LokDateField(
-              label: 'Before Date/time',
-              hint: 'before (date and time)',
+              label: 'before_date_time'.tr,
+              hint: 'before_date_and_time'.tr,
               required: true,
               withTime: c.isLocal,
               value: c.beforeDate.value,
@@ -219,8 +219,8 @@ class PostRequestPage extends StatelessWidget {
             )),
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'KG',
-          hint: 'kilograms',
+          label: 'kg'.tr,
+          hint: 'kilograms'.tr,
           icon: Icons.scale_outlined,
           required: true,
           keyboardType: TextInputType.number,
@@ -230,16 +230,16 @@ class PostRequestPage extends StatelessWidget {
         if (c.isLocal) ...[
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Pickup location',
-            hint: 'where the item is collected',
+            label: 'pickup_location'.tr,
+            hint: 'where_the_item_is_collected'.tr,
             icon: Icons.place_outlined,
             required: true,
             controller: c.pickupLocation,
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Dropoff location',
-            hint: 'where it should be delivered',
+            label: 'dropoff_location'.tr,
+            hint: 'where_it_should_be_delivered'.tr,
             icon: Icons.flag_outlined,
             required: true,
             controller: c.dropoffLocation,
@@ -247,8 +247,8 @@ class PostRequestPage extends StatelessWidget {
         ],
         SizedBox(height: 16.h),
         Obx(() => LokDropdownField(
-              label: 'Categories',
-              hint: 'select categories',
+              label: 'categories'.tr,
+              hint: 'select_categories'.tr,
               icon: Icons.category_outlined,
               required: true,
               options: c.categoryNames,
@@ -262,8 +262,8 @@ class PostRequestPage extends StatelessWidget {
             )),
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'Item Description',
-          hint: 'Describe the item (brand, link, color, size...)',
+          label: 'item_description'.tr,
+          hint: 'describe_the_item_brand_link_color_size'.tr,
           maxLines: 4,
           controller: c.description,
         ),
@@ -273,8 +273,8 @@ class PostRequestPage extends StatelessWidget {
           children: [
             Expanded(
               child: LokTextField(
-                label: 'Traveler Profit',
-                hint: 'offered profit',
+                label: 'traveler_profit_2'.tr,
+                hint: 'offered_profit'.tr,
                 icon: Icons.payments_outlined,
                 keyboardType: TextInputType.number,
                 controller: c.profit,
@@ -284,8 +284,8 @@ class PostRequestPage extends StatelessWidget {
             SizedBox(
               width: 110.w,
               child: Obx(() => LokDropdownField(
-                    label: 'Currency',
-                    hint: 'USD',
+                    label: 'currency'.tr,
+                    hint: 'usd'.tr,
                     icon: Icons.attach_money,
                     options: _currencies,
                     value: c.currency.value,
@@ -296,7 +296,7 @@ class PostRequestPage extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         Obx(() => LokCheckbox(
-              label: 'I accept terms and conditions',
+              label: 'i_accept_terms_and_conditions'.tr,
               value: c.acceptedTerms.value,
               onChanged: (v) => c.acceptedTerms.value = v,
             )),
@@ -354,7 +354,7 @@ class _BrowseBrandsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Browse Brands and shops',
+                    'browse_brands_and_shops'.tr,
                     style: TextStyle(
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w800,
@@ -363,7 +363,7 @@ class _BrowseBrandsCard extends StatelessWidget {
                   ),
                   SizedBox(height: 3.h),
                   Text(
-                    'Discover local shops and international brands all in one place.',
+                    'discover_local_shops_and_international_brands_al'.tr,
                     style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.3),
                   ),
                 ],

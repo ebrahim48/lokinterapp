@@ -31,7 +31,7 @@ class HomeFeedPage extends StatelessWidget {
         title: const LokinterLogo(fontSize: 20),
         actions: [
           IconButton(
-            tooltip: 'Toggle theme',
+            tooltip: 'toggle_theme'.tr,
             onPressed: () => Get.changeThemeMode(
               Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
             ),
@@ -41,7 +41,7 @@ class HomeFeedPage extends StatelessWidget {
           Obx(() {
             final n = nb.unread.value;
             return IconButton(
-              tooltip: 'Notifications',
+              tooltip: 'notifications'.tr,
               onPressed: () async {
                 await Get.to(() => const NotificationsPage());
                 nb.refreshCount();
@@ -88,7 +88,7 @@ class HomeFeedPage extends StatelessWidget {
             Obx(() => BannerCarousel(banners: c.banners.toList())),
             SizedBox(height: 20.h),
             SectionTitle(
-              title: 'Recommended Travelers',
+              title: 'recommended_travelers'.tr,
               onSeeAll: () => Get.to(() => const RecommendedPage()),
             ),
             SizedBox(height: 12.h),
@@ -107,7 +107,7 @@ class HomeFeedPage extends StatelessWidget {
                 Expanded(
                   child: _BrowseTile(
                     icon: Icons.inventory_2_outlined,
-                    label: 'Requests',
+                    label: 'requests'.tr,
                     color: AppPalette.primary,
                     onTap: () => Get.to(() => const SearchResultsPage(), arguments: 1),
                   ),
@@ -116,7 +116,7 @@ class HomeFeedPage extends StatelessWidget {
                 Expanded(
                   child: _BrowseTile(
                     icon: Icons.flight_takeoff,
-                    label: 'Trips',
+                    label: 'trips'.tr,
                     color: AppPalette.intlAccent,
                     onTap: () => Get.to(() => const SearchResultsPage(), arguments: 0),
                   ),
@@ -124,7 +124,7 @@ class HomeFeedPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20.h),
-            const SectionTitle(title: 'Latest posts'),
+            SectionTitle(title: 'latest_posts'.tr),
             SizedBox(height: 12.h),
             Obx(() {
               if (c.isGuest) return const SizedBox.shrink();
@@ -173,13 +173,13 @@ class _LoginNudge extends StatelessWidget {
           SizedBox(width: 12.w),
           Expanded(
             child: Text(
-              'Log in to see recommended travelers and the latest deals.',
+              'log_in_to_see_recommended_travelers_and_the_late'.tr,
               style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant, height: 1.4),
             ),
           ),
           TextButton(
             onPressed: () => Get.to(() => const LoginPage()),
-            child: const Text('Login', style: TextStyle(color: AppPalette.primary)),
+            child: Text('login'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
         ],
       ),

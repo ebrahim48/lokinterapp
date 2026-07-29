@@ -101,7 +101,7 @@ class ChatConversationPage extends StatelessWidget {
               color: AppPalette.primary,
             ),
             label: Text(
-              'Report',
+              'report'.tr,
               style: TextStyle(fontSize: 12.sp, color: AppPalette.primary),
             ),
           ),
@@ -123,7 +123,7 @@ class ChatConversationPage extends StatelessWidget {
               if (c.messages.isEmpty) {
                 return Center(
                   child: Text(
-                    'Say hello — this is the start of your conversation.',
+                    'say_hello_this_is_the_start_of_your_conversation'.tr,
                     style: TextStyle(
                       fontSize: 12.5.sp,
                       color: cs.onSurfaceVariant,
@@ -236,7 +236,7 @@ class ChatConversationPage extends StatelessWidget {
         child: ElevatedButton.icon(
           onPressed: () => _openConfirm(context, c),
           icon: Icon(Icons.handshake_outlined, size: 18.sp),
-          label: const Text('Confirm agreement & continue'),
+          label: Text('confirm_agreement_continue'.tr),
           style: ElevatedButton.styleFrom(
             minimumSize: Size(0, 46.h),
             backgroundColor: AppPalette.confirmGreen,
@@ -329,7 +329,7 @@ class ChatConversationPage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: c.sendAttachment,
-              tooltip: 'Attach file or image',
+              tooltip: 'attach_file_or_image'.tr,
               visualDensity: VisualDensity.compact,
               icon: Icon(
                 Icons.attach_file,
@@ -477,7 +477,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
     final itemValue = double.tryParse(_itemValue.text);
     final weight = double.tryParse(_weight.text);
     if (cost == null || weight == null || _tripDate == null) {
-      toast('Cost, weight and trip date are required');
+      toast('cost_weight_and_trip_date_are_required'.tr);
       return;
     }
     // website rule: item value only required for a card-paid buy-and-deliver or
@@ -488,45 +488,45 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       return;
     }
     if (_arrivalDate == null) {
-      toast('Pick the arrival date');
+      toast('pick_the_arrival_date'.tr);
       return;
     }
     if (_arrivalDate!.isBefore(_tripDate!)) {
-      toast('Arrival must be on or after the trip date');
+      toast('arrival_must_be_on_or_after_the_trip_date'.tr);
       return;
     }
     // server rule: arrival within 3 days of the trip date
     if (_arrivalDate!.difference(_tripDate!).inDays > 3) {
-      toast('Arrival must be within 3 days of the trip date');
+      toast('arrival_must_be_within_3_days_of_the_trip_date'.tr);
       return;
     }
     // buy-and-deliver needs the item named, linked and paid through Stripe
     if (_isBuyAndDeliver && _itemName.text.trim().isEmpty) {
-      toast('Add the item name');
+      toast('add_the_item_name'.tr);
       return;
     }
     if (_isBuyAndDeliver && _itemLink.text.trim().isEmpty) {
-      toast('Add the item link');
+      toast('add_the_item_link'.tr);
       return;
     }
     if (_isBuyAndDeliver && !_isStripe) {
-      toast('Buy-and-deliver deals must be paid by card');
+      toast('buy_and_deliver_deals_must_be_paid_by_card'.tr);
       return;
     }
     // a security deposit is a card hold — impossible with cash
     if (_securityDeposit && !_isStripe) {
-      toast('A security deposit needs card payment');
+      toast('a_security_deposit_needs_card_payment'.tr);
       return;
     }
     // the API rejects the deal without them, so catch it here
     if (_receiverName.text.trim().isEmpty ||
         _receiverPhone.text.trim().isEmpty) {
-      toast('Add the receiver name and phone');
+      toast('add_the_receiver_name_and_phone'.tr);
       return;
     }
     // country picker drives the phone prefix (skip only if the list never loaded)
     if (_countries.isNotEmpty && _receiverCountry == null) {
-      toast('Pick the receiver country');
+      toast('pick_the_receiver_country'.tr);
       return;
     }
     // identity verification is required to create a deal (not to chat)
@@ -561,7 +561,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       );
       if (!mounted) return;
       Navigator.pop(context);
-      toast('Agreement sent — track it under Deals');
+      toast('agreement_sent_track_it_under_deals'.tr);
       // flip the chat's action bar over to the new agreement straight away
       if (Get.isRegistered<ChatConversationController>()) {
         await Get.find<ChatConversationController>().reloadContext();
@@ -592,13 +592,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Confirm agreement',
+                      'confirm_agreement'.tr,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   IconButton(
                     onPressed: () => Navigator.maybePop(context),
-                    tooltip: 'Close',
+                    tooltip: 'close'.tr,
                     icon: Icon(
                       Icons.close,
                       size: 22.sp,
@@ -628,8 +628,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     // I want to: Deliver Ready Items vs Buy for Me and Deliver —
                     // each shows its own linked fields (website: wantTo dropdown)
                     LokDropdownField(
-                      label: 'I want to',
-                      hint: 'choose',
+                      label: 'i_want_to'.tr,
+                      hint: 'choose'.tr,
                       icon: Icons.local_shipping_outlined,
                       required: true,
                       options: const [_sendLabel, _buyLabel],
@@ -648,8 +648,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       children: [
                         Expanded(
                           child: LokTextField(
-                            label: 'Traveler profit',
-                            hint: 'e.g. 50',
+                            label: 'traveler_profit'.tr,
+                            hint: 'e_g_50'.tr,
                             icon: Icons.payments_outlined,
                             required: true,
                             keyboardType: TextInputType.number,
@@ -678,7 +678,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     if (!_isBuyAndDeliver && _isStripe) ...[
                       SizedBox(height: 12.h),
                       LokCheckbox(
-                        label: 'Require a security deposit from the traveler',
+                        label: 'require_a_security_deposit_from_the_traveler'.tr,
                         value: _securityDeposit,
                         onChanged: (v) => setState(() {
                           _securityDeposit = v;
@@ -702,8 +702,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ],
                     SizedBox(height: 14.h),
                     LokTextField(
-                      label: 'Weight (kg)',
-                      hint: 'e.g. 2',
+                      label: 'weight_kg'.tr,
+                      hint: 'e_g_2'.tr,
                       icon: Icons.scale_outlined,
                       required: true,
                       keyboardType: TextInputType.number,
@@ -714,16 +714,16 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     if (_isBuyAndDeliver) ...[
                       SizedBox(height: 14.h),
                       LokTextField(
-                        label: 'Item name',
-                        hint: 'what to buy',
+                        label: 'item_name'.tr,
+                        hint: 'what_to_buy'.tr,
                         icon: Icons.inventory_2_outlined,
                         required: true,
                         controller: _itemName,
                       ),
                       SizedBox(height: 14.h),
                       LokTextField(
-                        label: 'Item link',
-                        hint: 'store / product page URL',
+                        label: 'item_link'.tr,
+                        hint: 'store_product_page_url'.tr,
                         icon: Icons.link,
                         required: true,
                         keyboardType: TextInputType.url,
@@ -732,8 +732,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ],
                     SizedBox(height: 14.h),
                     LokTextField(
-                      label: 'Item description (optional)',
-                      hint: 'color, size, packaging...',
+                      label: 'item_description_optional'.tr,
+                      hint: 'color_size_packaging'.tr,
                       icon: Icons.notes_outlined,
                       maxLines: 3,
                       controller: _itemDescription,
@@ -788,8 +788,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ),
                     SizedBox(height: 14.h),
                     LokDateField(
-                      label: 'Trip date',
-                      hint: 'when it travels',
+                      label: 'trip_date'.tr,
+                      hint: 'when_it_travels'.tr,
                       required: true,
                       withTime: true,
                       value: _tripDate,
@@ -797,8 +797,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ),
                     SizedBox(height: 14.h),
                     LokDateField(
-                      label: 'Arrival date',
-                      hint: 'when it lands',
+                      label: 'arrival_date'.tr,
+                      hint: 'when_it_lands'.tr,
                       required: true,
                       withTime: true,
                       value: _arrivalDate,
@@ -806,16 +806,16 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ),
                     SizedBox(height: 14.h),
                     LokTextField(
-                      label: 'Receiver name',
-                      hint: 'who picks it up',
+                      label: 'receiver_name'.tr,
+                      hint: 'who_picks_it_up'.tr,
                       icon: Icons.person_outline,
                       required: true,
                       controller: _receiverName,
                     ),
                     SizedBox(height: 14.h),
                     LokDropdownField(
-                      label: 'Receiver country',
-                      hint: 'receiver country',
+                      label: 'receiver_country'.tr,
+                      hint: 'receiver_country_2'.tr,
                       icon: Icons.public,
                       required: true,
                       options: _countryNames,
@@ -824,7 +824,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ),
                     SizedBox(height: 14.h),
                     LokTextField(
-                      label: 'Receiver phone',
+                      label: 'receiver_phone'.tr,
                       hint: '+216...',
                       icon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
@@ -833,8 +833,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                     ),
                     SizedBox(height: 14.h),
                     LokDropdownField(
-                      label: 'Payment method',
-                      hint: 'payment method',
+                      label: 'payment_method'.tr,
+                      hint: 'payment_method_2'.tr,
                       icon: Icons.credit_card,
                       options: const ['Pay Online', 'Cash On Delivery'],
                       value: _payment,
@@ -856,7 +856,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Text('Confirm & continue'),
+                          : Text('confirm_continue'.tr),
                     ),
                   ],
                 ),
@@ -999,7 +999,7 @@ class _SystemBubble extends StatelessWidget {
                 minimumSize: Size(0, 34.h),
                 padding: EdgeInsets.symmetric(horizontal: 18.w),
               ),
-              child: Text('Click Here', style: TextStyle(fontSize: 12.sp)),
+              child: Text('click_here'.tr, style: TextStyle(fontSize: 12.sp)),
             ),
           ],
           SizedBox(height: 6.h),

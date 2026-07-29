@@ -17,7 +17,7 @@ class ForgotPasswordPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 24.h),
         children: [
-          Text('Forgot password', style: Theme.of(context).textTheme.headlineMedium),
+          Text('forgot_password'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
             "Enter your email and we'll send you a reset code.",
@@ -25,15 +25,15 @@ class ForgotPasswordPage extends StatelessWidget {
           ),
           SizedBox(height: 28.h),
           LokTextField(
-            label: 'Email',
-            hint: 'you@email.com',
+            label: 'email'.tr,
+            hint: 'you_email_com'.tr,
             icon: Icons.mail_outline,
             required: true,
             keyboardType: TextInputType.emailAddress,
             controller: c.email,
           ),
           SizedBox(height: 20.h),
-          LokBusyButton(busy: c.busy, label: 'Send reset code', onPressed: c.sendCode),
+          LokBusyButton(busy: c.busy, label: 'send_reset_code'.tr, onPressed: c.sendCode),
         ],
       ),
     );

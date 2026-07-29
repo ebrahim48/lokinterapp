@@ -19,13 +19,13 @@ class PasswordResetController extends GetxController {
 
   Future<void> sendCode() async {
     if (!isValidEmail(email.text)) {
-      toast('Enter a valid email address');
+      toast('enter_a_valid_email_address'.tr);
       return;
     }
     busy.value = true;
     try {
       await _repo.forgotPassword(email.text.trim());
-      toast('Reset code sent — check your inbox');
+      toast('reset_code_sent_check_your_inbox'.tr);
       Get.to(() => const ResetPasswordPage());
     } on AppException catch (e) {
       toastError(e);
@@ -36,15 +36,15 @@ class PasswordResetController extends GetxController {
 
   Future<void> reset() async {
     if (token.text.trim().isEmpty || password.text.isEmpty) {
-      toast('Enter the code and a new password');
+      toast('enter_the_code_and_a_new_password'.tr);
       return;
     }
     if (!isValidPassword(password.text)) {
-      toast('Password must be at least 8 characters');
+      toast('password_must_be_at_least_8_characters'.tr);
       return;
     }
     if (password.text != confirm.text) {
-      toast('Passwords do not match');
+      toast('passwords_do_not_match'.tr);
       return;
     }
     busy.value = true;
@@ -54,7 +54,7 @@ class PasswordResetController extends GetxController {
         token: token.text.trim(),
         password: password.text,
       );
-      toast('Password updated — log in with the new one');
+      toast('password_updated_log_in_with_the_new_one'.tr);
       Get.offAll(() => const LoginPage());
     } on AppException catch (e) {
       toastError(e);

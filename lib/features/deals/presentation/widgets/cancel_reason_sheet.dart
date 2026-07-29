@@ -39,7 +39,7 @@ class _CancelReasonSheetState extends State<CancelReasonSheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Why to cancel this deal?',
+              'why_to_cancel_this_deal'.tr,
               style: TextStyle(
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w700,
@@ -76,7 +76,7 @@ class _CancelReasonSheetState extends State<CancelReasonSheet> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () => Get.back(),
-                    child: const Text('Close'),
+                    child: Text('close'.tr),
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -84,7 +84,7 @@ class _CancelReasonSheetState extends State<CancelReasonSheet> {
                   child: ElevatedButton(
                     // stays disabled until a reason is chosen
                     onPressed: _picked == null ? null : () => Get.back(result: _picked),
-                    child: const Text('Confirm Cancel'),
+                    child: Text('confirm_cancel'.tr),
                   ),
                 ),
               ],

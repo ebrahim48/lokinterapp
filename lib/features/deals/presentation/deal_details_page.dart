@@ -112,14 +112,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       final clientSecret = '${res['clientSecret'] ?? ''}';
       final intentId = '${res['paymentIntentId'] ?? ''}';
       if (clientSecret.isEmpty) {
-        toast('Could not start the guarantee — try again');
+        toast('could_not_start_the_guarantee_try_again'.tr);
         return;
       }
       final ok = await _presentStripeSheet(clientSecret);
       if (!ok) return;
       await _repo.confirmGuarantee(deal.id, intentId);
       _refreshList();
-      toast('Guarantee secured — this is a hold, not a charge');
+      toast('guarantee_secured_this_is_a_hold_not_a_charge'.tr);
       await _loadDetail();
     } on AppException catch (e) {
       toastError(e);
@@ -138,7 +138,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       final clientSecret = '${res['clientSecret'] ?? ''}';
       final intentId = '${res['paymentIntentId'] ?? ''}';
       if (clientSecret.isEmpty) {
-        toast('Could not start the payment — try again');
+        toast('could_not_start_the_payment_try_again'.tr);
         return;
       }
       final breakdown = res['breakdown'] is Map
@@ -152,7 +152,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       if (!ok) return;
       await _repo.confirmPayment(deal.id, intentId);
       _refreshList();
-      toast('Payment secured in escrow');
+      toast('payment_secured_in_escrow'.tr);
       await _loadDetail();
     } on AppException catch (e) {
       toastError(e);
@@ -184,7 +184,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         );
     return Get.dialog<bool>(
       AlertDialog(
-        title: const Text('Payment breakdown'),
+        title: Text('payment_breakdown'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -197,9 +197,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Get.back(result: false), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(result: false), child: Text('cancel'.tr)),
           ElevatedButton(
-              onPressed: () => Get.back(result: true), child: const Text('Continue')),
+              onPressed: () => Get.back(result: true), child: Text('continue'.tr)),
         ],
       ),
     );
@@ -227,7 +227,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       // anything else (native SDK not configured, plugin channel) would
       // otherwise escape and leave the button looking dead
       debugPrint('stripe sheet failed: $e');
-      toast('Could not open the payment sheet — try again');
+      toast('could_not_open_the_payment_sheet_try_again'.tr);
       return false;
     }
   }
@@ -247,7 +247,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
     final pick = await _pickVideo();
     if (pick == null) {
-      toast('Record the pickup video to start the delivery');
+      toast('record_the_pickup_video_to_start_the_delivery'.tr);
       if (mounted) setState(() => _busy = false);
       return;
     }
@@ -276,7 +276,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
     if (uploaded) {
       _refreshList();
-      toast('Pickup video uploaded — deal is now outgoing');
+      toast('pickup_video_uploaded_deal_is_now_outgoing'.tr);
       await _loadDetail();
     }
   }
@@ -313,7 +313,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 Icon(Icons.cloud_upload_outlined,
                     color: AppPalette.primary, size: 20.sp),
                 SizedBox(width: 10.w),
-                Text('Uploading video…',
+                Text('uploading_video'.tr,
                     style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
               ],
             ),
@@ -362,9 +362,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           deal.cancelReasonLabel;
       Get.dialog(
         AlertDialog(
-          title: const Text('Dispute report'),
+          title: Text('dispute_report'.tr),
           content: Text(text?.toString() ?? 'No report details available.'),
-          actions: [TextButton(onPressed: () => Get.back(), child: const Text('Close'))],
+          actions: [TextButton(onPressed: () => Get.back(), child: Text('close'.tr))],
         ),
       );
     } on AppException catch (e) {
@@ -522,7 +522,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             onPressed: () => openChat(deal.counterpart),
             style: OutlinedButton.styleFrom(minimumSize: Size(0, 40.h)),
             icon: Icon(Icons.chat_bubble_outline, size: 16.sp),
-            label: const Text('Chat'),
+            label: Text('chat'.tr),
           ),
         ],
       ),
@@ -540,7 +540,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.assignment_turned_in_outlined, size: 18.sp, color: AppPalette.primary),
               SizedBox(width: 8.w),
-              Text('Agreement details',
+              Text('agreement_details'.tr,
                   style: TextStyle(
                       fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
             ],
@@ -623,7 +623,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Security deposit',
+          Text('security_deposit'.tr,
               style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
           Row(
             children: [
@@ -659,7 +659,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Attachment', style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text('attachment'.tr, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
           TextButton.icon(
             onPressed: () => Get.dialog(
               Dialog(
@@ -676,7 +676,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               ),
             ),
             icon: Icon(Icons.attachment, size: 15.sp, color: AppPalette.primary),
-            label: Text('Open attachment',
+            label: Text('open_attachment'.tr,
                 style: TextStyle(fontSize: 12.sp, color: AppPalette.primary)),
           ),
         ],
@@ -721,7 +721,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
               SizedBox(width: 8.w),
-              Text('Guarantee required',
+              Text('guarantee_required'.tr,
                   style: TextStyle(
                       fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
             ],
@@ -734,7 +734,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
           SizedBox(height: 4.h),
           Text(
-            'This is a HOLD only — released (not charged) when the deal completes.',
+            'this_is_a_hold_only_released_not_charged_when_th'.tr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
@@ -744,7 +744,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             child: ElevatedButton.icon(
               onPressed: _busy ? null : _secureGuarantee,
               icon: Icon(Icons.credit_card, size: 17.sp),
-              label: const Text('Secure guarantee with card'),
+              label: Text('secure_guarantee_with_card'.tr),
             ),
           ),
         ],
@@ -769,20 +769,20 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
               SizedBox(width: 8.w),
-              Text('Payment required',
+              Text('payment_required'.tr,
                   style: TextStyle(
                       fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
             ],
           ),
           SizedBox(height: 8.h),
           Text(
-            'Pay now to secure this deal. Funds are held until delivery is confirmed.',
+            'pay_now_to_secure_this_deal_funds_are_held_until'.tr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
           SizedBox(height: 4.h),
           Text(
-            'Your payment is auto-captured within 6 days, or when the traveler picks up the item.',
+            'your_payment_is_auto_captured_within_6_days_or_w'.tr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
@@ -811,12 +811,12 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Cannot proceed',
+                Text('cannot_proceed'.tr,
                     style: TextStyle(
                         fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
                 SizedBox(height: 4.h),
                 Text(
-                  'Waiting for the sender to complete payment before you can proceed.',
+                  'waiting_for_the_sender_to_complete_payment_befor'.tr,
                   style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
                 ),
               ],
@@ -840,7 +840,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.local_shipping_outlined, color: fg, size: 18.sp),
               SizedBox(width: 8.w),
-              Text('On the way',
+              Text('on_the_way'.tr,
                   style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
             ],
           ),
@@ -870,7 +870,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       context,
       Column(
         children: [
-          Text('Receiver confirmation',
+          Text('receiver_confirmation'.tr,
               style: TextStyle(
                   fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
           SizedBox(height: 6.h),
@@ -911,7 +911,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.gpp_maybe_outlined, color: fg, size: 18.sp),
               SizedBox(width: 8.w),
-              Text('Dispute open',
+              Text('dispute_open'.tr,
                   style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
             ],
           ),
@@ -953,7 +953,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         return [
           ElevatedButton(
             onPressed: _busy ? null : _acceptDeal,
-            child: const Text('Accept deal'),
+            child: Text('accept_deal'.tr),
           ),
           SizedBox(height: 12.h),
           OutlinedButton(
@@ -962,7 +962,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               foregroundColor: AppPalette.primary,
               side: const BorderSide(color: AppPalette.primary),
             ),
-            child: const Text('Reject deal'),
+            child: Text('reject_deal'.tr),
           ),
         ];
       case DealStatus.accepted:
@@ -972,7 +972,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ElevatedButton.icon(
               onPressed: _busy ? null : _payNow,
               icon: Icon(Icons.credit_card, size: 17.sp),
-              label: const Text('Pay now'),
+              label: Text('pay_now'.tr),
             ),
             SizedBox(height: 12.h),
           ],
@@ -982,13 +982,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ElevatedButton.icon(
               onPressed: (_busy || !deal.travelerCanStart) ? null : _startOutgoing,
               icon: Icon(Icons.upload_outlined, size: 17.sp),
-              label: const Text('Upload Purchase Video & Check As Ongoing'),
+              label: Text('upload_purchase_video_check_as_ongoing'.tr),
             ),
             SizedBox(height: 12.h),
           ],
           OutlinedButton(
             onPressed: _busy ? null : _cancel,
-            child: const Text('Cancel deal'),
+            child: Text('cancel_deal'.tr),
           ),
         ];
       case DealStatus.outgoing:
@@ -1000,7 +1000,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               onPressed: _busy
                   ? null
                   : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
-              child: const Text('Mark as completed'),
+              child: Text('mark_as_completed'.tr),
             ),
             SizedBox(height: 12.h),
           ],
@@ -1011,7 +1011,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               side: const BorderSide(color: AppPalette.primary),
             ),
             icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
-            label: const Text('Open a dispute'),
+            label: Text('open_a_dispute'.tr),
           ),
         ];
       case DealStatus.completed:
@@ -1020,7 +1020,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           if (!deal.isTraveler) ...[
             ElevatedButton(
               onPressed: () => _openRateSheet(context),
-              child: const Text('Rate this deal'),
+              child: Text('rate_this_deal'.tr),
             ),
             SizedBox(height: 12.h),
           ],
@@ -1031,7 +1031,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               side: const BorderSide(color: AppPalette.primary),
             ),
             icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
-            label: const Text('Open a dispute'),
+            label: Text('open_a_dispute'.tr),
           ),
         ];
       case DealStatus.disputes:
@@ -1043,18 +1043,18 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               onPressed: _busy
                   ? null
                   : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
-              child: const Text('Mark as completed'),
+              child: Text('mark_as_completed'.tr),
             ),
             SizedBox(height: 12.h),
           ],
           OutlinedButton(
             onPressed: _showDisputeReport,
-            child: const Text('View dispute report'),
+            child: Text('view_dispute_report'.tr),
           ),
         ];
       case DealStatus.cancelled:
         return [
-          OutlinedButton(onPressed: () => Get.back(), child: const Text('Back to deals')),
+          OutlinedButton(onPressed: () => Get.back(), child: Text('back_to_deals'.tr)),
         ];
     }
   }
@@ -1099,7 +1099,7 @@ class _RateSheetState extends State<_RateSheet> {
       await _repo.rate(widget.deal.id, _stars, _comment.text.trim());
       if (!mounted) return;
       Navigator.pop(context);
-      toast('Thanks for the review!');
+      toast('thanks_for_the_review'.tr);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -1117,7 +1117,7 @@ class _RateSheetState extends State<_RateSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Rate this deal', style: Theme.of(context).textTheme.titleLarge),
+            Text('rate_this_deal'.tr, style: Theme.of(context).textTheme.titleLarge),
             SizedBox(height: 14.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1147,7 +1147,7 @@ class _RateSheetState extends State<_RateSheet> {
                       height: 20.r,
                       child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
-                  : const Text('Submit review'),
+                  : Text('submit_review'.tr),
             ),
           ],
         ),

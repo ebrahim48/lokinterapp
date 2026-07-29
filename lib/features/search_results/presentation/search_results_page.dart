@@ -20,7 +20,7 @@ class SearchResultsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search for deals'),
+        title: Text('search_for_deals'.tr),
         actions: [
           IconButton(
             onPressed: () => SearchFilterSheet.show(context),
@@ -85,13 +85,13 @@ class SearchResultsPage extends StatelessWidget {
           Icon(Icons.lock_outline, size: 40.sp, color: cs.onSurfaceVariant),
           SizedBox(height: 12.h),
           Text(
-            'Log in to browse trips and requests',
+            'log_in_to_browse_trips_and_requests'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 12.h),
           TextButton(
             onPressed: () => Get.to(() => const LoginPage()),
-            child: const Text('Login', style: TextStyle(color: AppPalette.primary)),
+            child: Text('login'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
         ],
       ),
@@ -108,7 +108,7 @@ class SearchResultsPage extends StatelessWidget {
             SizedBox(height: 10.h),
             TextButton(
               onPressed: retry,
-              child: const Text('Retry', style: TextStyle(color: AppPalette.primary)),
+              child: Text('retry'.tr, style: TextStyle(color: AppPalette.primary)),
             ),
           ],
         ],

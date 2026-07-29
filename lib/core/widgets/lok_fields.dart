@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/app_palette.dart';
 import '../utils/format.dart';
+import 'package:get/get.dart';
 
 class _Label extends StatelessWidget {
   final String text;
@@ -301,7 +302,7 @@ class LokMultiSelectField extends StatelessWidget {
                       onChanged(draft);
                       Navigator.pop(context);
                     },
-                    child: const Text('Done'),
+                    child: Text('done'.tr),
                   ),
                 ),
               ),

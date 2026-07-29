@@ -428,7 +428,7 @@ class _ChatPill extends StatelessWidget {
           children: [
             Icon(Icons.chat_bubble, color: Colors.white, size: 13.sp),
             SizedBox(width: 6.w),
-            Text('chat', style: TextStyle(color: Colors.white, fontSize: 12.sp)),
+            Text('chat_2'.tr, style: TextStyle(color: Colors.white, fontSize: 12.sp)),
           ],
         ),
       ),

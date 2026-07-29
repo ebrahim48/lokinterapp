@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
+import 'package:get/get.dart';
 
 // Small solid pill marking a registered transporter — sits above card content
 // so it never hides any info.
@@ -21,7 +22,7 @@ class TransporterChip extends StatelessWidget {
           Icon(Icons.verified_user, color: Colors.white, size: 12.sp),
           SizedBox(width: 5.w),
           Text(
-            'TRANSPORTER',
+            'transporter'.tr,
             style: TextStyle(
               color: Colors.white,
               fontSize: 9.sp,

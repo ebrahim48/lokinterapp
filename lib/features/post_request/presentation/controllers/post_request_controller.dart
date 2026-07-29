@@ -129,7 +129,7 @@ class PostRequestController extends GetxController {
     if (img == null) return;
     final bytes = await img.length();
     if (bytes > 5 * 1024 * 1024) {
-      toast('Please pick an image under 5MB');
+      toast('please_pick_an_image_under_5mb'.tr);
       return;
     }
     picturePath.value = img.path;
@@ -142,25 +142,25 @@ class PostRequestController extends GetxController {
     final cat = categories.firstWhereOrNull((c) => c.title == category.value);
 
     if (origin == null || kg == null || cat == null || beforeDate.value == null) {
-      toast('Fill in the route, weight, category and date first');
+      toast('fill_in_the_route_weight_category_and_date_first'.tr);
       return;
     }
     if (isBuy && itemName.text.trim().isEmpty) {
-      toast('Give the item a name');
+      toast('give_the_item_a_name'.tr);
       return;
     }
     if (isLocal && (fromCity.value == null || toCity.value == null)) {
-      toast('Pick the from and to cities');
+      toast('pick_the_from_and_to_cities'.tr);
       return;
     }
     if (!isLocal && toCountry.value == null) {
-      toast('Pick a destination country');
+      toast('pick_a_destination_country'.tr);
       return;
     }
     // only a local request asks for these; international falls back to the route
     if (isLocal &&
         (pickupLocation.text.trim().isEmpty || dropoffLocation.text.trim().isEmpty)) {
-      toast('Add the pickup and dropoff locations');
+      toast('add_the_pickup_and_dropoff_locations'.tr);
       return;
     }
     // international requests hide these; the repository posts the website's
@@ -168,7 +168,7 @@ class PostRequestController extends GetxController {
     final pickup = pickupLocation.text.trim();
     final dropoff = dropoffLocation.text.trim();
     if (!acceptedTerms.value) {
-      toast('Accept the terms and conditions first');
+      toast('accept_the_terms_and_conditions_first'.tr);
       return;
     }
 
@@ -195,7 +195,7 @@ class PostRequestController extends GetxController {
           description: description.text.trim(),
           attachFilePath: picturePath.value,
         );
-        toast('Delivery request updated');
+        toast('delivery_request_updated'.tr);
         Get.back(result: true);
         return;
       }
@@ -217,7 +217,7 @@ class PostRequestController extends GetxController {
         description: description.text.trim(),
         attachFilePath: picturePath.value,
       );
-      toast('Delivery request posted');
+      toast('delivery_request_posted'.tr);
       Get.back(result: true);
     } on AppException catch (e) {
       toastError(e);

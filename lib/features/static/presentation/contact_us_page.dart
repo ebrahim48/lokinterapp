@@ -49,11 +49,11 @@ class _ContactUsPageState extends State<ContactUsPage> {
     if (_name.text.trim().isEmpty ||
         _email.text.trim().isEmpty ||
         _message.text.trim().isEmpty) {
-      toast('Name, email and message are required');
+      toast('name_email_and_message_are_required'.tr);
       return;
     }
     if (!isValidEmail(_email.text)) {
-      toast('That email address does not look right');
+      toast('that_email_address_does_not_look_right'.tr);
       return;
     }
     setState(() => _sending = true);
@@ -66,7 +66,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
         message: _message.text.trim(),
       );
       if (!mounted) return;
-      toast('Message sent — the team will get back to you');
+      toast('message_sent_the_team_will_get_back_to_you'.tr);
       Get.back();
     } on AppException catch (e) {
       toastError(e);
@@ -79,42 +79,42 @@ class _ContactUsPageState extends State<ContactUsPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Contact us')),
+      appBar: AppBar(title: Text('contact_us'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
           Text("We'd love to hear from you",
               style: Theme.of(context).textTheme.headlineSmall),
           SizedBox(height: 6.h),
-          Text('Send us a message and the team will get back to you.',
+          Text('send_us_a_message_and_the_team_will_get_back_to'.tr,
               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 22.h),
           LokTextField(
-              label: 'Name', hint: 'your name', icon: Icons.person_outline, controller: _name),
+              label: 'name'.tr, hint: 'your_name'.tr, icon: Icons.person_outline, controller: _name),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Email',
-            hint: 'you@email.com',
+            label: 'email'.tr,
+            hint: 'you_email_com'.tr,
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
             controller: _email,
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Phone',
-            hint: 'phone number',
+            label: 'phone'.tr,
+            hint: 'phone_number_2'.tr,
             icon: Icons.phone_outlined,
             keyboardType: TextInputType.phone,
             controller: _phone,
           ),
           SizedBox(height: 16.h),
           LokTextField(
-              label: 'Subject',
-              hint: 'what is this about?',
+              label: 'subject'.tr,
+              hint: 'what_is_this_about'.tr,
               icon: Icons.subject,
               controller: _subject),
           SizedBox(height: 16.h),
-          LokTextField(label: 'Message', hint: 'your message', maxLines: 5, controller: _message),
+          LokTextField(label: 'message'.tr, hint: 'your_message'.tr, maxLines: 5, controller: _message),
           SizedBox(height: 20.h),
           ElevatedButton(
             onPressed: _sending ? null : _send,
@@ -124,7 +124,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     height: 20.r,
                     child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : const Text('Send message'),
+                : Text('send_message'.tr),
           ),
           SizedBox(height: 24.h),
           _info(context, Icons.mail_outline, 'support@lokinter.com'),

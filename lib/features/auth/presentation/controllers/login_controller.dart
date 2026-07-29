@@ -15,11 +15,11 @@ class LoginController extends GetxController {
 
   Future<void> submit() async {
     if (email.text.trim().isEmpty || password.text.isEmpty) {
-      toast('Enter your email and password');
+      toast('enter_your_email_and_password'.tr);
       return;
     }
     if (!isValidEmail(email.text)) {
-      toast('That email address does not look right');
+      toast('that_email_address_does_not_look_right'.tr);
       return;
     }
     busy.value = true;

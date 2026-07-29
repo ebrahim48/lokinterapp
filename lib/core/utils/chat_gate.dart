@@ -11,7 +11,7 @@ Future<void> openChat(PostUser user, {int? postId, int? chatId}) async {
 
   // without a real partner id the API 422s ("A valid chat partner is required")
   if (user.id == 0) {
-    toast('Still loading this conversation — try again in a moment');
+    toast('still_loading_this_conversation_try_again_in_a_m'.tr);
     return;
   }
 

@@ -43,7 +43,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
 
   Future<void> _submit() async {
     if (_reason == null) {
-      toast('Pick a reason first');
+      toast('pick_a_reason_first'.tr);
       return;
     }
     setState(() => _sending = true);
@@ -52,7 +52,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
           .report(widget.userId, _reason!, comment: _details.text.trim());
       if (!mounted) return;
       Navigator.pop(context);
-      toast('Report sent — our team will review it');
+      toast('report_sent_our_team_will_review_it'.tr);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -78,7 +78,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
                       fontWeight: FontWeight.w700,
                       color: AppPalette.primary)),
               SizedBox(height: 4.h),
-              Text('Tell us what went wrong. Reports are confidential.',
+              Text('tell_us_what_went_wrong_reports_are_confidential'.tr,
                   style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
               SizedBox(height: 10.h),
               for (final r in reportReasons)
@@ -116,7 +116,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Get.back(),
-                      child: const Text('Cancel'),
+                      child: Text('cancel'.tr),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -130,7 +130,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
                               child: const CircularProgressIndicator(
                                   strokeWidth: 2, color: Colors.white),
                             )
-                          : const Text('Send report'),
+                          : Text('send_report'.tr),
                     ),
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/app_palette.dart';
+import 'package:get/get.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -21,7 +22,7 @@ class SectionTitle extends StatelessWidget {
           GestureDetector(
             onTap: onSeeAll,
             child: Text(
-              'See All',
+              'see_all'.tr,
               style: TextStyle(
                 color: AppPalette.primary,
                 fontSize: 13.sp,

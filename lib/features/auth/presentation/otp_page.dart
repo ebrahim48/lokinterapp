@@ -33,7 +33,7 @@ class _OtpPageState extends State<OtpPage> {
       body: ListView(
         padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 24.h),
         children: [
-          Text('Verify your email', style: Theme.of(context).textTheme.headlineMedium),
+          Text('verify_your_email'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
             'We sent a code to ${c.email.text.trim()}. Enter it below to finish creating your account.',
@@ -41,8 +41,8 @@ class _OtpPageState extends State<OtpPage> {
           ),
           SizedBox(height: 28.h),
           LokTextField(
-            label: 'Verification code',
-            hint: 'code from the email',
+            label: 'verification_code'.tr,
+            hint: 'code_from_the_email'.tr,
             icon: Icons.pin_outlined,
             required: true,
             keyboardType: TextInputType.number,
@@ -51,7 +51,7 @@ class _OtpPageState extends State<OtpPage> {
           SizedBox(height: 20.h),
           LokBusyButton(
             busy: c.busy,
-            label: 'Verify & create account',
+            label: 'verify_create_account'.tr,
             onPressed: () => c.verifyOtp(_code.text.trim()),
           ),
           SizedBox(height: 16.h),
@@ -59,7 +59,7 @@ class _OtpPageState extends State<OtpPage> {
             child: TextButton(
               onPressed: () => c.resendOtp(),
               child: Text(
-                'Resend code',
+                'resend_code'.tr,
                 style: TextStyle(color: AppPalette.primary, fontSize: 13.sp),
               ),
             ),

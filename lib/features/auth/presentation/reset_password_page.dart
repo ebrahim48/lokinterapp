@@ -17,26 +17,26 @@ class ResetPasswordPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 24.h),
         children: [
-          Text('Reset password', style: Theme.of(context).textTheme.headlineMedium),
+          Text('reset_password'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
-            'Enter the code we sent and choose a new password.',
+            'enter_the_code_we_sent_and_choose_a_new_password'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 28.h),
           LokTextField(
-            label: 'Reset code',
-            hint: 'code from the email',
+            label: 'reset_code'.tr,
+            hint: 'code_from_the_email'.tr,
             icon: Icons.pin_outlined,
             required: true,
             controller: c.token,
           ),
           SizedBox(height: 16.h),
-          LokPasswordField(label: 'New password', hint: 'new password', controller: c.password),
+          LokPasswordField(label: 'new_password'.tr, hint: 'new_password_2'.tr, controller: c.password),
           SizedBox(height: 16.h),
-          LokPasswordField(label: 'Confirm password', hint: 'repeat password', controller: c.confirm),
+          LokPasswordField(label: 'confirm_password'.tr, hint: 'repeat_password'.tr, controller: c.confirm),
           SizedBox(height: 20.h),
-          LokBusyButton(busy: c.busy, label: 'Reset password', onPressed: c.reset),
+          LokBusyButton(busy: c.busy, label: 'reset_password'.tr, onPressed: c.reset),
         ],
       ),
     );

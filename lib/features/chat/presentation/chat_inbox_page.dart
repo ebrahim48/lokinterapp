@@ -15,7 +15,7 @@ class ChatInboxPage extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Inbox')),
+      appBar: AppBar(title: Text('inbox'.tr)),
       body: Obx(() {
         if (c.loading.value && c.conversations.isEmpty) {
           return const Center(child: CircularProgressIndicator());
@@ -27,7 +27,7 @@ class ChatInboxPage extends StatelessWidget {
               children: [
                 Text(c.error.value!,
                     style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                TextButton(onPressed: c.load, child: const Text('Retry')),
+                TextButton(onPressed: c.load, child: Text('retry'.tr)),
               ],
             ),
           );
@@ -39,7 +39,7 @@ class ChatInboxPage extends StatelessWidget {
               children: [
                 Icon(Icons.chat_bubble_outline, size: 44.sp, color: cs.onSurfaceVariant),
                 SizedBox(height: 12.h),
-                Text('No conversations yet',
+                Text('no_conversations_yet'.tr,
                     style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
               ],
             ),

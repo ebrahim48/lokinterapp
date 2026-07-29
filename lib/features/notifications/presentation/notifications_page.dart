@@ -78,16 +78,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: Text('notifications'.tr),
         actions: [
           if (_items.any((n) => !n.read))
             IconButton(
-              tooltip: 'Mark all read',
+              tooltip: 'mark_all_read'.tr,
               onPressed: _markAll,
               icon: const Icon(Icons.done_all),
             ),
           IconButton(
-            tooltip: 'Notification settings',
+            tooltip: 'notification_settings'.tr,
             onPressed: () => _openSettings(context),
             icon: const Icon(Icons.settings_outlined),
           ),
@@ -95,7 +95,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       ),
       body: _guest
           ? Center(
-              child: Text('Log in to see your notifications',
+              child: Text('log_in_to_see_your_notifications'.tr,
                   style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
             )
           : _loading
@@ -107,13 +107,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         children: [
                           Text(_error!,
                               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                          TextButton(onPressed: _load, child: const Text('Retry')),
+                          TextButton(onPressed: _load, child: Text('retry'.tr)),
                         ],
                       ),
                     )
                   : _items.isEmpty
                       ? Center(
-                          child: Text('Nothing here yet',
+                          child: Text('nothing_here_yet'.tr,
                               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
                         )
                       : RefreshIndicator(
@@ -201,7 +201,7 @@ class _NotificationSettingsState extends State<_NotificationSettings> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Notification settings', style: Theme.of(context).textTheme.titleLarge),
+            Text('notification_settings'.tr, style: Theme.of(context).textTheme.titleLarge),
             SizedBox(height: 8.h),
             _toggle('Push notifications', _push, (v) {
               setState(() => _push = v);

@@ -5,6 +5,7 @@ import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/notify.dart';
 import '../../data/deals_repository.dart';
+import 'package:get/get.dart';
 
 /// Website parity: the "Open Dispute" dialog. Reasons come from the API
 /// per-deal (contextual — ghosting reasons only while OUTGOING), damaged /
@@ -95,11 +96,11 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
 
   Future<void> _submit() async {
     if (_selected == null) {
-      toast('Pick a reason first');
+      toast('pick_a_reason_first'.tr);
       return;
     }
     if (_needsEvidence && _evidence == null) {
-      toast('Photo or video evidence is required for this reason');
+      toast('photo_or_video_evidence_is_required_for_this_rea'.tr);
       return;
     }
     setState(() => _sending = true);
@@ -112,7 +113,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
       );
       if (!mounted) return;
       Navigator.pop(context, true);
-      toast('Dispute filed — our team will review it');
+      toast('dispute_filed_our_team_will_review_it'.tr);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -146,7 +147,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Open a dispute', style: Theme.of(context).textTheme.titleLarge),
+              Text('open_a_dispute'.tr, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
                 'Tell us what went wrong with this delivery. '
@@ -217,7 +218,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                 if (_reasons.isEmpty)
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.h),
-                    child: Text('No dispute reasons available for this deal.',
+                    child: Text('no_dispute_reasons_available_for_this_deal'.tr,
                         style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
                   ),
                 SizedBox(height: 8.h),
@@ -273,7 +274,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                             child: const CircularProgressIndicator(
                                 strokeWidth: 2, color: Colors.white),
                           )
-                        : const Text('Send dispute'),
+                        : Text('send_dispute'.tr),
                   ),
                 ),
               ],

@@ -20,15 +20,15 @@ class RegisterPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 24.h),
         children: [
-          Text('Create account', style: Theme.of(context).textTheme.headlineMedium),
+          Text('create_account'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
-            'Join Lokinter to send and carry parcels.',
+            'join_lokinter_to_send_and_carry_parcels'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 22.h),
           Text(
-            'I want to register as',
+            'i_want_to_register_as'.tr,
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
@@ -39,24 +39,24 @@ class RegisterPage extends StatelessWidget {
           _roleSelector(context, c),
           SizedBox(height: 20.h),
           LokTextField(
-            label: 'First name',
-            hint: 'first name',
+            label: 'first_name'.tr,
+            hint: 'first_name_2'.tr,
             icon: Icons.person_outline,
             required: true,
             controller: c.firstName,
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Last name',
-            hint: 'last name',
+            label: 'last_name'.tr,
+            hint: 'last_name_2'.tr,
             icon: Icons.person_outline,
             required: true,
             controller: c.lastName,
           ),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'Country of Residence',
-                hint: 'select a country',
+                label: 'country_of_residence'.tr,
+                hint: 'select_a_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -65,8 +65,8 @@ class RegisterPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Phone number',
-            hint: 'phone number',
+            label: 'phone_number'.tr,
+            hint: 'phone_number_2'.tr,
             icon: Icons.phone_outlined,
             required: true,
             keyboardType: TextInputType.phone,
@@ -74,8 +74,8 @@ class RegisterPage extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Email',
-            hint: 'you@email.com',
+            label: 'email'.tr,
+            hint: 'you_email_com'.tr,
             icon: Icons.mail_outline,
             required: true,
             keyboardType: TextInputType.emailAddress,
@@ -85,19 +85,19 @@ class RegisterPage extends StatelessWidget {
           LokPasswordField(controller: c.password),
           Obx(() => c.isTransporter ? _businessSection(context, c) : const SizedBox.shrink()),
           SizedBox(height: 22.h),
-          LokBusyButton(busy: c.busy, label: 'Register', onPressed: c.requestOtp),
+          LokBusyButton(busy: c.busy, label: 'register'.tr, onPressed: c.requestOtp),
           SizedBox(height: 18.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Already have an account? ',
+                'already_have_an_account'.tr,
                 style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
               ),
               GestureDetector(
                 onTap: () => Get.off(() => const LoginPage()),
                 child: Text(
-                  'Sign in',
+                  'sign_in'.tr,
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w700,
@@ -197,26 +197,26 @@ class RegisterPage extends StatelessWidget {
       children: [
         SizedBox(height: 24.h),
         Text(
-          'Business details',
+          'business_details'.tr,
           style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface),
         ),
         SizedBox(height: 4.h),
         Text(
-          'Collected once so you get a Transporter badge and skip it later.',
+          'collected_once_so_you_get_a_transporter_badge_an'.tr,
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'Legal name',
-          hint: 'business / legal name',
+          label: 'legal_name'.tr,
+          hint: 'business_legal_name'.tr,
           icon: Icons.business_outlined,
           required: true,
           controller: c.businessName,
         ),
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'Address',
-          hint: 'business address',
+          label: 'address'.tr,
+          hint: 'business_address'.tr,
           icon: Icons.location_on_outlined,
           required: true,
           maxLines: 2,
@@ -224,8 +224,8 @@ class RegisterPage extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         Obx(() => LokMultiSelectField(
-              label: 'Countries of operation',
-              hint: 'select countries',
+              label: 'countries_of_operation'.tr,
+              hint: 'select_countries'.tr,
               icon: Icons.public,
               required: true,
               options: c.countryNames,
@@ -236,7 +236,7 @@ class RegisterPage extends StatelessWidget {
         _docLabel(context, 'Transport license'),
         SizedBox(height: 6.h),
         Obx(() => LokUploadField(
-              label: 'Upload transport license',
+              label: 'upload_transport_license'.tr,
               fileName: c.licenseFile.value?.name,
               onTap: c.pickLicense,
             )),
@@ -244,13 +244,13 @@ class RegisterPage extends StatelessWidget {
         _docLabel(context, 'Transporter legal documents'),
         SizedBox(height: 6.h),
         Obx(() => LokUploadField(
-              label: 'Upload legal documents',
+              label: 'upload_legal_documents'.tr,
               fileName: c.legalFile.value?.name,
               onTap: c.pickLegal,
             )),
         SizedBox(height: 10.h),
         Text(
-          'Documents are reviewed by our team before your transporter account is approved.',
+          'documents_are_reviewed_by_our_team_before_your_t'.tr,
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
       ],

@@ -16,10 +16,10 @@ class DealsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Deals'),
+        title: Text('deals'.tr),
         actions: [
           Obx(() => IconButton(
-                tooltip: 'Filter',
+                tooltip: 'filter'.tr,
                 onPressed: () => _openFilter(context, c),
                 icon: Stack(
                   clipBehavior: Clip.none,
@@ -69,7 +69,7 @@ class DealsPage extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 13.sp,
                               color: Theme.of(context).colorScheme.onSurfaceVariant)),
-                      TextButton(onPressed: c.load, child: const Text('Retry')),
+                      TextButton(onPressed: c.load, child: Text('retry'.tr)),
                     ],
                   ),
                 );
@@ -114,7 +114,7 @@ class DealsPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 8.h),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Filter deals',
+                child: Text('filter_deals'.tr,
                     style: TextStyle(
                         fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
               ),
@@ -182,7 +182,7 @@ class DealsPage extends StatelessWidget {
         children: [
           Icon(Icons.inbox_outlined, size: 48.sp, color: cs.onSurfaceVariant),
           SizedBox(height: 12.h),
-          Text('No deals here yet',
+          Text('no_deals_here_yet'.tr,
               style: TextStyle(fontSize: 14.sp, color: cs.onSurfaceVariant)),
         ],
       ),

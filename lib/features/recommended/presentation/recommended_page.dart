@@ -16,14 +16,14 @@ class RecommendedPage extends StatelessWidget {
     final home = Get.find<HomeFeedController>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Recommended travelers')),
+      appBar: AppBar(title: Text('recommended_travelers_2'.tr)),
       body: Obx(() {
         final trips = home.recommended.toList();
         return ListView(
           padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 24.h),
           children: [
             Text(
-              'Recommended travelers and transporters with active trips on your routes.',
+              'recommended_travelers_and_transporters_with_acti'.tr,
               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.4),
             ),
             SizedBox(height: 16.h),
@@ -32,7 +32,7 @@ class RecommendedPage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 40.h),
                 child: Center(
                   child: Text(
-                    'No recommended travelers right now',
+                    'no_recommended_travelers_right_now'.tr,
                     style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
                   ),
                 ),

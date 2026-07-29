@@ -114,19 +114,19 @@ class PostTripController extends GetxController {
     final kg = double.tryParse(weight.text);
 
     if (origin == null || kg == null) {
-      toast('Fill in the route and weight first');
+      toast('fill_in_the_route_and_weight_first'.tr);
       return;
     }
     if (isLocal && (fromCity.value == null || toCity.value == null)) {
-      toast('Pick the from and to cities');
+      toast('pick_the_from_and_to_cities'.tr);
       return;
     }
     if (!isLocal && toCountry.value == null) {
-      toast('Pick a destination country');
+      toast('pick_a_destination_country'.tr);
       return;
     }
     if (date.value == null && !noSpecificDate.value) {
-      toast('Pick a trip date');
+      toast('pick_a_trip_date'.tr);
       return;
     }
     final rejected = categories

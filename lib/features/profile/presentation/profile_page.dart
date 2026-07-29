@@ -20,10 +20,10 @@ class ProfilePage extends StatelessWidget {
     final c = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text('profile'.tr),
         actions: [
           IconButton(
-            tooltip: 'Toggle theme',
+            tooltip: 'toggle_theme'.tr,
             onPressed: () => Get.changeThemeMode(
                 Get.isDarkMode ? ThemeMode.light : ThemeMode.dark),
             icon: Icon(Get.isDarkMode

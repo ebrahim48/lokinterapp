@@ -155,7 +155,7 @@ class _MainShellState extends State<MainShell> {
             SizedBox(height: 8.h),
             ListTile(
               leading: const Icon(Icons.flight_takeoff, color: AppPalette.intlAccent),
-              title: const Text('Post a Trip'),
+              title: Text('post_a_trip'.tr),
               onTap: () async {
                 Get.back();
                 // website gates posting behind identity verification
@@ -166,7 +166,7 @@ class _MainShellState extends State<MainShell> {
             ),
             ListTile(
               leading: const Icon(Icons.inventory_2_outlined, color: AppPalette.primary),
-              title: const Text('Post a delivery request'),
+              title: Text('post_a_delivery_request'.tr),
               onTap: () async {
                 Get.back();
                 if (await requireIdentityVerified(action: 'post a delivery request')) {

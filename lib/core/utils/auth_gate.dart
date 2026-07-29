@@ -10,16 +10,16 @@ bool requireLogin() {
   if (Get.find<SessionService>().loggedIn) return true;
   Get.dialog(
     AlertDialog(
-      title: const Text('Login required'),
-      content: const Text('Sign in to chat, post and manage deals.'),
+      title: Text('login_required'.tr),
+      content: Text('sign_in_to_chat_post_and_manage_deals'.tr),
       actions: [
-        TextButton(onPressed: () => Get.back(), child: const Text('Not now')),
+        TextButton(onPressed: () => Get.back(), child: Text('not_now'.tr)),
         TextButton(
           onPressed: () {
             Get.back();
             Get.to(() => const LoginPage());
           },
-          child: const Text('Login', style: TextStyle(color: AppPalette.primary)),
+          child: Text('login'.tr, style: TextStyle(color: AppPalette.primary)),
         ),
       ],
     ),

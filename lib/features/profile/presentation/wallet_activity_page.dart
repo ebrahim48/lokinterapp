@@ -6,6 +6,7 @@ import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
 import '../../../core/widgets/lok_segmented.dart';
 import '../data/wallet_repository.dart';
+import 'package:get/get.dart';
 
 /// Website parity: the wallet "activity" view — the full transaction
 /// ledger plus the payout-request history with statuses.
@@ -54,7 +55,7 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Wallet activity')),
+      appBar: AppBar(title: Text('wallet_activity'.tr)),
       body: Column(
         children: [
           Padding(
@@ -83,7 +84,7 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
       return ListView(
         padding: EdgeInsets.all(24.w),
         children: [
-          Text('No transactions yet.',
+          Text('no_transactions_yet'.tr,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
         ],
@@ -167,7 +168,7 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
       return ListView(
         padding: EdgeInsets.all(24.w),
         children: [
-          Text('No withdrawal requests yet.',
+          Text('no_withdrawal_requests_yet'.tr,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
         ],

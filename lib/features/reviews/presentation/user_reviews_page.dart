@@ -6,6 +6,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/review_model.dart';
+import 'package:get/get.dart';
 
 /// Own reviews (no args) or another user's public profile
 /// ([userId] set) — the website's `user-reviews/:id` page.
@@ -76,7 +77,7 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(_error!, style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                      TextButton(onPressed: _load, child: const Text('Retry')),
+                      TextButton(onPressed: _load, child: Text('retry'.tr)),
                     ],
                   ),
                 )
@@ -93,7 +94,7 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 32.h),
                           child: Center(
-                            child: Text('No reviews yet',
+                            child: Text('no_reviews_yet'.tr,
                                 style:
                                     TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
                           ),

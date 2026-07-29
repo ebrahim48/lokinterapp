@@ -26,7 +26,7 @@ class PostTripPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 4.h),
           Text(
-            'Where are you traveling?',
+            'where_are_you_traveling'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 20.h),
@@ -37,7 +37,7 @@ class PostTripPage extends StatelessWidget {
                   child: OptionCard(
                     icon: Icons.location_on,
                     iconColor: AppPalette.localAccent,
-                    title: 'Local',
+                    title: 'local'.tr,
                     subtitle: 'Travel within your city or region',
                     selected: c.location.value == PostLocation.local,
                     onTap: () => c.location.value = PostLocation.local,
@@ -48,7 +48,7 @@ class PostTripPage extends StatelessWidget {
                   child: OptionCard(
                     icon: Icons.flight,
                     iconColor: AppPalette.intlAccent,
-                    title: 'International',
+                    title: 'international'.tr,
                     subtitle: 'Travel to any country around the world',
                     selected: c.location.value == PostLocation.international,
                     onTap: () => c.location.value = PostLocation.international,
@@ -79,7 +79,7 @@ class PostTripPage extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: c.loadLookups,
-                          child: const Text('Retry',
+                          child: Text('retry'.tr,
                               style: TextStyle(color: AppPalette.primary)),
                         ),
                       ],
@@ -103,8 +103,8 @@ class PostTripPage extends StatelessWidget {
         SizedBox(height: 22.h),
         if (c.isLocal) ...[
           Obx(() => LokDropdownField(
-                label: 'Inside',
-                hint: 'inside country',
+                label: 'inside'.tr,
+                hint: 'inside_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -113,8 +113,8 @@ class PostTripPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'From',
-                hint: 'from city',
+                label: 'from'.tr,
+                hint: 'from_city'.tr,
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
                 options: c.cityNames,
@@ -123,8 +123,8 @@ class PostTripPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'To',
-                hint: 'to city',
+                label: 'to'.tr,
+                hint: 'to_city'.tr,
                 icon: Icons.directions_car_filled_outlined,
                 required: true,
                 options: c.cityNames,
@@ -133,8 +133,8 @@ class PostTripPage extends StatelessWidget {
               )),
         ] else ...[
           Obx(() => LokDropdownField(
-                label: 'From',
-                hint: 'from country',
+                label: 'from'.tr,
+                hint: 'from_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -143,8 +143,8 @@ class PostTripPage extends StatelessWidget {
               )),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
-                label: 'To',
-                hint: 'to country',
+                label: 'to'.tr,
+                hint: 'to_country'.tr,
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
@@ -154,8 +154,8 @@ class PostTripPage extends StatelessWidget {
         ],
         SizedBox(height: 16.h),
         Obx(() => LokDateField(
-              label: 'Trip Date/time',
-              hint: 'trip date and time',
+              label: 'trip_date_time'.tr,
+              hint: 'trip_date_and_time'.tr,
               required: !c.noSpecificDate.value,
               withTime: c.isLocal,
               value: c.date.value,
@@ -165,15 +165,15 @@ class PostTripPage extends StatelessWidget {
         if (c.isLocal) ...[
           SizedBox(height: 12.h),
           Obx(() => LokCheckbox(
-                label: 'No specific date/time',
+                label: 'no_specific_date_time'.tr,
                 value: c.noSpecificDate.value,
                 onChanged: (v) => c.noSpecificDate.value = v,
               )),
         ],
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'KG',
-          hint: 'kilograms available',
+          label: 'kg'.tr,
+          hint: 'kilograms_available'.tr,
           icon: Icons.luggage_outlined,
           required: true,
           keyboardType: TextInputType.number,
@@ -181,8 +181,8 @@ class PostTripPage extends StatelessWidget {
         ),
         SizedBox(height: 16.h),
         Obx(() => LokMultiSelectField(
-              label: 'Rejected Categories (optional)',
-              hint: 'select rejected categories',
+              label: 'rejected_categories_optional'.tr,
+              hint: 'select_rejected_categories'.tr,
               icon: Icons.category_outlined,
               options: c.categoryNames,
               selected: c.rejectedCategories.toList(),
@@ -190,8 +190,8 @@ class PostTripPage extends StatelessWidget {
             )),
         SizedBox(height: 16.h),
         LokTextField(
-          label: 'Notes (optional)',
-          hint: 'stops, links, special instructions...',
+          label: 'notes_optional'.tr,
+          hint: 'stops_links_special_instructions'.tr,
           icon: Icons.notes_outlined,
           maxLines: 3,
           controller: c.notes,

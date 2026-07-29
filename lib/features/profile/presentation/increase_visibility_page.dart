@@ -46,7 +46,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Increase Visibility')),
+      appBar: AppBar(title: Text('increase_visibility'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
@@ -65,7 +65,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
 
             return _planCard(
               context,
-              title: 'Recommended Traveler',
+              title: 'recommended_traveler'.tr,
               price: 'Free',
               blurb: 'For travelers who meet all the conditions below.',
               child: Column(
@@ -79,7 +79,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: eligible
-                          ? () => toast('Application received — the team will review it')
+                          ? () => toast('application_received_the_team_will_review_it'.tr)
                           : null,
                       child: Text(eligible ? 'Apply now' : 'Not eligible yet'),
                     ),
@@ -91,14 +91,14 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
           SizedBox(height: 16.h),
           _planCard(
             context,
-            title: 'Recommended Transporter',
+            title: 'recommended_transporter'.tr,
             price: _planPrice ?? 'USD 22.99 / month',
             blurb: 'For transporters who want premium placement while subscribed.',
             child: SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () => toast('Transporter subscriptions are coming soon'),
-                child: const Text('Apply & subscribe'),
+                onPressed: () => toast('transporter_subscriptions_are_coming_soon'.tr),
+                child: Text('apply_subscribe'.tr),
               ),
             ),
           ),

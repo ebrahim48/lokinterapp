@@ -63,7 +63,7 @@ class _WalletPageState extends State<WalletPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Wallet & payouts')),
+      appBar: AppBar(title: Text('wallet_payouts'.tr)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
@@ -72,7 +72,7 @@ class _WalletPageState extends State<WalletPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(_error!, style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
-                      TextButton(onPressed: _load, child: const Text('Retry')),
+                      TextButton(onPressed: _load, child: Text('retry'.tr)),
                     ],
                   ),
                 )
@@ -88,14 +88,14 @@ class _WalletPageState extends State<WalletPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Recent activity',
+                          Text('recent_activity'.tr,
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w700,
                                   color: cs.onSurface)),
                           TextButton(
                             onPressed: () => Get.to(() => const WalletActivityPage()),
-                            child: const Text('See all'),
+                            child: Text('see_all_2'.tr),
                           ),
                         ],
                       ),
@@ -103,7 +103,7 @@ class _WalletPageState extends State<WalletPage> {
                       if (_data!.recent.isEmpty)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.h),
-                          child: Text('No earnings yet — completed deliveries land here.',
+                          child: Text('no_earnings_yet_completed_deliveries_land_here'.tr,
                               style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant)),
                         ),
                       for (final e in _data!.recent)
@@ -129,7 +129,7 @@ class _WalletPageState extends State<WalletPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Available earnings',
+          Text('available_earnings'.tr,
               style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.sp)),
           SizedBox(height: 6.h),
           Text('${data.currency} ${data.available.toStringAsFixed(2)}',
@@ -200,7 +200,7 @@ class _WalletPageState extends State<WalletPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Payout account',
+                Text('payout_account'.tr,
                     style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: cs.onSurface)),
                 SizedBox(height: 2.h),
                 Text(
@@ -215,7 +215,7 @@ class _WalletPageState extends State<WalletPage> {
               await Get.to(() => const PayoutMethodsPage());
               _load(); // the linked account may have changed
             },
-            child: const Text('Manage'),
+            child: Text('manage'.tr),
           ),
         ],
       ),
@@ -318,7 +318,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
     final amount = double.tryParse(_amount.text);
     final method = _methods.firstWhereOrNull((m) => m.label == _method);
     if (amount == null || method == null) {
-      toast('Pick a payout method and an amount');
+      toast('pick_a_payout_method_and_an_amount'.tr);
       return;
     }
     setState(() => _sending = true);
@@ -326,7 +326,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
       await _repo.requestPayout(method.id, amount, widget.currency);
       if (!mounted) return;
       Navigator.pop(context);
-      toast('Withdrawal requested');
+      toast('withdrawal_requested'.tr);
       widget.onDone();
     } on AppException catch (e) {
       toastError(e);
@@ -347,7 +347,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Withdraw earnings', style: Theme.of(context).textTheme.titleLarge),
+              Text('withdraw_earnings'.tr, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
                 _methods.isEmpty
@@ -357,8 +357,8 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               ),
               SizedBox(height: 18.h),
               LokDropdownField(
-                label: 'Payout method',
-                hint: 'where the money goes',
+                label: 'payout_method'.tr,
+                hint: 'where_the_money_goes'.tr,
                 icon: Icons.account_balance_outlined,
                 options: _methods.map((m) => m.label).toList(),
                 value: _method,
@@ -370,7 +370,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               SizedBox(height: 14.h),
               LokTextField(
                 label: 'Amount (${widget.currency})',
-                hint: 'e.g. 50',
+                hint: 'e_g_50'.tr,
                 icon: Icons.payments_outlined,
                 keyboardType: TextInputType.number,
                 controller: _amount,
@@ -391,7 +391,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                                 height: 14.r,
                                 child: const CircularProgressIndicator(strokeWidth: 2)),
                             SizedBox(width: 10.w),
-                            Text('Calculating fees...',
+                            Text('calculating_fees'.tr,
                                 style:
                                     TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
                           ],
@@ -415,7 +415,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                         height: 20.r,
                         child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                       )
-                    : const Text('Request withdrawal'),
+                    : Text('request_withdrawal'.tr),
               ),
             ],
           ),

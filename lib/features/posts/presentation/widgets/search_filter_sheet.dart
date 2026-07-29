@@ -55,7 +55,7 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
   void _apply() {
     final weightText = _weight.text.trim();
     if (weightText.isNotEmpty && double.tryParse(weightText) == null) {
-      toast('Weight must be a number');
+      toast('weight_must_be_a_number'.tr);
       return;
     }
 
@@ -90,7 +90,7 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Search for deals',
+                  Text('search_for_deals'.tr,
                       style: Theme.of(context).textTheme.titleLarge),
                   IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -107,8 +107,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               SizedBox(height: 18.h),
               if (_local) ...[
                 LokDropdownField(
-                  label: 'Local Country',
-                  hint: 'local country',
+                  label: 'local_country'.tr,
+                  hint: 'local_country_2'.tr,
                   icon: Icons.public,
                   options: _countryNames,
                   value: _localCountry,
@@ -124,8 +124,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 ),
                 SizedBox(height: 14.h),
                 LokDropdownField(
-                  label: 'From',
-                  hint: 'from city',
+                  label: 'from'.tr,
+                  hint: 'from_city'.tr,
                   icon: Icons.directions_car_filled_outlined,
                   options: _cityNames,
                   value: _fromCity,
@@ -133,8 +133,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 ),
                 SizedBox(height: 14.h),
                 LokDropdownField(
-                  label: 'To',
-                  hint: 'to city',
+                  label: 'to'.tr,
+                  hint: 'to_city'.tr,
                   icon: Icons.directions_car_filled_outlined,
                   options: _cityNames,
                   value: _toCity,
@@ -142,8 +142,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 ),
               ] else ...[
                 LokDropdownField(
-                  label: 'From',
-                  hint: 'from country',
+                  label: 'from'.tr,
+                  hint: 'from_country'.tr,
                   icon: Icons.public,
                   options: _countryNames,
                   value: _fromCountry,
@@ -151,8 +151,8 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                 ),
                 SizedBox(height: 14.h),
                 LokDropdownField(
-                  label: 'To',
-                  hint: 'to country',
+                  label: 'to'.tr,
+                  hint: 'to_country'.tr,
                   icon: Icons.public,
                   options: _countryNames,
                   value: _toCountry,
@@ -161,16 +161,16 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               ],
               SizedBox(height: 14.h),
               LokTextField(
-                label: 'Weight',
-                hint: 'KG To Deliver',
+                label: 'weight'.tr,
+                hint: 'kg_to_deliver'.tr,
                 icon: Icons.scale_outlined,
                 keyboardType: TextInputType.number,
                 controller: _weight,
               ),
               SizedBox(height: 14.h),
               LokDateField(
-                label: 'Before date',
-                hint: 'any date',
+                label: 'before_date'.tr,
+                hint: 'any_date'.tr,
                 value: _beforeDate,
                 onChanged: (d) => setState(() => _beforeDate = d),
               ),
@@ -189,7 +189,7 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                         _c.applyFilters({});
                         Navigator.pop(context);
                       },
-                      child: const Text('Clear'),
+                      child: Text('clear'.tr),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -197,7 +197,7 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
                     flex: 2,
                     child: ElevatedButton(
                       onPressed: _apply,
-                      child: const Text('Apply Filters'),
+                      child: Text('apply_filters'.tr),
                     ),
                   ),
                 ],

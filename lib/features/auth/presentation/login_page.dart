@@ -23,16 +23,16 @@ class LoginPage extends StatelessWidget {
         children: [
           Center(child: const LokinterLogo(fontSize: 30)),
           SizedBox(height: 24.h),
-          Text('Welcome back', style: Theme.of(context).textTheme.headlineMedium),
+          Text('welcome_back'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
-            'Log in to keep shipping and traveling.',
+            'log_in_to_keep_shipping_and_traveling'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 28.h),
           LokTextField(
-            label: 'Email',
-            hint: 'you@email.com',
+            label: 'email'.tr,
+            hint: 'you_email_com'.tr,
             icon: Icons.mail_outline,
             required: true,
             keyboardType: TextInputType.emailAddress,
@@ -46,13 +46,13 @@ class LoginPage extends StatelessWidget {
             child: TextButton(
               onPressed: () => Get.to(() => const ForgotPasswordPage()),
               child: Text(
-                'Forgot password?',
+                'forgot_password_2'.tr,
                 style: TextStyle(color: AppPalette.primary, fontSize: 12.sp),
               ),
             ),
           ),
           SizedBox(height: 12.h),
-          LokBusyButton(busy: c.busy, label: 'Login', onPressed: c.submit),
+          LokBusyButton(busy: c.busy, label: 'login'.tr, onPressed: c.submit),
           SizedBox(height: 18.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +64,7 @@ class LoginPage extends StatelessWidget {
               GestureDetector(
                 onTap: () => Get.off(() => const RegisterPage()),
                 child: Text(
-                  'Register',
+                  'register'.tr,
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w700,

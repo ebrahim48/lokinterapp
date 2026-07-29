@@ -94,11 +94,11 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
 
   Future<void> _save() async {
     if (_firstName.text.trim().isEmpty || _email.text.trim().isEmpty) {
-      toast('Name and email are required');
+      toast('name_and_email_are_required'.tr);
       return;
     }
     if (!isValidEmail(_email.text)) {
-      toast('That email address does not look right');
+      toast('that_email_address_does_not_look_right'.tr);
       return;
     }
     setState(() => _saving = true);
@@ -113,7 +113,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
       );
       await AuthRepository().me(); // pull the fresh profile into the session
       if (Get.isRegistered<ProfileController>()) Get.find<ProfileController>().load();
-      toast('Profile updated');
+      toast('profile_updated'.tr);
       Get.back();
     } on AppException catch (e) {
       toastError(e);
@@ -133,7 +133,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
   Future<void> _startKyc() async {
     if (_kyc?.status == 'declined') {
       // website shows "Verification Refused - Contact Support"
-      toast('Your verification was refused — please contact support.');
+      toast('your_verification_was_refused_please_contact_sup'.tr);
       return;
     }
     try {
@@ -148,7 +148,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
         return;
       }
       final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-      if (!ok) toast('Could not open the verification page');
+      if (!ok) toast('could_not_open_the_verification_page'.tr);
     } on AppException catch (e) {
       toastError(e);
     }
@@ -159,7 +159,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
   Future<void> _verifyPhone() async {
     final phone = _phone.text.trim();
     if (phone.isEmpty) {
-      toast('Add your phone number first');
+      toast('add_your_phone_number_first'.tr);
       return;
     }
     final dial = TextEditingController(text: '+');
@@ -184,7 +184,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Verify phone number',
+              Text('verify_phone_number'.tr,
                   style: Theme.of(context).textTheme.headlineSmall),
               SizedBox(height: 6.h),
               Text(
@@ -198,7 +198,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
               SizedBox(height: 16.h),
               if (step.value == 0) ...[
                 LokTextField(
-                  label: 'Country code',
+                  label: 'country_code'.tr,
                   hint: '+216',
                   icon: Icons.flag_outlined,
                   keyboardType: TextInputType.phone,
@@ -206,8 +206,8 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                 ),
                 SizedBox(height: 12.h),
                 LokTextField(
-                  label: 'Phone number',
-                  hint: 'phone number',
+                  label: 'phone_number'.tr,
+                  hint: 'phone_number_2'.tr,
                   icon: Icons.phone_outlined,
                   keyboardType: TextInputType.phone,
                   controller: _phone,
@@ -215,18 +215,18 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                 SizedBox(height: 18.h),
                 LokBusyButton(
                   busy: busy,
-                  label: 'Send code',
+                  label: 'send_code'.tr,
                   onPressed: () async {
                     final code = dial.text.trim();
                     if (code.length < 2) {
-                      toast('Enter your country dial code');
+                      toast('enter_your_country_dial_code'.tr);
                       return;
                     }
                     busy.value = true;
                     try {
                       await _repo.sendPhoneOtp(_phone.text.trim(), code);
                       step.value = 1;
-                      toast('Code sent to your WhatsApp');
+                      toast('code_sent_to_your_whatsapp'.tr);
                     } on AppException catch (e) {
                       toastError(e);
                     } finally {
@@ -236,8 +236,8 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                 ),
               ] else ...[
                 LokTextField(
-                  label: 'Verification code',
-                  hint: '4-digit code',
+                  label: 'verification_code'.tr,
+                  hint: '4_digit_code'.tr,
                   icon: Icons.pin_outlined,
                   keyboardType: TextInputType.number,
                   controller: otp,
@@ -245,7 +245,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                 SizedBox(height: 18.h),
                 LokBusyButton(
                   busy: busy,
-                  label: 'Verify',
+                  label: 'verify'.tr,
                   onPressed: () async {
                     busy.value = true;
                     try {
@@ -256,7 +256,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                         Get.find<ProfileController>().load();
                       }
                       Get.back();
-                      toast('Phone number verified');
+                      toast('phone_number_verified'.tr);
                       if (mounted) setState(() {});
                     } on AppException catch (e) {
                       toastError(e);
@@ -298,31 +298,31 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Change password', style: Theme.of(context).textTheme.headlineSmall),
+            Text('change_password'.tr, style: Theme.of(context).textTheme.headlineSmall),
             SizedBox(height: 16.h),
-            LokPasswordField(label: 'Current password', controller: current),
+            LokPasswordField(label: 'current_password'.tr, controller: current),
             SizedBox(height: 12.h),
-            LokPasswordField(label: 'New password', controller: next),
+            LokPasswordField(label: 'new_password'.tr, controller: next),
             SizedBox(height: 12.h),
-            LokPasswordField(label: 'Confirm new password', controller: confirm),
+            LokPasswordField(label: 'confirm_new_password'.tr, controller: confirm),
             SizedBox(height: 18.h),
             LokBusyButton(
               busy: busy,
-              label: 'Update password',
+              label: 'update_password'.tr,
               onPressed: () async {
                 if (!isValidPassword(next.text)) {
-                  toast('New password must be at least 8 characters');
+                  toast('new_password_must_be_at_least_8_characters'.tr);
                   return;
                 }
                 if (next.text != confirm.text) {
-                  toast('Passwords do not match');
+                  toast('passwords_do_not_match'.tr);
                   return;
                 }
                 busy.value = true;
                 try {
                   await AuthRepository().changePassword(current.text, next.text);
                   Get.back();
-                  toast('Password updated');
+                  toast('password_updated'.tr);
                 } on AppException catch (e) {
                   toastError(e);
                 } finally {
@@ -350,7 +350,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
     final identityVerified = _kyc?.verified ?? user?.identityVerified ?? false;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Basic info')),
+      appBar: AppBar(title: Text('basic_info'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
@@ -396,23 +396,23 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           ),
           SizedBox(height: 24.h),
           LokTextField(
-            label: 'First name',
-            hint: 'first name',
+            label: 'first_name'.tr,
+            hint: 'first_name_2'.tr,
             icon: Icons.person_outline,
             controller: _firstName,
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Last name',
-            hint: 'last name',
+            label: 'last_name'.tr,
+            hint: 'last_name_2'.tr,
             icon: Icons.person_outline,
             controller: _lastName,
           ),
           SizedBox(height: 16.h),
           // email is the account identity — read-only, same as the website
           LokTextField(
-            label: 'Email',
-            hint: 'you@email.com',
+            label: 'email'.tr,
+            hint: 'you_email_com'.tr,
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
             controller: _email,
@@ -420,16 +420,16 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           ),
           SizedBox(height: 16.h),
           LokTextField(
-            label: 'Phone',
-            hint: 'phone number',
+            label: 'phone'.tr,
+            hint: 'phone_number_2'.tr,
             icon: Icons.phone_outlined,
             keyboardType: TextInputType.phone,
             controller: _phone,
           ),
           SizedBox(height: 16.h),
           LokDropdownField(
-            label: 'Country',
-            hint: 'select a country',
+            label: 'country'.tr,
+            hint: 'select_a_country'.tr,
             icon: Icons.public,
             options: _countries.map((c) => c.name).toList(),
             value: _country,
@@ -466,11 +466,11 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                     size: 18.sp, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 SizedBox(width: 10.w),
                 Expanded(
-                  child: Text('Password',
+                  child: Text('password'.tr,
                       style: TextStyle(
                           fontSize: 13.sp, color: Theme.of(context).colorScheme.onSurface)),
                 ),
-                TextButton(onPressed: _changePassword, child: const Text('Change')),
+                TextButton(onPressed: _changePassword, child: Text('change'.tr)),
               ],
             ),
           ),
@@ -483,7 +483,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                     height: 20.r,
                     child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : const Text('Save changes'),
+                : Text('save_changes'.tr),
           ),
         ],
       ),
@@ -514,7 +514,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
             child: Text(label, style: TextStyle(fontSize: 13.sp, color: cs.onSurface)),
           ),
           if (verified)
-            Text('Verified',
+            Text('verified'.tr,
                 style: TextStyle(
                     fontSize: 12.sp,
                     color: AppPalette.verified,

@@ -69,7 +69,7 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
   void _search(int tab) {
     final w = _weight.text.trim();
     if (w.isNotEmpty && double.tryParse(w) == null) {
-      toast('Weight must be a number');
+      toast('weight_must_be_a_number'.tr);
       return;
     }
     final filters = <String, dynamic>{
@@ -101,7 +101,7 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Search for deals',
+              Text('search_for_deals'.tr,
                   style: TextStyle(
                       fontSize: 16.sp, fontWeight: FontWeight.w800, color: cs.onSurface)),
               SizedBox(
@@ -120,13 +120,13 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             ],
           ),
           SizedBox(height: 4.h),
-          Text('Find the best delivery deals for your shipments',
+          Text('find_the_best_delivery_deals_for_your_shipments'.tr,
               style: TextStyle(fontSize: 11.5.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 16.h),
           if (_local) ...[
             LokDropdownField(
-              label: 'Local Country',
-              hint: 'local country',
+              label: 'local_country'.tr,
+              hint: 'local_country_2'.tr,
               icon: Icons.public,
               options: _countryNames,
               value: _localCountry,
@@ -137,8 +137,8 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             ),
             SizedBox(height: 12.h),
             LokDropdownField(
-              label: 'From',
-              hint: 'from city',
+              label: 'from'.tr,
+              hint: 'from_city'.tr,
               icon: Icons.location_city_outlined,
               options: _cityNames,
               value: _fromCity,
@@ -146,8 +146,8 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             ),
             SizedBox(height: 12.h),
             LokDropdownField(
-              label: 'To',
-              hint: 'to city',
+              label: 'to'.tr,
+              hint: 'to_city'.tr,
               icon: Icons.location_city_outlined,
               options: _cityNames,
               value: _toCity,
@@ -155,8 +155,8 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             ),
           ] else ...[
             LokDropdownField(
-              label: 'From',
-              hint: 'from country',
+              label: 'from'.tr,
+              hint: 'from_country'.tr,
               icon: Icons.public,
               options: _countryNames,
               value: _fromCountry,
@@ -164,8 +164,8 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             ),
             SizedBox(height: 12.h),
             LokDropdownField(
-              label: 'To',
-              hint: 'to country',
+              label: 'to'.tr,
+              hint: 'to_country'.tr,
               icon: Icons.public,
               options: _countryNames,
               value: _toCountry,
@@ -174,8 +174,8 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
           ],
           SizedBox(height: 12.h),
           LokTextField(
-            label: 'Weight',
-            hint: 'KG To Deliver',
+            label: 'weight'.tr,
+            hint: 'kg_to_deliver'.tr,
             icon: Icons.inventory_2_outlined,
             keyboardType: TextInputType.number,
             controller: _weight,
@@ -186,7 +186,7 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             child: OutlinedButton.icon(
               onPressed: () => _search(0),
               icon: Icon(Icons.map_outlined, size: 16.sp),
-              label: const Text('Search for Trip'),
+              label: Text('search_for_trip'.tr),
               style: OutlinedButton.styleFrom(
                 minimumSize: Size(0, 46.h),
                 foregroundColor: AppPalette.navy,
@@ -200,7 +200,7 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
             child: ElevatedButton.icon(
               onPressed: () => _search(1),
               icon: Icon(Icons.search, size: 16.sp),
-              label: const Text('Search for Delivery Request'),
+              label: Text('search_for_delivery_request'.tr),
               style: ElevatedButton.styleFrom(minimumSize: Size(0, 46.h)),
             ),
           ),

@@ -97,7 +97,7 @@ class PostDetailsPage extends StatelessWidget {
         OutlinedButton.icon(
           onPressed: () => _confirmDelete(context),
           icon: Icon(Icons.delete_outline, size: 18.sp, color: AppPalette.primary),
-          label: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+          label: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
           style: OutlinedButton.styleFrom(side: const BorderSide(color: AppPalette.primary)),
         ),
       ];
@@ -117,22 +117,22 @@ class PostDetailsPage extends StatelessWidget {
   void _confirmDelete(BuildContext context) {
     Get.dialog(
       AlertDialog(
-        title: const Text('Delete post?'),
-        content: const Text('This will remove it from search results.'),
+        title: Text('delete_post'.tr),
+        content: Text('this_will_remove_it_from_search_results'.tr),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr)),
           TextButton(
             onPressed: () async {
               Get.back();
               try {
                 await PostsRepository().deletePost(post.id);
                 Get.back(); // leave the details screen too
-                toast('Post deleted');
+                toast('post_deleted'.tr);
               } on AppException catch (e) {
                 toastError(e);
               }
             },
-            child: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+            child: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
         ],
       ),
@@ -292,7 +292,7 @@ class PostDetailsPage extends StatelessWidget {
                 color: AppPalette.primary.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(20.r),
               ),
-              child: Text('Recommended',
+              child: Text('recommended'.tr,
                   style: TextStyle(fontSize: 9.sp, color: AppPalette.primary, fontWeight: FontWeight.w600)),
             ),
         ],

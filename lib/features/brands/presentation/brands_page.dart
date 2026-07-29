@@ -20,12 +20,12 @@ class BrandsPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 16.h),
               children: [
                 Text(
-                  'Post your delivery request',
+                  'post_your_delivery_request'.tr,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  'Take a look at the brands that have to offer',
+                  'take_a_look_at_the_brands_that_have_to_offer'.tr,
                   style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
                 ),
                 SizedBox(height: 20.h),
@@ -47,7 +47,7 @@ class BrandsPage extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 20.h),
             child: ElevatedButton(
               onPressed: () => Get.back(),
-              child: const Text('Next'),
+              child: Text('next'.tr),
             ),
           ),
         ],

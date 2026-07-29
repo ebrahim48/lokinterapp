@@ -120,7 +120,7 @@ class ChatConversationController extends GetxController {
     final text = composer.text.trim();
     if (sending.value) return;
     if (id == null) {
-      toast('Conversation is still opening — try again in a moment');
+      toast('conversation_is_still_opening_try_again_in_a_mom'.tr);
       return;
     }
     if (text.isEmpty) return; // nothing to send, no need to nag
@@ -146,7 +146,7 @@ class ChatConversationController extends GetxController {
     try {
       picked = await FilePicker.platform.pickFiles();
     } on Exception catch (_) {
-      toast('Could not open the file picker');
+      toast('could_not_open_the_file_picker'.tr);
       return;
     }
     if (picked == null || picked.files.isEmpty) return;
@@ -154,7 +154,7 @@ class ChatConversationController extends GetxController {
     final file = picked.files.first;
     if (file.path == null) return;
     if (file.size > 200 * 1024 * 1024) {
-      toast('Attachments must be 200 MB or smaller');
+      toast('attachments_must_be_200_mb_or_smaller'.tr);
       return;
     }
 
@@ -163,7 +163,7 @@ class ChatConversationController extends GetxController {
       await _repo.send(id, filePath: file.path, fileName: file.name);
       _notifyInbox(id, '📎 ${file.name}');
       await _refresh();
-      toast('Attachment sent');
+      toast('attachment_sent'.tr);
     } on AppException catch (e) {
       toastError(e);
     } finally {

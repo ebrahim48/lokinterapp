@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../lookups/data/lookups_repository.dart';
+import 'package:get/get.dart';
 
 /// Legal pages come from the CMS (`/lookups/getPages`) — same source the
 /// website renders. [slug] picks which document: termsConditions (default)
@@ -96,7 +97,7 @@ class _TermsPageState extends State<TermsPage> {
                       style:
                           TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.6))
                 else ...[
-                  Text('Last updated June 2026',
+                  Text('last_updated_june_2026'.tr,
                       style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
                   SizedBox(height: 18.h),
                   for (final s in _fallbackSections) ...[

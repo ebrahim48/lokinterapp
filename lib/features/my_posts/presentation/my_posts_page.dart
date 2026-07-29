@@ -74,7 +74,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My requests & trips')),
+      appBar: AppBar(title: Text('my_requests_trips'.tr)),
       body: Column(
         children: [
           Padding(
@@ -99,7 +99,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(_error!, style: TextStyle(fontSize: 13.sp)),
-            TextButton(onPressed: _load, child: const Text('Retry')),
+            TextButton(onPressed: _load, child: Text('retry'.tr)),
           ],
         ),
       );
@@ -132,7 +132,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
                   if (saved == true) _load();
                 },
                 icon: Icon(Icons.edit_outlined, size: 16.sp),
-                label: const Text('Edit'),
+                label: Text('edit'.tr),
                 style: OutlinedButton.styleFrom(minimumSize: Size(0, 42.h)),
               ),
             ),
@@ -141,7 +141,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
               child: OutlinedButton.icon(
                 onPressed: () => _confirmDelete(post),
                 icon: Icon(Icons.delete_outline, size: 16.sp, color: AppPalette.primary),
-                label: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+                label: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
                 style: OutlinedButton.styleFrom(
                   minimumSize: Size(0, 42.h),
                   side: const BorderSide(color: AppPalette.primary),
@@ -157,10 +157,10 @@ class _MyPostsPageState extends State<MyPostsPage> {
   void _confirmDelete(Post post) {
     Get.dialog(
       AlertDialog(
-        title: const Text('Delete post?'),
-        content: const Text('This will remove it from search results.'),
+        title: Text('delete_post'.tr),
+        content: Text('this_will_remove_it_from_search_results'.tr),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+          TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr)),
           TextButton(
             onPressed: () async {
               Get.back();
@@ -168,12 +168,12 @@ class _MyPostsPageState extends State<MyPostsPage> {
                 await _repo.deletePost(post.id);
                 if (!mounted) return;
                 setState(() => _items.remove(post));
-                toast('Post deleted');
+                toast('post_deleted'.tr);
               } on AppException catch (e) {
                 toastError(e);
               }
             },
-            child: const Text('Delete', style: TextStyle(color: AppPalette.primary)),
+            child: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
         ],
       ),
@@ -188,7 +188,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
         children: [
           Icon(Icons.post_add, size: 48.sp, color: cs.onSurfaceVariant),
           SizedBox(height: 12.h),
-          Text('Nothing posted yet',
+          Text('nothing_posted_yet'.tr,
               style: TextStyle(fontSize: 14.sp, color: cs.onSurfaceVariant)),
         ],
       ),

@@ -90,7 +90,7 @@ class RegisterController extends GetxController {
     if (res == null || res.files.isEmpty) return null;
     final file = res.files.first;
     if (file.size > 10 * 1024 * 1024) {
-      toast('Each document must be 10 MB or smaller');
+      toast('each_document_must_be_10_mb_or_smaller'.tr);
       return null;
     }
     return file;
@@ -103,24 +103,24 @@ class RegisterController extends GetxController {
         phone.text.trim().isEmpty ||
         email.text.trim().isEmpty ||
         password.text.isEmpty) {
-      toast('Fill in all required fields');
+      toast('fill_in_all_required_fields'.tr);
       return;
     }
     if (!isValidEmail(email.text)) {
-      toast('That email address does not look right');
+      toast('that_email_address_does_not_look_right'.tr);
       return;
     }
     if (!isValidPassword(password.text)) {
-      toast('Password must be at least 8 characters');
+      toast('password_must_be_at_least_8_characters'.tr);
       return;
     }
     if (isTransporter) {
       if (businessName.text.trim().isEmpty || address.text.trim().isEmpty) {
-        toast('Add your legal name and business address');
+        toast('add_your_legal_name_and_business_address'.tr);
         return;
       }
       if (operatingCountries.isEmpty) {
-        toast('Pick at least one country of operation');
+        toast('pick_at_least_one_country_of_operation'.tr);
         return;
       }
     }
@@ -135,7 +135,7 @@ class RegisterController extends GetxController {
     busy.value = true;
     try {
       await _repo.registerRequestOtp(_fields);
-      toast('We emailed you a verification code');
+      toast('we_emailed_you_a_verification_code'.tr);
       return true;
     } on AppException catch (e) {
       toastError(e);
@@ -147,7 +147,7 @@ class RegisterController extends GetxController {
 
   Future<void> verifyOtp(String otp) async {
     if (otp.trim().isEmpty) {
-      toast('Enter the code we emailed you');
+      toast('enter_the_code_we_emailed_you'.tr);
       return;
     }
     busy.value = true;
