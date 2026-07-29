@@ -114,6 +114,11 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "report_user": "Report @name",
+  "deal_number": "Deal #@id",
+  "attachments_count": "Attachments (@n)",
+  "expected_arrival_on": "Expected arrival @date",
+  "cancelled_reason": "Cancelled — @reason",
   "4_digit_code": "4-digit code",
   "8_or_11_characters": "8 or 11 characters",
   "a_security_deposit_needs_card_payment": "A security deposit needs card payment",
@@ -474,6 +479,11 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "report_user": "Signaler @name",
+  "deal_number": "Accord n°@id",
+  "attachments_count": "Pièces jointes (@n)",
+  "expected_arrival_on": "Arrivée prévue le @date",
+  "cancelled_reason": "Annulé — @reason",
   "4_digit_code": "Code à 4 chiffres",
   "8_or_11_characters": "8 ou 11 caractères",
   "a_security_deposit_needs_card_payment": "Une caution nécessite un paiement par carte",

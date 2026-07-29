@@ -375,7 +375,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Deal #${deal.id}')),
+      appBar: AppBar(title: Text('deal_number'.trParams({'id': '${deal.id}'}))),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
@@ -580,7 +580,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Attachments (${deal.attachUrls.length})',
+          Text('attachments_count'.trParams({'n': '${deal.attachUrls.length}'}),
               style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 8.h),
           SizedBox(
@@ -853,7 +853,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
           if (deal.arrivalDate != null) ...[
             SizedBox(height: 6.h),
-            Text('Expected arrival ${shortDate(deal.arrivalDate!)}',
+            Text('expected_arrival_on'.trParams({'date': shortDate(deal.arrivalDate!)}),
                 style: TextStyle(color: fg, fontSize: 11.sp)),
           ],
         ],
@@ -936,7 +936,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           Icon(Icons.cancel_outlined, color: fg, size: 17.sp),
           SizedBox(width: 8.w),
           Expanded(
-            child: Text('Cancelled — ${deal.cancelReasonLabel}',
+            child: Text('cancelled_reason'.trParams({'reason': deal.cancelReasonLabel ?? ''}),
                 style: TextStyle(color: fg, fontSize: 12.sp)),
           ),
         ],

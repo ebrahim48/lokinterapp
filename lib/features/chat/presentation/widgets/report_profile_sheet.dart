@@ -72,7 +72,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Report ${widget.userName}',
+              Text('report_user'.trParams({'name': widget.userName}),
                   style: TextStyle(
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w700,

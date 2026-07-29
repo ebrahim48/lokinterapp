@@ -93,9 +93,14 @@ class HomeFeedPage extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Obx(() {
+              // touch an observable before any early return, otherwise this Obx
+              // tracks nothing on the guest branch and GetX throws
+              final loading = c.loading.value;
               if (c.isGuest) return const _LoginNudge();
-              if (c.loading.value && c.recommended.isEmpty) return const _RailShimmer();
-              if (c.recommended.isEmpty) return const _EmptyNote(text: 'No travelers right now');
+              if (loading && c.recommended.isEmpty) return const _RailShimmer();
+              if (c.recommended.isEmpty) {
+                return _EmptyNote(text: 'no_recommended_travelers_right_now'.tr);
+              }
               return RecommendedRail(
                 travelers: c.recommended.toList(),
                 onTap: (post) => Get.to(() => PostDetailsPage(post: post)),
@@ -127,8 +132,8 @@ class HomeFeedPage extends StatelessWidget {
             SectionTitle(title: 'latest_posts'.tr),
             SizedBox(height: 12.h),
             Obx(() {
+              final posts = c.visibleFeed; // tracked before any early return
               if (c.isGuest) return const SizedBox.shrink();
-              final posts = c.visibleFeed;
               if (c.loading.value && posts.isEmpty) return const _RailShimmer();
               if (c.error.value != null && posts.isEmpty) {
                 return _EmptyNote(text: c.error.value!);
