@@ -174,6 +174,23 @@ class DealsRepository {
     DataBus.changed(DataTopic.deals);
   }
 
+  /// Delivery proof, posted against the reference the QR encodes. The endpoint
+  /// is unauthenticated by design — it's the receiver's handover, reached from
+  /// the QR — so the traveler can complete it in the app after scanning.
+  Future<void> uploadDeliveryVideo(
+    String referenceId,
+    String filePath,
+    String fileName, {
+    void Function(int sent, int total)? onProgress,
+  }) async {
+    final form = FormData.fromMap({
+      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+    });
+    unwrapData(await _api.post('/deals/$referenceId/uploadDeliveryVideo',
+        data: form, onSendProgress: onProgress));
+    DataBus.changed(DataTopic.deals);
+  }
+
   // completion goes by reference, not numeric id
   Future<void> markCompleted(String referenceId) async {
     unwrapData(await _api.post('/deals/markAsCompleted/$referenceId'));

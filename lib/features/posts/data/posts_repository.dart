@@ -13,6 +13,8 @@ class PostsRepository {
   // the website posts these fixed values for fields it doesn't show but the
   // API still validates as required
   static const _defaultAirline = 'Cairo Airport';
+  // recognised server-side and echoed back as "No specific date and time"
+  static const _noDate = 'no specific date/time';
   static const _noPlace = '-';
 
   final _api = Get.find<ApiService>();
@@ -87,6 +89,7 @@ class PostsRepository {
     required String dropoffLocation,
     List<int> rejectedCategoryIds = const [],
     String? notes,
+    bool noSpecificDate = false,
   }) async {
     final form = FormData.fromMap({
       'postType': 'TRIP',
@@ -95,7 +98,9 @@ class PostsRepository {
       if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
-      'beforeDate': _date(date),
+      // a trip posted without a date sends the phrase the API recognises
+      // rather than a made-up one (beforeDate is required, not date-typed)
+      'beforeDate': noSpecificDate ? _noDate : _date(date),
       // the API requires an airline on international trips; live mode hides the
       // field and posts a fixed default, so mirror that instead of asking
       'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,
@@ -172,6 +177,7 @@ class PostsRepository {
     required String dropoffLocation,
     List<int> rejectedCategoryIds = const [],
     String? notes,
+    bool noSpecificDate = false,
   }) async {
     final form = FormData.fromMap({
       'postType': 'TRIP',
@@ -180,7 +186,9 @@ class PostsRepository {
       if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
-      'beforeDate': _date(date),
+      // a trip posted without a date sends the phrase the API recognises
+      // rather than a made-up one (beforeDate is required, not date-typed)
+      'beforeDate': noSpecificDate ? _noDate : _date(date),
       // the API requires an airline on international trips; live mode hides the
       // field and posts a fixed default, so mirror that instead of asking
       'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,

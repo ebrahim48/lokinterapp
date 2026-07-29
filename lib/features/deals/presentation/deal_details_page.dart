@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
@@ -15,6 +16,7 @@ import '../../posts/presentation/widgets/mode_badge.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
+import 'scan_delivery_page.dart';
 import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/status_badge.dart';
@@ -285,6 +287,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   // caps at 30s. Picking a ready-made file is deliberately not offered, so the
   // video can't be anything but the actual pickup.
   Future<(String path, String name)?> _pickVideo() async {
+    // the manifest declares CAMERA for the QR scanner, which makes image_picker
+    // require the runtime grant too — ask before opening the recorder
+    final status = await Permission.camera.request();
+    if (!status.isGranted) {
+      toast('camera_permission_is_needed_to_record'.tr);
+      return null;
+    }
     try {
       final x = await ImagePicker().pickVideo(
         source: ImageSource.camera,
@@ -343,6 +352,64 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         ),
       ),
     );
+  }
+
+  // Handover: scan the receiver's QR, record the delivery, close the deal.
+  // The website reaches the same endpoints from its public deal-details page;
+  // doing it here keeps the traveler in the app.
+  Future<void> _scanAndComplete() async {
+    final ref = await ScanDeliveryPage.open(context);
+    if (ref == null || !mounted) return;
+
+    // guard against scanning some other deal's code
+    if (ref != deal.refId) {
+      try {
+        final scanned = await _repo.getByReferenceId(ref);
+        if (scanned.id != deal.id) {
+          toast('that_qr_belongs_to_another_deal'.tr);
+          return;
+        }
+      } on AppException catch (e) {
+        toastError(e);
+        return;
+      }
+    }
+    if (!mounted) return;
+
+    final pick = await _pickVideo();
+    if (pick == null) {
+      toast('record_the_delivery_video_to_complete'.tr);
+      return;
+    }
+
+    setState(() => _busy = true);
+    final progress = ValueNotifier<double>(0);
+    _showUploadProgress(progress);
+    var done = false;
+    try {
+      await _repo.uploadDeliveryVideo(
+        ref,
+        pick.$1,
+        pick.$2,
+        onProgress: (sent, total) {
+          if (total > 0) progress.value = sent / total;
+        },
+      );
+      await _repo.markCompleted(ref);
+      done = true;
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+      progress.dispose();
+      if (mounted) setState(() => _busy = false);
+    }
+
+    if (done) {
+      _refreshList();
+      toast('delivery_recorded_deal_completed'.tr);
+      await _loadDetail();
+    }
   }
 
   Future<void> _openDispute() async {
@@ -995,6 +1062,16 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         // once the parcel is moving, walking away is a dispute, not a
         // cancel (website: cancel is only offered while ACCEPTED)
         return [
+          // the traveler closes the deal at handover: scan the receiver's QR,
+          // record the delivery, done — no trip out to the website
+          if (deal.isTraveler) ...[
+            ElevatedButton.icon(
+              onPressed: _busy ? null : _scanAndComplete,
+              icon: Icon(Icons.qr_code_scanner, size: 18.sp),
+              label: Text('scan_receiver_qr_to_complete'.tr),
+            ),
+            SizedBox(height: 12.h),
+          ],
           if (!deal.isTraveler) ...[
             ElevatedButton(
               onPressed: _busy

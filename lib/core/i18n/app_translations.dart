@@ -114,6 +114,13 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "camera_permission_is_needed_to_record": "Camera permission is needed to record",
+  "scan_receiver_qr": "Scan the receiver QR",
+  "point_camera_at_receiver_qr": "Point the camera at the receiver's QR code",
+  "scan_receiver_qr_to_complete": "Scan receiver QR & complete",
+  "record_the_delivery_video_to_complete": "Record the delivery video to complete",
+  "delivery_recorded_deal_completed": "Delivery recorded — deal completed",
+  "that_qr_belongs_to_another_deal": "That QR belongs to another deal",
   "report_user": "Report @name",
   "deal_number": "Deal #@id",
   "attachments_count": "Attachments (@n)",
@@ -479,6 +486,13 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "camera_permission_is_needed_to_record": "L'accès à la caméra est nécessaire pour enregistrer",
+  "scan_receiver_qr": "Scanner le QR du destinataire",
+  "point_camera_at_receiver_qr": "Dirigez la caméra vers le QR du destinataire",
+  "scan_receiver_qr_to_complete": "Scanner le QR et terminer",
+  "record_the_delivery_video_to_complete": "Enregistrez la vidéo de livraison pour terminer",
+  "delivery_recorded_deal_completed": "Livraison enregistrée — accord terminé",
+  "that_qr_belongs_to_another_deal": "Ce QR correspond à un autre accord",
   "report_user": "Signaler @name",
   "deal_number": "Accord n°@id",
   "attachments_count": "Pièces jointes (@n)",

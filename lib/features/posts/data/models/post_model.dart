@@ -1,5 +1,6 @@
 import '../../../../core/utils/media_url.dart';
 import '../../../../core/utils/format.dart';
+import 'package:get/get.dart';
 
 enum PostType { trip, deliver }
 
@@ -155,9 +156,20 @@ class Post {
   String get from => fromCity ?? fromCountry;
   String get to => toCity ?? toCountry;
   String? get flagIso => fromIso; // local posts fly their country's flag
-  // what to print for the date: the API's phrase when there isn't a real one
-  String get dateText => dateLabel ?? shortDate(date);
-  String get shortDateText => dateLabel ?? dayMonth(date);
+  // what to print for the date: the API's phrase when there isn't a real one.
+  // The two endpoints word it differently, so any "no date" variant is shown
+  // with our own localized copy.
+  String get dateText => _label ?? shortDate(date);
+  String get shortDateText => _label ?? dayMonth(date);
+
+  String? get _label {
+    final raw = dateLabel;
+    if (raw == null) return null;
+    final probe = raw.toLowerCase();
+    return probe.contains('no specific date') || probe.contains('pas de date')
+        ? 'no_specific_date_time'.tr
+        : raw;
+  }
 
   // numbers sometimes arrive as strings ("5") — never trust the type
   static double _num(dynamic v) =>

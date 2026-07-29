@@ -156,6 +156,7 @@ class PostTripController extends GetxController {
           dropoffLocation: to,
           rejectedCategoryIds: rejected,
           notes: notes.text.trim(),
+          noSpecificDate: noSpecificDate.value,
         );
       } else {
         await _repo.addTrip(
@@ -170,6 +171,7 @@ class PostTripController extends GetxController {
           dropoffLocation: to,
           rejectedCategoryIds: rejected,
           notes: notes.text.trim(),
+          noSpecificDate: noSpecificDate.value,
         );
       }
       toast(isEditing ? 'Trip updated' : 'Trip posted');
