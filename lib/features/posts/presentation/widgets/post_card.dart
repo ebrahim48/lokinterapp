@@ -394,8 +394,19 @@ class TripCard extends StatelessWidget {
             children: [
               Icon(icon, size: 13.sp, color: AppPalette.navy.withValues(alpha: 0.7)),
               SizedBox(width: 5.w),
-              Text(value,
-                  style: TextStyle(color: AppPalette.navy, fontSize: 12.sp, fontWeight: FontWeight.w600)),
+              // long values ("No specific date/time") must shrink, not overflow
+              Flexible(
+                child: Text(
+                  value,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: alignEnd ? TextAlign.end : TextAlign.start,
+                  style: TextStyle(
+                      color: AppPalette.navy,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
             ],
           ),
         ],

@@ -24,7 +24,8 @@ class PostRequestController extends GetxController {
   final fromCity = RxnString();
   final toCity = RxnString();
   final beforeDate = Rxn<DateTime>();
-  final category = RxnString();
+  // the API accepts several categories on a delivery request now
+  final categories_ = <String>[].obs;
   final pictureName = RxnString();
   final picturePath = RxnString(); // local file uploaded as attachFile
   final currency = 'USD'.obs;
@@ -106,7 +107,7 @@ class PostRequestController extends GetxController {
       description.text = post.description ?? '';
       pickupLocation.text = post.pickupLocation ?? '';
       dropoffLocation.text = post.dropoffLocation ?? '';
-      category.value = post.category;
+      categories_.assignAll(post.categories);
       acceptedTerms.value = true; // already agreed when first posted
     } on AppException catch (e) {
       toastError(e);
@@ -139,9 +140,12 @@ class PostRequestController extends GetxController {
   Future<void> submit() async {
     final origin = _byName(isLocal ? insideCountry.value : fromCountry.value);
     final kg = double.tryParse(weight.text);
-    final cat = categories.firstWhereOrNull((c) => c.title == category.value);
+    final catIds = categories
+        .where((c) => categories_.contains(c.title))
+        .map((c) => c.id)
+        .toList();
 
-    if (origin == null || kg == null || cat == null || beforeDate.value == null) {
+    if (origin == null || kg == null || catIds.isEmpty || beforeDate.value == null) {
       toast('fill_in_the_route_weight_category_and_date_first'.tr);
       return;
     }
@@ -189,7 +193,8 @@ class PostRequestController extends GetxController {
           toCity: _cityByName(toCity.value),
           date: beforeDate.value!,
           weight: kg,
-          categoryId: cat.id,
+          categoryIds: catIds,
+          profit: double.tryParse(profit.text.trim()),
           pickupLocation: pickup,
           dropoffLocation: dropoff,
           description: description.text.trim(),
@@ -211,7 +216,8 @@ class PostRequestController extends GetxController {
         toCity: _cityByName(toCity.value),
         date: beforeDate.value!,
         weight: kg,
-        categoryId: cat.id,
+        categoryIds: catIds,
+        profit: double.tryParse(profit.text.trim()),
         pickupLocation: pickup,
         dropoffLocation: dropoff,
         description: description.text.trim(),

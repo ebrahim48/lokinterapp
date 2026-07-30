@@ -128,11 +128,12 @@ class PostsRepository {
     City? toCity,
     required DateTime date,
     required double weight,
-    required int categoryId,
+    required List<int> categoryIds,
     required String pickupLocation,
     required String dropoffLocation,
     String? description,
     String? attachFilePath,
+    double? profit,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -147,7 +148,10 @@ class PostsRepository {
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
-      'categoryId': categoryId,
+      // the API takes several categories now; categoryId stays for older builds
+      'categoryIds': jsonEncode(categoryIds),
+      if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
+      if (profit != null) 'traveler_profit': profit,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       // the website stores the item description in `deliveryPoints` —
@@ -216,11 +220,12 @@ class PostsRepository {
     City? toCity,
     required DateTime date,
     required double weight,
-    required int categoryId,
+    required List<int> categoryIds,
     required String pickupLocation,
     required String dropoffLocation,
     String? description,
     String? attachFilePath,
+    double? profit,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -235,7 +240,10 @@ class PostsRepository {
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
-      'categoryId': categoryId,
+      // the API takes several categories now; categoryId stays for older builds
+      'categoryIds': jsonEncode(categoryIds),
+      if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
+      if (profit != null) 'traveler_profit': profit,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       if (description != null && description.isNotEmpty)

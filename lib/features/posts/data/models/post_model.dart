@@ -65,6 +65,8 @@ class Post {
   final String? dateLabel;
   // trips can rule out several categories at once
   final List<String> rejectedCategories;
+  // a delivery request can carry several categories
+  final List<String> categories;
   final PostUser user;
   final bool recommended;
 
@@ -72,6 +74,7 @@ class Post {
     this.dateLabel,
     this.notes,
     this.rejectedCategories = const [],
+    this.categories = const [],
     this.id = 0,
     required this.type,
     required this.location,
@@ -118,12 +121,20 @@ class Post {
       date: _parseDate(json['beforeDate']),
       weight: _num(json['weight']),
       remainingWeight: json['remainingWeight'] == null ? null : _num(json['remainingWeight']),
-      profit: json['profit']?.toString(),
+      // the API returns the offered profit as `travelerProfit`; `profit` is the
+      // older pre-formatted string some endpoints still send
+      profit: json['travelerProfit'] != null
+          ? '${json['travelerProfit']}'
+          : json['profit']?.toString(),
       imageUrl: fixMediaUrl(json['attachUrl'] ?? json['imageUrl'] ?? json['attachFile']?['url']),
       category: json['categoryTitle'],
       notes: json['pickupPoints'] ?? json['deliveryPoints'],
       dateLabel: _dateLabel(json['beforeDate']),
       rejectedCategories: (json['rejectedCategoriesTitles'] as List? ?? const [])
+          .map((e) => '$e')
+          .toList(),
+      categories: (json['categoryTitles'] as List? ??
+              (json['categoryTitle'] == null ? const [] : [json['categoryTitle']]))
           .map((e) => '$e')
           .toList(),
       categoryId: json['categoryId'],

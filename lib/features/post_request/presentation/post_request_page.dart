@@ -246,14 +246,14 @@ class PostRequestPage extends StatelessWidget {
           ),
         ],
         SizedBox(height: 16.h),
-        Obx(() => LokDropdownField(
+        Obx(() => LokMultiSelectField(
               label: 'categories'.tr,
               hint: 'select_categories'.tr,
               icon: Icons.category_outlined,
               required: true,
               options: c.categoryNames,
-              value: c.category.value,
-              onChanged: (v) => c.category.value = v,
+              selected: c.categories_.toList(),
+              onChanged: c.categories_.assignAll,
             )),
         SizedBox(height: 16.h),
         Obx(() => LokUploadField(
