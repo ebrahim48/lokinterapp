@@ -184,13 +184,56 @@ class _NotificationSettings extends StatefulWidget {
 
 class _NotificationSettingsState extends State<_NotificationSettings> {
   final _storage = Get.find<StorageService>();
+  final _repo = NotificationsRepository();
 
+  // seeded from the local cache so the sheet paints instantly, then reconciled
+  // with the server, which is the source of truth for what actually gets sent
   late bool _push = _storage.getBool('notif_push') ?? true;
   late bool _trips = _storage.getBool('notif_trips') ?? true;
   late bool _requests = _storage.getBool('notif_requests') ?? true;
   late bool _marketing = _storage.getBool('notif_marketing') ?? false;
 
-  void _set(String key, bool value) => _storage.setBool(key, value);
+  @override
+  void initState() {
+    super.initState();
+    _pull();
+  }
+
+  Future<void> _pull() async {
+    try {
+      final p = await _repo.preferences();
+      if (!mounted || p.isEmpty) return;
+      setState(() {
+        _push = p['notifyPushEnabled'] ?? _push;
+        _trips = p['notifyTrips'] ?? _trips;
+        _requests = p['notifyRequests'] ?? _requests;
+        _marketing = p['notifyMarketing'] ?? _marketing;
+      });
+      _cache();
+    } catch (_) {
+      // offline: the cached values stay usable
+    }
+  }
+
+  void _cache() {
+    _storage.setBool('notif_push', _push);
+    _storage.setBool('notif_trips', _trips);
+    _storage.setBool('notif_requests', _requests);
+    _storage.setBool('notif_marketing', _marketing);
+  }
+
+  // cache locally, then push the whole set so a failed call can't half-apply
+  void _set(String _, bool __) {
+    _cache();
+    _repo
+        .updatePreferences(
+          push: _push,
+          trips: _trips,
+          requests: _requests,
+          marketing: _marketing,
+        )
+        .catchError((_) {});
+  }
 
   @override
   Widget build(BuildContext context) {

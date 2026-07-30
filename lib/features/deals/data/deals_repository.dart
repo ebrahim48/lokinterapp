@@ -205,6 +205,23 @@ class DealsRepository {
     }));
   }
 
+  /// Live FX for the deal form. The backend owns the rate source and caches it
+  /// for an hour, so no key or rate logic ships in the app.
+  /// Returns `{from, to, amount, rate, convertedAmount}`.
+  Future<Map<String, dynamic>> convertCurrency({
+    required String from,
+    required String to,
+    required double amount,
+  }) async {
+    final res = await _api.get('/currency/convert', queryParameters: {
+      'from': from,
+      'to': to,
+      'amount': amount,
+    });
+    final data = unwrapData(res);
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
   Future<Map<String, dynamic>?> disputeReport(int dealId) async {
     final res = await _api.get('/disputes/deal/$dealId');
     final data = unwrapData(res);

@@ -2,11 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/utils/notify.dart';
-import '../data/mock_brands.dart';
+import '../data/brand_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BrandsPage extends StatelessWidget {
+class BrandsPage extends StatefulWidget {
   const BrandsPage({super.key});
+
+  @override
+  State<BrandsPage> createState() => _BrandsPageState();
+}
+
+class _BrandsPageState extends State<BrandsPage> {
+  final _repo = BrandsRepository();
+  List<Brand> _brands = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final list = await _repo.list();
+      if (mounted) setState(() { _brands = list; _loading = false; });
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +53,32 @@ class BrandsPage extends StatelessWidget {
                   style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
                 ),
                 SizedBox(height: 20.h),
-                GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 14.h,
-                  crossAxisSpacing: 14.w,
-                  childAspectRatio: 1.15,
-                  children: [
-                    for (final b in mockBrands) _BrandCard(brand: b),
-                  ],
-                ),
+                if (_loading)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40.h),
+                    child: const Center(child: CircularProgressIndicator()),
+                  )
+                else if (_brands.isEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40.h),
+                    child: Center(
+                      child: Text('no_brands_yet'.tr,
+                          style: TextStyle(
+                              fontSize: 13.sp, color: cs.onSurfaceVariant)),
+                    ),
+                  )
+                else
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 14.h,
+                    crossAxisSpacing: 14.w,
+                    childAspectRatio: 1.15,
+                    children: [
+                      for (final b in _brands) _BrandCard(brand: b),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -81,18 +120,36 @@ class _BrandCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 54.r,
-              height: 54.r,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(color: brand.color, shape: BoxShape.circle),
-              child: Text(
-                brand.name[0],
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w800,
-                ),
+            // the admin can upload a logo; fall back to an initial chip
+            ClipOval(
+              child: Container(
+                width: 54.r,
+                height: 54.r,
+                alignment: Alignment.center,
+                color: brand.color,
+                child: (brand.logoUrl ?? '').isEmpty
+                    ? Text(
+                        brand.name[0],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      )
+                    : Image.network(
+                        brand.logoUrl!,
+                        width: 54.r,
+                        height: 54.r,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Text(
+                          brand.name[0],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
               ),
             ),
             SizedBox(height: 12.h),

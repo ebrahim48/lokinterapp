@@ -12,6 +12,7 @@ import '../../../core/utils/verify_gate.dart';
 import '../../../core/widgets/image_viewer.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../deals/data/deals_repository.dart';
+import '../../deals/presentation/widgets/currency_converter.dart';
 import '../../deals/presentation/deal_details_page.dart';
 import '../../lookups/data/lookup_models.dart';
 import '../../lookups/data/lookups_repository.dart';
@@ -673,6 +674,9 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 10.h),
+                    // live FX estimate for the amount just entered
+                    CurrencyConverter(amount: _cost),
                     // send + card: offer the deposit hold, with the same wording
                     // the website shows under the toggle
                     if (!_isBuyAndDeliver && _isStripe) ...[

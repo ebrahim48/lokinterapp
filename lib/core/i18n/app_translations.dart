@@ -114,6 +114,8 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "approx_in_another_currency": "Estimate in another currency",
+  "no_brands_yet": "No brands listed yet",
   "camera_permission_is_needed_to_record": "Camera permission is needed to record",
   "scan_receiver_qr": "Scan the receiver QR",
   "point_camera_at_receiver_qr": "Point the camera at the receiver's QR code",
@@ -486,6 +488,8 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "approx_in_another_currency": "Estimation dans une autre devise",
+  "no_brands_yet": "Aucune marque pour le moment",
   "camera_permission_is_needed_to_record": "L'accès à la caméra est nécessaire pour enregistrer",
   "scan_receiver_qr": "Scanner le QR du destinataire",
   "point_camera_at_receiver_qr": "Dirigez la caméra vers le QR du destinataire",

@@ -148,6 +148,8 @@ class Post {
         date: _parseDate(json['beforeDate']),
         dateLabel: _dateLabel(json['beforeDate']),
         weight: _num(json['weight']), // arrives as a string ("20")
+        remainingWeight:
+            json['remainingWeight'] == null ? null : _num(json['remainingWeight']),
         user: const PostUser(name: ''),
       );
 
