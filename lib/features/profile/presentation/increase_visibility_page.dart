@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/notify.dart';
 import '../../lookups/data/lookups_repository.dart';
+import '../data/visibility_repository.dart';
+import '../../../core/exceptions/app_exceptions.dart';
 import 'controllers/profile_controller.dart';
 
 // Replaces the old "Invoices & QR Codes" entry. Lets travelers/transporters
@@ -21,7 +23,57 @@ class IncreaseVisibilityPage extends StatefulWidget {
 }
 
 class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
+  final _visibility = VisibilityRepository();
   String? _planPrice;
+  bool _busy = false;
+
+  // free application — the server re-checks eligibility before accepting
+  Future<void> _applyTraveler() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      await _visibility.applyTraveler();
+      toast('application_received_the_team_will_review_it'.tr);
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  // \$22.99 / 30 days; on success the account carries the recommended badge
+  Future<void> _subscribeTransporter() async {
+    if (_busy) return;
+    final ok = await Get.dialog<bool>(
+      AlertDialog(
+        title: Text('recommended_transporter'.tr),
+        content: Text('subscribe_confirm_body'.tr),
+        actions: [
+          TextButton(onPressed: () => Get.back(result: false), child: Text('cancel'.tr)),
+          ElevatedButton(
+              onPressed: () => Get.back(result: true), child: Text('continue'.tr)),
+        ],
+      ),
+    );
+    if (ok != true) return;
+
+    setState(() => _busy = true);
+    try {
+      final res = await _visibility.subscribeTransporter();
+      final until = '${res['featuredUntil'] ?? ''}';
+      toast(until.isEmpty
+          ? 'subscription_activated'.tr
+          : 'subscription_active_until'.trParams({'date': until.split(' ').first}));
+      // refresh the session so the badge appears straight away
+      if (Get.isRegistered<ProfileController>()) {
+        await Get.find<ProfileController>().load();
+      }
+    } on AppException catch (e) {
+      toastError(e);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
 
   @override
   void initState() {
@@ -78,10 +130,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: eligible
-                          ? () => toast('application_received_the_team_will_review_it'.tr)
-                          : null,
-                      child: Text(eligible ? 'Apply now' : 'Not eligible yet'),
+                      onPressed: (eligible && !_busy) ? _applyTraveler : null,
+                      child: Text(eligible ? 'apply_now'.tr : 'not_eligible_yet'.tr),
                     ),
                   ),
                 ],
@@ -97,7 +147,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
             child: SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () => toast('transporter_subscriptions_are_coming_soon'.tr),
+                onPressed: _busy ? null : _subscribeTransporter,
                 child: Text('apply_subscribe'.tr),
               ),
             ),

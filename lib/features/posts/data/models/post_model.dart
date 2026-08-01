@@ -15,7 +15,9 @@ class PostUser {
   final bool verified;
   final double rating;
   final String? avatarUrl;
-  final bool isTransporter; // registered transporter — no API flag yet
+  final bool isTransporter; // approved transporter
+  // paid premium placement — shows the gold badge instead of the plain one
+  final bool isRecommendedTransporter;
 
   const PostUser({
     this.id = 0,
@@ -24,6 +26,7 @@ class PostUser {
     this.rating = 0,
     this.avatarUrl,
     this.isTransporter = false,
+    this.isRecommendedTransporter = false,
   });
 
   factory PostUser.fromJson(Map<String, dynamic> json) => PostUser(
@@ -32,6 +35,12 @@ class PostUser {
         verified: json['identityVerified'] ?? false,
         rating: Post._num(json['rate']),
         avatarUrl: json['imageUrl'] ?? json['avatarUrl'],
+        // badge logic per the API doc: approved = plain badge, an active paid
+        // subscription upgrades it to the recommended one
+        isTransporter: (json['isTransporter'] ?? false) &&
+            (json['transporterVerificationStatus'] ?? 'approved') == 'approved',
+        isRecommendedTransporter: (json['isFeaturedTransporter'] ?? false) &&
+            json['transporterVisibilityStatus'] == 'active',
       );
 }
 

@@ -79,7 +79,7 @@ class RequestCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (post.user.isTransporter) ...[
-              const TransporterChip(),
+              TransporterChip(recommended: post.user.isRecommendedTransporter),
               SizedBox(height: 10.h),
             ],
             Row(

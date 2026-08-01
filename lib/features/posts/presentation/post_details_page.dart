@@ -269,7 +269,7 @@ class PostDetailsPage extends StatelessWidget {
                     ],
                     if (post.user.isTransporter) ...[
                       SizedBox(width: 6.w),
-                      const TransporterChip(),
+                      TransporterChip(recommended: post.user.isRecommendedTransporter),
                     ],
                   ],
                 ),

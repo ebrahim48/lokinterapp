@@ -114,6 +114,18 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "upload_both_documents": "Upload both documents",
+  "submit_request": "Submit request",
+  "apply_now": "Apply now",
+  "not_eligible_yet": "Not eligible yet",
+  "subscribe_confirm_body": "Premium placement for 30 days at USD 22.99. Re-subscribing extends it by another 30 days.",
+  "recommended_transporter_2": "RECOMMENDED",
+  "apply_subscribe_price": "Apply & subscribe — \$22.99/mo",
+  "subscription_active_until": "Recommended until @date",
+  "subscription_activated": "Subscription active — you are now recommended",
+  "become_a_transporter": "Become a transporter",
+  "transporter_request_submitted": "Request submitted — under admin review",
+  "transporter_request_pending": "Your transporter request is under review",
   "approx_in_another_currency": "Estimate in another currency",
   "no_brands_yet": "No brands listed yet",
   "camera_permission_is_needed_to_record": "Camera permission is needed to record",
@@ -488,6 +500,18 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "upload_both_documents": "Téléversez les deux documents",
+  "submit_request": "Envoyer la demande",
+  "apply_now": "Postuler",
+  "not_eligible_yet": "Pas encore éligible",
+  "subscribe_confirm_body": "Placement premium pendant 30 jours pour 22,99 USD. Un renouvellement prolonge de 30 jours.",
+  "recommended_transporter_2": "RECOMMANDÉ",
+  "apply_subscribe_price": "Souscrire — 22,99 \$/mois",
+  "subscription_active_until": "Recommandé jusqu'au @date",
+  "subscription_activated": "Abonnement actif — vous êtes recommandé",
+  "become_a_transporter": "Devenir transporteur",
+  "transporter_request_submitted": "Demande envoyée — en cours d'examen",
+  "transporter_request_pending": "Votre demande de transporteur est en cours d'examen",
   "approx_in_another_currency": "Estimation dans une autre devise",
   "no_brands_yet": "Aucune marque pour le moment",
   "camera_permission_is_needed_to_record": "L'accès à la caméra est nécessaire pour enregistrer",

@@ -53,7 +53,7 @@ class _TravelerCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (post.user.isTransporter) ...[
-            const TransporterChip(),
+            TransporterChip(recommended: post.user.isRecommendedTransporter),
             SizedBox(height: 6.h),
           ],
           Row(

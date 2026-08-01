@@ -9,6 +9,7 @@ import '../../static/presentation/contact_us_page.dart';
 import '../../static/presentation/terms_page.dart';
 import 'basic_info_page.dart';
 import 'controllers/profile_controller.dart';
+import 'become_transporter_page.dart';
 import 'increase_visibility_page.dart';
 import 'wallet_page.dart';
 
@@ -43,6 +44,10 @@ class ProfilePage extends StatelessWidget {
                 () => Get.to(() => const MyPostsPage())),
             _Item(Icons.trending_up, 'Increase Visibility to Senders',
                 () => Get.to(() => const IncreaseVisibilityPage())),
+            // only offered until the account is an approved transporter
+            if (!(c.user?.showTransporterBadge ?? false))
+              _Item(Icons.local_shipping_outlined, 'become_a_transporter'.tr,
+                  () => Get.to(() => const BecomeTransporterPage())),
             _Item(Icons.account_balance_wallet_outlined, 'Wallet & payouts',
                 () => Get.to(() => const WalletPage())),
           ]),
