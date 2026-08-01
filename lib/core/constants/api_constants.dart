@@ -7,11 +7,16 @@ class ApiConstants {
   /// Angular app puts in its QR. (Confirm host before prod release.)
   static const String webBaseUrl = 'https://lokinter.ssh.bd';
 
-  /// Same Stripe TEST publishable key the website dev build uses
-  /// (`environment.ts` → stripePublishableKey). Swap for the pk_live key
-  /// from `environment.prod.ts` at production release.
+  /// Stripe TEST publishable key — must belong to the same Stripe account as
+  /// the backend's `STRIPE_SECRET`, or the payment sheet confirms an intent
+  /// the server never created. Swap for the pk_live key at production release.
+  ///
+  /// The SECRET key deliberately lives only in the backend `.env`
+  /// (`config/services.php` → `STRIPE_SECRET`). Anything compiled into the APK
+  /// is trivially extractable, and a leaked secret key can charge cards and
+  /// issue refunds — the app only ever needs the publishable half.
   static const String stripePublishableKey =
-      'pk_test_51QVtI9GkFypqCloBWPyhkrIxJwR9Q1rVKDHDKc7W4hzEQ6IsMPHtL3u7a9ODjJkxi6GoBEmqePxFYFemcFdxRAfv00QMav0txp';
+      'pk_test_51OEATeKNWVvnHiSQebZv0fZqKlSeJOpkCMxrFydhpJ62nQfaVF3QgyFdFFa4GniAMsWrFPvHh9BGI7Ex1ZrN7Ivp00ivXZpHsx';
 
   static const Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8',
