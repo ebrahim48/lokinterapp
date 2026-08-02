@@ -12,6 +12,7 @@ import 'controllers/profile_controller.dart';
 import 'become_transporter_page.dart';
 import 'increase_visibility_page.dart';
 import 'wallet_page.dart';
+import '../../../core/widgets/user_badge.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -103,8 +104,31 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name,
-                        style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                    // badge sits beside the name so the standing reads at a glance
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 17.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: cs.onSurface)),
+                        ),
+                        SizedBox(width: 6.w),
+                        UserBadge.from(
+                          isTransporter: user?.isTransporter ?? false,
+                          transporterVerificationStatus:
+                              user?.transporterVerificationStatus,
+                          isFeaturedTransporter:
+                              user?.isFeaturedTransporter ?? false,
+                          transporterVisibilityStatus:
+                              user?.transporterVisibilityStatus,
+                          identityVerified: user?.identityVerified ?? false,
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 2.h),
                     Text(user?.email ?? '',
                         style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
@@ -130,7 +154,7 @@ class ProfilePage extends StatelessWidget {
             children: [
               _verifyChip(context, 'ID', user?.identityVerified ?? false),
               SizedBox(width: 8.w),
-              _verifyChip(context, 'Phone', summary?.phoneVerified ?? false),
+              _verifyChip(context, 'Phone', user?.phoneVerified ?? false),
             ],
           ),
         ],

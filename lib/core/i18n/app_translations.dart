@@ -114,6 +114,11 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "at_least_3_successful_deliveries": "At least 3 successful deliveries",
+  "no_disputes_on_completed_deliveries": "No disputes on completed deliveries",
+  "identity_documents_verified": "Identity documents verified",
+  "phone_number_verified_2": "Phone number verified",
+  "verified_traveler": "Verified",
   "upload_both_documents": "Upload both documents",
   "submit_request": "Submit request",
   "apply_now": "Apply now",
@@ -500,6 +505,11 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "at_least_3_successful_deliveries": "Au moins 3 livraisons réussies",
+  "no_disputes_on_completed_deliveries": "Aucun litige sur les livraisons terminées",
+  "identity_documents_verified": "Documents d'identité vérifiés",
+  "phone_number_verified_2": "Numéro de téléphone vérifié",
+  "verified_traveler": "Vérifié",
   "upload_both_documents": "Téléversez les deux documents",
   "submit_request": "Envoyer la demande",
   "apply_now": "Postuler",

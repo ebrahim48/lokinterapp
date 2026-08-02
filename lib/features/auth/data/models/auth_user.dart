@@ -19,6 +19,11 @@ class AuthUser {
   final String? transporterVisibilityStatus; // active | expired | none
   final String? kycStatus;
 
+  // eligibility inputs for the free "recommended traveler" application
+  final int successfulDeliveriesCount;
+  final bool hasNoDisputesOnCompletedDeliveries;
+  final bool phoneVerified;
+
   const AuthUser({
     required this.id,
     required this.fullName,
@@ -37,7 +42,21 @@ class AuthUser {
     this.featuredTransporterUntil,
     this.transporterVisibilityStatus,
     this.kycStatus,
+    this.successfulDeliveriesCount = 0,
+    this.hasNoDisputesOnCompletedDeliveries = false,
+    this.phoneVerified = false,
   });
+
+  // --- recommended-traveler conditions (all four must hold) ---
+  bool get hasThreeDeliveries => successfulDeliveriesCount >= 3;
+
+  /// Only meaningful once there are deliveries to dispute, so it stays
+  /// unchecked until the delivery count qualifies.
+  bool get hasNoDisputes =>
+      hasThreeDeliveries && hasNoDisputesOnCompletedDeliveries;
+
+  bool get canApplyRecommendedTraveler =>
+      hasThreeDeliveries && hasNoDisputes && identityVerified && phoneVerified;
 
   /// Paid, in-date premium placement. Takes precedence over the plain
   /// verified badge (API doc: recommended wins when both are true).
@@ -68,6 +87,12 @@ class AuthUser {
         featuredTransporterUntil: json['featuredTransporterUntil'],
         transporterVisibilityStatus: json['transporterVisibilityStatus'],
         kycStatus: json['kycStatus'],
+        successfulDeliveriesCount: json['successfulDeliveriesCount'] ?? 0,
+        hasNoDisputesOnCompletedDeliveries:
+            json['hasNoDisputesOnCompletedDeliveries'] ?? false,
+        // the API sends an explicit flag now; fall back to the timestamp
+        phoneVerified:
+            json['phoneVerified'] ?? (json['phoneVerifiedAt'] != null),
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,5 +113,8 @@ class AuthUser {
         'featuredTransporterUntil': featuredTransporterUntil,
         'transporterVisibilityStatus': transporterVisibilityStatus,
         'kycStatus': kycStatus,
+        'successfulDeliveriesCount': successfulDeliveriesCount,
+        'hasNoDisputesOnCompletedDeliveries': hasNoDisputesOnCompletedDeliveries,
+        'phoneVerified': phoneVerified,
       };
 }

@@ -109,11 +109,13 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
           ),
           SizedBox(height: 20.h),
           Obx(() {
-            final summary = c.summary.value;
-            final idOk = c.user?.identityVerified ?? false;
-            final phoneOk = summary?.phoneVerified ?? false;
-            final deliveriesOk = (summary?.completedDeals ?? 0) >= 3;
-            final eligible = idOk && phoneOk && deliveriesOk;
+            // every condition now comes straight from /auth/user
+            final u = c.user;
+            final deliveriesOk = u?.hasThreeDeliveries ?? false;
+            final noDisputesOk = u?.hasNoDisputes ?? false;
+            final idOk = u?.identityVerified ?? false;
+            final phoneOk = u?.phoneVerified ?? false;
+            final eligible = u?.canApplyRecommendedTraveler ?? false;
 
             return _planCard(
               context,
@@ -122,10 +124,18 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
               blurb: 'For travelers who meet all the conditions below.',
               child: Column(
                 children: [
-                  _condition(context, 'At least 3 successful deliveries', deliveriesOk),
-                  _condition(context, 'No disputes on completed deliveries', deliveriesOk),
-                  _condition(context, 'Identity documents verified', idOk),
-                  _condition(context, 'Phone number verified', phoneOk),
+                  _condition(
+                      context,
+                      'at_least_3_successful_deliveries'.tr,
+                      deliveriesOk,
+                      // show progress while they're still short of three
+                      trailing: deliveriesOk
+                          ? null
+                          : '${u?.successfulDeliveriesCount ?? 0}/3'),
+                  _condition(context, 'no_disputes_on_completed_deliveries'.tr,
+                      noDisputesOk),
+                  _condition(context, 'identity_documents_verified'.tr, idOk),
+                  _condition(context, 'phone_number_verified_2'.tr, phoneOk),
                   SizedBox(height: 14.h),
                   SizedBox(
                     width: double.infinity,
@@ -199,7 +209,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     );
   }
 
-  Widget _condition(BuildContext context, String text, bool met) {
+  Widget _condition(BuildContext context, String text, bool met,
+      {String? trailing}) {
     final cs = Theme.of(context).colorScheme;
     return Padding(
       padding: EdgeInsets.only(bottom: 10.h),
@@ -209,6 +220,12 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
               size: 17.sp, color: met ? AppPalette.verified : cs.onSurfaceVariant),
           SizedBox(width: 10.w),
           Expanded(child: Text(text, style: TextStyle(fontSize: 12.sp, color: cs.onSurface))),
+          if (trailing != null)
+            Text(trailing,
+                style: TextStyle(
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurfaceVariant)),
         ],
       ),
     );
