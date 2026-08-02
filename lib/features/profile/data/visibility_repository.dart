@@ -11,12 +11,19 @@ class VisibilityRepository {
 
   /// Free recommended-traveler application. The server re-checks eligibility
   /// (3 completed deliveries, no disputes, ID + phone verified).
-  Future<void> applyTraveler() async {
-    unwrapData(await _api.post('/visibility/apply-traveler'));
+  /// Returns `{status, completedCount, isKycVerified, averageRating,
+  /// isAutoApproved}` — the server auto-approves when the conditions hold.
+  Future<Map<String, dynamic>> applyTraveler() async {
+    final data = unwrapData(await _api.post('/visibility/apply-traveler'));
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
   }
 
   /// Recommended-transporter subscription — $22.99 for 30 days.
-  /// Returns `{isFeatured, featuredUntil, visibilityStatus, price, ...}`.
+  ///
+  /// Returns whatever the endpoint gives back. When it includes a
+  /// `clientSecret` the caller runs the same card step escrow uses; when it
+  /// doesn't, the server settled the payment itself and the subscription is
+  /// already active (`{isFeatured, featuredUntil, visibilityStatus, ...}`).
   Future<Map<String, dynamic>> subscribeTransporter({
     double amount = 22.99,
     String provider = 'Stripe',
@@ -29,6 +36,13 @@ class VisibilityRepository {
     });
     final data = unwrapData(res);
     return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  /// Tells the backend the card cleared, mirroring escrow's confirm step.
+  /// Safe to skip when the subscription was settled server-side.
+  Future<void> confirmTransporterSubscription(String paymentIntentId) async {
+    unwrapData(await _api.post('/visibility/transporter/confirm-subscription',
+        data: {'paymentIntentId': paymentIntentId}));
   }
 
   /// Upgrade an existing sender/traveler account to a transporter. Goes to

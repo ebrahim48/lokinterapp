@@ -114,6 +114,10 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "already_applied": "You have already applied",
+  "application_approved": "Approved — you are now a recommended traveler",
+  "you_are_already_subscribed": "You are already subscribed",
+  "card_confirmation_failed": "Card confirmation failed",
   "at_least_3_successful_deliveries": "At least 3 successful deliveries",
   "no_disputes_on_completed_deliveries": "No disputes on completed deliveries",
   "identity_documents_verified": "Identity documents verified",
@@ -505,6 +509,10 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "already_applied": "Vous avez déjà postulé",
+  "application_approved": "Approuvé — vous êtes voyageur recommandé",
+  "you_are_already_subscribed": "Vous êtes déjà abonné",
+  "card_confirmation_failed": "La confirmation de la carte a échoué",
   "at_least_3_successful_deliveries": "Au moins 3 livraisons réussies",
   "no_disputes_on_completed_deliveries": "Aucun litige sur les livraisons terminées",
   "identity_documents_verified": "Documents d'identité vérifiés",

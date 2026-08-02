@@ -24,6 +24,10 @@ class AuthUser {
   final bool hasNoDisputesOnCompletedDeliveries;
   final bool phoneVerified;
 
+  /// Live subscription, or null. The API returns
+  /// `{status, planTitle, startDate, endDate}` only while it is still in date.
+  final Map<String, dynamic>? subscription;
+
   const AuthUser({
     required this.id,
     required this.fullName,
@@ -45,7 +49,18 @@ class AuthUser {
     this.successfulDeliveriesCount = 0,
     this.hasNoDisputesOnCompletedDeliveries = false,
     this.phoneVerified = false,
+    this.subscription,
   });
+
+  /// True while a paid plan is running — the subscribe button stays disabled.
+  bool get hasActiveSubscription => subscription?['status'] == true;
+
+  /// "2026-08-31" for the label; null when there is no subscription.
+  String? get subscriptionEndsOn {
+    final raw = subscription?['endDate'];
+    if (raw == null) return null;
+    return '$raw'.split('T').first.split(' ').first;
+  }
 
   // --- recommended-traveler conditions (all four must hold) ---
   bool get hasThreeDeliveries => successfulDeliveriesCount >= 3;
@@ -93,6 +108,9 @@ class AuthUser {
         // the API sends an explicit flag now; fall back to the timestamp
         phoneVerified:
             json['phoneVerified'] ?? (json['phoneVerifiedAt'] != null),
+        subscription: json['subscription'] is Map
+            ? Map<String, dynamic>.from(json['subscription'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -116,5 +134,6 @@ class AuthUser {
         'successfulDeliveriesCount': successfulDeliveriesCount,
         'hasNoDisputesOnCompletedDeliveries': hasNoDisputesOnCompletedDeliveries,
         'phoneVerified': phoneVerified,
+        'subscription': subscription,
       };
 }

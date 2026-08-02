@@ -6,6 +6,9 @@ import '../../../core/utils/notify.dart';
 import '../../lookups/data/lookups_repository.dart';
 import '../data/visibility_repository.dart';
 import '../../../core/exceptions/app_exceptions.dart';
+import '../../../core/services/storage_service.dart';
+import '../../../core/services/session_service.dart';
+import '../../../core/utils/stripe_sheet.dart';
 import 'controllers/profile_controller.dart';
 
 // Replaces the old "Invoices & QR Codes" entry. Lets travelers/transporters
@@ -24,16 +27,45 @@ class IncreaseVisibilityPage extends StatefulWidget {
 
 class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
   final _visibility = VisibilityRepository();
+  final _storage = Get.find<StorageService>();
   String? _planPrice;
   bool _busy = false;
+
+  // /auth/user doesn't report a pending traveler application, so remember it
+  // per account; an approved one is visible through the badge fields instead
+  String get _appliedKey =>
+      'recommended_applied_${Get.find<SessionService>().user.value?.id ?? 0}';
+  bool get _alreadyApplied =>
+      (_storage.getBool(_appliedKey) ?? false) ||
+      (Get.find<SessionService>().user.value?.isFeaturedTransporter ?? false);
+
+  @override
+  void initState() {
+    super.initState();
+    LookupsRepository().plans().then((plans) {
+      if (!mounted || plans.isEmpty) return;
+      // first paid plan drives the transporter card's price line
+      final paid = plans.firstWhereOrNull(
+          (p) => (double.tryParse('${p['price'] ?? 0}') ?? 0) > 0);
+      if (paid != null) {
+        final unit = (paid['unit'] ?? 'month').toString().toLowerCase();
+        setState(() => _planPrice = 'USD ${paid['price']} / $unit');
+      }
+    }).catchError((_) {});
+  }
 
   // free application — the server re-checks eligibility before accepting
   Future<void> _applyTraveler() async {
     if (_busy) return;
     setState(() => _busy = true);
     try {
-      await _visibility.applyTraveler();
-      toast('application_received_the_team_will_review_it'.tr);
+      final res = await _visibility.applyTraveler();
+      await _storage.setBool(_appliedKey, true);
+      final approved = res['isAutoApproved'] == true;
+      toast(approved
+          ? 'application_approved'.tr
+          : 'application_received_the_team_will_review_it'.tr);
+      await _refreshUser();
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -60,14 +92,29 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     setState(() => _busy = true);
     try {
       final res = await _visibility.subscribeTransporter();
+
+      // when the backend opens a Stripe intent, charge the card the same way
+      // escrow does; otherwise it settled the payment itself
+      final secret = clientSecretOf(res);
+      if (secret.isNotEmpty) {
+        final paid = await presentStripeSheet(secret);
+        if (!paid) return; // cancelled — leave the subscription untouched
+        final intentId = '${res['paymentIntentId'] ?? ''}';
+        if (intentId.isNotEmpty) {
+          try {
+            await _visibility.confirmTransporterSubscription(intentId);
+          } on AppException {
+            // a webhook-driven backend has no confirm step; the refresh below
+            // still picks up the activated subscription
+          }
+        }
+      }
+
       final until = '${res['featuredUntil'] ?? ''}';
       toast(until.isEmpty
           ? 'subscription_activated'.tr
           : 'subscription_active_until'.trParams({'date': until.split(' ').first}));
-      // refresh the session so the badge appears straight away
-      if (Get.isRegistered<ProfileController>()) {
-        await Get.find<ProfileController>().load();
-      }
+      await _refreshUser();
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -75,19 +122,11 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    LookupsRepository().plans().then((plans) {
-      if (!mounted || plans.isEmpty) return;
-      // first paid plan drives the transporter card's price line
-      final paid = plans.firstWhereOrNull(
-          (p) => (double.tryParse('${p['price'] ?? 0}') ?? 0) > 0);
-      if (paid != null) {
-        final unit = (paid['unit'] ?? 'month').toString().toLowerCase();
-        setState(() => _planPrice = 'USD ${paid['price']} / $unit');
-      }
-    }).catchError((_) {});
+  // re-reads /auth/user so the subscription and badges reflect the new state
+  Future<void> _refreshUser() async {
+    if (Get.isRegistered<ProfileController>()) {
+      await Get.find<ProfileController>().load();
+    }
   }
 
   @override
@@ -140,8 +179,14 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: (eligible && !_busy) ? _applyTraveler : null,
-                      child: Text(eligible ? 'apply_now'.tr : 'not_eligible_yet'.tr),
+                      onPressed: (eligible && !_busy && !_alreadyApplied)
+                          ? _applyTraveler
+                          : null,
+                      child: Text(_alreadyApplied
+                          ? 'already_applied'.tr
+                          : eligible
+                              ? 'apply_now'.tr
+                              : 'not_eligible_yet'.tr),
                     ),
                   ),
                 ],
@@ -149,19 +194,41 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
             );
           }),
           SizedBox(height: 16.h),
-          _planCard(
-            context,
-            title: 'recommended_transporter'.tr,
-            price: _planPrice ?? 'USD 22.99 / month',
-            blurb: 'For transporters who want premium placement while subscribed.',
-            child: SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: _busy ? null : _subscribeTransporter,
-                child: Text('apply_subscribe'.tr),
+          Obx(() {
+            final u = c.user;
+            final subscribed = u?.hasActiveSubscription ?? false;
+            final until = u?.subscriptionEndsOn;
+            return _planCard(
+              context,
+              title: 'recommended_transporter'.tr,
+              price: _planPrice ?? 'USD 22.99 / month',
+              blurb: 'For transporters who want premium placement while subscribed.',
+              child: Column(
+                children: [
+                  if (subscribed) ...[
+                    _condition(
+                      context,
+                      until == null
+                          ? 'you_are_already_subscribed'.tr
+                          : 'subscription_active_until'.trParams({'date': until}),
+                      true,
+                    ),
+                    SizedBox(height: 4.h),
+                  ],
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed:
+                          (_busy || subscribed) ? null : _subscribeTransporter,
+                      child: Text(subscribed
+                          ? 'you_are_already_subscribed'.tr
+                          : 'apply_subscribe'.tr),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

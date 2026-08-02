@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,6 +9,7 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
+import '../../../core/utils/stripe_sheet.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/verify_gate.dart';
 import '../../posts/presentation/widgets/mode_badge.dart';
@@ -117,7 +117,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         toast('could_not_start_the_guarantee_try_again'.tr);
         return;
       }
-      final ok = await _presentStripeSheet(clientSecret);
+      final ok = await presentStripeSheet(clientSecret);
       if (!ok) return;
       await _repo.confirmGuarantee(deal.id, intentId);
       _refreshList();
@@ -150,7 +150,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         final proceed = await _confirmBreakdown(breakdown);
         if (proceed != true) return;
       }
-      final ok = await _presentStripeSheet(clientSecret);
+      final ok = await presentStripeSheet(clientSecret);
       if (!ok) return;
       await _repo.confirmPayment(deal.id, intentId);
       _refreshList();
@@ -205,33 +205,6 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         ],
       ),
     );
-  }
-
-  /// Opens Stripe's native payment sheet for [clientSecret]. Returns true
-  /// when the card was confirmed (hold placed), false on cancel/failure.
-  Future<bool> _presentStripeSheet(String clientSecret) async {
-    try {
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: clientSecret,
-          merchantDisplayName: 'Lokinter',
-          style: ThemeMode.light,
-        ),
-      );
-      await Stripe.instance.presentPaymentSheet();
-      return true;
-    } on StripeException catch (e) {
-      if (e.error.code != FailureCode.Canceled) {
-        toast(e.error.localizedMessage ?? 'Card confirmation failed');
-      }
-      return false;
-    } catch (e) {
-      // anything else (native SDK not configured, plugin channel) would
-      // otherwise escape and leave the button looking dead
-      debugPrint('stripe sheet failed: $e');
-      toast('could_not_open_the_payment_sheet_try_again'.tr);
-      return false;
-    }
   }
 
   // eligibility first, then the pickup video (record or choose a file),
