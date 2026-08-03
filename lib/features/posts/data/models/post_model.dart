@@ -76,6 +76,8 @@ class Post {
   final List<String> rejectedCategories;
   // a delivery request can carry several categories
   final List<String> categories;
+  // currency the profit is quoted in; the platform settles in USD
+  final String currency;
   final PostUser user;
   final bool recommended;
 
@@ -84,6 +86,7 @@ class Post {
     this.notes,
     this.rejectedCategories = const [],
     this.categories = const [],
+    this.currency = 'USD',
     this.id = 0,
     required this.type,
     required this.location,
@@ -142,6 +145,7 @@ class Post {
       rejectedCategories: (json['rejectedCategoriesTitles'] as List? ?? const [])
           .map((e) => '$e')
           .toList(),
+      currency: json['currency'] ?? 'USD',
       categories: (json['categoryTitles'] as List? ??
               (json['categoryTitle'] == null ? const [] : [json['categoryTitle']]))
           .map((e) => '$e')
@@ -181,8 +185,24 @@ class Post {
   // what to print for the date: the API's phrase when there isn't a real one.
   // The two endpoints word it differently, so any "no date" variant is shown
   // with our own localized copy.
-  String get dateText => _label ?? shortDate(date);
-  String get shortDateText => _label ?? dayMonth(date);
+  /// Local posts are time-sensitive, so they show the clock too.
+  String get dateText =>
+      _label ?? (isLocal ? shortDateTime(date) : shortDate(date));
+  String get shortDateText => _label ?? (isLocal ? shortDateTime(date) : dayMonth(date));
+
+  /// Offered profit with its currency, e.g. "USD 50". Null when none was set.
+  String? get profitText {
+    final p = profit;
+    if (p == null || p.isEmpty) return null;
+    // already formatted by an older endpoint ("TND 50.000")
+    if (RegExp(r'[A-Za-z]').hasMatch(p)) return p;
+    final n = double.tryParse(p);
+    return n == null ? p : '$currency ${n.toStringAsFixed(n == n.roundToDouble() ? 0 : 2)}';
+  }
+
+  /// All categories on a request, or the single one older payloads send.
+  String get categoriesText =>
+      categories.isNotEmpty ? categories.join(', ') : (category ?? '');
 
   String? get _label {
     final raw = dateLabel;

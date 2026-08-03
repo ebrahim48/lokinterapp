@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
@@ -594,8 +595,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           // item details the sender filled in — the traveler needs these
           if ((deal.itemName ?? '').isNotEmpty)
             _row(context, 'Item name', deal.itemName!),
-          if ((deal.itemLink ?? '').isNotEmpty)
-            _row(context, 'Item link', deal.itemLink!),
+          if (deal.wantToLabel != null)
+            _row(context, 'i_want_to'.tr, deal.wantToLabel!),
+          if ((deal.itemLink ?? '').isNotEmpty) _linkRow(context, deal.itemLink!),
           if ((deal.notes ?? '').isNotEmpty)
             _row(context, 'Notes', deal.notes!),
           if (deal.attachUrls.isNotEmpty)
@@ -718,6 +720,41 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             icon: Icon(Icons.attachment, size: 15.sp, color: AppPalette.primary),
             label: Text('open_attachment'.tr,
                 style: TextStyle(fontSize: 12.sp, color: AppPalette.primary)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // the product link opens in the browser instead of sitting there as text
+  Widget _linkRow(BuildContext context, String url) {
+    final cs = Theme.of(context).colorScheme;
+    final uri = Uri.tryParse(url.startsWith('http') ? url : 'https://$url');
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('item_link'.tr,
+              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: GestureDetector(
+              onTap: uri == null
+                  ? null
+                  : () => launchUrl(uri, mode: LaunchMode.externalApplication),
+              child: Text(
+                url,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppPalette.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppPalette.primary,
+                ),
+              ),
+            ),
           ),
         ],
       ),

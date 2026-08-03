@@ -121,7 +121,7 @@ class RequestCard extends StatelessWidget {
             SizedBox(height: 14.h),
             Row(
               children: [
-                _meta(Icons.card_giftcard, 'PROFIT', post.profit ?? '-'),
+                _meta(Icons.card_giftcard, 'PROFIT', post.profitText ?? '-'),
                 _meta(Icons.shopping_bag_outlined, 'WEIGHT', kg(post.weight)),
                 _meta(Icons.event_outlined, 'BEFORE', post.shortDateText),
               ],

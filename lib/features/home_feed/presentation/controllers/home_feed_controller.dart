@@ -83,11 +83,13 @@ class HomeFeedController extends GetxController {
     if (requests.isNotEmpty || trips.isNotEmpty) error.value = null;
   }
 
-  // guests only get the public banners — the rest of Home asks them to log in
+  // guests still browse what everyone posted — they're only asked to log in
+  // when they try to act on it (chat, deal, post)
   Future<void> _loadGuest() async {
     try {
       banners.assignAll(await _lookups.banners());
     } catch (_) {}
+    await _loadPosts();
     loading.value = false;
   }
 

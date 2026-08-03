@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/api_constants.dart';
 import '../../../core/utils/media_url.dart';
 import '../../posts/data/models/post_model.dart';
+import 'package:get/get.dart';
 
 enum DealStatus { pending, accepted, outgoing, completed, cancelled, disputes }
 
@@ -50,6 +51,8 @@ class Deal {
   final String? itemName;
   final String? notes;
   final String? itemLink;
+  // SEND | BUY_AND_DELIVER — the delivery type the sender chose
+  final String? wantTo;
   final String? cancelReason;
   // escrow / security deposit
   final bool sdRequired;
@@ -84,6 +87,7 @@ class Deal {
     this.itemName,
     this.notes,
     this.itemLink,
+    this.wantTo,
     this.cancelReason,
     this.sdRequired = false,
     this.itemEstimatedCost,
@@ -98,6 +102,13 @@ class Deal {
 
   // getById omits the item name/notes/attachments that the list row carries,
   // so keep the richer values when the detail call replaces this deal
+  /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
+  String? get wantToLabel => switch (wantTo) {
+        'BUY_AND_DELIVER' => 'buy_for_me_and_deliver'.tr,
+        'SEND' => 'deliver_ready_item'.tr,
+        _ => null,
+      };
+
   Deal withItemDetailsFrom(Deal other) => Deal(
         id: id,
         refId: refId,
@@ -120,6 +131,7 @@ class Deal {
         itemName: itemName ?? other.itemName,
         notes: notes ?? other.notes,
         itemLink: itemLink ?? other.itemLink,
+        wantTo: wantTo ?? other.wantTo,
         cancelReason: cancelReason,
         sdRequired: sdRequired,
         itemEstimatedCost: itemEstimatedCost,
@@ -185,6 +197,7 @@ class Deal {
       itemName: json['itemName'],
       notes: json['notes'] ?? json['itemDescription'],
       itemLink: json['itemLink'],
+      wantTo: json['wantTo'] ?? json['dealType'],
       cancelReason: json['cancelReason'],
       sdRequired: json['sdRequired'] ?? false,
       itemEstimatedCost: _num(json['itemEstimatedCost']),

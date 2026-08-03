@@ -5,7 +5,6 @@ import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/auth_gate.dart';
-import '../../../core/utils/kyc_gate.dart';
 import '../../chat/presentation/chat_inbox_page.dart';
 import '../../deals/presentation/deals_page.dart';
 import '../../home_feed/presentation/home_feed_page.dart';
@@ -156,22 +155,19 @@ class _MainShellState extends State<MainShell> {
             ListTile(
               leading: const Icon(Icons.flight_takeoff, color: AppPalette.intlAccent),
               title: Text('post_a_trip'.tr),
-              onTap: () async {
+              onTap: () {
+                // posting needs no verification — the API only enforces it at
+                // deal time (create / accept), so don't block it here
                 Get.back();
-                // website gates posting behind identity verification
-                if (await requireIdentityVerified(action: 'post a trip')) {
-                  Get.to(() => const PostTripPage());
-                }
+                Get.to(() => const PostTripPage());
               },
             ),
             ListTile(
               leading: const Icon(Icons.inventory_2_outlined, color: AppPalette.primary),
               title: Text('post_a_delivery_request'.tr),
-              onTap: () async {
+              onTap: () {
                 Get.back();
-                if (await requireIdentityVerified(action: 'post a delivery request')) {
-                  Get.to(() => const PostRequestPage());
-                }
+                Get.to(() => const PostRequestPage());
               },
             ),
             SizedBox(height: 8.h),

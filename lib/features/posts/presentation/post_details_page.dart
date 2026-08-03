@@ -175,13 +175,14 @@ class PostDetailsPage extends StatelessWidget {
     final rows = <(IconData, String, String)>[
       (Icons.event_outlined, post.isTrip ? 'Trip date' : 'Before', post.dateText),
       (Icons.luggage_outlined, 'Weight', kg(post.remainingWeight ?? post.weight)),
-      if (!post.isTrip && (post.category ?? '').isNotEmpty)
-        (Icons.category_outlined, 'Category', post.category!),
+      // every category the sender picked, not just the first
+      if (!post.isTrip && post.categoriesText.isNotEmpty)
+        (Icons.category_outlined, 'Category', post.categoriesText),
       // trips list what they won't carry
       if (post.isTrip && post.rejectedCategories.isNotEmpty)
         (Icons.block_outlined, 'Not carried', post.rejectedCategories.join(', ')),
-      if (!post.isTrip && post.profit != null)
-        (Icons.payments_outlined, 'Traveler profit', post.profit!),
+      if (!post.isTrip && post.profitText != null)
+        (Icons.payments_outlined, 'Traveler profit', post.profitText!),
       // whatever the poster typed in the notes box
       if ((post.notes ?? '').isNotEmpty)
         (Icons.notes_outlined, 'Notes', post.notes!),

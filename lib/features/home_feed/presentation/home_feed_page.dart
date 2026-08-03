@@ -96,6 +96,7 @@ class HomeFeedPage extends StatelessWidget {
               // touch an observable before any early return, otherwise this Obx
               // tracks nothing on the guest branch and GetX throws
               final loading = c.loading.value;
+              // guests get the nudge here only because this rail is account-based
               if (c.isGuest) return const _LoginNudge();
               if (loading && c.recommended.isEmpty) return const _RailShimmer();
               if (c.recommended.isEmpty) {
@@ -133,7 +134,6 @@ class HomeFeedPage extends StatelessWidget {
             SizedBox(height: 12.h),
             Obx(() {
               final posts = c.visibleFeed; // tracked before any early return
-              if (c.isGuest) return const SizedBox.shrink();
               if (c.loading.value && posts.isEmpty) return const _RailShimmer();
               if (c.error.value != null && posts.isEmpty) {
                 return _EmptyNote(text: c.error.value!);

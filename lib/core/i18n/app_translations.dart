@@ -114,6 +114,11 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "convert_to_settlement": "Enter an amount in your currency to get @currency",
+  "amount": "amount",
+  "use": "Use",
+  "estimate_only": "Estimate — the provider rate may differ slightly",
+  "profit_set_from_conversion": "Traveler profit updated",
   "already_applied": "You have already applied",
   "application_approved": "Approved — you are now a recommended traveler",
   "you_are_already_subscribed": "You are already subscribed",
@@ -509,6 +514,11 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "convert_to_settlement": "Saisissez un montant dans votre devise pour obtenir des @currency",
+  "amount": "montant",
+  "use": "Utiliser",
+  "estimate_only": "Estimation — le taux du prestataire peut varier légèrement",
+  "profit_set_from_conversion": "Profit du voyageur mis à jour",
   "already_applied": "Vous avez déjà postulé",
   "application_approved": "Approuvé — vous êtes voyageur recommandé",
   "you_are_already_subscribed": "Vous êtes déjà abonné",
