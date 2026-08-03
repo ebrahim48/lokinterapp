@@ -5,6 +5,7 @@ import '../../../../core/utils/format.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../../posts/presentation/widgets/mode_badge.dart';
 import '../../../posts/presentation/widgets/transporter_chip.dart';
+import 'package:get/get.dart';
 
 // Horizontal rail of recommended travelers shown under the banner.
 class RecommendedRail extends StatelessWidget {
@@ -89,7 +90,7 @@ class _TravelerCard extends StatelessWidget {
           Text(post.dateText, style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
           SizedBox(height: 6.h),
           Text(
-            '${kg(post.remainingWeight ?? post.weight)} space left',
+            'kg_space_left'.trParams({'kg': kg(post.availableWeight)}),
             style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
           ),
         ],

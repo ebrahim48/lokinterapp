@@ -200,6 +200,29 @@ class Post {
     return n == null ? p : '$currency ${n.toStringAsFixed(n == n.roundToDouble() ? 0 : 2)}';
   }
 
+  /// True once part of the capacity has been booked by a confirmed deal.
+  bool get partlyBooked {
+    final left = remainingWeight;
+    return left != null && left < weight;
+  }
+
+  /// What's actually still available — the number that matters to the person
+  /// reading the post.
+  double get availableWeight => remainingWeight ?? weight;
+
+  /// Compact for cards: "10 / 20 kg" once partly booked, otherwise "20 kg".
+  String get weightText => partlyBooked
+      ? '${kg(availableWeight).replaceAll(' kg', '')} / ${kg(weight)}'
+      : kg(weight);
+
+  /// Roomier phrasing for the details screen.
+  String get weightDetailText => partlyBooked
+      ? 'weight_left_of_total'.trParams({
+          'left': kg(availableWeight),
+          'total': kg(weight),
+        })
+      : kg(weight);
+
   /// All categories on a request, or the single one older payloads send.
   String get categoriesText =>
       categories.isNotEmpty ? categories.join(', ') : (category ?? '');

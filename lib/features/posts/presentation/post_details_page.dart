@@ -5,7 +5,6 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
-import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
 import '../../post_request/presentation/post_request_page.dart';
 import '../../post_trip/presentation/post_trip_page.dart';
@@ -174,7 +173,7 @@ class PostDetailsPage extends StatelessWidget {
   Widget _metaList(BuildContext context) {
     final rows = <(IconData, String, String)>[
       (Icons.event_outlined, post.isTrip ? 'Trip date' : 'Before', post.dateText),
-      (Icons.luggage_outlined, 'Weight', kg(post.remainingWeight ?? post.weight)),
+      (Icons.luggage_outlined, 'Weight', post.weightDetailText),
       // every category the sender picked, not just the first
       if (!post.isTrip && post.categoriesText.isNotEmpty)
         (Icons.category_outlined, 'Category', post.categoriesText),

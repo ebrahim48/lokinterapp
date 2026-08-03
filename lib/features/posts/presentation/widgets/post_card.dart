@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/flags.dart';
-import '../../../../core/utils/format.dart';
 import '../../data/models/post_model.dart';
 import 'corner_ribbon.dart';
 import 'mode_badge.dart';
@@ -122,7 +121,7 @@ class RequestCard extends StatelessWidget {
             Row(
               children: [
                 _meta(Icons.card_giftcard, 'PROFIT', post.profitText ?? '-'),
-                _meta(Icons.shopping_bag_outlined, 'WEIGHT', kg(post.weight)),
+                _meta(Icons.shopping_bag_outlined, 'WEIGHT', post.weightText),
                 _meta(Icons.event_outlined, 'BEFORE', post.shortDateText),
               ],
             ),
@@ -309,7 +308,7 @@ class TripCard extends StatelessWidget {
                 Row(
                   children: [
                     _meta(Icons.event_outlined, 'DATE', post.dateText),
-                    _meta(Icons.luggage_outlined, 'WEIGHT', kg(post.remainingWeight ?? post.weight),
+                    _meta(Icons.luggage_outlined, 'WEIGHT', post.weightText,
                         alignEnd: true),
                   ],
                 ),
