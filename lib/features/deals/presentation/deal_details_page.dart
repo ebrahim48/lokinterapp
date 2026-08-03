@@ -10,6 +10,7 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
+import '../../../core/utils/phone_gate.dart';
 import '../../../core/utils/stripe_sheet.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/verify_gate.dart';
@@ -79,7 +80,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         await _loadDetail();
       }
     } on AppException catch (e) {
-      toastError(e);
+      // a 403 requiresKyc routes to verification instead of a dead-end toast
+      if (!maybeKycPrompt(e)) toastError(e);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -98,8 +100,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   Future<void> _cancel() => _changeWithReason('CANCELED', 'Deal cancelled');
   Future<void> _reject() => _changeWithReason('REJECTED', 'Deal rejected');
 
-  // accepting is entering the agreement, so identity verification is required
+  // accepting is entering the agreement: verified number, then documents
   Future<void> _acceptDeal() async {
+    if (!await requirePhoneVerified(action: 'accept a deal')) return;
     if (!await requireVerified()) return;
     await _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'), 'Deal accepted', pop: false);
   }

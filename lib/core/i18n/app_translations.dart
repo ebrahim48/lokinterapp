@@ -114,6 +114,7 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "phone_needed_to_action": "Verify your phone number to @action.",
   "convert_to_settlement": "Enter an amount in your currency to get @currency",
   "amount": "amount",
   "use": "Use",
@@ -514,6 +515,7 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "phone_needed_to_action": "Vérifiez votre numéro de téléphone pour @action.",
   "convert_to_settlement": "Saisissez un montant dans votre devise pour obtenir des @currency",
   "amount": "montant",
   "use": "Utiliser",

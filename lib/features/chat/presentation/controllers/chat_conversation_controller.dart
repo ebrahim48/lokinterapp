@@ -7,6 +7,7 @@ import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../../core/services/socket_service.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/phone_gate.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../data/chat_model.dart';
 import '../../data/chat_repository.dart';
@@ -119,6 +120,8 @@ class ChatConversationController extends GetxController {
     final id = _chatId;
     final text = composer.text.trim();
     if (sending.value) return;
+    // talking to someone requires a verified number
+    if (!await requirePhoneVerified(action: 'send a message')) return;
     if (id == null) {
       toast('conversation_is_still_opening_try_again_in_a_mom'.tr);
       return;
@@ -141,6 +144,7 @@ class ChatConversationController extends GetxController {
   Future<void> sendAttachment() async {
     final id = _chatId;
     if (id == null || sending.value) return;
+    if (!await requirePhoneVerified(action: 'send a message')) return;
 
     FilePickerResult? picked;
     try {

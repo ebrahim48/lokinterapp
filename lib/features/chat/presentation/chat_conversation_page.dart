@@ -8,6 +8,7 @@ import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
+import '../../../core/utils/phone_gate.dart';
 import '../../../core/utils/verify_gate.dart';
 import '../../../core/widgets/image_viewer.dart';
 import '../../../core/widgets/lok_fields.dart';
@@ -235,7 +236,7 @@ class ChatConversationPage extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton.icon(
-          onPressed: () => _openConfirm(context, c),
+          onPressed: () => _startConfirm(context, c),
           icon: Icon(Icons.handshake_outlined, size: 18.sp),
           label: Text('confirm_agreement_continue'.tr),
           style: ElevatedButton.styleFrom(
@@ -296,6 +297,16 @@ class ChatConversationPage extends StatelessWidget {
     } on AppException catch (e) {
       toastError(e);
     }
+  }
+
+  // the sender enters the agreement here, so identity is checked BEFORE the
+  // form opens — not after they've filled everything in
+  Future<void> _startConfirm(
+      BuildContext context, ChatConversationController c) async {
+    if (!await requirePhoneVerified(action: 'create a deal')) return;
+    if (!await requireVerified()) return;
+    if (!context.mounted) return;
+    _openConfirm(context, c);
   }
 
   void _openConfirm(BuildContext context, ChatConversationController c) {
@@ -530,9 +541,6 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('pick_the_receiver_country'.tr);
       return;
     }
-    // identity verification is required to create a deal (not to chat)
-    if (!await requireVerified()) return;
-    if (!mounted) return;
 
     // only the sender can open this form, so the current user is the sender
     // and the chat peer is the traveler
@@ -568,7 +576,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
         await Get.find<ChatConversationController>().reloadContext();
       }
     } on AppException catch (e) {
-      toastError(e);
+      // the server has the last word on verification
+      if (!maybeKycPrompt(e)) toastError(e);
     } finally {
       if (mounted) setState(() => _sending = false);
     }
