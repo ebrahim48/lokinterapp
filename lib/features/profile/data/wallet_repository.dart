@@ -3,18 +3,82 @@ import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/data_bus.dart';
 
+/// Money the traveler has coming but cannot withdraw yet. Every one of these
+/// stays visible with the reason it is still held — only the available balance
+/// reflects what is actually withdrawable.
 class WalletEarning {
   final int dealId;
+  final String dealRef;
+  final String dealStatus;
   final double amount;
-  final bool credit;
-  final String label;
+  final double profit;
+  final double itemCost;
+  /// e.g. "Waiting for the dispute window to close"
+  final String statusLabel;
+  final DateTime? releaseAt;
+  final int? countdownSeconds;
 
   const WalletEarning({
     required this.dealId,
+    this.dealRef = '',
+    this.dealStatus = '',
     required this.amount,
-    this.credit = true,
-    required this.label,
+    this.profit = 0,
+    this.itemCost = 0,
+    this.statusLabel = '',
+    this.releaseAt,
+    this.countdownSeconds,
   });
+
+  factory WalletEarning.fromJson(Map<String, dynamic> e) => WalletEarning(
+        dealId: e['dealId'] ?? 0,
+        dealRef: '${e['dealRef'] ?? ''}',
+        dealStatus: '${e['dealStatus'] ?? ''}',
+        amount: double.tryParse('${e['amount'] ?? 0}') ?? 0,
+        profit: double.tryParse('${e['profit'] ?? 0}') ?? 0,
+        itemCost: double.tryParse('${e['itemCost'] ?? 0}') ?? 0,
+        statusLabel: '${e['statusLabel'] ?? e['reason'] ?? ''}',
+        releaseAt: DateTime.tryParse('${e['releaseAt'] ?? ''}'),
+        countdownSeconds: e['countdownSeconds'] is num
+            ? (e['countdownSeconds'] as num).toInt()
+            : null,
+      );
+
+  /// "5h 20m left" while the hold is still counting down.
+  String? get countdownText {
+    final s = countdownSeconds;
+    if (s == null || s <= 0) return null;
+    final h = s ~/ 3600, m = (s % 3600) ~/ 60;
+    return h > 0 ? '${h}h ${m}m left' : '${m}m left';
+  }
+}
+
+/// A guarantee that was charged, refunded or is held because of a dispute.
+class WalletDispute {
+  final int dealId;
+  final String dealRef;
+  final double amountCharged;
+  final String statusLabel;
+  final String reason;
+  final String status;
+
+  const WalletDispute({
+    required this.dealId,
+    this.dealRef = '',
+    this.amountCharged = 0,
+    this.statusLabel = '',
+    this.reason = '',
+    this.status = '',
+  });
+
+  factory WalletDispute.fromJson(Map<String, dynamic> e) => WalletDispute(
+        dealId: e['dealId'] ?? 0,
+        dealRef: '${e['dealRef'] ?? ''}',
+        amountCharged: double.tryParse('${e['amountCharged'] ?? 0}') ?? 0,
+        statusLabel: '${e['statusLabel'] ?? ''}',
+        reason: '${e['reason'] ?? ''}',
+        status: '${e['status'] ?? ''}',
+      );
 }
 
 class WalletData {
@@ -23,7 +87,9 @@ class WalletData {
   final double lifetimeEarnings;
   final String currency;
   final bool hasStripeConnect;
-  final List<WalletEarning> recent;
+  /// Everything still owed to the traveler, each with why it is held.
+  final List<WalletEarning> potential;
+  final List<WalletDispute> disputes;
 
   const WalletData({
     this.available = 0,
@@ -31,7 +97,8 @@ class WalletData {
     this.lifetimeEarnings = 0,
     this.currency = 'USD',
     this.hasStripeConnect = false,
-    this.recent = const [],
+    this.potential = const [],
+    this.disputes = const [],
   });
 
   factory WalletData.fromJson(Map<String, dynamic> json) => WalletData(
@@ -40,13 +107,17 @@ class WalletData {
         lifetimeEarnings: ((json['lifetimeEarnings'] ?? 0) as num).toDouble(),
         currency: json['currency'] ?? 'USD',
         hasStripeConnect: json['hasStripeConnect'] ?? false,
-        recent: [
-          for (final e in (json['recentEarnings'] as List? ?? []).whereType<Map>())
-            WalletEarning(
-              dealId: e['dealId'] ?? 0,
-              amount: ((e['amount'] ?? 0) as num).toDouble(),
-              label: 'Delivery payout — deal #${e['dealId']}',
-            ),
+        potential: [
+          for (final e in (json['potentialEarningsList'] as List? ??
+                  json['recentEarnings'] as List? ??
+                  const [])
+              .whereType<Map>())
+            WalletEarning.fromJson(Map<String, dynamic>.from(e)),
+        ],
+        disputes: [
+          for (final e in (json['disputeHistory'] as List? ?? const [])
+              .whereType<Map>())
+            WalletDispute.fromJson(Map<String, dynamic>.from(e)),
         ],
       );
 }
@@ -85,6 +156,11 @@ class WalletTransaction {
   final double balanceAfter;
   final String description;
   final DateTime? createdAt;
+  /// Why the money moved, and where the entry stands.
+  final String statusLabel;
+  final String reason;
+  final int dealId;
+  final String dealRef;
 
   const WalletTransaction({
     required this.id,
@@ -93,6 +169,10 @@ class WalletTransaction {
     required this.balanceAfter,
     required this.description,
     this.createdAt,
+    this.statusLabel = '',
+    this.reason = '',
+    this.dealId = 0,
+    this.dealRef = '',
   });
 
   bool get isCredit =>
@@ -105,7 +185,12 @@ class WalletTransaction {
         amount: double.tryParse('${json['amount'] ?? 0}') ?? 0,
         balanceAfter: double.tryParse('${json['balanceAfter'] ?? json['balance_after'] ?? 0}') ?? 0,
         description: (json['description'] ?? '').toString(),
-        createdAt: DateTime.tryParse('${json['createdAt'] ?? json['created_at'] ?? ''}'),
+        createdAt: DateTime.tryParse(
+            '${json['dateTime'] ?? json['createdAt'] ?? json['created_at'] ?? ''}'),
+        statusLabel: '${json['statusLabel'] ?? ''}',
+        reason: '${json['reason'] ?? ''}',
+        dealId: json['dealId'] ?? 0,
+        dealRef: '${json['dealRef'] ?? ''}',
       );
 }
 

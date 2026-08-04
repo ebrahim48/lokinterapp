@@ -114,6 +114,8 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "item_value": "Item value",
+  "security_deposit_amount": "Security deposit amount",
   "weight_left_of_total": "@left left of @total",
   "kg_space_left": "@kg space left",
   "phone_needed_to_action": "Verify your phone number to @action.",
@@ -517,6 +519,8 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "item_value": "Valeur de l'article",
+  "security_deposit_amount": "Montant de la caution",
   "weight_left_of_total": "@left restant sur @total",
   "kg_space_left": "@kg disponibles",
   "phone_needed_to_action": "Vérifiez votre numéro de téléphone pour @action.",

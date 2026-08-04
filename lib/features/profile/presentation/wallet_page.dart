@@ -100,18 +100,121 @@ class _WalletPageState extends State<WalletPage> {
                         ],
                       ),
                       SizedBox(height: 8.h),
-                      if (_data!.recent.isEmpty)
+                      if (_data!.potential.isEmpty && _data!.disputes.isEmpty)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.h),
                           child: Text('no_earnings_yet_completed_deliveries_land_here'.tr,
                               style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant)),
                         ),
-                      for (final e in _data!.recent)
-                        _txRow(context, e.label,
-                            '+ ${_data!.currency} ${e.amount.toStringAsFixed(2)}', e.credit),
+                      // every amount still owed, each with why it is held —
+                      // none of this counts toward the available balance
+                      for (final e in _data!.potential)
+                        _pendingRow(context, _data!.currency, e),
+                      for (final d in _data!.disputes)
+                        _disputeRow(context, _data!.currency, d),
                     ],
                   ),
                 ),
+    );
+  }
+
+  // One line of potential profit: the amount, why it is not withdrawable yet,
+  // which deal it belongs to, and any countdown still running.
+  Widget _pendingRow(BuildContext context, String currency, WalletEarning e) {
+    final cs = Theme.of(context).colorScheme;
+    final countdown = e.countdownText;
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: cs.outline),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.hourglass_bottom, size: 18.sp, color: AppPalette.primary),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$currency ${e.amount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w800,
+                      color: cs.onSurface),
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  e.statusLabel,
+                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  [
+                    if (e.dealRef.isNotEmpty) e.dealRef else 'Deal #${e.dealId}',
+                    if (countdown != null) countdown,
+                  ].join('  •  '),
+                  style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // A guarantee charged or held because of a dispute, with the reason.
+  Widget _disputeRow(BuildContext context, String currency, WalletDispute d) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: AppPalette.primary.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: AppPalette.primary.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.gpp_maybe_outlined, size: 18.sp, color: AppPalette.primary),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('$currency ${d.amountCharged.toStringAsFixed(2)}',
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w800,
+                        color: cs.onSurface)),
+                SizedBox(height: 2.h),
+                Text(d.statusLabel,
+                    style: TextStyle(fontSize: 12.sp, color: AppPalette.primary)),
+                if (d.reason.isNotEmpty) ...[
+                  SizedBox(height: 2.h),
+                  Text(d.reason,
+                      style:
+                          TextStyle(fontSize: 11.5.sp, color: cs.onSurfaceVariant)),
+                ],
+                SizedBox(height: 4.h),
+                Text(
+                  [
+                    if (d.dealRef.isNotEmpty) d.dealRef else 'Deal #${d.dealId}',
+                    if (d.status.isNotEmpty) d.status,
+                  ].join('  •  '),
+                  style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -222,37 +325,6 @@ class _WalletPageState extends State<WalletPage> {
     );
   }
 
-  Widget _txRow(BuildContext context, String label, String amount, bool credit) {
-    final cs = Theme.of(context).colorScheme;
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 18.r,
-            backgroundColor: (credit ? AppPalette.verified : cs.onSurfaceVariant).withValues(alpha: 0.12),
-            child: Icon(
-              credit ? Icons.south_west : Icons.north_east,
-              size: 16.sp,
-              color: credit ? AppPalette.verified : cs.onSurfaceVariant,
-            ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Text(label,
-                maxLines: 1, overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 13.sp, color: cs.onSurface)),
-          ),
-          Text(amount,
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
-                color: credit ? AppPalette.verified : cs.onSurface,
-              )),
-        ],
-      ),
-    );
-  }
 }
 
 class _WithdrawSheet extends StatefulWidget {

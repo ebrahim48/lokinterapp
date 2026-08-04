@@ -594,6 +594,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           _row(context, 'Receiver name', deal.receiverName ?? '—'),
           _row(context, 'Receiver phone', deal.receiverPhone ?? '—'),
           _row(context, 'Traveler profit', deal.profitLabel),
+          // what the item is worth — the security-deposit basis on a SEND deal
+          if (deal.itemEstimatedCost != null && deal.itemEstimatedCost! > 0)
+            _row(
+              context,
+              deal.wantTo == 'BUY_AND_DELIVER'
+                  ? 'item_value'.tr
+                  : 'security_deposit_amount'.tr,
+              deal.depositLabel,
+            ),
           _row(context, 'Payment method', deal.paymentLabel),
           // item details the sender filled in — the traveler needs these
           if ((deal.itemName ?? '').isNotEmpty)

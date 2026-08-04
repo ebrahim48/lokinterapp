@@ -568,13 +568,18 @@ class _AgreementSheetState extends State<_AgreementSheet> {
         // API enum value — the label shown in the dropdown is friendlier
         paymentMethod: _isStripe ? 'STRIPE' : 'CASH_ON_DELIVERY',
       );
+      // flip the chat's action bar over to the new agreement before closing,
+      // so the button is already "Deal Pending" when the sheet disappears.
+      // The controller is registered per peer, so the tag is required — without
+      // it the lookup silently misses and the bar only updated on a manual
+      // refresh.
+      final tag = 'chat_${widget.peer.id}';
+      if (Get.isRegistered<ChatConversationController>(tag: tag)) {
+        await Get.find<ChatConversationController>(tag: tag).reloadContext();
+      }
       if (!mounted) return;
       Navigator.pop(context);
       toast('agreement_sent_track_it_under_deals'.tr);
-      // flip the chat's action bar over to the new agreement straight away
-      if (Get.isRegistered<ChatConversationController>()) {
-        await Get.find<ChatConversationController>().reloadContext();
-      }
     } on AppException catch (e) {
       // the server has the last word on verification
       if (!maybeKycPrompt(e)) toastError(e);

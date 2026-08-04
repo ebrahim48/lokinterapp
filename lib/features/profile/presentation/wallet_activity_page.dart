@@ -122,11 +122,31 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 13.sp, color: cs.onSurface),
                     ),
-                    if (t.createdAt != null) ...[
+                    // why the money moved — hold, guarantee, refund or dispute
+                    if (t.statusLabel.isNotEmpty || t.reason.isNotEmpty) ...[
                       SizedBox(height: 2.h),
-                      Text(shortDate(t.createdAt!),
-                          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+                      Text(
+                        t.statusLabel.isNotEmpty ? t.statusLabel : t.reason,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 11.5.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppPalette.primary),
+                      ),
                     ],
+                    SizedBox(height: 2.h),
+                    // which deal it belongs to, and when
+                    Text(
+                      [
+                        if (t.dealRef.isNotEmpty)
+                          t.dealRef
+                        else if (t.dealId != 0)
+                          'Deal #${t.dealId}',
+                        if (t.createdAt != null) shortDateTime(t.createdAt!),
+                      ].join('  •  '),
+                      style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                    ),
                   ],
                 ),
               ),
