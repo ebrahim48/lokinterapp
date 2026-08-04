@@ -5,12 +5,17 @@ import '../../features/auth/data/auth_repository.dart';
 import '../services/session_service.dart';
 import '../theme/app_palette.dart';
 
-/// A verified phone number is required before a user can talk to anyone or
-/// enter an agreement — messaging, posting, and deal creation all go through
-/// here. Returns true when the number is verified; otherwise it explains why
-/// and offers the verification screen, then returns false.
+/// A verified phone number is asked for at EXACTLY TWO moments, and nowhere
+/// else:
 ///
-/// Identity documents are a separate, later gate — see `requireVerified`.
+///  1. the sender taps "Confirm agreement & continue"
+///  2. the traveler taps "Accept deal"
+///
+/// Browsing, chatting and posting never ask. Both moments also check identity
+/// documents right after — see `requireVerified`.
+///
+/// Returns true when the number is verified; otherwise it explains why and
+/// offers the verification screen, then returns its result.
 Future<bool> requirePhoneVerified({String action = 'continue'}) async {
   final session = Get.find<SessionService>();
 

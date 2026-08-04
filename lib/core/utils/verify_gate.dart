@@ -6,9 +6,9 @@ import '../exceptions/app_exceptions.dart';
 import '../theme/app_palette.dart';
 import 'notify.dart';
 
-// Identity verification gates the AGREEMENT — the sender's "confirm agreement
-// and continue" and the traveler's "accept deal". Posting and chatting only
-// need a verified phone number (see requirePhoneVerified).
+// Identity documents are asked for at EXACTLY TWO moments, alongside the phone
+// check: the sender's "Confirm agreement & continue" and the traveler's
+// "Accept deal". Nothing else in the app asks — posting and chatting are free.
 //
 // Returns true when the user is verified; otherwise shows the prompt and
 // returns false.
