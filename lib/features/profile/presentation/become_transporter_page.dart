@@ -39,8 +39,19 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
   @override
   void initState() {
     super.initState();
+    // show what the server already holds when an application exists
+    final user = Get.find<SessionService>().user.value;
+    _legalName.text = user?.legalName ?? '';
+    _address.text = user?.address ?? '';
     _lookups.countries().then((list) {
-      if (mounted) setState(() => _all = list);
+      if (!mounted) return;
+      setState(() {
+        _all = list;
+        final saved = user?.operatingCountries ?? const [];
+        _countries.assignAll(list
+            .where((c) => saved.contains(c.iso2))
+            .map((c) => c.name));
+      });
     }).catchError((_) {});
   }
 
@@ -118,15 +129,18 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final pending =
-        Get.find<SessionService>().user.value?.transporterPending ?? false;
+    final user = Get.find<SessionService>().user.value;
+    // isTransporter true means the server already has an application, so the
+    // form is read-only and we just report where it stands
+    final applied = user?.transporterApplied ?? false;
+    final approved = user?.showTransporterBadge ?? false;
 
     return Scaffold(
       appBar: AppBar(title: Text('become_a_transporter'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
-          if (pending) ...[
+          if (applied) ...[
             Container(
               padding: EdgeInsets.all(14.w),
               decoration: BoxDecoration(
@@ -139,7 +153,10 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
                   Icon(Icons.hourglass_top, color: AppPalette.primary, size: 20.sp),
                   SizedBox(width: 10.w),
                   Expanded(
-                    child: Text('transporter_request_pending'.tr,
+                    child: Text(
+                        approved
+                            ? 'you_are_already_a_transporter'.tr
+                            : 'transporter_request_pending'.tr,
                         style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant)),
                   ),
                 ],
@@ -190,7 +207,17 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
             onTap: () => _pick(false),
           ),
           SizedBox(height: 22.h),
-          LokBusyButton(busy: _busy, label: 'submit_request'.tr, onPressed: _submit),
+          if (applied)
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: null,
+                child: Text('already_applied'.tr),
+              ),
+            )
+          else
+            LokBusyButton(
+                busy: _busy, label: 'submit_request'.tr, onPressed: _submit),
         ],
       ),
     );

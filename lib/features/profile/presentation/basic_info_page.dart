@@ -447,7 +447,9 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           _verifyRow(
             context,
             'Phone number',
-            summary?.phoneVerified ?? false,
+            // /auth/user is the authority here — phoneVerified, or the
+            // phoneVerifiedAt timestamp when an older payload omits the flag
+            user?.phoneVerified ?? summary?.phoneVerified ?? false,
             actionLabel: 'Verify',
             onVerify: _verifyPhone,
           ),

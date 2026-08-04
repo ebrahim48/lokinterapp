@@ -19,6 +19,11 @@ class AuthUser {
   final String? transporterVisibilityStatus; // active | expired | none
   final String? kycStatus;
 
+  // transporter business details the account already submitted
+  final String? legalName;
+  final String? address;
+  final List<String> operatingCountries;
+
   // eligibility inputs for the free "recommended traveler" application
   final int successfulDeliveriesCount;
   final bool hasNoDisputesOnCompletedDeliveries;
@@ -46,6 +51,9 @@ class AuthUser {
     this.featuredTransporterUntil,
     this.transporterVisibilityStatus,
     this.kycStatus,
+    this.legalName,
+    this.address,
+    this.operatingCountries = const [],
     this.successfulDeliveriesCount = 0,
     this.hasNoDisputesOnCompletedDeliveries = false,
     this.phoneVerified = false,
@@ -84,6 +92,11 @@ class AuthUser {
 
   bool get transporterPending => transporterVerificationStatus == 'pending';
 
+  /// The account already carries a transporter application. `isTransporter`
+  /// alone is enough — the payload often omits the status field, and asking
+  /// someone to apply again when the server already has them on file is wrong.
+  bool get transporterApplied => isTransporter;
+
   factory AuthUser.fromJson(Map<String, dynamic> json) => AuthUser(
         id: json['id'] ?? 0,
         fullName: json['fullName'] ?? json['name'] ?? '',
@@ -102,6 +115,11 @@ class AuthUser {
         featuredTransporterUntil: json['featuredTransporterUntil'],
         transporterVisibilityStatus: json['transporterVisibilityStatus'],
         kycStatus: json['kycStatus'],
+        legalName: json['legalName'],
+        address: json['address'],
+        operatingCountries: (json['operatingCountries'] as List? ?? const [])
+            .map((e) => '$e')
+            .toList(),
         successfulDeliveriesCount: json['successfulDeliveriesCount'] ?? 0,
         hasNoDisputesOnCompletedDeliveries:
             json['hasNoDisputesOnCompletedDeliveries'] ?? false,
@@ -131,6 +149,9 @@ class AuthUser {
         'featuredTransporterUntil': featuredTransporterUntil,
         'transporterVisibilityStatus': transporterVisibilityStatus,
         'kycStatus': kycStatus,
+        'legalName': legalName,
+        'address': address,
+        'operatingCountries': operatingCountries,
         'successfulDeliveriesCount': successfulDeliveriesCount,
         'hasNoDisputesOnCompletedDeliveries': hasNoDisputesOnCompletedDeliveries,
         'phoneVerified': phoneVerified,

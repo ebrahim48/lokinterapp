@@ -114,6 +114,7 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "you_are_already_a_transporter": "You are already registered as a transporter",
   "we_send_a_code_to_your_whatsapp": "We'll send a 4-digit code to this number on WhatsApp.",
   "enter_the_code_we_sent_to_whatsapp": "Enter the 4-digit code we sent on WhatsApp.",
   "enter_the_4_digit_code": "Enter the 4-digit code",
@@ -524,6 +525,7 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "you_are_already_a_transporter": "Vous êtes déjà enregistré comme transporteur",
   "we_send_a_code_to_your_whatsapp": "Nous enverrons un code à 4 chiffres à ce numéro sur WhatsApp.",
   "enter_the_code_we_sent_to_whatsapp": "Saisissez le code à 4 chiffres envoyé sur WhatsApp.",
   "enter_the_4_digit_code": "Saisissez le code à 4 chiffres",

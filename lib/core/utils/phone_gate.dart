@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../features/profile/presentation/verify_phone_page.dart';
+import '../../features/auth/data/auth_repository.dart';
 import '../services/session_service.dart';
 import '../theme/app_palette.dart';
 
@@ -11,8 +12,12 @@ import '../theme/app_palette.dart';
 ///
 /// Identity documents are a separate, later gate — see `requireVerified`.
 Future<bool> requirePhoneVerified({String action = 'continue'}) async {
-  final user = Get.find<SessionService>().user.value;
-  if (user?.phoneVerified ?? false) return true;
+  final session = Get.find<SessionService>();
+
+  // the cached user can predate a verification done elsewhere (the website, or
+  // another device), so ask the server before blocking anyone. `/auth/user` is
+  // the authority: phoneVerified true, or a phoneVerifiedAt timestamp.
+  if (await _isPhoneVerifiedNow(session)) return true;
 
   final go = await Get.dialog<bool>(
     AlertDialog(
@@ -33,4 +38,15 @@ Future<bool> requirePhoneVerified({String action = 'continue'}) async {
   // the screen writes the verified user into the session, so this returns
   // true and the caller can carry straight on with what it was doing
   return VerifyPhonePage.open();
+}
+
+/// Re-reads `/auth/user` and persists it, falling back to the cached value if
+/// the call fails — being offline shouldn't lock a verified user out.
+Future<bool> _isPhoneVerifiedNow(SessionService session) async {
+  try {
+    final fresh = await AuthRepository().me();
+    return fresh.phoneVerified;
+  } catch (_) {
+    return session.user.value?.phoneVerified ?? false;
+  }
 }

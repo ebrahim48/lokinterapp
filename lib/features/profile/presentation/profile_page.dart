@@ -45,8 +45,8 @@ class ProfilePage extends StatelessWidget {
                 () => Get.to(() => const MyPostsPage())),
             _Item(Icons.trending_up, 'Increase Visibility to Senders',
                 () => Get.to(() => const IncreaseVisibilityPage())),
-            // only offered until the account is an approved transporter
-            if (!(c.user?.showTransporterBadge ?? false))
+            // not offered once the account already has an application on file
+            if (!(c.user?.transporterApplied ?? false))
               _Item(Icons.local_shipping_outlined, 'become_a_transporter'.tr,
                   () => Get.to(() => const BecomeTransporterPage())),
             _Item(Icons.account_balance_wallet_outlined, 'Wallet & payouts',
