@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
+import '../../auth/data/models/auth_user.dart';
+import '../../../core/services/session_service.dart';
 import '../../../core/services/data_bus.dart';
 import '../../reviews/data/review_model.dart';
 
@@ -130,12 +132,19 @@ class ProfileRepository {
     }));
   }
 
+  /// Verifies the code and persists the freshly-verified user the API returns,
+  /// so `phoneVerified` flips immediately and the gates stop blocking without
+  /// waiting for the next /auth/user sync.
   Future<void> verifyPhoneOtp(
       String otp, String phoneNumber, String countryCode) async {
-    unwrapData(await _api.post('/auth/verifyPhoneOtp', data: {
+    final data = unwrapData(await _api.post('/auth/verifyPhoneOtp', data: {
       'otp': otp,
       'phoneNumber': phoneNumber,
       'countryCode': countryCode,
     }));
+    if (data is Map) {
+      await Get.find<SessionService>()
+          .saveUser(AuthUser.fromJson(Map<String, dynamic>.from(data)));
+    }
   }
 }

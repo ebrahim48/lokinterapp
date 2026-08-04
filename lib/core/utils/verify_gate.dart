@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../features/profile/data/kyc_repository.dart';
-import '../../features/profile/presentation/basic_info_page.dart';
 import '../exceptions/app_exceptions.dart';
 import '../theme/app_palette.dart';
 import 'notify.dart';
@@ -22,23 +22,39 @@ Future<bool> requireVerified() async {
   }
   if (kyc.verified) return true;
 
-  await Get.dialog<void>(
+  final go = await Get.dialog<bool>(
     AlertDialog(
       title: Text('verify_your_identity'.tr),
       content: Text(kyc.message),
       actions: [
-        TextButton(onPressed: () => Get.back(), child: Text('not_now'.tr)),
         TextButton(
-          onPressed: () {
-            Get.back();
-            Get.to(() => const BasicInfoPage());
-          },
+            onPressed: () => Get.back(result: false), child: Text('not_now'.tr)),
+        TextButton(
+          onPressed: () => Get.back(result: true),
           child: Text('verify'.tr, style: TextStyle(color: AppPalette.primary)),
         ),
       ],
     ),
   );
+  if (go == true) await startKycVerification();
   return false;
+}
+
+/// Opens the provider's hosted document check (`POST /kyc/verify` →
+/// `verificationUrl`). The result arrives by webhook, so the caller can't
+/// continue in this pass — the user comes back once the check clears.
+Future<void> startKycVerification() async {
+  try {
+    final url = await KycRepository().startVerification();
+    if (url == null || url.isEmpty) {
+      toast('could_not_open_the_verification_page'.tr);
+      return;
+    }
+    final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    if (!ok) toast('could_not_open_the_verification_page'.tr);
+  } on AppException catch (e) {
+    toastError(e);
+  }
 }
 
 /// Handles the API's `403 { requiresKyc: true }` for callers that reached the
@@ -62,7 +78,7 @@ bool maybeKycPrompt(AppException e) {
         TextButton(
           onPressed: () {
             Get.back();
-            Get.to(() => const BasicInfoPage());
+            startKycVerification();
           },
           child: Text('verify'.tr, style: TextStyle(color: AppPalette.primary)),
         ),

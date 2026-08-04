@@ -114,6 +114,11 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "we_send_a_code_to_your_whatsapp": "We'll send a 4-digit code to this number on WhatsApp.",
+  "enter_the_code_we_sent_to_whatsapp": "Enter the 4-digit code we sent on WhatsApp.",
+  "enter_the_4_digit_code": "Enter the 4-digit code",
+  "resend_in_seconds": "Resend in @ss",
+  "change_number": "Change number",
   "item_value": "Item value",
   "security_deposit_amount": "Security deposit amount",
   "weight_left_of_total": "@left left of @total",
@@ -519,6 +524,11 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "we_send_a_code_to_your_whatsapp": "Nous enverrons un code à 4 chiffres à ce numéro sur WhatsApp.",
+  "enter_the_code_we_sent_to_whatsapp": "Saisissez le code à 4 chiffres envoyé sur WhatsApp.",
+  "enter_the_4_digit_code": "Saisissez le code à 4 chiffres",
+  "resend_in_seconds": "Renvoyer dans @ss",
+  "change_number": "Changer de numéro",
   "item_value": "Valeur de l'article",
   "security_deposit_amount": "Montant de la caution",
   "weight_left_of_total": "@left restant sur @total",
