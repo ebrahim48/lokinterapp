@@ -60,11 +60,22 @@ class PostsRepository {
   // as stripped-down rows flagged POST; agreements (flag DEAL) come back on the
   // same endpoint and must not show up as posts
   Future<List<Post>> myPosts(String type) async {
-    final res = await _api.get('/deals/getAllDeals', queryParameters: {
-      'status': type, // TRIP or DELIVER
-      'limit': 100,
-      'page': 1,
-    });
+    // the dedicated endpoint returns the full row (wantTo, profit, images);
+    // getAllDeals is the older, trimmed shape and stays as a fallback
+    Response res;
+    try {
+      res = await _api.get('/deals/myDealsPosts', queryParameters: {
+        'status': type,
+        'limit': 100,
+        'page': 1,
+      });
+    } catch (_) {
+      res = await _api.get('/deals/getAllDeals', queryParameters: {
+        'status': type, // TRIP or DELIVER
+        'limit': 100,
+        'page': 1,
+      });
+    }
     final data = unwrapData(res);
     final rows = data is Map ? (data['list'] as List? ?? []) : const [];
     return rows

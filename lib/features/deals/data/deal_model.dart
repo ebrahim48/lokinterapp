@@ -102,6 +102,16 @@ class Deal {
 
   // getById omits the item name/notes/attachments that the list row carries,
   // so keep the richer values when the detail call replaces this deal
+  static String? _normaliseWantTo(dynamic raw) {
+    final v = '${raw ?? ''}'.toUpperCase();
+    if (v.isEmpty) return null;
+    if (v == 'BUYITEM' || v == 'BUY' || v == 'BUY_AND_DELIVER') {
+      return 'BUY_AND_DELIVER';
+    }
+    if (v == 'DELIVERITEMS' || v == 'SEND') return 'SEND';
+    return v;
+  }
+
   /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
   String? get wantToLabel => switch (wantTo) {
         'BUY_AND_DELIVER' => 'buy_for_me_and_deliver'.tr,
@@ -149,7 +159,9 @@ class Deal {
   factory Deal.fromListJson(Map<String, dynamic> json) => Deal(
         id: json['id'] ?? 0,
         refId: '',
-        type: PostType.deliver,
+        type: '${json['postType'] ?? json['type'] ?? ''}'.toUpperCase() == 'TRIP'
+            ? PostType.trip
+            : PostType.deliver,
         location: json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
         fromCountry: (json['from'] ?? '').toString(),
         toCountry: (json['to'] ?? '').toString(),
@@ -158,14 +170,34 @@ class Deal {
         profitAmount: _num(json['profit']),
         status: _status(json['status']),
         counterpart: const PostUser(name: ''),
+        isSender: _hasRole(json, 'SENDER', 'isSender'),
+        isTraveler: _hasRole(json, 'TRAVELER', 'isTraveler'),
         paymentMethod: json['paymentMethod'] ?? '',
         countdownSeconds: json['countdownSeconds'],
         fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
       );
 
   // Full detail from /deals/getById/{id}
-  factory Deal.fromJson(Map<String, dynamic> json) {
-    final isTraveler = json['isTraveler'] ?? false;
+  /// The API now nests everything the sender filled in under
+  /// `agreementDetails`; older payloads keep the same keys at the top level,
+  /// so read the block first and fall back to the flat shape.
+  static Map<String, dynamic> _agreement(Map<String, dynamic> json) {
+    final a = json['agreementDetails'];
+    return a is Map ? {...json, ...Map<String, dynamic>.from(a)} : json;
+  }
+
+  /// `userRole` states the role outright ("SENDER" / "TRAVELER"); the boolean
+  /// flags say the same thing. Either will do — older payloads carry neither,
+  /// and those fall back to false, which is what the list rows already assumed.
+  static bool _hasRole(Map<String, dynamic> json, String role, String flag) {
+    if (json[flag] is bool) return json[flag] as bool;
+    return '${json['userRole'] ?? ''}'.toUpperCase() == role;
+  }
+
+  factory Deal.fromJson(Map<String, dynamic> rawJson) {
+    // agreementDetails wins where present — it is the sender's filled-in form
+    final json = _agreement(rawJson);
+    final isTraveler = _hasRole(json, 'TRAVELER', 'isTraveler');
     // whoever is on the other side of the agreement — the id matters as much as
     // the name, it's what opens the chat (getChatDetails/{receiver_id})
     final otherName =
@@ -187,7 +219,7 @@ class Deal {
         id: otherId is int ? otherId : int.tryParse('$otherId') ?? 0,
         name: otherName,
       ),
-      isSender: json['isSender'] ?? false,
+      isSender: _hasRole(json, 'SENDER', 'isSender'),
       isTraveler: isTraveler,
       paymentMethod: json['paymentMethod'] ?? '',
       receiverName: json['receiverName'],
@@ -197,10 +229,14 @@ class Deal {
       itemName: json['itemName'],
       notes: json['notes'] ?? json['itemDescription'],
       itemLink: json['itemLink'],
-      wantTo: json['wantTo'] ?? json['dealType'],
+      // BUYITEM and BUY_AND_DELIVER mean the same thing across endpoints
+      wantTo: _normaliseWantTo(
+          json['deliveryType'] ?? json['wantTo'] ?? json['dealType']),
       cancelReason: json['cancelReason'],
       sdRequired: json['sdRequired'] ?? false,
-      itemEstimatedCost: _num(json['itemEstimatedCost']),
+      itemEstimatedCost: _num(json['itemEstimatedCost'] ??
+          json['itemValue'] ??
+          json['itemPrice']),
       travelerGuaranteeHeld: json['travelerGuaranteeHeld'] ?? false,
       senderFundsHeld: json['senderFundsHeld'] ?? false,
       countdownSeconds: json['countdownSeconds'],

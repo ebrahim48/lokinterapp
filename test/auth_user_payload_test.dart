@@ -106,6 +106,27 @@ void main() {
         reason: 'no approved status, so no badge yet');
   });
 
+  // is_transporter is also set by the signup checkbox, so it proves nothing
+  // about admin approval — only the status does
+  test('the badge waits for the admin', () {
+    AuthUser withStatus(String? s) => AuthUser.fromJson({
+          'id': 5,
+          'fullName': 'x',
+          'email': 'x@y.z',
+          'isTransporter': true,
+          'transporterVerificationStatus': s,
+        });
+
+    expect(withStatus('none').showTransporterBadge, isFalse);
+    expect(withStatus('pending').showTransporterBadge, isFalse);
+    expect(withStatus('rejected').showTransporterBadge, isFalse);
+    expect(withStatus('approved').showTransporterBadge, isTrue);
+
+    expect(withStatus('none').transporterPending, isFalse,
+        reason: '"none" means never applied');
+    expect(withStatus('rejected').transporterRejected, isTrue);
+  });
+
   test('an ordinary account is still offered the application', () {
     final plain = AuthUser.fromJson(
         {'id': 5, 'fullName': 'x', 'email': 'x@y.z', 'isTransporter': false});

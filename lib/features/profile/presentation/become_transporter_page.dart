@@ -134,12 +134,53 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
     // form is read-only and we just report where it stands
     final applied = user?.transporterApplied ?? false;
     final approved = user?.showTransporterBadge ?? false;
+    final rejected = user?.transporterRejected ?? false;
+    final rejectionReason = user?.transporterRejectionReason;
 
     return Scaffold(
       appBar: AppBar(title: Text('become_a_transporter'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
+          // a rejected application says exactly what to fix, and can be redone
+          if (rejected) ...[
+            Container(
+              padding: EdgeInsets.all(14.w),
+              decoration: BoxDecoration(
+                color: AppPalette.primary.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(14.r),
+                border: Border.all(color: AppPalette.primary.withValues(alpha: 0.4)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.error_outline, color: AppPalette.primary, size: 20.sp),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('transporter_request_rejected'.tr,
+                            style: TextStyle(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w700,
+                                color: AppPalette.primary)),
+                        if ((rejectionReason ?? '').isNotEmpty) ...[
+                          SizedBox(height: 4.h),
+                          Text(rejectionReason!,
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: cs.onSurfaceVariant,
+                                  height: 1.4)),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 18.h),
+          ],
           if (applied) ...[
             Container(
               padding: EdgeInsets.all(14.w),

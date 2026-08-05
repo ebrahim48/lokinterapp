@@ -397,23 +397,88 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
+  /// The full dispute record: what was raised, what the admin decided, and any
+  /// notes they left. The resolution is the part people actually need — a bare
+  /// reason tells them nothing about the outcome.
   Future<void> _showDisputeReport() async {
+    Map<String, dynamic>? report;
     try {
-      final report = await _repo.disputeReport(deal.id);
-      final text = report?['reason'] ??
-          report?['description'] ??
-          deal.dispute?['reason'] ??
-          deal.cancelReasonLabel;
-      Get.dialog(
-        AlertDialog(
-          title: Text('dispute_report'.tr),
-          content: Text(text?.toString() ?? 'No report details available.'),
-          actions: [TextButton(onPressed: () => Get.back(), child: Text('close'.tr))],
-        ),
-      );
+      report = await _repo.disputeReport(deal.id);
     } on AppException catch (e) {
       toastError(e);
+      return;
     }
+
+    final d = report ?? deal.dispute ?? const <String, dynamic>{};
+    String? pick(List<String> keys) {
+      for (final k in keys) {
+        final v = d[k];
+        if (v != null && '$v'.trim().isNotEmpty) return '$v';
+      }
+      return null;
+    }
+
+    final reason = pick(['reason_label', 'reasonLabel', 'reason']);
+    final description = pick(['description']);
+    final status = pick(['status_label', 'statusLabel', 'status']);
+    final decision = pick(['decision_label', 'decisionLabel', 'adminDecision']);
+    final notes = pick(['resolution_notes', 'resolutionNotes']);
+    final resolvedAt = pick(['resolved_at', 'resolvedAt']);
+
+    if (!mounted) return;
+    final cs = Theme.of(context).colorScheme;
+
+    Widget line(String label, String value, {bool emphasise = false}) => Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label,
+                  style: TextStyle(
+                      fontSize: 10.5.sp,
+                      letterSpacing: 0.4,
+                      color: cs.onSurfaceVariant)),
+              SizedBox(height: 2.h),
+              Text(value,
+                  style: TextStyle(
+                      fontSize: 13.sp,
+                      height: 1.35,
+                      fontWeight: emphasise ? FontWeight.w700 : FontWeight.w500,
+                      color: emphasise ? AppPalette.primary : cs.onSurface)),
+            ],
+          ),
+        );
+
+    Get.dialog(
+      AlertDialog(
+        title: Text('dispute_report'.tr),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (reason != null) line('reason'.tr, reason),
+              if (description != null) line('description'.tr, description),
+              if (status != null) line('status'.tr, status),
+              // what the admin actually did, and why
+              if (decision != null)
+                line('admin_decision'.tr, decision, emphasise: true),
+              if (notes != null) line('admin_notes'.tr, notes),
+              if (resolvedAt != null) line('resolved'.tr, resolvedAt),
+              if (reason == null &&
+                  decision == null &&
+                  notes == null &&
+                  description == null)
+                Text('no_report_details_available'.tr,
+                    style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: Text('close'.tr))
+        ],
+      ),
+    );
   }
 
   @override

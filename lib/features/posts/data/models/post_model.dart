@@ -80,6 +80,9 @@ class Post {
   final String currency;
   final PostUser user;
   final bool recommended;
+  /// The API says outright whether the signed-in user created this post; when
+  /// it doesn't, comparing `user.id` still works.
+  final bool? isPostCreator;
 
   const Post({
     this.dateLabel,
@@ -112,14 +115,19 @@ class Post {
     this.status,
     required this.user,
     this.recommended = false,
+    this.isPostCreator,
   });
+
+  /// True when this is my own post. Prefers the server's flag.
+  bool mine(int? myId) =>
+      isPostCreator ?? (user.id != 0 && myId != null && user.id == myId);
 
   factory Post.fromJson(Map<String, dynamic> json, {bool recommended = false}) {
     return Post(
       id: json['id'] ?? 0,
       type: json['type'] == 'TRIP' ? PostType.trip : PostType.deliver,
       location: json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
-      wantTo: json['wantTo'] == 'BUY_AND_DELIVER' ? WantTo.buyAndDeliver : WantTo.send,
+      wantTo: _wantTo(json['wantTo'] ?? json['dealType']),
       title: json['title'],
       // the API persists the request's item description in deliveryPoints
       // (website convention); older payloads may still use description
@@ -156,6 +164,7 @@ class Post {
       dropoffLocation: json['dropoffLocation'],
       status: json['status'],
       user: PostUser.fromJson(Map<String, dynamic>.from(json['user'] ?? {})),
+      isPostCreator: json['isPostCreator'] is bool ? json['isPostCreator'] : null,
       recommended: recommended,
     );
   }
@@ -163,6 +172,8 @@ class Post {
   // "my posts" rows come back stripped down: {id, location, from, to,
   // beforeDate, status: TRIP|DELIVER, flag: POST}
   factory Post.fromOwnPostJson(Map<String, dynamic> json) => Post(
+        // this endpoint only ever returns the caller's own rows
+        isPostCreator: true,
         id: json['id'] ?? 0,
         type: json['status'] == 'TRIP' ? PostType.trip : PostType.deliver,
         location:
@@ -174,6 +185,17 @@ class Post {
         weight: _num(json['weight']), // arrives as a string ("20")
         remainingWeight:
             json['remainingWeight'] == null ? null : _num(json['remainingWeight']),
+        // the my-posts endpoint carries the full row now, so own posts show the
+        // same information as any other result card
+        wantTo: _wantTo(json['wantTo'] ?? json['dealType']),
+        title: json['title'] ?? json['itemName'],
+        description: json['itemDescription'] ?? json['notes'],
+        notes: json['notes'] ?? json['itemDescription'],
+        profit: json['profit'] != null
+            ? '${json['profit']}'
+            : (json['reward'] != null ? '${json['reward']}' : null),
+        imageUrl: fixMediaUrl(json['attachLink'] ??
+            (json['attachment'] is Map ? json['attachment']['url'] : null)),
         user: const PostUser(name: ''),
       );
 
@@ -234,6 +256,15 @@ class Post {
     return probe.contains('no specific date') || probe.contains('pas de date')
         ? 'no_specific_date_time'.tr
         : raw;
+  }
+
+  // the API uses BUY_AND_DELIVER on posts and BUYITEM on deals for the same
+  // thing, so accept either rather than silently defaulting to "send"
+  static WantTo _wantTo(dynamic raw) {
+    final v = '${raw ?? ''}'.toUpperCase();
+    return (v == 'BUY_AND_DELIVER' || v == 'BUYITEM' || v == 'BUY')
+        ? WantTo.buyAndDeliver
+        : WantTo.send;
   }
 
   // numbers sometimes arrive as strings ("5") — never trust the type

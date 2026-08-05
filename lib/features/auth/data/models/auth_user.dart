@@ -22,6 +22,9 @@ class AuthUser {
   // transporter business details the account already submitted
   final String? legalName;
   final String? address;
+  /// Why an admin rejected the transporter application, when they did.
+  final String? transporterRejectionReason;
+  final String? transporterVerifiedAt;
   final List<String> operatingCountries;
 
   // eligibility inputs for the free "recommended traveler" application
@@ -53,6 +56,8 @@ class AuthUser {
     this.kycStatus,
     this.legalName,
     this.address,
+    this.transporterRejectionReason,
+    this.transporterVerifiedAt,
     this.operatingCountries = const [],
     this.successfulDeliveriesCount = 0,
     this.hasNoDisputesOnCompletedDeliveries = false,
@@ -86,16 +91,25 @@ class AuthUser {
   bool get showRecommendedBadge =>
       isFeaturedTransporter && transporterVisibilityStatus == 'active';
 
-  /// Approved transporter without an active subscription.
+  /// The badge is earned on admin approval, never before. A pending
+  /// application carries `isTransporter: false`, so the status is what counts.
   bool get showTransporterBadge =>
-      isTransporter && transporterVerificationStatus == 'approved';
+      transporterVerificationStatus == 'approved';
 
   bool get transporterPending => transporterVerificationStatus == 'pending';
+  bool get transporterRejected => transporterVerificationStatus == 'rejected';
 
-  /// The account already carries a transporter application. `isTransporter`
-  /// alone is enough — the payload often omits the status field, and asking
-  /// someone to apply again when the server already has them on file is wrong.
-  bool get transporterApplied => isTransporter;
+  /// An application is on file — pending, approved, or already a transporter
+  /// on an older payload that omits the status. A rejected one may be redone.
+  bool get transporterApplied =>
+      transporterPending || showTransporterBadge || isTransporter;
+
+  /// The column defaults to "none", which means no application was ever made —
+  /// same thing as the field being absent.
+  static String? _status(dynamic raw) {
+    final v = '${raw ?? ''}'.toLowerCase();
+    return (v.isEmpty || v == 'none' || v == 'null') ? null : v;
+  }
 
   factory AuthUser.fromJson(Map<String, dynamic> json) => AuthUser(
         id: json['id'] ?? 0,
@@ -110,13 +124,16 @@ class AuthUser {
         notificationsCount: json['notificationsCount'] ?? 0,
         lang: json['lang'],
         isTransporter: json['isTransporter'] ?? false,
-        transporterVerificationStatus: json['transporterVerificationStatus'],
+        transporterVerificationStatus: _status(json['transporterVerificationStatus']),
         isFeaturedTransporter: json['isFeaturedTransporter'] ?? false,
         featuredTransporterUntil: json['featuredTransporterUntil'],
         transporterVisibilityStatus: json['transporterVisibilityStatus'],
         kycStatus: json['kycStatus'],
         legalName: json['legalName'],
-        address: json['address'],
+        // the newer payload names it businessAddress
+        address: json['businessAddress'] ?? json['address'],
+        transporterRejectionReason: json['transporterRejectionReason'],
+        transporterVerifiedAt: json['transporterVerifiedAt'],
         operatingCountries: (json['operatingCountries'] as List? ?? const [])
             .map((e) => '$e')
             .toList(),
@@ -151,6 +168,8 @@ class AuthUser {
         'kycStatus': kycStatus,
         'legalName': legalName,
         'address': address,
+        'transporterRejectionReason': transporterRejectionReason,
+        'transporterVerifiedAt': transporterVerifiedAt,
         'operatingCountries': operatingCountries,
         'successfulDeliveriesCount': successfulDeliveriesCount,
         'hasNoDisputesOnCompletedDeliveries': hasNoDisputesOnCompletedDeliveries,

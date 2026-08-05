@@ -114,6 +114,14 @@ const _fr = <String, String>{
 
 // ---- generated from the screens (see docs) ----
 const _enAuto = <String, String>{
+  "reason": "Reason",
+  "description": "Description",
+  "status": "Status",
+  "resolved": "Resolved",
+  "no_report_details_available": "No report details available.",
+  "transporter_request_rejected": "Your transporter application was rejected",
+  "admin_decision": "Admin decision",
+  "admin_notes": "Admin notes",
   "you_are_already_a_transporter": "You are already registered as a transporter",
   "we_send_a_code_to_your_whatsapp": "We'll send a 4-digit code to this number on WhatsApp.",
   "enter_the_code_we_sent_to_whatsapp": "Enter the 4-digit code we sent on WhatsApp.",
@@ -525,6 +533,14 @@ const _enAuto = <String, String>{
 };
 
 const _frAuto = <String, String>{
+  "reason": "Motif",
+  "description": "Description",
+  "status": "Statut",
+  "resolved": "Résolu le",
+  "no_report_details_available": "Aucun détail disponible.",
+  "transporter_request_rejected": "Votre demande de transporteur a été refusée",
+  "admin_decision": "Décision de l'administrateur",
+  "admin_notes": "Notes de l'administrateur",
   "you_are_already_a_transporter": "Vous êtes déjà enregistré comme transporteur",
   "we_send_a_code_to_your_whatsapp": "Nous enverrons un code à 4 chiffres à ce numéro sur WhatsApp.",
   "enter_the_code_we_sent_to_whatsapp": "Saisissez le code à 4 chiffres envoyé sur WhatsApp.",

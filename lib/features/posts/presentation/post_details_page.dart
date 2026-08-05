@@ -80,8 +80,7 @@ class PostDetailsPage extends StatelessWidget {
   // Own posts get manage actions; everyone else's get the chat CTA, so the
   // screen always ends in something actionable.
   List<Widget> _actions(BuildContext context) {
-    final myId = Get.find<SessionService>().user.value?.id;
-    final isMine = post.user.id != 0 && post.user.id == myId;
+    final isMine = post.mine(Get.find<SessionService>().user.value?.id);
 
     if (isMine) {
       return [

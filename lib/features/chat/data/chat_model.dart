@@ -115,6 +115,9 @@ class ChatPostContext {
   // who owns the post — decides who is the "sender" and thus who may propose
   // the deal (deliver-post owner, or the non-owner on a trip post)
   final int ownerId;
+  /// The API now states the role outright ("SENDER" / "TRAVELER"); when it
+  /// does we trust it over inferring from the post type.
+  final String? userRole;
 
   // DELIVER posts label the pill "Before {date}"; trips show the date bare
   bool get isDeliver => type == 'DELIVER';
@@ -127,12 +130,17 @@ class ChatPostContext {
     this.to = '',
     this.beforeDate,
     this.ownerId = 0,
+    this.userRole,
   });
 
   // on a TRIP post the sender is the OTHER party; on a delivery request the
   // owner is the sender. Falls back to the trip-post assumption when the owner
   // id is unknown.
   bool isSender(int myId) {
+    // explicit beats inferred
+    final role = userRole?.toUpperCase();
+    if (role == 'SENDER') return true;
+    if (role == 'TRAVELER') return false;
     if (ownerId == 0) return type == 'TRIP';
     return type == 'TRIP' ? ownerId != myId : ownerId == myId;
   }
@@ -161,7 +169,12 @@ class ChatPostContext {
           ? _place(json['toCity'], json['toCountry'])
           : _place(json['toCountry'], json['toCity']),
       beforeDate: json['beforeDate'],
-      ownerId: owner is Map ? (owner['id'] is int ? owner['id'] : int.tryParse('${owner['id']}') ?? 0) : 0,
+      ownerId: owner is Map
+          ? (owner['id'] is int
+              ? owner['id']
+              : int.tryParse('${owner['id']}') ?? 0)
+          : (json['postCreatorId'] is int ? json['postCreatorId'] : 0),
+      userRole: json['userRole'],
     );
   }
 
