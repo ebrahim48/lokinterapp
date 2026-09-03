@@ -59,15 +59,38 @@ class ProfilePage extends StatelessWidget {
             _Item(Icons.star_outline, 'My reviews',
                 () => Get.to(() => const UserReviewsPage())),
             _Item(Icons.mail_outline, 'Contact us', () => Get.to(() => const ContactUsPage())),
-            _Item(Icons.description_outlined, 'Terms & conditions',
+            _Item(Icons.description_outlined, 'terms.title'.tr,
                 () => Get.to(() => const TermsPage())),
-            _Item(Icons.privacy_tip_outlined, 'Privacy policy',
+            _Item(Icons.privacy_tip_outlined, 'privacy.title'.tr,
                 () => Get.to(() => const TermsPage(slug: 'privacyPolicy'))),
           ]),
           SizedBox(height: 14.h),
           _group(context, [
             _Item(Icons.logout, 'Log out', c.logout, danger: true),
+            _Item(Icons.delete_forever_outlined, 'delete_account'.tr,
+                () => _confirmDelete(c), danger: true),
           ]),
+        ],
+      ),
+    );
+  }
+
+  // Deleting is irreversible and the API gives no undo, so the tile only ever
+  // opens this confirmation — never the request itself.
+  void _confirmDelete(ProfileController c) {
+    Get.dialog(
+      AlertDialog(
+        title: Text('delete_account_title'.tr),
+        content: Text('delete_account_body'.tr),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr)),
+          TextButton(
+            onPressed: () {
+              Get.back();
+              c.deleteAccount();
+            },
+            child: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
+          ),
         ],
       ),
     );

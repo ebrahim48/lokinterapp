@@ -6,11 +6,15 @@
     <!-- Network state permissions for connectivity checking -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <!-- push notifications: runtime-granted from Android 13, plus the heads-up
+         buzz for deal/chat alerts -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <!-- flutter_stripe validates the theme on the application context too, not
          just the activity — without this it fails to initialise on Android -->
     <application
-        android:label="flutter_task"
+        android:label="Lokinter"
         android:name="${applicationName}"
         android:theme="@style/NormalTheme"
         android:icon="@mipmap/ic_launcher">
@@ -36,6 +40,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- Where a push lands when the app is in the background and FCM draws
+             the tray entry itself. Must match PushService's channel id, or the
+             system creates a second, silent channel behind the user's back. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_notification" />
+
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

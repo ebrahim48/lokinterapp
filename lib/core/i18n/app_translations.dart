@@ -63,6 +63,11 @@ const _en = <String, String>{
   'chat.inbox': 'Inbox',
   'chat.message': 'Message...',
   'chat.empty': 'No conversations yet',
+  // legal pages (content itself comes from the CMS)
+  'terms.title': 'Terms & conditions',
+  'terms.linkText': 'terms and conditions',
+  'privacy.title': 'Privacy policy',
+  'legal.offlineCopy': "Couldn't load the latest version — showing the bundled copy.",
 };
 
 const _fr = <String, String>{
@@ -110,6 +115,11 @@ const _fr = <String, String>{
   'chat.inbox': 'Messages',
   'chat.message': 'Message…',
   'chat.empty': 'Aucune conversation pour le moment',
+  'terms.title': 'Conditions générales',
+  'terms.linkText': 'conditions générales',
+  'privacy.title': 'Politique de confidentialité',
+  'legal.offlineCopy':
+      "Impossible de charger la dernière version — copie intégrée affichée.",
 };
 
 // ---- generated from the screens (see docs) ----
@@ -265,6 +275,11 @@ const _enAuto = <String, String>{
   "deals": "Deals",
   "default": "Default",
   "delete": "Delete",
+  "delete_account": "Delete my account",
+  "delete_account_title": "Delete your account?",
+  "delete_account_body":
+      "This permanently deletes your account, posts, deals and messages. "
+      "It cannot be undone, and you will be logged out.",
   "delete_post": "Delete post?",
   "deliver_ready_item": "Deliver ready item",
   "delivery_request_posted": "Delivery request posted",
@@ -684,6 +699,11 @@ const _frAuto = <String, String>{
   "deals": "Accords",
   "default": "Par défaut",
   "delete": "Supprimer",
+  "delete_account": "Supprimer mon compte",
+  "delete_account_title": "Supprimer votre compte ?",
+  "delete_account_body":
+      "Cette action supprime définitivement votre compte, vos annonces, vos "
+      "accords et vos messages. Elle est irréversible et vous serez déconnecté.",
   "delete_post": "Supprimer la publication ?",
   "deliver_ready_item": "Livrer un article prêt",
   "delivery_request_posted": "Demande de livraison publiée",

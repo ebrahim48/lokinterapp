@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
+import '../../../core/services/push_service.dart';
 import '../../../core/services/session_service.dart';
 import 'models/auth_user.dart';
 
@@ -100,11 +101,26 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
+    // drop the device token first — it needs the bearer token that logout is
+    // about to invalidate, or the next account here inherits these pushes
+    await Get.find<PushService>().stop();
     try {
       await _api.post('/auth/logout');
     } catch (_) {
       // token may already be dead — clear locally either way
     }
+    await _session.clear();
+  }
+
+  /// Permanent account removal. The backend wipes the account and kills the
+  /// session, so the local state goes only after the call actually lands —
+  /// a failed request (no internet, server error) must leave the user logged in.
+  Future<void> deleteAccount() async {
+    await _api.delete('/auth/deleteAccount');
+    // the token is dead now; unregistering the device is best-effort cleanup
+    try {
+      await Get.find<PushService>().stop();
+    } catch (_) {}
     await _session.clear();
   }
 

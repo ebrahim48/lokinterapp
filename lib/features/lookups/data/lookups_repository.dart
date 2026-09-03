@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
+import '../../../core/services/language_service.dart';
 import 'lookup_models.dart';
 
 // Countries / cities / categories barely change, so they're cached hard:
@@ -109,16 +110,21 @@ class LookupsRepository {
 
   /// Legal documents from the CMS: `{privacyPolicy, termsConditions}`,
   /// each `{title, slug, content}` (HTML). Same source the website's
-  /// terms page renders. Cached — legal text rarely changes.
-  Future<Map<String, dynamic>> pages() async {
-    const key = 'lookup_pages';
-    final cached = _cache.get<String>(key);
-    if (cached != null) {
-      try {
-        final parsed = Map<String, dynamic>.from(jsonDecode(cached));
-        _refreshPages(key); // silent refresh
-        return parsed;
-      } catch (_) {}
+  /// terms page renders. Cached — legal text rarely changes — but per
+  /// language, since the API translates the content off X-Lang.
+  /// [forceRefresh] is the pull-to-refresh path: skip the cache and wait
+  /// for the network instead of serving yesterday's copy.
+  Future<Map<String, dynamic>> pages({bool forceRefresh = false}) async {
+    final key = 'lookup_pages_${LanguageService.currentCode}';
+    if (!forceRefresh) {
+      final cached = _cache.get<String>(key);
+      if (cached != null) {
+        try {
+          final parsed = Map<String, dynamic>.from(jsonDecode(cached));
+          _refreshPages(key).catchError((_) => parsed); // silent refresh
+          return parsed;
+        } catch (_) {}
+      }
     }
     return _refreshPages(key);
   }
