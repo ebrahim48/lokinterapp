@@ -88,6 +88,8 @@ class ApiService {
   static const _writeMethods = {'POST', 'PUT', 'PATCH', 'DELETE'};
   // a success toast on every sent message would be noise
   static const _silentSuccess = ['/chats/sendMessage'];
+  // background housekeeping the user never asked for — silent either way
+  static const _silent = ['/auth/fcm-token'];
 
   // Surfaces the backend's own `message` for button-driven writes — success in
   // green, failures in red — so every action reports its result app-wide. Only
@@ -95,6 +97,7 @@ class ApiService {
   // errors are left to the screen (which knows the better "no internet" text).
   void _apiToast(RequestOptions req, dynamic body, {required bool failed}) {
     if (!_writeMethods.contains(req.method.toUpperCase())) return;
+    if (_silent.any(req.path.contains)) return;
     final msg = body is Map && body['message'] is String ? body['message'] as String : null;
     if (msg == null || msg.trim().isEmpty) return;
     final ok = !failed && body is Map && body['status'] == true;

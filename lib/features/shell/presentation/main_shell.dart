@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/services/push_service.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
@@ -29,6 +30,10 @@ class _MainShellState extends State<MainShell> {
     // bring up the realtime layer once we're inside the app (login/restore)
     if (Get.find<SessionService>().loggedIn) {
       Get.find<SocketService>().connect();
+      // asks for notification permission and hands the device token to the
+      // backend — here, not at launch, so a guest browsing the feed is spared
+      // the prompt until they actually have an account to notify
+      Get.find<PushService>().start();
     }
   }
 

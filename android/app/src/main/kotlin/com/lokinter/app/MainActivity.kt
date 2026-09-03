@@ -1,4 +1,4 @@
-package com.task.flutter.flutter_task
+package com.lokinter.app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

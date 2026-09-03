@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874160024064",
+    "project_id": "lokinter-3337f",
+    "storage_bucket": "lokinter-3337f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874160024064:android:8ea5bc9f941f4f733986e5",
+        "android_client_info": {
+          "package_name": "com.lokinter.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkZe8_4I8nUvPtU1X8k6JvEJxH5eJYeFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

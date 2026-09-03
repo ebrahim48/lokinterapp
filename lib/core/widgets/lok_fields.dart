@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/app_palette.dart';
@@ -417,45 +418,90 @@ class LokUploadField extends StatelessWidget {
   }
 }
 
-class LokCheckbox extends StatelessWidget {
+/// Checkbox with a one-line label. When [linkText] is part of that label and
+/// [onLinkTap] is given, that phrase becomes a tappable link — how the terms
+/// checkbox opens the terms document without a second row of chrome.
+class LokCheckbox extends StatefulWidget {
   final String label;
   final bool value;
   final ValueChanged<bool> onChanged;
+  final String? linkText;
+  final VoidCallback? onLinkTap;
 
   const LokCheckbox({
     super.key,
     required this.label,
     required this.value,
     required this.onChanged,
+    this.linkText,
+    this.onLinkTap,
   });
+
+  @override
+  State<LokCheckbox> createState() => _LokCheckboxState();
+}
+
+class _LokCheckboxState extends State<LokCheckbox> {
+  final _tap = TapGestureRecognizer();
+
+  @override
+  void initState() {
+    super.initState();
+    _tap.onTap = () => widget.onLinkTap?.call();
+  }
+
+  @override
+  void dispose() {
+    _tap.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final style = TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant);
     return InkWell(
-      onTap: () => onChanged(!value),
+      onTap: () => widget.onChanged(!widget.value),
       child: Row(
         children: [
           SizedBox(
             width: 24.w,
             height: 24.w,
             child: Checkbox(
-              value: value,
-              onChanged: (v) => onChanged(v ?? false),
+              value: widget.value,
+              onChanged: (v) => widget.onChanged(v ?? false),
               activeColor: AppPalette.primary,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
             ),
           ),
           SizedBox(width: 10.w),
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
-            ),
-          ),
+          Expanded(child: _label(style)),
         ],
       ),
     );
+  }
+
+  Widget _label(TextStyle style) {
+    final link = widget.linkText;
+    final at = (link == null || widget.onLinkTap == null)
+        ? -1
+        : widget.label.toLowerCase().indexOf(link.toLowerCase());
+    if (at < 0) return Text(widget.label, style: style);
+
+    return Text.rich(TextSpan(style: style, children: [
+      TextSpan(text: widget.label.substring(0, at)),
+      TextSpan(
+        text: widget.label.substring(at, at + link!.length),
+        recognizer: _tap,
+        style: TextStyle(
+          color: AppPalette.primary,
+          fontWeight: FontWeight.w600,
+          decoration: TextDecoration.underline,
+          decorationColor: AppPalette.primary,
+        ),
+      ),
+      TextSpan(text: widget.label.substring(at + link.length)),
+    ]));
   }
 }
 

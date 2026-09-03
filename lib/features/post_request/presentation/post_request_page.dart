@@ -8,6 +8,7 @@ import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
 import '../../brands/presentation/brands_page.dart';
 import '../../posts/data/models/post_model.dart';
+import '../../static/presentation/terms_page.dart';
 import 'controllers/post_request_controller.dart';
 
 const _currencies = ['USD', 'EUR', 'TND', 'GBP'];
@@ -299,6 +300,10 @@ class PostRequestPage extends StatelessWidget {
               label: 'i_accept_terms_and_conditions'.tr,
               value: c.acceptedTerms.value,
               onChanged: (v) => c.acceptedTerms.value = v,
+              // nobody accepts what they can't read — the phrase opens the
+              // live CMS document
+              linkText: 'terms.linkText'.tr,
+              onLinkTap: () => Get.to(() => const TermsPage()),
             )),
         SizedBox(height: 18.h),
         LokBusyButton(

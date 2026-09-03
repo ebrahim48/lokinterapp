@@ -151,7 +151,11 @@ abstract class StorageKeys {
   static const String selectedLanguage = 'selected_language';
   static const String isFirstLaunch = 'is_first_launch';
 
+  // ─── Push ─────────────────────────────────────────────────────────────────
+  /// Last FCM token handed to the backend — kept so logout can unregister the
+  /// exact token even when Firebase can't mint it again.
+  static const String fcmToken = 'fcm_token';
+
   // Add more keys below as needed:
-  // static const String fcmToken = 'fcm_token';
   // static const String lastSyncTime = 'last_sync_time';
 }

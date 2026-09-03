@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase service account keys — backend-only admin credentials. These must
+# never land in the app repo: anything shipped in an APK/IPA is extractable,
+# and this key can send push to every user and read/write the whole project.
+*service-account*.json
+*firebase-adminsdk*.json

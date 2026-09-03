@@ -1,10 +1,10 @@
 name: flutter_task
-description: "Flutter task"
+description: "Lokinter"
 
 publish_to: 'none'
 
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.9.0
@@ -49,6 +49,10 @@ dependencies:
   url_launcher: ^6.3.1
   mobile_scanner: ^7.4.0
   permission_handler: ^12.0.3
+  firebase_core: ^4.14.0
+  firebase_messaging: ^16.6.0
+  flutter_local_notifications: ^22.3.0
+  device_info_plus: ^12.4.0
 
 
 dev_dependencies:
@@ -58,6 +62,21 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  # generates the launcher icons for both platforms from assets/images/logo.png
+  # — run `dart run flutter_launcher_icons` after changing the logo
+  flutter_launcher_icons: ^0.14.4
+
+# Launcher icons. The Android adaptive icon insets the logo so the system's
+# circular/squircle mask doesn't clip it, and iOS gets its alpha stripped
+# because App Store Connect rejects icons with transparency.
+flutter_launcher_icons:
+  image_path: "assets/images/logo.png"
+  android: "ic_launcher"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/logo.png"
+  adaptive_icon_foreground_inset: 18
+  ios: true
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true
