@@ -64,6 +64,12 @@ class Deal {
   final DateTime? arrivalDate;
   final bool fundsLockedForDispute;
   final Map<String, dynamic>? dispute;
+  /// When false the "Mark Completed" button must be hidden.
+  final bool canMarkCompleted;
+  /// Set by the server when a dispute is open — hides "Mark Completed".
+  final bool hasOpenDispute;
+  /// Full dispute detail block returned by GET /disputes/deal/{id}.
+  final Map<String, dynamic>? disputeDetails;
 
   const Deal({
     this.id = 0,
@@ -98,6 +104,9 @@ class Deal {
     this.arrivalDate,
     this.fundsLockedForDispute = false,
     this.dispute,
+    this.canMarkCompleted = true,
+    this.hasOpenDispute = false,
+    this.disputeDetails,
   });
 
   // getById omits the item name/notes/attachments that the list row carries,
@@ -152,6 +161,9 @@ class Deal {
         arrivalDate: arrivalDate,
         fundsLockedForDispute: fundsLockedForDispute,
         dispute: dispute,
+        canMarkCompleted: canMarkCompleted,
+        hasOpenDispute: hasOpenDispute,
+        disputeDetails: disputeDetails,
       );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
@@ -218,6 +230,9 @@ class Deal {
       counterpart: PostUser(
         id: otherId is int ? otherId : int.tryParse('$otherId') ?? 0,
         name: otherName,
+        // Deal detail carries the other party's badges directly
+        isTransporter: (json['isApprovedTransporter'] == true) ||
+            (json['transporterBadge'] == true),
       ),
       isSender: _hasRole(json, 'SENDER', 'isSender'),
       isTraveler: isTraveler,
@@ -245,6 +260,12 @@ class Deal {
       fundsLockedForDispute: json['isLockedByDoubleDispute'] ?? false,
       dispute: json['dispute'] is Map
           ? Map<String, dynamic>.from(json['dispute'])
+          : null,
+      // server explicitly tells the app whether the button should show
+      canMarkCompleted: json['canMarkCompleted'] ?? true,
+      hasOpenDispute: json['hasOpenDispute'] ?? false,
+      disputeDetails: json['disputeDetails'] is Map
+          ? Map<String, dynamic>.from(json['disputeDetails'])
           : null,
     );
   }

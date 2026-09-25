@@ -7,6 +7,7 @@ import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../../posts/data/posts_repository.dart';
+import '../recommended_transporters_dialog.dart';
 
 class PostRequestController extends GetxController {
   // set when the form is opened to edit an existing request
@@ -225,6 +226,27 @@ class PostRequestController extends GetxController {
       );
       toast('delivery_request_posted'.tr);
       Get.back(result: true);
+      // After a successful DELIVER post, check for recommended transporters on
+      // this route and show a popup if any are found
+      final fromIso = isLocal
+          ? (origin.iso2.isNotEmpty ? origin.iso2 : origin.name)
+          : (origin.iso2.isNotEmpty ? origin.iso2 : origin.name);
+      final dest = isLocal ? origin : _byName(toCountry.value);
+      final toIso = dest != null
+          ? (dest.iso2.isNotEmpty ? dest.iso2 : dest.name)
+          : '';
+      if (toIso.isNotEmpty) {
+        _repo
+            .recommendedTransporters(
+              fromCountry: fromIso,
+              toCountry: toIso,
+            )
+            .then((recommended) {
+          // showIfEligible applies client-side filter (approved + visibilityActive)
+          // and only shows the dialog when at least one eligible transporter exists.
+          RecommendedTransportersDialog.showIfEligible(recommended);
+        }).catchError((_) {});
+      }
     } on AppException catch (e) {
       toastError(e);
     } finally {

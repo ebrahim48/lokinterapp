@@ -36,10 +36,12 @@ class SocketService extends GetxService {
   final _chatList = StreamController<Map<String, dynamic>>.broadcast();
   final _messages = StreamController<SocketMessage>.broadcast();
   final _notifications = StreamController<Map<String, dynamic>>.broadcast();
+  final _dealEvents = StreamController<Map<String, dynamic>>.broadcast();
 
   Stream<Map<String, dynamic>> get chatListUpdates => _chatList.stream;
   Stream<SocketMessage> get messages => _messages.stream;
   Stream<Map<String, dynamic>> get notificationEvents => _notifications.stream;
+  Stream<Map<String, dynamic>> get dealEvents => _dealEvents.stream;
 
   // /broadcasting/auth sits at the host root, not under /api/v1
   String get _authUrl =>
@@ -137,6 +139,8 @@ class SocketService extends GetxService {
     } else if (name == 'chats.messages') {
       final chatId = _chatIdFrom(event.channelName);
       if (chatId != null) _messages.add(SocketMessage(chatId, payload));
+    } else if (name == 'deal.status.updated') {
+      _dealEvents.add(payload);
     } else if (event.channelName.startsWith('private-notifications.')) {
       _notifications.add(payload);
     }
@@ -161,6 +165,26 @@ class SocketService extends GetxService {
 
   Future<void> leaveRoom(int chatId) async {
     final ch = 'private-chatRoom.$chatId';
+    if (!_rooms.remove(ch)) return;
+    try {
+      await _pusher.unsubscribe(channelName: ch);
+    } catch (_) {}
+  }
+
+  Future<void> subscribeDeal(int dealId) async {
+    if (!_connected) await connect();
+    if (!_connected) return;
+    final ch = 'private-deal.$dealId';
+    if (!_rooms.add(ch)) return;
+    try {
+      await _pusher.subscribe(channelName: ch);
+    } catch (_) {
+      _rooms.remove(ch);
+    }
+  }
+
+  Future<void> leaveDeal(int dealId) async {
+    final ch = 'private-deal.$dealId';
     if (!_rooms.remove(ch)) return;
     try {
       await _pusher.unsubscribe(channelName: ch);

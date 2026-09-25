@@ -13,10 +13,20 @@ class AuthUser {
 
   // transporter status — drives which badge (if any) the account shows
   final bool isTransporter;
-  final String? transporterVerificationStatus; // pending | approved | rejected
+  /// True when admin has approved the transporter application.
+  /// Primary source — use this (or [transporterBadge]) for badge/button logic,
+  /// NOT [isTransporter] which is set before admin approval.
+  final bool isApprovedTransporter;
+  /// Alias sent by some endpoints — same meaning as [isApprovedTransporter].
+  final bool transporterBadge;
+  final String? transporterVerificationStatus; // none | pending | approved | rejected
   final bool isFeaturedTransporter;
   final String? featuredTransporterUntil;
   final String? transporterVisibilityStatus; // active | expired | none
+  /// Top-level visibility status from /auth/user — mirrors /visibility/transporter/status.
+  final String? visibilityStatus; // none | active | expired
+  /// True when the transporter's Increase Visibility subscription is currently active.
+  final bool visibilityActive;
   final String? kycStatus;
 
   // transporter business details the account already submitted
@@ -49,10 +59,14 @@ class AuthUser {
     this.notificationsCount = 0,
     this.lang,
     this.isTransporter = false,
+    this.isApprovedTransporter = false,
+    this.transporterBadge = false,
     this.transporterVerificationStatus,
     this.isFeaturedTransporter = false,
     this.featuredTransporterUntil,
     this.transporterVisibilityStatus,
+    this.visibilityStatus,
+    this.visibilityActive = false,
     this.kycStatus,
     this.legalName,
     this.address,
@@ -91,9 +105,11 @@ class AuthUser {
   bool get showRecommendedBadge =>
       isFeaturedTransporter && transporterVisibilityStatus == 'active';
 
-  /// The badge is earned on admin approval, never before. A pending
-  /// application carries `isTransporter: false`, so the status is what counts.
+  /// The badge is earned on admin approval, never before. Uses all three
+  /// approval signals the API may send — whichever is present wins.
   bool get showTransporterBadge =>
+      isApprovedTransporter ||
+      transporterBadge ||
       transporterVerificationStatus == 'approved';
 
   bool get transporterPending => transporterVerificationStatus == 'pending';
@@ -124,10 +140,14 @@ class AuthUser {
         notificationsCount: json['notificationsCount'] ?? 0,
         lang: json['lang'],
         isTransporter: json['isTransporter'] ?? false,
+        isApprovedTransporter: json['isApprovedTransporter'] ?? false,
+        transporterBadge: json['transporterBadge'] ?? false,
         transporterVerificationStatus: _status(json['transporterVerificationStatus']),
         isFeaturedTransporter: json['isFeaturedTransporter'] ?? false,
         featuredTransporterUntil: json['featuredTransporterUntil'],
         transporterVisibilityStatus: json['transporterVisibilityStatus'],
+        visibilityStatus: _status(json['visibilityStatus']),
+        visibilityActive: json['visibilityActive'] ?? false,
         kycStatus: json['kycStatus'],
         legalName: json['legalName'],
         // the newer payload names it businessAddress
@@ -161,10 +181,14 @@ class AuthUser {
         'notificationsCount': notificationsCount,
         'lang': lang,
         'isTransporter': isTransporter,
+        'isApprovedTransporter': isApprovedTransporter,
+        'transporterBadge': transporterBadge,
         'transporterVerificationStatus': transporterVerificationStatus,
         'isFeaturedTransporter': isFeaturedTransporter,
         'featuredTransporterUntil': featuredTransporterUntil,
         'transporterVisibilityStatus': transporterVisibilityStatus,
+        'visibilityStatus': visibilityStatus,
+        'visibilityActive': visibilityActive,
         'kycStatus': kycStatus,
         'legalName': legalName,
         'address': address,

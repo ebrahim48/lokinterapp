@@ -1,6 +1,14 @@
 class ApiConstants {
   static const String baseUrl = 'https://api.ssh.bd/api/v1';
 
+  // ── Visibility ────────────────────────────────────────────────────────────
+  /// Returns recommended travelers with active trips (paginated).
+  /// Used by the "See All" screen opened from the home feed rail.
+  static const String recommendedTravelers = '/visibility/recommended-travelers';
+
+  /// Hive cache key for the recommended-travelers list.
+  static const String cacheRecommendedTravelers = 'recommended_travelers';
+
   /// Deployed web front-end. Deal QR codes encode
   /// `$webBaseUrl/deal-details/{referenceId}` so the receiver's phone
   /// camera opens the website's public confirmation page — same link the

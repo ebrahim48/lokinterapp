@@ -60,6 +60,7 @@ class RegisterPage extends StatelessWidget {
                 icon: Icons.public,
                 required: true,
                 options: c.countryNames,
+                searchable: true,
                 value: c.country.value,
                 onChanged: (v) => c.country.value = v,
               )),

@@ -149,6 +149,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
             icon: Icons.public,
             required: true,
             options: _countries.map((e) => e.name).toList(),
+            searchable: true,
             value: _country,
             onChanged: (v) => setState(() => _country = v),
           ),

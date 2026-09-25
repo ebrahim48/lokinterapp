@@ -7,6 +7,8 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/services/storage_service.dart';
+import '../../lookups/data/lookup_models.dart';
+import '../../lookups/data/lookups_repository.dart';
 import '../data/notification_model.dart';
 import '../data/notifications_repository.dart';
 
@@ -44,10 +46,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   Future<void> _load() async {
     try {
-      final items = await _repo.list();
+      final raw = await _repo.list();
       if (!mounted) return;
       setState(() {
-        _items = items;
+        // Deduplicate: same deal + same event title on same day collapses to one
+        // notification. This guards against the backend firing two notifications
+        // for the same deal status change (e.g. "Deal status updated, rejected"
+        // and "Deal status has been changed to rejected").
+        _items = deduplicateNotifications(raw);
         _loading = false;
         _error = null;
       });
@@ -118,44 +124,64 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         )
                       : RefreshIndicator(
                           onRefresh: _load,
-                          child: ListView.separated(
-                            padding: EdgeInsets.symmetric(vertical: 8.h),
-                            itemCount: _items.length,
-                            separatorBuilder: (_, __) =>
-                                Divider(height: 1, indent: 70.w, color: cs.outline),
-                            itemBuilder: (_, i) {
-                              final n = _items[i];
-                              return Container(
-                                color: n.read ? null : n.type.color.withValues(alpha: 0.06),
-                                child: ListTile(
-                                  onTap: () => _open(n),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
-                                  leading: CircleAvatar(
-                                    radius: 22.r,
-                                    backgroundColor: n.type.color.withValues(alpha: 0.14),
-                                    child: Icon(n.type.icon, color: n.type.color, size: 20.sp),
-                                  ),
-                                  title: Text(n.title,
-                                      style: TextStyle(
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: cs.onSurface)),
-                                  subtitle: Padding(
-                                    padding: EdgeInsets.only(top: 2.h),
-                                    child: Text(n.body,
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: cs.onSurfaceVariant,
-                                            height: 1.3)),
-                                  ),
-                                  trailing: Text(n.time,
-                                      style:
-                                          TextStyle(fontSize: 10.sp, color: cs.onSurfaceVariant)),
-                                ),
+                          child: Builder(builder: (context) {
+                            // Filter out chat system messages — backend sends one
+                            // FCM per deal event; these would duplicate the inbox.
+                            final visible = _items
+                                .where((n) => !n.isChatSystemMessage)
+                                .toList();
+                            if (visible.isEmpty) {
+                              return Center(
+                                child: Text('nothing_here_yet'.tr,
+                                    style: TextStyle(
+                                        fontSize: 13.sp,
+                                        color: cs.onSurfaceVariant)),
                               );
-                            },
-                          ),
+                            }
+                            return ListView.separated(
+                              padding: EdgeInsets.symmetric(vertical: 8.h),
+                              itemCount: visible.length,
+                              separatorBuilder: (_, __) =>
+                                  Divider(height: 1, indent: 70.w, color: cs.outline),
+                              itemBuilder: (_, i) {
+                                final n = visible[i];
+                                return Container(
+                                  color: n.read
+                                      ? null
+                                      : n.type.color.withValues(alpha: 0.06),
+                                  child: ListTile(
+                                    onTap: () => _open(n),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16.w, vertical: 6.h),
+                                    leading: CircleAvatar(
+                                      radius: 22.r,
+                                      backgroundColor:
+                                          n.type.color.withValues(alpha: 0.14),
+                                      child: Icon(n.type.icon,
+                                          color: n.type.color, size: 20.sp),
+                                    ),
+                                    title: Text(n.title,
+                                        style: TextStyle(
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: cs.onSurface)),
+                                    subtitle: Padding(
+                                      padding: EdgeInsets.only(top: 2.h),
+                                      child: Text(n.body,
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: cs.onSurfaceVariant,
+                                              height: 1.3)),
+                                    ),
+                                    trailing: Text(n.time,
+                                        style: TextStyle(
+                                            fontSize: 10.sp,
+                                            color: cs.onSurfaceVariant)),
+                                  ),
+                                );
+                              },
+                            );
+                          }),
                         ),
     );
   }
@@ -192,11 +218,19 @@ class _NotificationSettingsState extends State<_NotificationSettings> {
   late bool _trips = _storage.getBool('notif_trips') ?? true;
   late bool _requests = _storage.getBool('notif_requests') ?? true;
   late bool _marketing = _storage.getBool('notif_marketing') ?? false;
+  // country filter for notifications: empty = all countries
+  List<String> _notifyCountries = [];
+  List<Country> _allCountries = [];
 
   @override
   void initState() {
     super.initState();
     _pull();
+    // load country list for the multiselect
+    LookupsRepository().countries().then((list) {
+      if (!mounted) return;
+      setState(() => _allCountries = list);
+    }).catchError((_) {});
   }
 
   Future<void> _pull() async {
@@ -208,6 +242,10 @@ class _NotificationSettingsState extends State<_NotificationSettings> {
         _trips = p['notifyTrips'] ?? _trips;
         _requests = p['notifyRequests'] ?? _requests;
         _marketing = p['notifyMarketing'] ?? _marketing;
+        final raw = p['notifyCountries'];
+        if (raw is List) {
+          _notifyCountries = raw.whereType<String>().toList();
+        }
       });
       _cache();
     } catch (_) {
@@ -231,37 +269,107 @@ class _NotificationSettingsState extends State<_NotificationSettings> {
           trips: _trips,
           requests: _requests,
           marketing: _marketing,
+          countries: _notifyCountries.isEmpty ? null : _notifyCountries,
+        )
+        .catchError((_) {});
+  }
+
+  void _setCountries(List<String> selected) {
+    setState(() => _notifyCountries = selected);
+    _repo
+        .updatePreferences(
+          push: _push,
+          trips: _trips,
+          requests: _requests,
+          marketing: _marketing,
+          countries: selected.isEmpty ? null : selected,
         )
         .catchError((_) {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final countryNames = _allCountries.map((c) => c.name).toList();
+    // Cap the sheet at 80% of the screen so it never overflows on any device.
+    final maxHeight = MediaQuery.of(context).size.height * 0.80;
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 18.h),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxHeight),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('notification_settings'.tr, style: Theme.of(context).textTheme.titleLarge),
-            SizedBox(height: 8.h),
-            _toggle('Push notifications', _push, (v) {
-              setState(() => _push = v);
-              _set('notif_push', v);
-            }),
-            _toggle('Trip alerts', _trips, (v) {
-              setState(() => _trips = v);
-              _set('notif_trips', v);
-            }),
-            _toggle('Delivery request alerts', _requests, (v) {
-              setState(() => _requests = v);
-              _set('notif_requests', v);
-            }),
-            _toggle('Marketing & promotions', _marketing, (v) {
-              setState(() => _marketing = v);
-              _set('notif_marketing', v);
-            }),
+            // Fixed header — never scrolls away
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 0),
+              child: Text('notification_settings'.tr,
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            // Scrollable body
+            Flexible(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 18.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _toggle('Push notifications', _push, (v) {
+                      setState(() => _push = v);
+                      _set('notif_push', v);
+                    }),
+                    _toggle('Trip alerts', _trips, (v) {
+                      setState(() => _trips = v);
+                      _set('notif_trips', v);
+                    }),
+                    _toggle('Delivery request alerts', _requests, (v) {
+                      setState(() => _requests = v);
+                      _set('notif_requests', v);
+                    }),
+                    _toggle('Marketing & promotions', _marketing, (v) {
+                      setState(() => _marketing = v);
+                      _set('notif_marketing', v);
+                    }),
+                    if (countryNames.isNotEmpty) ...[
+                      SizedBox(height: 8.h),
+                      Text(
+                        'notify_countries_label'.tr,
+                        style: TextStyle(fontSize: 13.sp, color: cs.onSurface),
+                      ),
+                      SizedBox(height: 6.h),
+                      Wrap(
+                        spacing: 8.w,
+                        runSpacing: 4.h,
+                        children: countryNames.map((name) {
+                          final selected = _notifyCountries.contains(name);
+                          return FilterChip(
+                            label: Text(name, style: TextStyle(fontSize: 11.sp)),
+                            selected: selected,
+                            onSelected: (v) {
+                              final updated = List<String>.from(_notifyCountries);
+                              if (v) {
+                                updated.add(name);
+                              } else {
+                                updated.remove(name);
+                              }
+                              _setCountries(updated);
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      if (_notifyCountries.isNotEmpty) ...[
+                        SizedBox(height: 4.h),
+                        TextButton(
+                          onPressed: () => _setCountries([]),
+                          child: Text('notify_all_countries'.tr,
+                              style: TextStyle(fontSize: 12.sp)),
+                        ),
+                      ],
+                    ],
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

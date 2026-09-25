@@ -40,7 +40,7 @@ void main() {
     expect(fields['isTransporter'], 'true'); // text, not 1/0
     expect(fields['operatingCountries'], '["US","FR","SN"]'); // JSON string, one field
     expect(fields['legalName'], 'Acme Logistics LLC');
-    expect(fields['address'], '12 Market Street, Dakar');
+    expect(fields['businessAddress'], '12 Market Street, Dakar');
     // operatingCountries must NOT be bracket-indexed
     expect(form.fields.any((e) => e.key.startsWith('operatingCountries[')), isFalse);
 

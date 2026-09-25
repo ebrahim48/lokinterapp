@@ -20,17 +20,29 @@ class UserBadge extends StatelessWidget {
   static const _gold = Color(0xFFB8860B);
 
   /// Resolves the badge from the flags the API returns.
+  ///
+  /// Uses [isApprovedTransporter] or [transporterBadge] (both booleans from
+  /// the API) — never [isTransporter] alone, which is set before admin
+  /// approval and would show the badge prematurely.
   factory UserBadge.from({
     Key? key,
+    // legacy flag — kept so existing callers don't break, but NOT used for
+    // the approved-transporter badge
     bool isTransporter = false,
+    // primary source: explicit approval booleans
+    bool isApprovedTransporter = false,
+    bool transporterBadge = false,
     String? transporterVerificationStatus,
     bool isFeaturedTransporter = false,
     String? transporterVisibilityStatus,
     bool identityVerified = false,
     bool compact = false,
   }) {
-    final approved =
-        isTransporter && (transporterVerificationStatus ?? 'approved') == 'approved';
+    // "approved" is true when either explicit boolean is set OR the status
+    // field says "approved" — whichever the endpoint returns
+    final approved = isApprovedTransporter ||
+        transporterBadge ||
+        transporterVerificationStatus == 'approved';
     if (approved && isFeaturedTransporter && transporterVisibilityStatus == 'active') {
       return UserBadge(UserBadgeKind.recommended, key: key, compact: compact);
     }

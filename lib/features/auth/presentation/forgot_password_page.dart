@@ -20,7 +20,7 @@ class ForgotPasswordPage extends StatelessWidget {
           Text('forgot_password'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
-            "Enter your email and we'll send you a reset code.",
+            'enter_your_email_and_well_send_you_a_reset_link'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
           ),
           SizedBox(height: 28.h),

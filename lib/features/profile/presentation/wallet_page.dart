@@ -155,7 +155,7 @@ class _WalletPageState extends State<WalletPage> {
                 SizedBox(height: 4.h),
                 Text(
                   [
-                    if (e.dealRef.isNotEmpty) e.dealRef else 'Deal #${e.dealId}',
+                    if (e.dealId != 0) 'Deal #${e.dealId}',
                     if (countdown != null) countdown,
                   ].join('  •  '),
                   style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
@@ -205,7 +205,7 @@ class _WalletPageState extends State<WalletPage> {
                 SizedBox(height: 4.h),
                 Text(
                   [
-                    if (d.dealRef.isNotEmpty) d.dealRef else 'Deal #${d.dealId}',
+                    if (d.dealId != 0) 'Deal #${d.dealId}',
                     if (d.status.isNotEmpty) d.status,
                   ].join('  •  '),
                   style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
@@ -219,37 +219,163 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   Widget _balanceCard(BuildContext context, WalletData data) {
-    return Container(
-      padding: EdgeInsets.all(20.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.r),
-        gradient: const LinearGradient(
-          colors: [AppPalette.primary, Color(0xFF8E3F3C)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+    final cs = Theme.of(context).colorScheme;
+    return Column(
+      children: [
+        // Top: primary available balance — the only withdrawable amount
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(20.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
+            ),
+            gradient: const LinearGradient(
+              colors: [AppPalette.primary, Color(0xFF8E3F3C)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('available_balance'.tr,
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.85), fontSize: 12.sp)),
+              SizedBox(height: 6.h),
+              Text(
+                '${data.currency} ${data.displayBalance.toStringAsFixed(2)}',
+                style: TextStyle(
+                    color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w800),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                'only_available_balance_can_be_withdrawn'.tr,
+                style:
+                    TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 11.sp),
+              ),
+              SizedBox(height: 16.h),
+              GestureDetector(
+                onTap: _openWithdraw,
+                child: _miniBtn(context, Icons.arrow_outward, 'withdraw'.tr),
+              ),
+            ],
+          ),
+        ),
+        // Bottom: 3 secondary sections in a row
+        Container(
+          decoration: BoxDecoration(
+            color: cs.surface,
+            border: Border.all(color: cs.outline),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.r),
+              bottomRight: Radius.circular(20.r),
+            ),
+          ),
+          child: Row(
+            children: [
+              _balanceSection(
+                context,
+                label: 'pending_earnings'.tr,
+                amount: data.pendingEarnings,
+                currency: data.currency,
+                icon: Icons.hourglass_bottom,
+                iconColor: Colors.orange,
+                tooltip: _tooltipText('pending_earnings_hint',
+                    'Earnings awaiting release (escrow / dispute window)'),
+                dividerRight: true,
+              ),
+              _balanceSection(
+                context,
+                label: 'on_hold'.tr,
+                amount: data.onHold,
+                currency: data.currency,
+                icon: Icons.lock_outline,
+                iconColor: AppPalette.primary,
+                tooltip: _tooltipText('on_hold_hint',
+                    'Funds held due to active disputes or guarantees'),
+                dividerRight: true,
+              ),
+              _balanceSection(
+                context,
+                label: 'pending_withdrawal'.tr,
+                amount: data.pendingWithdrawal,
+                currency: data.currency,
+                icon: Icons.schedule_send_outlined,
+                iconColor: cs.onSurfaceVariant,
+                tooltip: _tooltipText('pending_withdrawal_hint',
+                    'Withdrawal requested but not yet processed'),
+                dividerRight: false,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _balanceSection(
+    BuildContext context, {
+    required String label,
+    required double amount,
+    required String currency,
+    required IconData icon,
+    required Color iconColor,
+    required String tooltip,
+    required bool dividerRight,
+  }) {
+    final cs = Theme.of(context).colorScheme;
+    return Expanded(
+      child: Tooltip(
+        message: tooltip,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+          decoration: BoxDecoration(
+            border: dividerRight
+                ? Border(right: BorderSide(color: cs.outline))
+                : null,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(icon, size: 13.sp, color: iconColor),
+                  SizedBox(width: 4.w),
+                  Flexible(
+                    child: Text(
+                      label,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 9.5.sp,
+                          color: cs.onSurfaceVariant,
+                          height: 1.3),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 6.h),
+              Text(
+                '$currency ${amount.toStringAsFixed(2)}',
+                style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: amount > 0 ? cs.onSurface : cs.onSurfaceVariant),
+              ),
+            ],
+          ),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('available_earnings'.tr,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.sp)),
-          SizedBox(height: 6.h),
-          Text('${data.currency} ${data.available.toStringAsFixed(2)}',
-              style: TextStyle(color: Colors.white, fontSize: 30.sp, fontWeight: FontWeight.w800)),
-          if (data.totalPending > 0) ...[
-            SizedBox(height: 4.h),
-            Text('${data.currency} ${data.totalPending.toStringAsFixed(2)} pending release',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 11.sp)),
-          ],
-          SizedBox(height: 16.h),
-          GestureDetector(
-            onTap: _openWithdraw,
-            child: _miniBtn(context, Icons.arrow_outward, 'Withdraw'),
-          ),
-        ],
-      ),
     );
+  }
+
+  /// Returns the translated tooltip text, falling back to [fallback] when the
+  /// translation key is missing (i.e. the translation equals the raw key).
+  String _tooltipText(String key, String fallback) {
+    final t = key.tr;
+    return (t == key) ? fallback : t;
   }
 
   void _openWithdraw() {
@@ -263,6 +389,7 @@ class _WalletPageState extends State<WalletPage> {
       ),
       builder: (_) => _WithdrawSheet(
         currency: _data?.currency ?? 'USD',
+        availableBalance: _data?.displayBalance ?? 0,
         onDone: _load,
       ),
     );
@@ -329,9 +456,14 @@ class _WalletPageState extends State<WalletPage> {
 
 class _WithdrawSheet extends StatefulWidget {
   final String currency;
+  final double availableBalance;
   final Future<void> Function() onDone;
 
-  const _WithdrawSheet({required this.currency, required this.onDone});
+  const _WithdrawSheet({
+    required this.currency,
+    required this.availableBalance,
+    required this.onDone,
+  });
 
   @override
   State<_WithdrawSheet> createState() => _WithdrawSheetState();
@@ -342,6 +474,8 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   final _amount = TextEditingController();
 
   List<PayoutMethod> _methods = [];
+  bool _methodsLoading = true;
+  bool _methodsError = false;
   String? _method;
   bool _sending = false;
 
@@ -349,18 +483,73 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   PayoutQuote? _quote;
   bool _quoting = false;
 
+  double get _enteredAmount => double.tryParse(_amount.text) ?? 0;
+  bool get _amountExceedsBalance => _enteredAmount > widget.availableBalance;
+
+  /// Minimum withdrawal allowed for the currently selected method.
+  double get _minimumAmount {
+    final method = _methods.firstWhereOrNull((m) => m.label == _method);
+    return switch (method?.type.toUpperCase()) {
+      'WISE' => 50.0,
+      'STRIPE' => 10.0,
+      'PAYPAL' => 10.0,
+      _ => 0.0,
+    };
+  }
+
+  /// True when the user has typed something but it is below the minimum.
+  bool get _amountBelowMinimum =>
+      _enteredAmount > 0 && _minimumAmount > 0 && _enteredAmount < _minimumAmount;
+
   @override
   void initState() {
     super.initState();
-    _repo.payoutMethods().then((list) {
+    _loadMethods();
+    // Rebuild on every keystroke so inline errors and the submit button
+    // disable state reflect the current input instantly.
+    _amount.addListener(_onAmountChanged);
+  }
+
+  void _onAmountChanged() {
+    if (mounted) setState(() {});
+    _refreshQuote();
+  }
+
+  Future<void> _loadMethods() async {
+    setState(() {
+      _methodsLoading = true;
+      _methodsError = false;
+    });
+    try {
+      // 15-second timeout so the sheet never loads indefinitely.
+      final list = await _repo
+          .payoutMethods()
+          .timeout(const Duration(seconds: 15));
       if (!mounted) return;
-      setState(() => _methods = list);
-    }).catchError((_) {});
-    _amount.addListener(_refreshQuote);
+      setState(() {
+        _methods = list;
+        _methodsLoading = false;
+      });
+    } on AppException catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _methodsLoading = false;
+        _methodsError = true;
+      });
+    } catch (_) {
+      // Covers TimeoutException and any unexpected network error
+      if (!mounted) return;
+      setState(() {
+        _methodsLoading = false;
+        _methodsError = true;
+      });
+    }
   }
 
   @override
+  @override
   void dispose() {
+    _amount.removeListener(_onAmountChanged);
     _amount.dispose();
     super.dispose();
   }
@@ -375,7 +564,6 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
     setState(() => _quoting = true);
     try {
       final q = await _repo.quotePayout(method.id, amount, widget.currency);
-      // ignore stale responses for an amount the user has already edited
       if (mounted && double.tryParse(_amount.text) == amount) {
         setState(() => _quote = q);
       }
@@ -389,8 +577,20 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   Future<void> _submit() async {
     final amount = double.tryParse(_amount.text);
     final method = _methods.firstWhereOrNull((m) => m.label == _method);
-    if (amount == null || method == null) {
+    if (amount == null || amount <= 0) {
+      toast('enter_a_valid_withdrawal_amount'.tr);
+      return;
+    }
+    if (method == null) {
       toast('pick_a_payout_method_and_an_amount'.tr);
+      return;
+    }
+    if (_amountBelowMinimum) {
+      toast('Minimum ${method.type.isEmpty ? '' : '${method.type} '}payout is ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}.');
+      return;
+    }
+    if (_amountExceedsBalance) {
+      toast('amount_exceeds_available_balance'.tr);
       return;
     }
     setState(() => _sending = true);
@@ -422,77 +622,181 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               Text('withdraw_earnings'.tr, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
-                _methods.isEmpty
-                    ? 'No payout methods linked yet — add one from the web dashboard first.'
-                    : 'Minimums: Stripe/PayPal ${widget.currency} 10, bank ${widget.currency} 50.',
+                'Available: ${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
+                style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppPalette.primary),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                _methodsLoading
+                    ? 'Loading payout methods…'
+                    : _methodsError
+                        ? 'could_not_load_payout_methods_retry'.tr == 'could_not_load_payout_methods_retry'
+                            ? 'Could not load payout methods. Please retry.'
+                            : 'could_not_load_payout_methods_retry'.tr
+                        : _methods.isEmpty
+                            ? 'No payout methods linked yet — add one from the web dashboard first.'
+                            : _method == null
+                                ? 'Minimums: Stripe/PayPal ${widget.currency} 10, Wise ${widget.currency} 50.'
+                                : 'Min. ${widget.currency} ${_minimumAmount.toStringAsFixed(2)} · Max. ${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant, height: 1.4),
               ),
-              SizedBox(height: 18.h),
-              LokDropdownField(
-                label: 'payout_method'.tr,
-                hint: 'where_the_money_goes'.tr,
-                icon: Icons.account_balance_outlined,
-                options: _methods.map((m) => m.label).toList(),
-                value: _method,
-                onChanged: (v) {
-                  setState(() => _method = v);
-                  _refreshQuote();
-                },
-              ),
-              SizedBox(height: 14.h),
-              LokTextField(
-                label: 'Amount (${widget.currency})',
-                hint: 'e_g_50'.tr,
-                icon: Icons.payments_outlined,
-                keyboardType: TextInputType.number,
-                controller: _amount,
-              ),
-              if (_quoting || _quote != null) ...[
-                SizedBox(height: 10.h),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    color: cs.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: _quoting
-                      ? Row(
-                          children: [
-                            SizedBox(
-                                width: 14.r,
-                                height: 14.r,
-                                child: const CircularProgressIndicator(strokeWidth: 2)),
-                            SizedBox(width: 10.w),
-                            Text('calculating_fees'.tr,
-                                style:
-                                    TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
-                          ],
-                        )
-                      : Text(
-                          'Fee ${widget.currency} ${_quote!.feeAmount.toStringAsFixed(2)} — '
-                          'you receive ${widget.currency} ${_quote!.netAmount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                              fontSize: 12.5.sp,
-                              fontWeight: FontWeight.w600,
-                              color: cs.onSurface),
-                        ),
+              if (_methodsError) ...[
+                SizedBox(height: 8.h),
+                TextButton(
+                  onPressed: _loadMethods,
+                  child: Text('retry'.tr),
                 ),
               ],
               SizedBox(height: 18.h),
-              ElevatedButton(
-                onPressed: _sending || _methods.isEmpty ? null : _submit,
-                child: _sending
-                    ? SizedBox(
-                        width: 20.r,
-                        height: 20.r,
-                        child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                      )
-                    : Text('request_withdrawal'.tr),
-              ),
+              if (_methodsLoading)
+                const Center(child: CircularProgressIndicator())
+              else if (!_methodsError) ...[
+                LokDropdownField(
+                  label: 'payout_method'.tr,
+                  hint: 'where_the_money_goes'.tr,
+                  icon: Icons.account_balance_outlined,
+                  options: _methods.map((m) => m.label).toList(),
+                  value: _method,
+                  onChanged: (v) {
+                    setState(() => _method = v);
+                    _refreshQuote();
+                  },
+                ),
+                SizedBox(height: 14.h),
+                LokTextField(
+                  label: 'Amount (${widget.currency})',
+                  hint: _minimumAmount > 0
+                      ? 'Min. ${_minimumAmount.toStringAsFixed(2)}'
+                      : 'e_g_50'.tr,
+                  icon: Icons.payments_outlined,
+                  keyboardType: TextInputType.number,
+                  controller: _amount,
+                ),
+                if (_amountExceedsBalance && _enteredAmount > 0) ...[
+                  SizedBox(height: 6.h),
+                  Text(
+                    'amount_exceeds_available_balance'.tr,
+                    style: TextStyle(
+                        fontSize: 11.sp, color: AppPalette.primary),
+                  ),
+                ],
+                if (_amountBelowMinimum) ...[
+                  SizedBox(height: 6.h),
+                  Text(
+                    'Minimum withdrawal: ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                        fontSize: 11.sp, color: AppPalette.primary),
+                  ),
+                ],
+                if (_quoting || _quote != null) ...[
+                  SizedBox(height: 10.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color: cs.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: _quoting
+                        ? Row(
+                            children: [
+                              SizedBox(
+                                  width: 14.r,
+                                  height: 14.r,
+                                  child: const CircularProgressIndicator(strokeWidth: 2)),
+                              SizedBox(width: 10.w),
+                              Text('calculating_fees'.tr,
+                                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+                            ],
+                          )
+                        : _feeText(cs),
+                  ),
+                ],
+                SizedBox(height: 18.h),
+                ElevatedButton(
+                  // Disable when: no methods, amount > balance, amount < minimum
+                  onPressed: _sending ||
+                          _methods.isEmpty ||
+                          _amountExceedsBalance ||
+                          _amountBelowMinimum
+                      ? null
+                      : _submit,
+                  child: _sending
+                      ? SizedBox(
+                          width: 20.r,
+                          height: 20.r,
+                          child: const CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text('request_withdrawal'.tr),
+                ),
+              ],
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Shows either the fee breakdown OR the backend's message when fee is
+  /// variable. Never shows "Fee: 0 USD" when showFeeAmount is false or when
+  /// the selected method is Wise — Wise fees are deducted on their end and
+  /// are not known in advance.
+  Widget _feeText(ColorScheme cs) {
+    final q = _quote!;
+    final selectedMethod = _methods.firstWhereOrNull((m) => m.label == _method);
+    final isWise = selectedMethod?.type == 'WISE';
+
+    // Wise always shows the disclaimer regardless of what the quote returns —
+    // their fees are variable and deducted externally, never "0".
+    if (isWise && q.feeAmount == 0) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline, size: 14.sp, color: cs.onSurfaceVariant),
+          SizedBox(width: 6.w),
+          Expanded(
+            child: Text(
+              'Wise transfer fees may apply and will be deducted from the withdrawal amount.',
+              style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (!q.showFeeAmount) {
+      // Backend explicitly says fee is variable — show its message or fallback.
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline, size: 14.sp, color: cs.onSurfaceVariant),
+          SizedBox(width: 6.w),
+          Expanded(
+            child: Text(
+              q.message ?? 'Transfer fees may apply.',
+              style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
+            ),
+          ),
+        ],
+      );
+    }
+
+    if (q.feeAmount == 0) {
+      return Text(
+        'No fee — you receive ${widget.currency} ${q.netAmount.toStringAsFixed(2)}',
+        style: TextStyle(
+            fontSize: 12.5.sp, fontWeight: FontWeight.w600, color: cs.onSurface),
+      );
+    }
+
+    return Text(
+      'Fee ${widget.currency} ${q.feeAmount.toStringAsFixed(2)} — '
+      'you receive ${widget.currency} ${q.netAmount.toStringAsFixed(2)}',
+      style: TextStyle(
+          fontSize: 12.5.sp, fontWeight: FontWeight.w600, color: cs.onSurface),
     );
   }
 }

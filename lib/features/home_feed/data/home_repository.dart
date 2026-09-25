@@ -50,8 +50,15 @@ class HomeRepository {
     }
   }
 
-  Future<HomeData> fetch() async {
-    final res = await _api.get('/home/mobile');
+  /// Fetch the home feed. Passes the user's country ISO2 so the backend can
+  /// filter recommended travelers/transporters to routes relevant to that
+  /// country (requirement 1.6).
+  Future<HomeData> fetch({String? userCountry}) async {
+    final params = <String, dynamic>{};
+    if (userCountry != null && userCountry.isNotEmpty) {
+      params['country'] = userCountry;
+    }
+    final res = await _api.get('/home/mobile', queryParameters: params);
     final data = Map<String, dynamic>.from(unwrapData(res));
     await _cache.put(_cacheKey, jsonEncode(data));
     return HomeData.fromJson(data);

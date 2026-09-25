@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
+import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/notify.dart';
@@ -15,6 +19,7 @@ import '../../../core/utils/stripe_sheet.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/verify_gate.dart';
 import '../../posts/presentation/widgets/mode_badge.dart';
+import '../../posts/presentation/widgets/transporter_chip.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
@@ -23,6 +28,7 @@ import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/status_badge.dart';
 import '../../../core/widgets/image_viewer.dart';
+import '../../../core/services/socket_service.dart';
 
 class DealDetailsPage extends StatefulWidget {
   final Deal deal;
@@ -38,11 +44,41 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   late Deal deal = widget.deal;
   bool _busy = false;
   bool _loading = true;
+  StreamSubscription<Map<String, dynamic>>? _dealSub;
+  Timer? _pollTimer;
+  static const _pollInterval = Duration(seconds: 10);
 
   @override
   void initState() {
     super.initState();
     _loadDetail();
+    _subscribeDealRealtime();
+  }
+
+  void _subscribeDealRealtime() {
+    if (Get.isRegistered<SocketService>()) {
+      final socket = Get.find<SocketService>();
+      socket.subscribeDeal(widget.deal.id);
+      _dealSub = socket.dealEvents.listen((payload) {
+        final id = payload['dealId'];
+        if (id != null && id != widget.deal.id) return;
+        // reload deal from backend to get fresh state (canMarkCompleted, status, etc.)
+        _loadDetail();
+      });
+      // Start a polling fallback — if no socket event arrives within 10 seconds
+      // the timer keeps the deal state in sync regardless of socket health.
+      _startPolling();
+    } else {
+      // No socket service at all — rely entirely on polling
+      _startPolling();
+    }
+  }
+
+  void _startPolling() {
+    _pollTimer?.cancel();
+    _pollTimer = Timer.periodic(_pollInterval, (_) {
+      if (mounted && !_busy) _loadDetail();
+    });
   }
 
   // the list row is a trimmed shape — pull the full deal for this screen
@@ -65,6 +101,16 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   void _refreshList() {
     if (Get.isRegistered<DealsController>()) Get.find<DealsController>().load();
+  }
+
+  @override
+  void dispose() {
+    _dealSub?.cancel();
+    _pollTimer?.cancel();
+    if (Get.isRegistered<SocketService>()) {
+      Get.find<SocketService>().leaveDeal(widget.deal.id);
+    }
+    super.dispose();
   }
 
   Future<void> _run(Future<void> Function() action, String done, {bool pop = true}) async {
@@ -212,14 +258,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   }
 
   // eligibility first, then the pickup video (record or choose a file),
-  // uploaded with a live progress bar, then flip to OUTGOING
+  // uploaded with a live progress bar, then flip to OUTGOING.
+  // IMPORTANT: do NOT show "collected" until changeStatus OUTGOING succeeds.
   Future<void> _startOutgoing() async {
     if (_busy) return;
     setState(() => _busy = true);
     try {
       await _repo.checkOutgoingEligibility(deal.id);
     } on AppException catch (e) {
-      toastError(e); // e.g. "The deal must be in ACCEPTED status."
+      toastError(e);
       if (mounted) setState(() => _busy = false);
       return;
     }
@@ -233,7 +280,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
     final progress = ValueNotifier<double>(0);
     _showUploadProgress(progress);
-    var uploaded = false;
+
+    // Step 1: upload — extended 600s timeout to handle large video files on
+    // slow connections (30s raw camera video can be 50–200 MB).
+    // IMPORTANT: do NOT advance to OUTGOING on any upload failure.
     try {
       await _repo.uploadPickupVideo(
         deal.id,
@@ -242,22 +292,42 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         onProgress: (sent, total) {
           if (total > 0) progress.value = sent / total;
         },
+        timeout: const Duration(seconds: 600),
       );
-      await _repo.changeStatus(deal.id, 'OUTGOING');
-      uploaded = true;
     } on AppException catch (e) {
-      toastError(e);
-    } finally {
-      if (mounted) Navigator.of(context, rootNavigator: true).pop(); // close dialog
+      // Upload failed — do NOT advance to OUTGOING, do NOT show pickup message
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
       progress.dispose();
       if (mounted) setState(() => _busy = false);
+      toastError(e);
+      return; // retryable — user can tap again
+    } catch (e) {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+      progress.dispose();
+      if (mounted) setState(() => _busy = false);
+      toast('video_upload_failed_please_try_again'.tr);
+      return;
     }
 
-    if (uploaded) {
-      _refreshList();
-      toast('pickup_video_uploaded_deal_is_now_outgoing'.tr);
-      await _loadDetail();
+    // Step 2: only after upload succeeds, change status to OUTGOING
+    try {
+      await _repo.changeStatus(deal.id, 'OUTGOING');
+    } on AppException catch (e) {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+      progress.dispose();
+      if (mounted) setState(() => _busy = false);
+      toastError(e);
+      return;
     }
+
+    if (mounted) Navigator.of(context, rootNavigator: true).pop();
+    progress.dispose();
+    if (mounted) setState(() => _busy = false);
+
+    // "Item collected" is shown ONLY here — both upload AND changeStatus succeeded
+    _refreshList();
+    toast('pickup_video_uploaded_deal_is_now_outgoing'.tr);
+    await _loadDetail();
   }
 
   // Live mode records the handover on the spot — the camera opens directly and
@@ -277,7 +347,20 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         maxDuration: const Duration(seconds: 30),
         preferredCameraDevice: CameraDevice.rear,
       );
-      return x == null ? null : (x.path, x.name);
+      if (x == null) return null;
+
+      // Check file size before attempting the upload.
+      // Raw camera video can be 50–200 MB for 30 seconds; the server limit is
+      // 200 MB. Warn the user early so the progress dialog never appears for a
+      // video that will be rejected server-side.
+      final bytes = await File(x.path).length();
+      const maxBytes = 200 * 1024 * 1024; // 200 MB
+      if (bytes > maxBytes) {
+        toast('video_too_large_keep_it_under_30_seconds'.tr);
+        return null;
+      }
+
+      return (x.path, x.name);
     } on PlatformException catch (e) {
       // no camera (emulator without one) or permission refused
       toast(e.message ?? 'Could not open the camera');
@@ -618,9 +701,21 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name.isEmpty ? 'Counterpart' : name,
-                    style: TextStyle(
-                        fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(name.isEmpty ? 'Counterpart' : name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                    ),
+                    if (deal.counterpart.isTransporter) ...[
+                      SizedBox(width: 6.w),
+                      TransporterChip(recommended: false),
+                    ],
+                  ],
+                ),
                 SizedBox(height: 2.h),
                 Text(deal.isTraveler ? 'Sender' : 'Traveler',
                     style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
@@ -1055,6 +1150,12 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   Widget _dispute(BuildContext context) {
     final (bg, fg) = DealStatus.disputes.colors;
+    // prefer the rich disputeDetails block over the legacy dispute map
+    final details = deal.disputeDetails ?? deal.dispute;
+    final reason = details?['reason']?.toString();
+    final description = details?['description']?.toString();
+    final statusLabel = details?['statusLabel']?.toString() ?? details?['status']?.toString();
+    final attachments = details?['attachments'];
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16.r)),
@@ -1067,14 +1168,73 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               SizedBox(width: 8.w),
               Text('dispute_open'.tr,
                   style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
+              if (statusLabel != null && statusLabel.isNotEmpty) ...[
+                const Spacer(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                  decoration: BoxDecoration(
+                    color: fg.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Text(statusLabel,
+                      style: TextStyle(
+                          fontSize: 9.sp, fontWeight: FontWeight.w700, color: fg)),
+                ),
+              ],
             ],
           ),
-          SizedBox(height: 8.h),
-          Text(
-            deal.dispute?['reason']?.toString() ??
-                'The team is reviewing this delivery.',
-            style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
-          ),
+          if (reason != null && reason.isNotEmpty) ...[
+            SizedBox(height: 8.h),
+            Text(reason,
+                style: TextStyle(
+                    color: fg, fontSize: 13.sp, fontWeight: FontWeight.w600)),
+          ],
+          if (description != null && description.isNotEmpty) ...[
+            SizedBox(height: 6.h),
+            Text(description,
+                style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
+          ],
+          if (attachments is List && attachments.isNotEmpty) ...[
+            SizedBox(height: 10.h),
+            SizedBox(
+              height: 72.r,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: attachments.length,
+                separatorBuilder: (_, __) => SizedBox(width: 8.w),
+                itemBuilder: (ctx, i) {
+                  final url = attachments[i] is Map
+                      ? (attachments[i]['url'] ?? attachments[i]['signedUrl'] ?? '')
+                      : '${attachments[i]}';
+                  return GestureDetector(
+                    onTap: () => ImageViewerPage.open(ctx, '$url'),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.r),
+                      child: Image.network(
+                        '$url',
+                        width: 72.r,
+                        height: 72.r,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          width: 72.r,
+                          height: 72.r,
+                          color: fg.withValues(alpha: 0.15),
+                          child: Icon(Icons.broken_image_outlined,
+                              size: 20.sp, color: fg),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+          if (reason == null && description == null)
+            Padding(
+              padding: EdgeInsets.only(top: 8.h),
+              child: Text('The team is reviewing this delivery.',
+                  style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
+            ),
         ],
       ),
     );
@@ -1159,7 +1319,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ),
             SizedBox(height: 12.h),
           ],
-          if (!deal.isTraveler) ...[
+          if (!deal.isTraveler && deal.canMarkCompleted && deal.status != DealStatus.disputes) ...[
             ElevatedButton(
               onPressed: _busy
                   ? null
@@ -1202,7 +1362,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         // website: the sender can still complete a disputed deal (isDealCompletable
         // includes DISPUTED) unless both sides disputed and it's locked for admin
         return [
-          if (deal.isSender && !deal.fundsLockedForDispute) ...[
+          if (deal.isSender && !deal.fundsLockedForDispute && deal.canMarkCompleted) ...[
             ElevatedButton(
               onPressed: _busy
                   ? null
