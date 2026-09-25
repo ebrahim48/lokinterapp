@@ -56,7 +56,38 @@ class _WalletPageState extends State<WalletPage> {
         _loading = false;
         _error = e.message;
       });
+    } catch (_) {
+      // a malformed payload must end in the retry state, not a spinner
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _error = 'something_went_wrong_try_again'.tr;
+      });
     }
+  }
+
+  /// The requested amount leaves Available and sits in Pending Withdrawal
+  /// straight away; the reload that follows replaces this with the server's
+  /// figures.
+  void _reserve(double amount) {
+    final d = _data;
+    if (d == null || !mounted) return;
+    setState(() {
+      _data = WalletData(
+        walletBalance: (d.displayBalance - amount).clamp(0, double.infinity),
+        withdrawable: (d.displayBalance - amount).clamp(0, double.infinity),
+        available: d.available,
+        pendingEarnings: d.pendingEarnings,
+        onHold: d.onHold,
+        pendingWithdrawal: d.pendingWithdrawal + amount,
+        totalPending: d.totalPending,
+        lifetimeEarnings: d.lifetimeEarnings,
+        currency: d.currency,
+        hasStripeConnect: d.hasStripeConnect,
+        potential: d.potential,
+        disputes: d.disputes,
+      );
+    });
   }
 
   @override
@@ -390,7 +421,10 @@ class _WalletPageState extends State<WalletPage> {
       builder: (_) => _WithdrawSheet(
         currency: _data?.currency ?? 'USD',
         availableBalance: _data?.displayBalance ?? 0,
-        onDone: _load,
+        onDone: (amount) {
+          _reserve(amount);
+          return _load();
+        },
       ),
     );
   }
@@ -457,7 +491,8 @@ class _WalletPageState extends State<WalletPage> {
 class _WithdrawSheet extends StatefulWidget {
   final String currency;
   final double availableBalance;
-  final Future<void> Function() onDone;
+  /// Called with the requested amount once the server accepts it.
+  final Future<void> Function(double amount) onDone;
 
   const _WithdrawSheet({
     required this.currency,
@@ -473,7 +508,9 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   final _repo = WalletRepository();
   final _amount = TextEditingController();
 
-  List<PayoutMethod> _methods = [];
+  // label shown in the dropdown → method; labels are made unique so two
+  // accounts of the same kind can't collide (the dropdown asserts on that)
+  Map<String, PayoutMethod> _methods = {};
   bool _methodsLoading = true;
   bool _methodsError = false;
   String? _method;
@@ -483,23 +520,46 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   PayoutQuote? _quote;
   bool _quoting = false;
 
-  double get _enteredAmount => double.tryParse(_amount.text) ?? 0;
-  bool get _amountExceedsBalance => _enteredAmount > widget.availableBalance;
+  // digits with at most two decimals — rejects letters, signs, "NaN",
+  // "Infinity" and exponents that double.tryParse would otherwise accept
+  static final _amountPattern = RegExp(r'^\d+([.,]\d{0,2})?$');
 
-  /// Minimum withdrawal allowed for the currently selected method.
-  double get _minimumAmount {
-    final method = _methods.firstWhereOrNull((m) => m.label == _method);
-    return switch (method?.type.toUpperCase()) {
-      'WISE' => 50.0,
-      'STRIPE' => 10.0,
-      'PAYPAL' => 10.0,
-      _ => 0.0,
-    };
+  PayoutMethod? get _selected => _method == null ? null : _methods[_method];
+  bool get _isWise => _selected?.type == 'WISE';
+
+  /// The typed amount, or null when it isn't a valid money value.
+  double? get _parsedAmount {
+    final text = _amount.text.trim();
+    if (!_amountPattern.hasMatch(text)) return null;
+    return double.tryParse(text.replaceAll(',', '.'));
   }
 
-  /// True when the user has typed something but it is below the minimum.
-  bool get _amountBelowMinimum =>
-      _enteredAmount > 0 && _minimumAmount > 0 && _enteredAmount < _minimumAmount;
+  /// Minimum withdrawal allowed for the currently selected method.
+  double get _minimumAmount => switch (_selected?.type) {
+        'WISE' => 50.0,
+        'STRIPE' => 10.0,
+        'PAYPAL' => 10.0,
+        _ => 0.0,
+      };
+
+  /// Why the current input can't be submitted, or null when it can.
+  /// Empty input returns null too — there's nothing to complain about yet.
+  String? get _amountError {
+    if (_amount.text.trim().isEmpty) return null;
+    final amount = _parsedAmount;
+    if (amount == null) return 'enter_a_valid_withdrawal_amount'.tr;
+    if (amount <= 0) return 'enter_a_valid_withdrawal_amount'.tr;
+    if (amount > widget.availableBalance) {
+      return 'amount_exceeds_available_balance'.tr;
+    }
+    if (_minimumAmount > 0 && amount < _minimumAmount) {
+      return 'Minimum withdrawal: ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}';
+    }
+    return null;
+  }
+
+  bool get _canSubmit =>
+      !_sending && _selected != null && _parsedAmount != null && _amountError == null;
 
   @override
   void initState() {
@@ -526,18 +586,25 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
           .payoutMethods()
           .timeout(const Duration(seconds: 15));
       if (!mounted) return;
+      final byLabel = <String, PayoutMethod>{};
+      for (final m in list) {
+        var label = m.label.isEmpty ? m.type : m.label;
+        for (var n = 2; byLabel.containsKey(label); n++) {
+          label = '${m.label} ($n)';
+        }
+        byLabel[label] = m;
+      }
       setState(() {
-        _methods = list;
+        _methods = byLabel;
         _methodsLoading = false;
-      });
-    } on AppException catch (_) {
-      if (!mounted) return;
-      setState(() {
-        _methodsLoading = false;
-        _methodsError = true;
+        // preselect the default account, like the website does
+        _method ??= byLabel.entries
+            .where((e) => e.value.isDefault)
+            .map((e) => e.key)
+            .firstOrNull;
       });
     } catch (_) {
-      // Covers TimeoutException and any unexpected network error
+      // Covers AppException, TimeoutException and malformed payloads
       if (!mounted) return;
       setState(() {
         _methodsLoading = false;
@@ -546,7 +613,6 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
     }
   }
 
-  @override
   @override
   void dispose() {
     _amount.removeListener(_onAmountChanged);
@@ -555,16 +621,17 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   }
 
   Future<void> _refreshQuote() async {
-    final amount = double.tryParse(_amount.text);
-    final method = _methods.firstWhereOrNull((m) => m.label == _method);
-    if (amount == null || amount <= 0 || method == null) {
+    final amount = _parsedAmount;
+    final method = _selected;
+    // Wise fees are unknown in advance — the disclaimer replaces the quote
+    if (amount == null || amount <= 0 || method == null || _isWise) {
       if (_quote != null && mounted) setState(() => _quote = null);
       return;
     }
     setState(() => _quoting = true);
     try {
       final q = await _repo.quotePayout(method.id, amount, widget.currency);
-      if (mounted && double.tryParse(_amount.text) == amount) {
+      if (mounted && _parsedAmount == amount && _selected == method) {
         setState(() => _quote = q);
       }
     } catch (_) {
@@ -575,22 +642,19 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   }
 
   Future<void> _submit() async {
-    final amount = double.tryParse(_amount.text);
-    final method = _methods.firstWhereOrNull((m) => m.label == _method);
-    if (amount == null || amount <= 0) {
-      toast('enter_a_valid_withdrawal_amount'.tr);
-      return;
-    }
+    final amount = _parsedAmount;
+    final method = _selected;
     if (method == null) {
       toast('pick_a_payout_method_and_an_amount'.tr);
       return;
     }
-    if (_amountBelowMinimum) {
-      toast('Minimum ${method.type.isEmpty ? '' : '${method.type} '}payout is ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}.');
+    if (amount == null || amount <= 0) {
+      toast('enter_a_valid_withdrawal_amount'.tr);
       return;
     }
-    if (_amountExceedsBalance) {
-      toast('amount_exceeds_available_balance'.tr);
+    final error = _amountError;
+    if (error != null) {
+      toast(error);
       return;
     }
     setState(() => _sending = true);
@@ -599,7 +663,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
       if (!mounted) return;
       Navigator.pop(context);
       toast('withdrawal_requested'.tr);
-      widget.onDone();
+      widget.onDone(amount);
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -610,6 +674,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final error = _amountError;
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: SafeArea(
@@ -631,13 +696,11 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               SizedBox(height: 4.h),
               Text(
                 _methodsLoading
-                    ? 'Loading payout methods…'
+                    ? 'loading_payout_methods'.tr
                     : _methodsError
-                        ? 'could_not_load_payout_methods_retry'.tr == 'could_not_load_payout_methods_retry'
-                            ? 'Could not load payout methods. Please retry.'
-                            : 'could_not_load_payout_methods_retry'.tr
+                        ? 'could_not_load_payout_methods_retry'.tr
                         : _methods.isEmpty
-                            ? 'No payout methods linked yet — add one from the web dashboard first.'
+                            ? 'no_payout_methods_yet_add_one_so_you_can_withdra'.tr
                             : _method == null
                                 ? 'Minimums: Stripe/PayPal ${widget.currency} 10, Wise ${widget.currency} 50.'
                                 : 'Min. ${widget.currency} ${_minimumAmount.toStringAsFixed(2)} · Max. ${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
@@ -658,10 +721,13 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                   label: 'payout_method'.tr,
                   hint: 'where_the_money_goes'.tr,
                   icon: Icons.account_balance_outlined,
-                  options: _methods.map((m) => m.label).toList(),
+                  options: _methods.keys.toList(),
                   value: _method,
                   onChanged: (v) {
-                    setState(() => _method = v);
+                    setState(() {
+                      _method = v;
+                      _quote = null;
+                    });
                     _refreshQuote();
                   },
                 ),
@@ -672,26 +738,21 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                       ? 'Min. ${_minimumAmount.toStringAsFixed(2)}'
                       : 'e_g_50'.tr,
                   icon: Icons.payments_outlined,
-                  keyboardType: TextInputType.number,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   controller: _amount,
                 ),
-                if (_amountExceedsBalance && _enteredAmount > 0) ...[
+                if (error != null) ...[
                   SizedBox(height: 6.h),
                   Text(
-                    'amount_exceeds_available_balance'.tr,
-                    style: TextStyle(
-                        fontSize: 11.sp, color: AppPalette.primary),
+                    error,
+                    style: TextStyle(fontSize: 11.sp, color: AppPalette.primary),
                   ),
                 ],
-                if (_amountBelowMinimum) ...[
-                  SizedBox(height: 6.h),
-                  Text(
-                    'Minimum withdrawal: ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                        fontSize: 11.sp, color: AppPalette.primary),
-                  ),
-                ],
-                if (_quoting || _quote != null) ...[
+                if (_isWise) ...[
+                  SizedBox(height: 10.h),
+                  _note(cs, 'wise_fee_disclaimer'.tr),
+                ] else if (_quoting || _quote != null) ...[
                   SizedBox(height: 10.h),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
@@ -716,13 +777,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                 ],
                 SizedBox(height: 18.h),
                 ElevatedButton(
-                  // Disable when: no methods, amount > balance, amount < minimum
-                  onPressed: _sending ||
-                          _methods.isEmpty ||
-                          _amountExceedsBalance ||
-                          _amountBelowMinimum
-                      ? null
-                      : _submit,
+                  onPressed: _canSubmit ? _submit : null,
                   child: _sending
                       ? SizedBox(
                           width: 20.r,
@@ -740,47 +795,34 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
     );
   }
 
-  /// Shows either the fee breakdown OR the backend's message when fee is
-  /// variable. Never shows "Fee: 0 USD" when showFeeAmount is false or when
-  /// the selected method is Wise — Wise fees are deducted on their end and
-  /// are not known in advance.
+  Widget _note(ColorScheme cs, String text) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: cs.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.info_outline, size: 14.sp, color: cs.onSurfaceVariant),
+            SizedBox(width: 6.w),
+            Expanded(
+              child: Text(text,
+                  style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4)),
+            ),
+          ],
+        ),
+      );
+
+  /// Fee breakdown for methods with a known fee. Wise never reaches here —
+  /// its fee is variable and deducted by Wise, so it gets the disclaimer.
   Widget _feeText(ColorScheme cs) {
     final q = _quote!;
-    final selectedMethod = _methods.firstWhereOrNull((m) => m.label == _method);
-    final isWise = selectedMethod?.type == 'WISE';
-
-    // Wise always shows the disclaimer regardless of what the quote returns —
-    // their fees are variable and deducted externally, never "0".
-    if (isWise && q.feeAmount == 0) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.info_outline, size: 14.sp, color: cs.onSurfaceVariant),
-          SizedBox(width: 6.w),
-          Expanded(
-            child: Text(
-              'Wise transfer fees may apply and will be deducted from the withdrawal amount.',
-              style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
-            ),
-          ),
-        ],
-      );
-    }
-
     if (!q.showFeeAmount) {
-      // Backend explicitly says fee is variable — show its message or fallback.
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.info_outline, size: 14.sp, color: cs.onSurfaceVariant),
-          SizedBox(width: 6.w),
-          Expanded(
-            child: Text(
-              q.message ?? 'Transfer fees may apply.',
-              style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
-            ),
-          ),
-        ],
+      // backend says the fee is variable — show its message, never "Fee: 0"
+      return Text(
+        q.message ?? 'transfer_fees_may_apply'.tr,
+        style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
       );
     }
 

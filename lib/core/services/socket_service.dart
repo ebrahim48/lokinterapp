@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import '../constants/api_constants.dart';
+import 'data_bus.dart';
 import 'session_service.dart';
 
 // A live chat message pushed on a chatRoom channel, tagged with which chat it
@@ -60,6 +61,9 @@ class SocketService extends GetxService {
           onEvent: _onEvent,
           onConnectionStateChange: (current, previous) {
             if (kDebugMode) print('socket: $previous → $current');
+            // lets connect() bring a dropped socket back instead of
+            // believing it is still up
+            if (current.toUpperCase() == 'DISCONNECTED') _connected = false;
           },
           onSubscriptionSucceeded: (channel, data) {
             if (kDebugMode) print('socket: subscribed $channel');
@@ -75,8 +79,12 @@ class SocketService extends GetxService {
       }
       await _pusher.connect();
       _connected = true;
-      await _pusher.subscribe(channelName: 'private-chats.$myId');
-      await _pusher.subscribe(channelName: 'private-notifications.$myId');
+      // already-subscribed channels throw on a reconnect — that's fine
+      for (final ch in ['private-chats.$myId', 'private-notifications.$myId']) {
+        try {
+          await _pusher.subscribe(channelName: ch);
+        } catch (_) {}
+      }
     } catch (e) {
       // chat still works over REST polling if the socket can't come up
       _connected = false;
@@ -139,10 +147,17 @@ class SocketService extends GetxService {
     } else if (name == 'chats.messages') {
       final chatId = _chatIdFrom(event.channelName);
       if (chatId != null) _messages.add(SocketMessage(chatId, payload));
-    } else if (name == 'deal.status.updated') {
+    } else if (name.contains('deal.status.updated') ||
+        name.endsWith('DealStatusUpdated') ||
+        event.channelName.startsWith('private-deal.')) {
+      // Echo may prefix the name (".deal.status.updated" or the class name)
       _dealEvents.add(payload);
+      // deal lists and the wallet everywhere reload, not just the open deal
+      DataBus.changed(DataTopic.deals);
     } else if (event.channelName.startsWith('private-notifications.')) {
       _notifications.add(payload);
+      // most notifications are deal/payment updates for the other side
+      DataBus.changed(DataTopic.deals);
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart' hide Response;
 import '../utils/push_router.dart';
 import 'api_service.dart';
+import 'data_bus.dart';
 import 'session_service.dart';
 import 'storage_service.dart';
 
@@ -210,6 +211,10 @@ class PushService extends GetxService {
 
   void _onForeground(RemoteMessage message) {
     if (kDebugMode) print('push (foreground): ${message.data}');
+    // a push means something changed server-side — refresh what's on screen
+    // now instead of waiting for the user to pull
+    DataBus.changed(DataTopic.deals);
+    DataBus.changed(DataTopic.wallet);
     // iOS presents it itself (setForegroundNotificationPresentationOptions);
     // showing a local copy there would give the user two banners.
     if (!Platform.isAndroid) return;

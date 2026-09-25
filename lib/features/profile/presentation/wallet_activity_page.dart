@@ -48,6 +48,11 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
       if (!mounted) return;
       setState(() => _loading = false);
       toastError(e);
+    } catch (_) {
+      // a malformed row must not leave the spinner up forever
+      if (!mounted) return;
+      setState(() => _loading = false);
+      toast('something_went_wrong_try_again'.tr);
     }
   }
 
@@ -111,17 +116,20 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
             ? clean(t.description)
             : _typeLabel(t.type);
 
-    // Use dealDisplayId (#DL-123) over raw dealRef (encrypted string).
-    // Guard both fields — the backend sometimes echoes the encrypted ref
-    // into dealDisplayId or description, so sanitise all candidates.
+    // Use dealDisplayId (#DL-123), else the numeric id. The raw dealRef is a
+    // technical code and is never shown — the backend sometimes echoes it
+    // into dealDisplayId too, so sanitise that as well.
     final rawDisplayId = t.dealDisplayId;
     final dealLabel = rawDisplayId.isNotEmpty && !_looksEncrypted(rawDisplayId)
         ? rawDisplayId
-        : t.dealRef.isNotEmpty && !_looksEncrypted(t.dealRef)
-            ? t.dealRef
-            : t.dealId != 0
-                ? 'Deal #${t.dealId}'
-                : '';
+        : t.dealId != 0
+            ? 'Deal #${t.dealId}'
+            : '';
+    final status = t.statusLabel.isNotEmpty
+        ? t.statusLabel
+        : t.status.isNotEmpty
+            ? _statusLabel(t.status)
+            : t.reason;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -159,10 +167,7 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
                   runSpacing: 4.h,
                   children: [
                     _typeChip(cs, t.type, credit),
-                    if (t.statusLabel.isNotEmpty)
-                      _statusBadge(cs, t.statusLabel),
-                    if (t.reason.isNotEmpty && t.statusLabel.isEmpty)
-                      _statusBadge(cs, t.reason),
+                    if (status.isNotEmpty) _statusBadge(cs, status),
                   ],
                 ),
                 SizedBox(height: 4.h),
@@ -334,22 +339,23 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
     );
   }
 
-  String _statusLabel(String s) => switch (s) {
-        'processing' => 'processing'.tr,
-        'fulfilled' => 'paid'.tr,
+  // Pending → Processing → Paid / Rejected / Failed
+  String _statusLabel(String s) => switch (s.toLowerCase()) {
+        'pending' || 'pending_admin_review' => 'pending'.tr,
+        'processing' || 'approved' => 'processing'.tr,
+        'fulfilled' || 'paid' || 'completed' => 'paid'.tr,
         'failed' => 'failed'.tr,
-        'pending_admin_review' => 'in_review'.tr,
-        'approved' => 'approved'.tr,
-        'declined' => 'declined'.tr,
+        'declined' || 'rejected' => 'rejected'.tr,
+        'cancelled' || 'canceled' => 'cancelled'.tr,
         _ => s,
       };
 
-  (Color, Color) _statusColors(String s, ColorScheme cs) => switch (s) {
-        'fulfilled' || 'approved' => (
+  (Color, Color) _statusColors(String s, ColorScheme cs) => switch (s.toLowerCase()) {
+        'fulfilled' || 'paid' || 'completed' => (
             AppPalette.verified.withValues(alpha: 0.15),
             AppPalette.verified
           ),
-        'failed' || 'declined' => (
+        'failed' || 'declined' || 'rejected' => (
             AppPalette.primary.withValues(alpha: 0.12),
             AppPalette.primary
           ),

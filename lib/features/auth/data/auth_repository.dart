@@ -128,20 +128,7 @@ class AuthRepository {
     unwrapData(await _api.post('/auth/forgotPassword', data: {'email': email}));
   }
 
-  Future<void> resetPassword({
-    required String email,
-    required String token,
-    required String password,
-  }) async {
-    unwrapData(await _api.post('/auth/resetPassword', data: {
-      'token': token,
-      'email': email,
-      'password': password,
-      'passwordConfirmation': password,
-    }));
-  }
-
-  // NB: this endpoint's field names differ from resetPassword — it wants
+  // NB: this endpoint's field names differ from the web reset form — it wants
   // newPassword/confirmPassword (matches the website's authApi payload).
   Future<void> changePassword(String current, String next) async {
     unwrapData(await _api.post('/auth/changePassword', data: {

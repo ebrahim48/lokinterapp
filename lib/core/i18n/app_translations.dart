@@ -67,7 +67,31 @@ const _en = <String, String>{
   'terms.title': 'Terms & conditions',
   'terms.linkText': 'terms and conditions',
   'privacy.title': 'Privacy policy',
-  'legal.offlineCopy': "Couldn't load the latest version — showing the bundled copy.",
+  'legal.offlineCopy': "Couldn't load the latest version — showing the bundled copy.",  // wallet & withdrawals
+  'something_went_wrong_try_again': 'Something went wrong. Please try again.',
+  'loading_payout_methods': 'Loading payout methods…',
+  'wise_fee_disclaimer':
+      'Wise transfer fees may apply and will be deducted from the withdrawal amount.',
+  'transfer_fees_may_apply': 'Transfer fees may apply.',
+  'pending': 'Pending',
+  'rejected': 'Rejected',
+  'cancelled': 'Cancelled',
+  'fee': 'Fee',
+  'refund': 'Refund',
+  'withdrawal': 'Withdrawal',
+  // disputes
+  'deal_under_dispute_cannot_complete':
+      'This deal is under dispute and can only be closed by the dispute resolution.',
+  'you_can_attach_up_to_10_photos': 'You can attach up to 10 photos.',
+  // reset password
+  'send_reset_link': 'Send reset link',
+  'check_your_email': 'Check your email',
+  'reset_link_sent_to':
+      'We sent a password reset link to @email. Open the link in that email to choose a new password.',
+  'back_to_login': 'Back to login',
+  'resend_reset_link': 'Resend link',
+  'use_a_different_email': 'Use a different email',
+  'reset_link_sent_again': 'Reset link sent again',
 };
 
 const _fr = <String, String>{
@@ -119,7 +143,31 @@ const _fr = <String, String>{
   'terms.linkText': 'conditions générales',
   'privacy.title': 'Politique de confidentialité',
   'legal.offlineCopy':
-      "Impossible de charger la dernière version — copie intégrée affichée.",
+      "Impossible de charger la dernière version — copie intégrée affichée.",  // wallet & withdrawals
+  'something_went_wrong_try_again': 'Une erreur est survenue. Veuillez réessayer.',
+  'loading_payout_methods': 'Chargement des moyens de versement…',
+  'wise_fee_disclaimer':
+      'Des frais de transfert Wise peuvent s\'appliquer et seront déduits du montant retiré.',
+  'transfer_fees_may_apply': 'Des frais de transfert peuvent s\'appliquer.',
+  'pending': 'En attente',
+  'rejected': 'Rejeté',
+  'cancelled': 'Annulé',
+  'fee': 'Frais',
+  'refund': 'Remboursement',
+  'withdrawal': 'Retrait',
+  // disputes
+  'deal_under_dispute_cannot_complete':
+      'Cette transaction est en litige et ne peut être clôturée que par la résolution du litige.',
+  'you_can_attach_up_to_10_photos': 'Vous pouvez joindre jusqu\'à 10 photos.',
+  // reset password
+  'send_reset_link': 'Envoyer le lien',
+  'check_your_email': 'Vérifiez vos e-mails',
+  'reset_link_sent_to':
+      'Nous avons envoyé un lien de réinitialisation à @email. Ouvrez ce lien pour choisir un nouveau mot de passe.',
+  'back_to_login': 'Retour à la connexion',
+  'resend_reset_link': 'Renvoyer le lien',
+  'use_a_different_email': 'Utiliser une autre adresse',
+  'reset_link_sent_again': 'Lien de réinitialisation renvoyé',
 };
 
 // ---- generated from the screens (see docs) ----
