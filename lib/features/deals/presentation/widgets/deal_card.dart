@@ -4,6 +4,7 @@ import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/format.dart';
 import '../../data/deal_model.dart';
 import 'status_badge.dart';
+import '../../../posts/presentation/widgets/transporter_chip.dart';
 
 class DealCard extends StatelessWidget {
   final Deal deal;
@@ -26,6 +27,11 @@ class DealCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Show transporter badge if the counterpart is an approved transporter
+            if (deal.counterpart.isTransporter) ...[
+              TransporterChip(recommended: false),
+              SizedBox(height: 8.h),
+            ],
             Row(
               children: [
                 Icon(Icons.place_outlined, size: 16.sp, color: AppPalette.primary),

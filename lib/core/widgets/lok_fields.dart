@@ -120,6 +120,8 @@ class _LokPasswordFieldState extends State<LokPasswordField> {
 }
 
 // Tap-to-pick dropdown backed by a bottom sheet. Selection is local UI state.
+// Pass [searchable: true] to show a search bar inside the sheet — useful for
+// long lists like countries (190+ entries).
 class LokDropdownField extends StatelessWidget {
   final String label;
   final String hint;
@@ -127,6 +129,7 @@ class LokDropdownField extends StatelessWidget {
   final List<String> options;
   final String? value;
   final bool required;
+  final bool searchable;
   final ValueChanged<String> onChanged;
 
   const LokDropdownField({
@@ -138,6 +141,7 @@ class LokDropdownField extends StatelessWidget {
     required this.onChanged,
     this.value,
     this.required = false,
+    this.searchable = false,
   });
 
   @override
@@ -148,7 +152,7 @@ class LokDropdownField extends StatelessWidget {
         _Label(label, required: required),
         _FieldBox(
           icon: icon,
-          onTap: () => _open(context),
+          onTap: () => searchable ? _openSearchable(context) : _open(context),
           trailing: const Icon(Icons.keyboard_arrow_down),
           child: Text(
             value ?? hint,
@@ -159,6 +163,7 @@ class LokDropdownField extends StatelessWidget {
     );
   }
 
+  // ── Plain list (short lists, no search needed) ────────────────────────────
   void _open(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     showModalBottomSheet<void>(
@@ -194,6 +199,155 @@ class LokDropdownField extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  // ── Searchable list (long lists, e.g. countries) ──────────────────────────
+  void _openSearchable(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => _SearchableSheet(
+        label: label,
+        options: options,
+        selected: value,
+        onSelected: (picked) {
+          onChanged(picked);
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+
+/// Internal stateful sheet that holds the search query and filters the list.
+class _SearchableSheet extends StatefulWidget {
+  final String label;
+  final List<String> options;
+  final String? selected;
+  final ValueChanged<String> onSelected;
+
+  const _SearchableSheet({
+    required this.label,
+    required this.options,
+    required this.onSelected,
+    this.selected,
+  });
+
+  @override
+  State<_SearchableSheet> createState() => _SearchableSheetState();
+}
+
+class _SearchableSheetState extends State<_SearchableSheet> {
+  final _searchCtrl = TextEditingController();
+  List<String> _filtered = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filtered = widget.options;
+    _searchCtrl.addListener(_onSearch);
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.removeListener(_onSearch);
+    _searchCtrl.dispose();
+    super.dispose();
+  }
+
+  void _onSearch() {
+    final q = _searchCtrl.text.trim().toLowerCase();
+    setState(() {
+      _filtered = q.isEmpty
+          ? widget.options
+          : widget.options.where((o) => o.toLowerCase().contains(q)).toList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    // 85% of the screen height so the keyboard doesn't push content out
+    final maxH = MediaQuery.of(context).size.height * 0.85;
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: maxH),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // ── Header ───────────────────────────────────────────────────────
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 12.h),
+            child: Text(widget.label, style: Theme.of(context).textTheme.titleLarge),
+          ),
+          // ── Search bar ───────────────────────────────────────────────────
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _searchCtrl,
+              builder: (_, val, __) => TextField(
+                controller: _searchCtrl,
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: 'search'.tr,
+                  prefixIcon: Icon(Icons.search, size: 18.sp),
+                  suffixIcon: val.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(Icons.close, size: 16.sp),
+                          onPressed: () {
+                            _searchCtrl.clear();
+                            FocusScope.of(context).unfocus();
+                          },
+                        )
+                      : null,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 8.h),
+          const Divider(height: 1),
+          // ── List ─────────────────────────────────────────────────────────
+          Flexible(
+            child: widget.options.isEmpty
+                ? Padding(
+                    padding: EdgeInsets.symmetric(vertical: 28.h),
+                    child: const Center(child: CircularProgressIndicator()),
+                  )
+                : _filtered.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(vertical: 28.h),
+                        child: Center(
+                          child: Text(
+                            'no_results_found'.tr,
+                            style: TextStyle(
+                                fontSize: 13.sp, color: cs.onSurfaceVariant),
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _filtered.length,
+                        itemBuilder: (_, i) {
+                          final o = _filtered[i];
+                          return ListTile(
+                            title: Text(o),
+                            trailing: o == widget.selected
+                                ? const Icon(Icons.check, color: AppPalette.primary)
+                                : null,
+                            onTap: () => widget.onSelected(o),
+                          );
+                        },
+                      ),
+          ),
+          // bottom safe area padding
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
+        ],
       ),
     );
   }

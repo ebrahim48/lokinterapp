@@ -41,7 +41,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
   bool _sending = false;
   List<Map<String, dynamic>> _reasons = [];
   String? _selected;
-  XFile? _evidence;
+  List<XFile> _evidence = [];
   String? _windowNote;
   bool _windowClosed = false;
 
@@ -86,12 +86,8 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
   }
 
   Future<void> _pickEvidence() async {
-    final img = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1920,
-      imageQuality: 80,
-    );
-    if (img != null && mounted) setState(() => _evidence = img);
+    final imgs = await ImagePicker().pickMultiImage(maxWidth: 1920, imageQuality: 80);
+    if (imgs.isNotEmpty && mounted) setState(() => _evidence = [..._evidence, ...imgs]);
   }
 
   Future<void> _submit() async {
@@ -99,7 +95,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
       toast('pick_a_reason_first'.tr);
       return;
     }
-    if (_needsEvidence && _evidence == null) {
+    if (_needsEvidence && _evidence.isEmpty) {
       toast('photo_or_video_evidence_is_required_for_this_rea'.tr);
       return;
     }
@@ -109,7 +105,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
         widget.dealId,
         reason: _selected!,
         description: _description.text.trim(),
-        attachmentPath: _evidence?.path,
+        attachmentPaths: _evidence.map((x) => x.path).toList(),
       );
       if (!mounted) return;
       Navigator.pop(context, true);
@@ -238,7 +234,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(
-                          color: _needsEvidence && _evidence == null
+                          color: _needsEvidence && _evidence.isEmpty
                               ? AppPalette.primary
                               : cs.outline),
                     ),
@@ -249,8 +245,8 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Text(
-                            _evidence != null
-                                ? _evidence!.name
+                            _evidence.isNotEmpty
+                                ? '${_evidence.length} photo(s) selected'
                                 : _needsEvidence
                                     ? 'Add photo evidence (required)'
                                     : 'Add photo evidence (optional)',
@@ -258,6 +254,11 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        if (_evidence.isNotEmpty)
+                          GestureDetector(
+                            onTap: () => setState(() => _evidence = []),
+                            child: Icon(Icons.clear, size: 18.sp, color: cs.onSurfaceVariant),
+                          ),
                       ],
                     ),
                   ),

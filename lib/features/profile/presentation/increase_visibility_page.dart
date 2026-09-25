@@ -30,6 +30,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
   final _storage = Get.find<StorageService>();
   String? _planPrice;
   bool _busy = false;
+  // current transporter visibility status loaded from server
+  Map<String, dynamic> _transporterStatusData = {};
 
   // /auth/user doesn't report a pending traveler application, so remember it
   // per account; an approved one is visible through the badge fields instead
@@ -52,6 +54,11 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
         setState(() => _planPrice = 'USD ${paid['price']} / $unit');
       }
     }).catchError((_) {});
+    // load current transporter status on open
+    _visibility.transporterStatus().then((data) {
+      if (!mounted) return;
+      setState(() => _transporterStatusData = data);
+    }).catchError((_) {});
   }
 
   // free application — the server re-checks eligibility before accepting
@@ -73,7 +80,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     }
   }
 
-  // \$22.99 / 30 days; on success the account carries the recommended badge
+  // $23.99 / 30 days; on success the account carries the recommended badge
   Future<void> _subscribeTransporter() async {
     if (_busy) return;
     final ok = await Get.dialog<bool>(
@@ -93,28 +100,44 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     try {
       final res = await _visibility.subscribeTransporter();
 
-      // when the backend opens a Stripe intent, charge the card the same way
-      // escrow does; otherwise it settled the payment itself
+      // Already active — no payment needed
+      if (res['alreadyActive'] == true) {
+        toast('you_are_already_subscribed'.tr);
+        await _refreshUser();
+        return;
+      }
+
+      // Server settled without Stripe — just confirm
+      if (res['requiresPayment'] == false) {
+        final intentId = '${res['paymentIntentId'] ?? ''}';
+        if (intentId.isNotEmpty) {
+          await _visibility.confirmTransporterPayment(intentId);
+        }
+        toast('subscription_activated'.tr);
+        await _refreshUser();
+        return;
+      }
+
+      // Stripe PaymentSheet required
       final secret = clientSecretOf(res);
       if (secret.isNotEmpty) {
         final paid = await presentStripeSheet(secret);
-        if (!paid) return; // cancelled — leave the subscription untouched
+        if (!paid) return; // user cancelled — do NOT confirm, do NOT show active
         final intentId = '${res['paymentIntentId'] ?? ''}';
         if (intentId.isNotEmpty) {
           try {
-            await _visibility.confirmTransporterSubscription(intentId);
+            await _visibility.confirmTransporterPayment(intentId);
           } on AppException {
             // a webhook-driven backend has no confirm step; the refresh below
             // still picks up the activated subscription
           }
         }
+        final until = '${res['featuredUntil'] ?? ''}';
+        toast(until.isEmpty
+            ? 'subscription_activated'.tr
+            : 'subscription_active_until'.trParams({'date': until.split(' ').first}));
+        await _refreshUser();
       }
-
-      final until = '${res['featuredUntil'] ?? ''}';
-      toast(until.isEmpty
-          ? 'subscription_activated'.tr
-          : 'subscription_active_until'.trParams({'date': until.split(' ').first}));
-      await _refreshUser();
     } on AppException catch (e) {
       toastError(e);
     } finally {
@@ -127,6 +150,11 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
     if (Get.isRegistered<ProfileController>()) {
       await Get.find<ProfileController>().load();
     }
+    // also refresh the live transporter status so the button disables immediately
+    try {
+      final data = await _visibility.transporterStatus();
+      if (mounted) setState(() => _transporterStatusData = data);
+    } catch (_) {}
   }
 
   @override
@@ -197,15 +225,31 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
           Obx(() {
             final u = c.user;
             final subscribed = u?.hasActiveSubscription ?? false;
-            final until = u?.subscriptionEndsOn;
+
+            // Primary source: visibilityActive + visibilityStatus come directly
+            // from /auth/user (AuthUser model). Fall back to _transporterStatusData
+            // only when a live /visibility/transporter/status poll updated it.
+            final visibilityActive = u?.visibilityActive == true ||
+                u?.visibilityStatus == 'active' ||
+                _transporterStatusData['visibilityActive'] == true ||
+                _transporterStatusData['visibilityStatus'] == 'active';
+
+            final alreadyActive = subscribed || visibilityActive;
+
+            // featuredUntil from live status poll; endDate from subscription block
+            final featuredUntil =
+                (_transporterStatusData['featuredUntil'] ?? '').toString();
+            final until = u?.subscriptionEndsOn ??
+                (featuredUntil.isNotEmpty ? featuredUntil.split(' ').first : null);
+
             return _planCard(
               context,
               title: 'recommended_transporter'.tr,
-              price: _planPrice ?? 'USD 22.99 / month',
+              price: _planPrice ?? 'USD 23.99 / month',
               blurb: 'For transporters who want premium placement while subscribed.',
               child: Column(
                 children: [
-                  if (subscribed) ...[
+                  if (alreadyActive) ...[
                     _condition(
                       context,
                       until == null
@@ -219,8 +263,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed:
-                          (_busy || subscribed) ? null : _subscribeTransporter,
-                      child: Text(subscribed
+                          (_busy || alreadyActive) ? null : _subscribeTransporter,
+                      child: Text(alreadyActive
                           ? 'you_are_already_subscribed'.tr
                           : 'apply_subscribe'.tr),
                     ),

@@ -837,6 +837,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       icon: Icons.public,
                       required: true,
                       options: _countryNames,
+                      searchable: true,
                       value: _receiverCountry,
                       onChanged: _onReceiverCountry,
                     ),

@@ -165,12 +165,17 @@ class DealsRepository {
     String filePath,
     String fileName, {
     void Function(int sent, int total)? onProgress,
+    Duration timeout = const Duration(seconds: 300),
   }) async {
     final form = FormData.fromMap({
       'video': await MultipartFile.fromFile(filePath, filename: fileName),
     });
-    unwrapData(await _api.post('/deals/$dealId/uploadPickupVideo',
-        data: form, onSendProgress: onProgress));
+    unwrapData(await _api.post(
+      '/deals/$dealId/uploadPickupVideo',
+      data: form,
+      onSendProgress: onProgress,
+      options: Options(receiveTimeout: timeout, sendTimeout: timeout),
+    ));
     DataBus.changed(DataTopic.deals);
   }
 
@@ -252,20 +257,49 @@ class DealsRepository {
 
   /// ITEM_DAMAGED / WRONG_ITEM require photo/video evidence — enforced
   /// server-side, mirrored in the sheet before calling this.
+  /// Supports multiple images via `attachments[]` field; single `attachment`
+  /// is still accepted for backward compatibility.
+  /// Supports multiple images via attachments[] field; single attachment still accepted.
   Future<void> createDispute(
     int dealId, {
     required String reason,
     String? description,
+    List<String> attachmentPaths = const [],
     String? attachmentPath,
   }) async {
+    final allPaths = [
+      ...attachmentPaths,
+      if (attachmentPath != null && !attachmentPaths.contains(attachmentPath))
+        attachmentPath,
+    ];
+
     final form = FormData.fromMap({
       'reason': reason,
-      if (description != null && description.isNotEmpty)
-        'description': description,
-      if (attachmentPath != null)
-        'attachment': await MultipartFile.fromFile(attachmentPath,
-            filename: attachmentPath.split('/').last),
+      if (description != null && description.isNotEmpty) 'description': description,
     });
+
+    if (allPaths.isEmpty) {
+      // no attachments
+    } else if (allPaths.length == 1) {
+      form.files.add(MapEntry(
+        'attachment',
+        await MultipartFile.fromFile(allPaths.first,
+            filename: allPaths.first.split('/').last),
+      ));
+      form.files.add(MapEntry(
+        'attachments[]',
+        await MultipartFile.fromFile(allPaths.first,
+            filename: allPaths.first.split('/').last),
+      ));
+    } else {
+      for (final path in allPaths) {
+        form.files.add(MapEntry(
+          'attachments[]',
+          await MultipartFile.fromFile(path, filename: path.split('/').last),
+        ));
+      }
+    }
+
     unwrapData(await _api.post('/disputes/deal/$dealId', data: form));
   }
 }

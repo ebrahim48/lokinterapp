@@ -17,3 +17,10 @@ Future<void> openChat(PostUser user, {int? postId, int? chatId}) async {
 
   Get.to(() => ChatConversationPage(user: user, postId: postId, chatId: chatId));
 }
+
+/// Open a chat with a user known only by their id (e.g. from the recommended
+/// transporters popup). A minimal PostUser is constructed so the conversation
+/// page can open the thread via the API.
+Future<void> openChatWithUser(int userId, {String name = ''}) async {
+  await openChat(PostUser(id: userId, name: name));
+}

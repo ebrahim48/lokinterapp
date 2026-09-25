@@ -433,6 +433,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
             icon: Icons.public,
             options: _countries.map((c) => c.name).toList(),
             value: _country,
+            searchable: true,
             onChanged: (v) => setState(() => _country = v),
           ),
           SizedBox(height: 20.h),

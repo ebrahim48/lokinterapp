@@ -130,11 +130,15 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final user = Get.find<SessionService>().user.value;
-    // isTransporter true means the server already has an application, so the
-    // form is read-only and we just report where it stands
-    final applied = user?.transporterApplied ?? false;
-    final approved = user?.showTransporterBadge ?? false;
-    final rejected = user?.transporterRejected ?? false;
+
+    // Primary status from API — drives everything below.
+    // "none" and null both mean no application on file.
+    final status = user?.transporterVerificationStatus; // null | pending | approved | rejected
+    final isPending  = status == 'pending';
+    final isApproved = user?.isApprovedTransporter == true ||
+                       user?.transporterBadge      == true ||
+                       status == 'approved';
+    final isRejected = status == 'rejected';
     final rejectionReason = user?.transporterRejectionReason;
 
     return Scaffold(
@@ -142,8 +146,8 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
-          // a rejected application says exactly what to fix, and can be redone
-          if (rejected) ...[
+          // ── REJECTED banner ──────────────────────────────────────
+          if (isRejected) ...[
             Container(
               padding: EdgeInsets.all(14.w),
               decoration: BoxDecoration(
@@ -181,7 +185,32 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
             ),
             SizedBox(height: 18.h),
           ],
-          if (applied) ...[
+
+          // ── APPROVED banner ───────────────────────────────────────
+          if (isApproved) ...[
+            Container(
+              padding: EdgeInsets.all(14.w),
+              decoration: BoxDecoration(
+                color: AppPalette.verified.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(14.r),
+                border: Border.all(color: AppPalette.verified.withValues(alpha: 0.4)),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle_outline, color: AppPalette.verified, size: 20.sp),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Text('you_are_already_a_transporter'.tr,
+                        style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 18.h),
+          ],
+
+          // ── PENDING banner ────────────────────────────────────────
+          if (isPending && !isApproved) ...[
             Container(
               padding: EdgeInsets.all(14.w),
               decoration: BoxDecoration(
@@ -194,10 +223,7 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
                   Icon(Icons.hourglass_top, color: AppPalette.primary, size: 20.sp),
                   SizedBox(width: 10.w),
                   Expanded(
-                    child: Text(
-                        approved
-                            ? 'you_are_already_a_transporter'.tr
-                            : 'transporter_request_pending'.tr,
+                    child: Text('transporter_request_pending'.tr,
                         style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant)),
                   ),
                 ],
@@ -248,17 +274,43 @@ class _BecomeTransporterPageState extends State<BecomeTransporterPage> {
             onTap: () => _pick(false),
           ),
           SizedBox(height: 22.h),
-          if (applied)
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: null,
-                child: Text('already_applied'.tr),
-              ),
-            )
-          else
-            LokBusyButton(
-                busy: _busy, label: 'submit_request'.tr, onPressed: _submit),
+          // Button is ALWAYS visible — state driven by transporterVerificationStatus
+          // + isApprovedTransporter / transporterBadge:
+          //   none / null  → Submit (enabled)
+          //   pending      → disabled, shows "Pending Review"
+          //   approved     → disabled, shows "Accepted"  (uses isApprovedTransporter too)
+          //   rejected     → Re-apply (enabled)
+          Obx(() {
+            final u = Get.find<SessionService>().user.value;
+            final st = u?.transporterVerificationStatus;
+            final approved = u?.isApprovedTransporter == true ||
+                             u?.transporterBadge      == true ||
+                             st == 'approved';
+            if (approved) {
+              return SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: null,
+                  child: Text('accepted'.tr),
+                ),
+              );
+            }
+            if (st == 'pending') {
+              return SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: null,
+                  child: Text('pending_review'.tr),
+                ),
+              );
+            }
+            // null (none) or rejected → allow apply / re-apply
+            return LokBusyButton(
+              busy: _busy,
+              label: st == 'rejected' ? 'reapply'.tr : 'submit_request'.tr,
+              onPressed: _submit,
+            );
+          }),
         ],
       ),
     );

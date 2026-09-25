@@ -40,25 +40,25 @@ class ProfilePage extends StatelessWidget {
           Obx(() => _header(context, c)),
           SizedBox(height: 20.h),
           _group(context, [
-            _Item(Icons.person_outline, 'Basic info', () => Get.to(() => const BasicInfoPage())),
-            _Item(Icons.dynamic_feed_outlined, 'My requests & trips',
+            _Item(Icons.person_outline, 'basic_info'.tr, () => Get.to(() => const BasicInfoPage())),
+            _Item(Icons.dynamic_feed_outlined, 'my_requests_and_trips'.tr,
                 () => Get.to(() => const MyPostsPage())),
-            _Item(Icons.trending_up, 'Increase Visibility to Senders',
+            _Item(Icons.trending_up, 'increase_visibility'.tr,
                 () => Get.to(() => const IncreaseVisibilityPage())),
-            // not offered once the account already has an application on file
-            if (!(c.user?.transporterApplied ?? false))
-              _Item(Icons.local_shipping_outlined, 'become_a_transporter'.tr,
-                  () => Get.to(() => const BecomeTransporterPage())),
-            _Item(Icons.account_balance_wallet_outlined, 'Wallet & payouts',
+            // always visible — the page itself drives the button state from
+            // transporterVerificationStatus (none/pending/approved/rejected)
+            _Item(Icons.local_shipping_outlined, 'become_a_transporter'.tr,
+                () => Get.to(() => const BecomeTransporterPage())),
+            _Item(Icons.account_balance_wallet_outlined, 'wallet_payouts'.tr,
                 () => Get.to(() => const WalletPage())),
           ]),
           SizedBox(height: 14.h),
           _group(context, [
-            _Item(Icons.notifications_none, 'Notifications',
+            _Item(Icons.notifications_none, 'notifications'.tr,
                 () => Get.to(() => const NotificationsPage())),
-            _Item(Icons.star_outline, 'My reviews',
+            _Item(Icons.star_outline, 'my_reviews'.tr,
                 () => Get.to(() => const UserReviewsPage())),
-            _Item(Icons.mail_outline, 'Contact us', () => Get.to(() => const ContactUsPage())),
+            _Item(Icons.mail_outline, 'contact_us'.tr, () => Get.to(() => const ContactUsPage())),
             _Item(Icons.description_outlined, 'terms.title'.tr,
                 () => Get.to(() => const TermsPage())),
             _Item(Icons.privacy_tip_outlined, 'privacy.title'.tr,
@@ -142,6 +142,10 @@ class ProfilePage extends StatelessWidget {
                         SizedBox(width: 6.w),
                         UserBadge.from(
                           isTransporter: user?.isTransporter ?? false,
+                          isApprovedTransporter:
+                              user?.isApprovedTransporter ?? false,
+                          transporterBadge:
+                              user?.transporterBadge ?? false,
                           transporterVerificationStatus:
                               user?.transporterVerificationStatus,
                           isFeaturedTransporter:

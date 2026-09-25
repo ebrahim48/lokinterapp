@@ -162,7 +162,7 @@ class PostsRepository {
       // the API takes several categories now; categoryId stays for older builds
       'categoryIds': jsonEncode(categoryIds),
       if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
-      if (profit != null) 'traveler_profit': profit,
+      if (profit != null) 'travelerProfit': profit,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       // the website stores the item description in `deliveryPoints` —
@@ -254,7 +254,7 @@ class PostsRepository {
       // the API takes several categories now; categoryId stays for older builds
       'categoryIds': jsonEncode(categoryIds),
       if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
-      if (profit != null) 'traveler_profit': profit,
+      if (profit != null) 'travelerProfit': profit,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       if (description != null && description.isNotEmpty)
@@ -270,6 +270,29 @@ class PostsRepository {
   Future<void> deletePost(int id) async {
     unwrapData(await _api.delete('/posts/deletePost/$id'));
     DataBus.changed(DataTopic.posts);
+  }
+
+  /// Fetch recommended transporters after a DELIVER post.
+  /// Returns empty list when canShowPopup is false or list is empty.
+  Future<List<Map<String, dynamic>>> recommendedTransporters({
+    required String fromCountry,
+    required String toCountry,
+  }) async {
+    try {
+      final res = await _api.get('/transporters/recommended', queryParameters: {
+        'fromCountry': fromCountry,
+        'toCountry': toCountry,
+      });
+      final data = unwrapData(res);
+      if (data is! Map) return [];
+      final canShow = data['canShowPopup'];
+      if (canShow == false) return [];
+      final list = data['list'];
+      if (list is! List || list.isEmpty) return [];
+      return list.whereType<Map>().map((e) => Map<String, dynamic>.from(e)).toList();
+    } catch (_) {
+      return [];
+    }
   }
 
   String _date(DateTime d) =>

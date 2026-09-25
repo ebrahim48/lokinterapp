@@ -40,6 +40,9 @@ class HomeFeedController extends GetxController {
 
   bool get isGuest => _session.isGuest;
 
+  /// ISO2 of the logged-in user's country — used to filter recommended results.
+  String? get _userCountry => _session.user.value?.country;
+
   StreamSubscription<DataTopic>? _busSub;
 
   @override
@@ -62,7 +65,9 @@ class HomeFeedController extends GetxController {
       loading.value = false;
     }
     try {
-      _apply(await _repo.fetch());
+      // Pass user country so the backend filters recommended
+      // travelers/transporters to routes relevant to that country (req 1.6).
+      _apply(await _repo.fetch(userCountry: _userCountry));
       error.value = null;
     } on AppException catch (e) {
       if (recommended.isEmpty && feed.isEmpty) error.value = e.message;
@@ -74,9 +79,22 @@ class HomeFeedController extends GetxController {
 
   // home lists everything that's been posted — both sides of the marketplace
   Future<void> _loadPosts() async {
+    final country = _userCountry;
+    // Pass country in filters so the backend can return country-relevant posts
+    // (requirement 1.6 — country-based recommendations).
+    final countryFilter = (country != null && country.isNotEmpty)
+        ? <String, dynamic>{'country': country}
+        : const <String, dynamic>{};
+
     final results = await Future.wait([
-      _posts.search(searchAs: 'DELIVER', limit: 20).then((p) => p.list).catchError((_) => <Post>[]),
-      _posts.search(searchAs: 'TRIP', limit: 20).then((p) => p.list).catchError((_) => <Post>[]),
+      _posts
+          .search(searchAs: 'DELIVER', limit: 20, filters: countryFilter)
+          .then((p) => p.list)
+          .catchError((_) => <Post>[]),
+      _posts
+          .search(searchAs: 'TRIP', limit: 20, filters: countryFilter)
+          .then((p) => p.list)
+          .catchError((_) => <Post>[]),
     ]);
     requests.assignAll(results[0]);
     trips.assignAll(results[1]);
@@ -89,8 +107,17 @@ class HomeFeedController extends GetxController {
     try {
       banners.assignAll(await _lookups.banners());
     } catch (_) {}
-    await _loadPosts();
+    await _loadGuestPosts();
     loading.value = false;
+  }
+
+  Future<void> _loadGuestPosts() async {
+    final results = await Future.wait([
+      _posts.search(searchAs: 'DELIVER', limit: 20).then((p) => p.list).catchError((_) => <Post>[]),
+      _posts.search(searchAs: 'TRIP', limit: 20).then((p) => p.list).catchError((_) => <Post>[]),
+    ]);
+    requests.assignAll(results[0]);
+    trips.assignAll(results[1]);
   }
 
   void _apply(HomeData data) {

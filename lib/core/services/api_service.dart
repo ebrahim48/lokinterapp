@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
@@ -51,8 +53,9 @@ class ApiService {
         onResponse: (response, handler) {
           assert(() {
             if (kDebugMode) {
+              final body = const JsonEncoder.withIndent('  ').convert(response.data);
               print(
-                'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}',
+                'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}\n$body',
               );
             }
             return true;

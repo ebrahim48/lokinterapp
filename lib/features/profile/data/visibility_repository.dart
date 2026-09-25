@@ -18,32 +18,35 @@ class VisibilityRepository {
     return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
   }
 
-  /// Recommended-transporter subscription — $22.99 for 30 days.
+  /// Returns the current transporter visibility status from the server.
+  /// Keys include: `visibilityStatus`, `featuredUntil`, `isFeatured`, etc.
+  Future<Map<String, dynamic>> transporterStatus() async {
+    final data = unwrapData(await _api.get('/visibility/transporter/status'));
+    return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
+  }
+
+  /// Recommended-transporter subscription — $23.99 for 30 days.
   ///
-  /// Returns whatever the endpoint gives back. When it includes a
-  /// `clientSecret` the caller runs the same card step escrow uses; when it
-  /// doesn't, the server settled the payment itself and the subscription is
-  /// already active (`{isFeatured, featuredUntil, visibilityStatus, ...}`).
-  Future<Map<String, dynamic>> subscribeTransporter({
-    double amount = 22.99,
-    String provider = 'Stripe',
-    int durationDays = 30,
-  }) async {
-    final res = await _api.post('/visibility/transporter/subscribe', data: {
-      'amount': amount,
-      'provider': provider,
-      'durationDays': durationDays,
-    });
+  /// Returns `{clientSecret, paymentIntentId, alreadyActive, requiresPayment}`.
+  /// When `alreadyActive` is true the subscription is already running.
+  /// When `requiresPayment` is false the server settled without Stripe.
+  /// Otherwise open the Stripe PaymentSheet with `clientSecret`.
+  Future<Map<String, dynamic>> subscribeTransporter() async {
+    final res = await _api.post('/visibility/transporter/subscribe');
     final data = unwrapData(res);
     return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
   }
 
-  /// Tells the backend the card cleared, mirroring escrow's confirm step.
-  /// Safe to skip when the subscription was settled server-side.
-  Future<void> confirmTransporterSubscription(String paymentIntentId) async {
-    unwrapData(await _api.post('/visibility/transporter/confirm-subscription',
+  /// Confirms that Stripe has charged the card for the transporter subscription.
+  /// Only call this after the PaymentSheet succeeds (or when requiresPayment is false).
+  Future<void> confirmTransporterPayment(String paymentIntentId) async {
+    unwrapData(await _api.post('/visibility/transporter/confirm-payment',
         data: {'paymentIntentId': paymentIntentId}));
   }
+
+  /// Backward-compat alias — prefer [confirmTransporterPayment].
+  Future<void> confirmTransporterSubscription(String paymentIntentId) =>
+      confirmTransporterPayment(paymentIntentId);
 
   /// Upgrade an existing sender/traveler account to a transporter. Goes to
   /// `pending` for admin review; the documents are required.
@@ -56,7 +59,7 @@ class VisibilityRepository {
   }) async {
     final form = FormData.fromMap({
       'legalName': legalName,
-      'address': address,
+      'businessAddress': address,
       'transportLicense': await MultipartFile.fromFile(
         transportLicensePath,
         filename: transportLicensePath.split('/').last,

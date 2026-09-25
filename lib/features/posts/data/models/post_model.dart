@@ -35,10 +35,13 @@ class PostUser {
         verified: json['identityVerified'] ?? false,
         rating: Post._num(json['rate']),
         avatarUrl: json['imageUrl'] ?? json['avatarUrl'],
-        // badge logic per the API doc: approved = plain badge, an active paid
-        // subscription upgrades it to the recommended one
-        isTransporter: (json['isTransporter'] ?? false) &&
-            (json['transporterVerificationStatus'] ?? 'approved') == 'approved',
+        // badge logic per spec: use isApprovedTransporter or transporterBadge
+        // (both explicit boolean flags). Do NOT gate on isTransporter alone —
+        // that field is set before admin approval on older payloads.
+        isTransporter: (json['isApprovedTransporter'] == true) ||
+            (json['transporterBadge'] == true) ||
+            ((json['isTransporter'] ?? false) &&
+                (json['transporterVerificationStatus'] ?? 'approved') == 'approved'),
         isRecommendedTransporter: (json['isFeaturedTransporter'] ?? false) &&
             json['transporterVisibilityStatus'] == 'active',
       );

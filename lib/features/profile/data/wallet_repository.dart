@@ -82,7 +82,19 @@ class WalletDispute {
 }
 
 class WalletData {
+  /// Withdrawable balance — bind UI "Available" to THIS, NOT to [available].
+  /// [available] is Stripe Connect's payout-ready balance and is often 0.
+  final double walletBalance;
+  /// Alias for [walletBalance] (some older endpoints use `withdrawable`).
+  final double withdrawable;
+  /// Stripe Connect payout-ready balance — NOT the user-visible "Available".
   final double available;
+  /// Earnings still awaiting release (dispute window, escrow, etc.).
+  final double pendingEarnings;
+  /// Funds held temporarily (active disputes, guarantees).
+  final double onHold;
+  /// Payout already requested but not yet processed.
+  final double pendingWithdrawal;
   final double totalPending;
   final double lifetimeEarnings;
   final String currency;
@@ -92,7 +104,12 @@ class WalletData {
   final List<WalletDispute> disputes;
 
   const WalletData({
+    this.walletBalance = 0,
+    this.withdrawable = 0,
     this.available = 0,
+    this.pendingEarnings = 0,
+    this.onHold = 0,
+    this.pendingWithdrawal = 0,
     this.totalPending = 0,
     this.lifetimeEarnings = 0,
     this.currency = 'USD',
@@ -101,10 +118,20 @@ class WalletData {
     this.disputes = const [],
   });
 
+  /// The value to show in the "Available" slot in the UI.
+  double get displayBalance => walletBalance > 0 ? walletBalance : withdrawable;
+
   factory WalletData.fromJson(Map<String, dynamic> json) => WalletData(
-        available: ((json['available'] ?? 0) as num).toDouble(),
-        totalPending: ((json['totalPending'] ?? 0) as num).toDouble(),
-        lifetimeEarnings: ((json['lifetimeEarnings'] ?? 0) as num).toDouble(),
+        // primary keys per spec
+        walletBalance: _d(json['walletBalance']),
+        withdrawable: _d(json['withdrawable']),
+        // kept for reference but do NOT show this as "Available"
+        available: _d(json['available']),
+        pendingEarnings: _d(json['pendingEarnings']),
+        onHold: _d(json['onHold']),
+        pendingWithdrawal: _d(json['pendingWithdrawal']),
+        totalPending: _d(json['totalPending']),
+        lifetimeEarnings: _d(json['lifetimeEarnings']),
         currency: json['currency'] ?? 'USD',
         hasStripeConnect: json['hasStripeConnect'] ?? false,
         potential: [
@@ -120,6 +147,9 @@ class WalletData {
             WalletDispute.fromJson(Map<String, dynamic>.from(e)),
         ],
       );
+
+  static double _d(dynamic v) =>
+      v == null ? 0 : (v is num ? v.toDouble() : double.tryParse('$v') ?? 0);
 }
 
 class PayoutMethod {
@@ -161,6 +191,10 @@ class WalletTransaction {
   final String reason;
   final int dealId;
   final String dealRef;
+  /// Human-readable deal ID e.g. "#DL-123" — show THIS, not [dealRef].
+  final String dealDisplayId;
+  /// Human-readable description — show THIS instead of any encrypted ref.
+  final String displayDescription;
 
   const WalletTransaction({
     required this.id,
@@ -173,6 +207,8 @@ class WalletTransaction {
     this.reason = '',
     this.dealId = 0,
     this.dealRef = '',
+    this.dealDisplayId = '',
+    this.displayDescription = '',
   });
 
   bool get isCredit =>
@@ -191,6 +227,8 @@ class WalletTransaction {
         reason: '${json['reason'] ?? ''}',
         dealId: json['dealId'] ?? 0,
         dealRef: '${json['dealRef'] ?? ''}',
+        dealDisplayId: '${json['dealDisplayId'] ?? ''}',
+        displayDescription: '${json['displayDescription'] ?? json['description'] ?? ''}',
       );
 }
 
@@ -236,12 +274,19 @@ class PayoutQuote {
   final double feeAmount;
   final double netAmount;
   final String currency;
+  /// When false the fee is variable (e.g. Wise) — show [message] instead of
+  /// "Fee: 0 USD". Never show "Fee: 0" when this is false.
+  final bool showFeeAmount;
+  /// Human-readable note returned by the backend when [showFeeAmount] is false.
+  final String? message;
 
   const PayoutQuote({
     required this.amount,
     required this.feeAmount,
     required this.netAmount,
     required this.currency,
+    this.showFeeAmount = true,
+    this.message,
   });
 
   factory PayoutQuote.fromJson(Map<String, dynamic> json) => PayoutQuote(
@@ -249,6 +294,8 @@ class PayoutQuote {
         feeAmount: double.tryParse('${json['feeAmount'] ?? json['fee_amount'] ?? 0}') ?? 0,
         netAmount: double.tryParse('${json['netAmount'] ?? json['net_amount'] ?? 0}') ?? 0,
         currency: (json['currency'] ?? 'USD').toString(),
+        showFeeAmount: json['showFeeAmount'] ?? true,
+        message: json['message']?.toString(),
       );
 }
 
@@ -294,8 +341,23 @@ class WalletRepository {
   Future<List<PayoutMethod>> payoutMethods() async {
     final res = await _api.get('/wallet/payout-methods');
     final data = unwrapData(res);
-    final raw = data is Map ? (data['list'] ?? []) : (data ?? []);
-    return (raw as List)
+    // Always read data.list — other shapes (bare array, Map without list) are
+    // defensive fallbacks for older payloads.
+    final List raw;
+    if (data is Map) {
+      final list = data['list'];
+      if (list is List) {
+        raw = list;
+      } else {
+        // list may be null or absent when retryable:true — treat as empty
+        raw = const [];
+      }
+    } else if (data is List) {
+      raw = data;
+    } else {
+      raw = const [];
+    }
+    return raw
         .whereType<Map>()
         .map((e) => PayoutMethod.fromJson(Map<String, dynamic>.from(e)))
         .toList();
@@ -312,11 +374,11 @@ class WalletRepository {
         data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{});
   }
 
-  Future<void> requestPayout(int methodId, double amount, String currency) async {
+  Future<void> requestPayout(int methodId, double amount, [String? currency]) async {
     unwrapData(await _api.post('/wallet/payout-requests', data: {
       'payoutMethodId': methodId,
       'amount': amount,
-      'currency': currency,
+      if (currency != null) 'currency': currency,
     }));
     DataBus.changed(DataTopic.wallet);
   }

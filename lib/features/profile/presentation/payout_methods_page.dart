@@ -34,11 +34,16 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
   }
 
   Future<void> _load() async {
+    if (mounted) setState(() { _loading = true; _error = null; });
     try {
-      final list = await _repo.payoutMethods();
+      // Apply a 15-second timeout so the page never loads indefinitely.
+      // If the API hangs, we surface an error with a Retry button instead.
+      final list = await _repo.payoutMethods()
+          .timeout(const Duration(seconds: 15));
       StripeConnectStatus? stripe;
       try {
-        stripe = await _repo.stripeStatus();
+        stripe = await _repo.stripeStatus()
+            .timeout(const Duration(seconds: 10));
       } catch (_) {}
       if (!mounted) return;
       setState(() {
@@ -52,6 +57,13 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
       setState(() {
         _loading = false;
         _error = e.message;
+      });
+    } catch (_) {
+      // Covers TimeoutException and any unexpected network error
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _error = 'could_not_load_payout_methods_retry'.tr;
       });
     }
   }

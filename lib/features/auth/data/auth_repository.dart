@@ -71,7 +71,7 @@ class AuthRepository {
       'isTransporter': 'true',
       if (operatingCountries.isNotEmpty) 'operatingCountries': jsonEncode(operatingCountries),
       if (legalName != null && legalName.trim().isNotEmpty) 'legalName': legalName.trim(),
-      if (address != null && address.trim().isNotEmpty) 'address': address.trim(),
+      if (address != null && address.trim().isNotEmpty) 'businessAddress': address.trim(),
     };
     if (transportLicense?.path != null) {
       map['transportLicense'] =
