@@ -28,7 +28,6 @@ import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/status_badge.dart';
 import '../../../core/widgets/image_viewer.dart';
-import '../../../core/services/socket_service.dart';
 
 class DealDetailsPage extends StatefulWidget {
   final Deal deal;
@@ -42,11 +41,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   final _repo = DealsRepository();
 
   late Deal deal = widget.deal;
+  /// The submitted dispute, fetched when the deal payload doesn't carry it.
+  Map<String, dynamic>? _disputeReport;
   bool _busy = false;
   bool _loading = true;
   StreamSubscription<Map<String, dynamic>>? _dealSub;
   Timer? _pollTimer;
-  static const _pollInterval = Duration(seconds: 10);
+  static const _pollInterval = Duration(seconds: 5);
 
   @override
   void initState() {
@@ -77,12 +78,12 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   void _startPolling() {
     _pollTimer?.cancel();
     _pollTimer = Timer.periodic(_pollInterval, (_) {
-      if (mounted && !_busy) _loadDetail();
+      if (mounted && !_busy) _loadDetail(quiet: true);
     });
   }
 
   // the list row is a trimmed shape — pull the full deal for this screen
-  Future<void> _loadDetail() async {
+  Future<void> _loadDetail({bool quiet = false}) async {
     try {
       final full = await _repo.getById(widget.deal.id);
       if (!mounted) return;
@@ -92,11 +93,24 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         deal = full.withItemDetailsFrom(widget.deal);
         _loading = false;
       });
+      if (full.hasDisputeRecord &&
+          full.disputeDetails == null &&
+          _disputeReport == null) {
+        _loadDisputeReport();
+      }
     } on AppException catch (e) {
       if (!mounted) return;
       setState(() => _loading = false);
-      toastError(e);
+      if (!quiet) toastError(e);
     }
+  }
+
+  // quiet: the card falls back to whatever the deal payload had
+  Future<void> _loadDisputeReport() async {
+    try {
+      final report = await _repo.disputeReport(deal.id);
+      if (mounted && report != null) setState(() => _disputeReport = report);
+    } catch (_) {}
   }
 
   void _refreshList() {
@@ -441,6 +455,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       toast('record_the_delivery_video_to_complete'.tr);
       return;
     }
+    // a dispute may have been filed while the camera was open
+    if (deal.disputeActive) {
+      toast('deal_under_dispute_cannot_complete'.tr);
+      return;
+    }
 
     setState(() => _busy = true);
     final progress = ValueNotifier<double>(0);
@@ -475,6 +494,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   Future<void> _openDispute() async {
     final filed = await OpenDisputeSheet.show(context, deal.id);
     if (filed == true) {
+      _disputeReport = null; // pull the report that was just submitted
       _refreshList();
       await _loadDetail();
     }
@@ -492,7 +512,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       return;
     }
 
-    final d = report ?? deal.dispute ?? const <String, dynamic>{};
+    final d = report ?? _disputeReport ?? deal.disputeInfo ?? const <String, dynamic>{};
     String? pick(List<String> keys) {
       for (final k in keys) {
         final v = d[k];
@@ -603,7 +623,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                     SizedBox(height: 16.h),
                     _ongoing(context),
                   ],
-                  if (deal.status == DealStatus.disputes) ...[
+                  // the submitted report stays visible for the whole dispute,
+                  // even if the server kept the deal's own status
+                  if (deal.hasDisputeRecord) ...[
                     SizedBox(height: 16.h),
                     _dispute(context),
                   ],
@@ -1151,8 +1173,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   Widget _dispute(BuildContext context) {
     final (bg, fg) = DealStatus.disputes.colors;
     // prefer the rich disputeDetails block over the legacy dispute map
-    final details = deal.disputeDetails ?? deal.dispute;
-    final reason = details?['reason']?.toString();
+    final details = deal.disputeDetails ?? _disputeReport ?? deal.dispute;
+    final reason = (details?['reasonLabel'] ??
+            details?['reason_label'] ??
+            details?['reason'])
+        ?.toString();
     final description = details?['description']?.toString();
     final statusLabel = details?['statusLabel']?.toString() ?? details?['status']?.toString();
     final attachments = details?['attachments'];
@@ -1166,7 +1191,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.gpp_maybe_outlined, color: fg, size: 18.sp),
               SizedBox(width: 8.w),
-              Text('dispute_open'.tr,
+              Text(deal.disputeActive ? 'dispute_open'.tr : 'dispute_report'.tr,
                   style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
               if (statusLabel != null && statusLabel.isNotEmpty) ...[
                 const Spacer(),
@@ -1311,32 +1336,29 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         return [
           // the traveler closes the deal at handover: scan the receiver's QR,
           // record the delivery, done — no trip out to the website
-          if (deal.isTraveler) ...[
-            ElevatedButton.icon(
-              onPressed: _busy ? null : _scanAndComplete,
-              icon: Icon(Icons.qr_code_scanner, size: 18.sp),
-              label: Text('scan_receiver_qr_to_complete'.tr),
-            ),
-            SizedBox(height: 12.h),
+          // an open dispute freezes the deal: completing it here would
+          // close the dispute behind the resolution process's back
+          if (deal.disputeActive) ..._disputeActions()
+          else ...[
+            if (deal.isTraveler) ...[
+              ElevatedButton.icon(
+                onPressed: _busy ? null : _scanAndComplete,
+                icon: Icon(Icons.qr_code_scanner, size: 18.sp),
+                label: Text('scan_receiver_qr_to_complete'.tr),
+              ),
+              SizedBox(height: 12.h),
+            ],
+            if (!deal.isTraveler && deal.canMarkCompleted) ...[
+              ElevatedButton(
+                onPressed: _busy
+                    ? null
+                    : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
+                child: Text('mark_as_completed'.tr),
+              ),
+              SizedBox(height: 12.h),
+            ],
+            _openDisputeButton(),
           ],
-          if (!deal.isTraveler && deal.canMarkCompleted && deal.status != DealStatus.disputes) ...[
-            ElevatedButton(
-              onPressed: _busy
-                  ? null
-                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
-              child: Text('mark_as_completed'.tr),
-            ),
-            SizedBox(height: 12.h),
-          ],
-          OutlinedButton.icon(
-            onPressed: _busy ? null : _openDispute,
-            style: OutlinedButton.styleFrom(
-              foregroundColor: AppPalette.primary,
-              side: const BorderSide(color: AppPalette.primary),
-            ),
-            icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
-            label: Text('open_a_dispute'.tr),
-          ),
         ];
       case DealStatus.completed:
         // only the sender reviews the deal (website: isDealReviewable)
@@ -1348,40 +1370,36 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ),
             SizedBox(height: 12.h),
           ],
-          OutlinedButton.icon(
-            onPressed: _busy ? null : _openDispute,
-            style: OutlinedButton.styleFrom(
-              foregroundColor: AppPalette.primary,
-              side: const BorderSide(color: AppPalette.primary),
-            ),
-            icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
-            label: Text('open_a_dispute'.tr),
-          ),
+          // one dispute per deal — once filed, only its report is offered
+          if (deal.hasDisputeRecord) ..._disputeActions() else _openDisputeButton(),
         ];
       case DealStatus.disputes:
-        // website: the sender can still complete a disputed deal (isDealCompletable
-        // includes DISPUTED) unless both sides disputed and it's locked for admin
-        return [
-          if (deal.isSender && !deal.fundsLockedForDispute && deal.canMarkCompleted) ...[
-            ElevatedButton(
-              onPressed: _busy
-                  ? null
-                  : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
-              child: Text('mark_as_completed'.tr),
-            ),
-            SizedBox(height: 12.h),
-          ],
-          OutlinedButton(
-            onPressed: _showDisputeReport,
-            child: Text('view_dispute_report'.tr),
-          ),
-        ];
+        // no "Mark as completed" here: a dispute closes only through the
+        // dispute resolution process, never as a side effect of completing
+        return _disputeActions();
       case DealStatus.cancelled:
         return [
           OutlinedButton(onPressed: () => Get.back(), child: Text('back_to_deals'.tr)),
         ];
     }
   }
+
+  Widget _openDisputeButton() => OutlinedButton.icon(
+        onPressed: _busy ? null : _openDispute,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppPalette.primary,
+          side: const BorderSide(color: AppPalette.primary),
+        ),
+        icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
+        label: Text('open_a_dispute'.tr),
+      );
+
+  List<Widget> _disputeActions() => [
+        OutlinedButton(
+          onPressed: _showDisputeReport,
+          child: Text('view_dispute_report'.tr),
+        ),
+      ];
 
   void _openRateSheet(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
