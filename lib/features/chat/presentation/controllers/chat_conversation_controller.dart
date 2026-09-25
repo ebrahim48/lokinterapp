@@ -61,7 +61,7 @@ class ChatConversationController extends GetxController {
             .listen(_onSocketMessage);
       }
       // safety net — the socket is primary, this just heals missed frames
-      _poll = Timer.periodic(const Duration(seconds: 15), (_) => _refresh());
+      _poll = Timer.periodic(const Duration(seconds: 5), (_) => _refresh());
     } on AppException catch (e) {
       toastError(e);
     } finally {

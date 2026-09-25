@@ -187,6 +187,7 @@ class Deal {
         paymentMethod: json['paymentMethod'] ?? '',
         countdownSeconds: json['countdownSeconds'],
         fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
+        hasOpenDispute: json['hasOpenDispute'] == true,
       );
 
   // Full detail from /deals/getById/{id}
@@ -271,6 +272,25 @@ class Deal {
   }
 
   bool get isLocal => location == PostLocation.local;
+
+  /// Whatever dispute record the server sent, richest shape first.
+  Map<String, dynamic>? get disputeInfo => disputeDetails ?? dispute;
+
+  /// A dispute was filed on this deal at some point — its report stays
+  /// reachable whatever the deal status is now.
+  bool get hasDisputeRecord =>
+      status == DealStatus.disputes || hasOpenDispute || disputeInfo != null;
+
+  /// A dispute is still being processed. While true the deal can't be marked
+  /// completed or disputed again — only the dispute resolution closes it.
+  bool get disputeActive {
+    if (status == DealStatus.disputes || hasOpenDispute) return true;
+    final info = disputeInfo;
+    if (info == null) return false;
+    final s = '${info['status'] ?? ''}'.toUpperCase();
+    return !const ['RESOLV', 'CLOS', 'REJECT', 'CANCEL', 'DISMISS']
+        .any(s.contains);
+  }
 
   String get profitLabel => profitAmount == null ? '—' : _money(profitAmount!);
   String get depositLabel =>

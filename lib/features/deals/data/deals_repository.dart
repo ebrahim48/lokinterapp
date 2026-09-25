@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile, Response;
+import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/cache_service.dart';
@@ -20,7 +21,21 @@ class DealsRepository {
     });
     final data = unwrapData(res);
     if (status == 'ALL') await _cache.put('deals_all', jsonEncode(data));
-    return _parse(data);
+    final deals = _parse(data);
+    if (status != DealStatus.disputes.apiValue) return deals;
+
+    // a deal disputed after completion can keep status COMPLETED server-side;
+    // it still belongs under Disputed Deals while the dispute is open
+    try {
+      final all = await list('ALL', limit: limit);
+      final ids = deals.map((d) => d.id).toSet();
+      return [
+        ...deals,
+        ...all.where((d) => d.hasOpenDispute && !ids.contains(d.id)),
+      ];
+    } on AppException catch (_) {
+      return deals;
+    }
   }
 
   List<Deal>? cachedAll() {
@@ -259,7 +274,6 @@ class DealsRepository {
   /// server-side, mirrored in the sheet before calling this.
   /// Supports multiple images via `attachments[]` field; single `attachment`
   /// is still accepted for backward compatibility.
-  /// Supports multiple images via attachments[] field; single attachment still accepted.
   Future<void> createDispute(
     int dealId, {
     required String reason,
@@ -278,28 +292,23 @@ class DealsRepository {
       if (description != null && description.isNotEmpty) 'description': description,
     });
 
-    if (allPaths.isEmpty) {
-      // no attachments
-    } else if (allPaths.length == 1) {
+    // attachments[] carries every image; the legacy single `attachment` field
+    // still gets the first one so older API builds keep their evidence
+    for (final path in allPaths) {
+      form.files.add(MapEntry(
+        'attachments[]',
+        await MultipartFile.fromFile(path, filename: path.split('/').last),
+      ));
+    }
+    if (allPaths.isNotEmpty) {
       form.files.add(MapEntry(
         'attachment',
         await MultipartFile.fromFile(allPaths.first,
             filename: allPaths.first.split('/').last),
       ));
-      form.files.add(MapEntry(
-        'attachments[]',
-        await MultipartFile.fromFile(allPaths.first,
-            filename: allPaths.first.split('/').last),
-      ));
-    } else {
-      for (final path in allPaths) {
-        form.files.add(MapEntry(
-          'attachments[]',
-          await MultipartFile.fromFile(path, filename: path.split('/').last),
-        ));
-      }
     }
 
     unwrapData(await _api.post('/disputes/deal/$dealId', data: form));
+    DataBus.changed(DataTopic.deals);
   }
 }

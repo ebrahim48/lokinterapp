@@ -3,6 +3,14 @@ import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/data_bus.dart';
 
+// The wallet API is loose with types (ids as strings, booleans as 0/1). A hard
+// cast here throws a TypeError the screens can't recover from, so read
+// everything leniently.
+int _int(dynamic v) => v is num ? v.toInt() : int.tryParse('${v ?? ''}') ?? 0;
+
+bool _bool(dynamic v) =>
+    v == true || v == 1 || '$v'.toLowerCase() == 'true' || '$v' == '1';
+
 /// Money the traveler has coming but cannot withdraw yet. Every one of these
 /// stays visible with the reason it is still held — only the available balance
 /// reflects what is actually withdrawable.
@@ -31,7 +39,7 @@ class WalletEarning {
   });
 
   factory WalletEarning.fromJson(Map<String, dynamic> e) => WalletEarning(
-        dealId: e['dealId'] ?? 0,
+        dealId: _int(e['dealId']),
         dealRef: '${e['dealRef'] ?? ''}',
         dealStatus: '${e['dealStatus'] ?? ''}',
         amount: double.tryParse('${e['amount'] ?? 0}') ?? 0,
@@ -72,7 +80,7 @@ class WalletDispute {
   });
 
   factory WalletDispute.fromJson(Map<String, dynamic> e) => WalletDispute(
-        dealId: e['dealId'] ?? 0,
+        dealId: _int(e['dealId']),
         dealRef: '${e['dealRef'] ?? ''}',
         amountCharged: double.tryParse('${e['amountCharged'] ?? 0}') ?? 0,
         statusLabel: '${e['statusLabel'] ?? ''}',
@@ -128,12 +136,12 @@ class WalletData {
         // kept for reference but do NOT show this as "Available"
         available: _d(json['available']),
         pendingEarnings: _d(json['pendingEarnings']),
-        onHold: _d(json['onHold']),
+        onHold: _d(json['onHold'] ?? json['onHoldDispute']),
         pendingWithdrawal: _d(json['pendingWithdrawal']),
         totalPending: _d(json['totalPending']),
         lifetimeEarnings: _d(json['lifetimeEarnings']),
-        currency: json['currency'] ?? 'USD',
-        hasStripeConnect: json['hasStripeConnect'] ?? false,
+        currency: '${json['currency'] ?? 'USD'}',
+        hasStripeConnect: _bool(json['hasStripeConnect']),
         potential: [
           for (final e in (json['potentialEarningsList'] as List? ??
                   json['recentEarnings'] as List? ??
@@ -166,9 +174,9 @@ class PayoutMethod {
   });
 
   factory PayoutMethod.fromJson(Map<String, dynamic> json) => PayoutMethod(
-        id: json['id'] ?? 0,
+        id: _int(json['id']),
         type: (json['type'] ?? json['provider'] ?? '').toString().toUpperCase(),
-        isDefault: json['isDefault'] ?? json['is_default'] ?? false,
+        isDefault: _bool(json['isDefault'] ?? json['is_default']),
         label: [
           json['type'] ?? json['provider'] ?? 'Account',
           json['last4'] != null ? '•••• ${json['last4']}' : (json['email'] ?? ''),
@@ -188,6 +196,8 @@ class WalletTransaction {
   final DateTime? createdAt;
   /// Why the money moved, and where the entry stands.
   final String statusLabel;
+  /// Raw status (completed / pending / ...) when no label is sent.
+  final String status;
   final String reason;
   final int dealId;
   final String dealRef;
@@ -204,6 +214,7 @@ class WalletTransaction {
     required this.description,
     this.createdAt,
     this.statusLabel = '',
+    this.status = '',
     this.reason = '',
     this.dealId = 0,
     this.dealRef = '',
@@ -216,7 +227,7 @@ class WalletTransaction {
 
   factory WalletTransaction.fromJson(Map<String, dynamic> json) =>
       WalletTransaction(
-        id: json['id'] ?? 0,
+        id: _int(json['id']),
         type: (json['type'] ?? '').toString(),
         amount: double.tryParse('${json['amount'] ?? 0}') ?? 0,
         balanceAfter: double.tryParse('${json['balanceAfter'] ?? json['balance_after'] ?? 0}') ?? 0,
@@ -224,8 +235,9 @@ class WalletTransaction {
         createdAt: DateTime.tryParse(
             '${json['dateTime'] ?? json['createdAt'] ?? json['created_at'] ?? ''}'),
         statusLabel: '${json['statusLabel'] ?? ''}',
+        status: '${json['status'] ?? ''}',
         reason: '${json['reason'] ?? ''}',
-        dealId: json['dealId'] ?? 0,
+        dealId: _int(json['dealId']),
         dealRef: '${json['dealRef'] ?? ''}',
         dealDisplayId: '${json['dealDisplayId'] ?? ''}',
         displayDescription: '${json['displayDescription'] ?? json['description'] ?? ''}',
@@ -256,7 +268,7 @@ class PayoutRequestRow {
 
   factory PayoutRequestRow.fromJson(Map<String, dynamic> json) =>
       PayoutRequestRow(
-        id: json['id'] ?? 0,
+        id: _int(json['id']),
         method: (json['method'] ?? '').toString(),
         amount: double.tryParse('${json['amount'] ?? 0}') ?? 0,
         feeAmount: double.tryParse('${json['feeAmount'] ?? json['fee_amount'] ?? 0}') ?? 0,
@@ -294,7 +306,9 @@ class PayoutQuote {
         feeAmount: double.tryParse('${json['feeAmount'] ?? json['fee_amount'] ?? 0}') ?? 0,
         netAmount: double.tryParse('${json['netAmount'] ?? json['net_amount'] ?? 0}') ?? 0,
         currency: (json['currency'] ?? 'USD').toString(),
-        showFeeAmount: json['showFeeAmount'] ?? true,
+        // either flag may say the fee is unknown in advance
+        showFeeAmount: (json['showFeeAmount'] ?? json['feeKnown']) == null ||
+            _bool(json['showFeeAmount'] ?? json['feeKnown']),
         message: json['message']?.toString(),
       );
 }
@@ -313,9 +327,9 @@ class StripeConnectStatus {
 
   factory StripeConnectStatus.fromJson(Map<String, dynamic> json) =>
       StripeConnectStatus(
-        connected: json['connected'] ?? false,
+        connected: _bool(json['connected']),
         status: (json['status'] ?? 'none').toString(),
-        canReceivePayments: json['canReceivePayments'] ?? false,
+        canReceivePayments: _bool(json['canReceivePayments']),
       );
 }
 

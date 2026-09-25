@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -82,12 +84,25 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
       if (!mounted) return;
       setState(() => _loading = false);
       toastError(e);
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
     }
   }
 
+  static const _maxEvidence = 10;
+
   Future<void> _pickEvidence() async {
-    final imgs = await ImagePicker().pickMultiImage(maxWidth: 1920, imageQuality: 80);
-    if (imgs.isNotEmpty && mounted) setState(() => _evidence = [..._evidence, ...imgs]);
+    final room = _maxEvidence - _evidence.length;
+    if (room <= 0) {
+      toast('you_can_attach_up_to_10_photos'.tr);
+      return;
+    }
+    final imgs = await ImagePicker().pickMultiImage(
+        maxWidth: 1920, imageQuality: 80, limit: room > 1 ? room : null);
+    if (imgs.isEmpty || !mounted) return;
+    final known = _evidence.map((x) => x.path).toSet();
+    final fresh = imgs.where((x) => !known.contains(x.path)).take(room);
+    setState(() => _evidence = [..._evidence, ...fresh]);
   }
 
   Future<void> _submit() async {
@@ -254,15 +269,53 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        if (_evidence.isNotEmpty)
-                          GestureDetector(
-                            onTap: () => setState(() => _evidence = []),
-                            child: Icon(Icons.clear, size: 18.sp, color: cs.onSurfaceVariant),
-                          ),
+                        Icon(Icons.add_photo_alternate_outlined,
+                            size: 18.sp, color: cs.onSurfaceVariant),
                       ],
                     ),
                   ),
                 ),
+                // every selected photo, each removable on its own
+                if (_evidence.isNotEmpty) ...[
+                  SizedBox(height: 10.h),
+                  SizedBox(
+                    height: 68.r,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _evidence.length,
+                      separatorBuilder: (_, __) => SizedBox(width: 8.w),
+                      itemBuilder: (_, i) => Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.r),
+                            child: Image.file(
+                              File(_evidence[i].path),
+                              width: 68.r,
+                              height: 68.r,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            top: 2,
+                            right: 2,
+                            child: GestureDetector(
+                              onTap: _sending
+                                  ? null
+                                  : () => setState(() =>
+                                      _evidence = [..._evidence]..removeAt(i)),
+                              child: CircleAvatar(
+                                radius: 10.r,
+                                backgroundColor: Colors.black54,
+                                child: Icon(Icons.close,
+                                    size: 12.sp, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
                 SizedBox(height: 18.h),
                 SizedBox(
                   width: double.infinity,
