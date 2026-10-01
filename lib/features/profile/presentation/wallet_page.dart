@@ -24,8 +24,6 @@ class _WalletPageState extends State<WalletPage> {
   WalletData? _data;
   bool _loading = true;
   String? _error;
-  /// Default (or first) payout method — named on the payout-account card.
-  PayoutMethod? _payoutMethod;
 
   @override
   void initState() {
@@ -46,14 +44,9 @@ class _WalletPageState extends State<WalletPage> {
   Future<void> _load() async {
     try {
       final data = await _repo.dashboard();
-      // the card only names the method; a failure here mustn't fail the wallet
-      final methods = await _repo.payoutMethods().catchError((_) => <PayoutMethod>[]);
       if (!mounted) return;
       setState(() {
         _data = data;
-        _payoutMethod = methods.isEmpty
-            ? null
-            : methods.firstWhere((m) => m.isDefault, orElse: () => methods.first);
         _loading = false;
         _error = null;
       });
@@ -92,7 +85,6 @@ class _WalletPageState extends State<WalletPage> {
         currency: d.currency,
         hasStripeConnect: d.hasStripeConnect,
         potential: d.potential,
-        onHoldEarnings: d.onHoldEarnings,
         disputes: d.disputes,
       );
     });
@@ -139,9 +131,7 @@ class _WalletPageState extends State<WalletPage> {
                         ],
                       ),
                       SizedBox(height: 8.h),
-                      if (_data!.potential.isEmpty &&
-                          _data!.onHoldEarnings.isEmpty &&
-                          _data!.disputes.isEmpty)
+                      if (_data!.potential.isEmpty && _data!.disputes.isEmpty)
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.h),
                           child: Text('no_earnings_yet_completed_deliveries_land_here'.tr,
@@ -149,9 +139,6 @@ class _WalletPageState extends State<WalletPage> {
                         ),
                       // every amount still owed, each with why it is held —
                       // none of this counts toward the available balance
-                      // frozen by an open dispute — waiting for the resolution
-                      for (final e in _data!.onHoldEarnings)
-                        _pendingRow(context, _data!.currency, e),
                       for (final e in _data!.potential)
                         _pendingRow(context, _data!.currency, e),
                       for (final d in _data!.disputes)
@@ -178,8 +165,7 @@ class _WalletPageState extends State<WalletPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(e.onHold ? Icons.lock_outline : Icons.hourglass_bottom,
-              size: 18.sp, color: AppPalette.primary),
+          Icon(Icons.hourglass_bottom, size: 18.sp, color: AppPalette.primary),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(
@@ -194,15 +180,13 @@ class _WalletPageState extends State<WalletPage> {
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  e.reasonLabel,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      color: e.onHold ? AppPalette.primary : cs.onSurfaceVariant),
+                  e.statusLabel,
+                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   [
-                    if (e.dealId != 0) 'deal_number'.trParams({'id': '${e.dealId}'}),
+                    if (e.dealId != 0) 'Deal #${e.dealId}',
                     if (countdown != null) countdown,
                   ].join('  •  '),
                   style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
@@ -252,7 +236,7 @@ class _WalletPageState extends State<WalletPage> {
                 SizedBox(height: 4.h),
                 Text(
                   [
-                    if (d.dealId != 0) 'deal_number'.trParams({'id': '${d.dealId}'}),
+                    if (d.dealId != 0) 'Deal #${d.dealId}',
                     if (d.status.isNotEmpty) d.status,
                   ].join('  •  '),
                   style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
@@ -329,7 +313,8 @@ class _WalletPageState extends State<WalletPage> {
                 currency: data.currency,
                 icon: Icons.hourglass_bottom,
                 iconColor: Colors.orange,
-                tooltip: 'pending_earnings_hint'.tr,
+                tooltip: _tooltipText('pending_earnings_hint',
+                    'Earnings awaiting release (escrow / dispute window)'),
                 dividerRight: true,
               ),
               _balanceSection(
@@ -339,7 +324,8 @@ class _WalletPageState extends State<WalletPage> {
                 currency: data.currency,
                 icon: Icons.lock_outline,
                 iconColor: AppPalette.primary,
-                tooltip: 'on_hold_hint'.tr,
+                tooltip: _tooltipText('on_hold_hint',
+                    'Funds held due to active disputes or guarantees'),
                 dividerRight: true,
               ),
               _balanceSection(
@@ -349,7 +335,8 @@ class _WalletPageState extends State<WalletPage> {
                 currency: data.currency,
                 icon: Icons.schedule_send_outlined,
                 iconColor: cs.onSurfaceVariant,
-                tooltip: 'pending_withdrawal_hint'.tr,
+                tooltip: _tooltipText('pending_withdrawal_hint',
+                    'Withdrawal requested but not yet processed'),
                 dividerRight: false,
               ),
             ],
@@ -417,6 +404,11 @@ class _WalletPageState extends State<WalletPage> {
 
   /// Returns the translated tooltip text, falling back to [fallback] when the
   /// translation key is missing (i.e. the translation equals the raw key).
+  String _tooltipText(String key, String fallback) {
+    final t = key.tr;
+    return (t == key) ? fallback : t;
+  }
+
   void _openWithdraw() {
     final cs = Theme.of(context).colorScheme;
     showModalBottomSheet<void>(
@@ -476,11 +468,7 @@ class _WalletPageState extends State<WalletPage> {
                     style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: cs.onSurface)),
                 SizedBox(height: 2.h),
                 Text(
-                  _payoutMethod != null
-                      ? _payoutMethod!.label
-                      : data.hasStripeConnect
-                          ? 'stripe_connected'.tr
-                          : 'no_payout_method_linked'.tr,
+                  data.hasStripeConnect ? 'Stripe connected' : 'No payout method linked yet',
                   style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
                 ),
               ],
@@ -565,8 +553,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
       return 'amount_exceeds_available_balance'.tr;
     }
     if (_minimumAmount > 0 && amount < _minimumAmount) {
-      return 'minimum_withdrawal'.trParams(
-          {'amount': '${widget.currency} ${_minimumAmount.toStringAsFixed(2)}'});
+      return 'Minimum withdrawal: ${widget.currency} ${_minimumAmount.toStringAsFixed(2)}';
     }
     return null;
   }
@@ -700,9 +687,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               Text('withdraw_earnings'.tr, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
-                'available_amount'.trParams({
-                  'amount': '${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}'
-                }),
+                'Available: ${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
                 style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w600,
@@ -717,11 +702,8 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                         : _methods.isEmpty
                             ? 'no_payout_methods_yet_add_one_so_you_can_withdra'.tr
                             : _method == null
-                                ? 'withdraw_minimums'.trParams({'currency': widget.currency})
-                                : 'withdraw_min_max'.trParams({
-                                    'min': '${widget.currency} ${_minimumAmount.toStringAsFixed(2)}',
-                                    'max': '${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
-                                  }),
+                                ? 'Minimums: Stripe/PayPal ${widget.currency} 10, Wise ${widget.currency} 50.'
+                                : 'Min. ${widget.currency} ${_minimumAmount.toStringAsFixed(2)} · Max. ${widget.currency} ${widget.availableBalance.toStringAsFixed(2)}',
                 style: TextStyle(fontSize: 12.5.sp, color: cs.onSurfaceVariant, height: 1.4),
               ),
               if (_methodsError) ...[
@@ -751,9 +733,9 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
                 ),
                 SizedBox(height: 14.h),
                 LokTextField(
-                  label: 'amount_in_currency'.trParams({'currency': widget.currency}),
+                  label: 'Amount (${widget.currency})',
                   hint: _minimumAmount > 0
-                      ? 'min_amount'.trParams({'amount': _minimumAmount.toStringAsFixed(2)})
+                      ? 'Min. ${_minimumAmount.toStringAsFixed(2)}'
                       : 'e_g_50'.tr,
                   icon: Icons.payments_outlined,
                   keyboardType:
@@ -846,18 +828,15 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
 
     if (q.feeAmount == 0) {
       return Text(
-        'no_fee_you_receive'.trParams(
-            {'amount': '${widget.currency} ${q.netAmount.toStringAsFixed(2)}'}),
+        'No fee — you receive ${widget.currency} ${q.netAmount.toStringAsFixed(2)}',
         style: TextStyle(
             fontSize: 12.5.sp, fontWeight: FontWeight.w600, color: cs.onSurface),
       );
     }
 
     return Text(
-      'fee_you_receive'.trParams({
-        'fee': '${widget.currency} ${q.feeAmount.toStringAsFixed(2)}',
-        'amount': '${widget.currency} ${q.netAmount.toStringAsFixed(2)}',
-      }),
+      'Fee ${widget.currency} ${q.feeAmount.toStringAsFixed(2)} — '
+      'you receive ${widget.currency} ${q.netAmount.toStringAsFixed(2)}',
       style: TextStyle(
           fontSize: 12.5.sp, fontWeight: FontWeight.w600, color: cs.onSurface),
     );

@@ -212,11 +212,8 @@ class DealsRepository {
   }
 
   // completion goes by reference, not numeric id
-  /// [completionType]: QR_SCAN (traveler scanned the receiver's code) or
-  /// SENDER_CONFIRMATION (sender marked it delivered).
-  Future<void> markCompleted(String referenceId, {String? completionType}) async {
-    unwrapData(await _api.post('/deals/markAsCompleted/$referenceId',
-        data: {if (completionType != null) 'completion_type': completionType}));
+  Future<void> markCompleted(String referenceId) async {
+    unwrapData(await _api.post('/deals/markAsCompleted/$referenceId'));
     DataBus.changed(DataTopic.deals);
   }
 
@@ -275,9 +272,8 @@ class DealsRepository {
 
   /// ITEM_DAMAGED / WRONG_ITEM require photo/video evidence — enforced
   /// server-side, mirrored in the sheet before calling this.
-  /// Every picked file goes up as `proof_files[]` on createDispute — the
-  /// endpoint that stores all of them (the older /disputes/deal/{id} route
-  /// kept only one, so the admin saw a single image).
+  /// Supports multiple images via `attachments[]` field; single `attachment`
+  /// is still accepted for backward compatibility.
   Future<void> createDispute(
     int dealId, {
     required String reason,
@@ -292,19 +288,27 @@ class DealsRepository {
     ];
 
     final form = FormData.fromMap({
-      'deal_id': dealId,
       'reason': reason,
       if (description != null && description.isNotEmpty) 'description': description,
     });
 
+    // attachments[] carries every image; the legacy single `attachment` field
+    // still gets the first one so older API builds keep their evidence
     for (final path in allPaths) {
       form.files.add(MapEntry(
-        'proof_files[]',
+        'attachments[]',
         await MultipartFile.fromFile(path, filename: path.split('/').last),
       ));
     }
+    if (allPaths.isNotEmpty) {
+      form.files.add(MapEntry(
+        'attachment',
+        await MultipartFile.fromFile(allPaths.first,
+            filename: allPaths.first.split('/').last),
+      ));
+    }
 
-    unwrapData(await _api.post('/disputes/createDispute/$dealId', data: form));
+    unwrapData(await _api.post('/disputes/deal/$dealId', data: form));
     DataBus.changed(DataTopic.deals);
   }
 }
