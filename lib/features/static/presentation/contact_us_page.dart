@@ -83,7 +83,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
-          Text("We'd love to hear from you",
+          Text('wed_love_to_hear_from_you'.tr,
               style: Theme.of(context).textTheme.headlineSmall),
           SizedBox(height: 6.h),
           Text('send_us_a_message_and_the_team_will_get_back_to'.tr,

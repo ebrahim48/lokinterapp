@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,10 @@ class _BannerCarouselState extends State<BannerCarousel> {
   int _index = 0;
 
   static const _slides = [
-    ('Ship anywhere', 'Send parcels with trusted travelers', [AppPalette.deepNavy, AppPalette.navy]),
-    ('Travel & earn', 'Carry items on trips you already take', [Color(0xFF7A3B38), AppPalette.primary]),
-    ('Local or worldwide', 'Inside your city or across borders', [Color(0xFF1E4D3A), AppPalette.localAccent]),
+    // translation keys — resolved when the slide is drawn
+    ('banner_ship_title', 'banner_ship_subtitle', [AppPalette.deepNavy, AppPalette.navy]),
+    ('banner_earn_title', 'banner_earn_subtitle', [Color(0xFF7A3B38), AppPalette.primary]),
+    ('banner_local_title', 'banner_local_subtitle', [Color(0xFF1E4D3A), AppPalette.localAccent]),
   ];
 
   int get _count => widget.banners.isEmpty ? _slides.length : widget.banners.length;
@@ -120,12 +122,12 @@ class _BannerCarouselState extends State<BannerCarousel> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            s.$1,
+            s.$1.tr,
             style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 6.h),
           Text(
-            s.$2,
+            s.$2.tr,
             style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.sp),
           ),
         ],

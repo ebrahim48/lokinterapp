@@ -1,9 +1,17 @@
 // Wallet must show every amount still owed with the reason it is held, and
 // keep those out of the withdrawable balance. Payload from the API doc.
+import 'dart:ui';
+
+import 'package:flutter_task/core/i18n/app_translations.dart';
 import 'package:flutter_task/features/profile/data/wallet_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 
 void main() {
+  // countdown text goes through the app translations
+  Get.addTranslations(AppTranslations().keys);
+  Get.locale = const Locale('en');
+
   final data = WalletData.fromJson({
     'available': 150.00,
     'totalPending': 75.00,
@@ -90,5 +98,32 @@ void main() {
     expect(t.dealRef, 'DEAL-776611');
     expect(t.createdAt, isNotNull);
     expect(t.isCredit, isTrue);
+  });
+
+  test('earnings frozen by a dispute move to on hold, not pending', () {
+    final held = WalletData.fromJson({
+      'onHold': 0,
+      'disputeHoldAmount': 50.00,
+      'pendingDealsList': [
+        {'dealId': 74, 'amount': 50.00, 'dealStatus': 'DISPUTED',
+         'fundsLockedForDispute': true},
+        {'dealId': 82, 'amount': 45.00, 'status': 'PENDING_RELEASE'},
+      ],
+    });
+    expect(held.onHold, 50.00);
+    expect(held.onHoldEarnings.map((e) => e.dealId), [74]);
+    expect(held.potential.map((e) => e.dealId), [82]);
+    expect(held.onHoldEarnings.single.reasonLabel,
+        'On hold – waiting for dispute resolution');
+  });
+
+  test('payout method reads the current API shape', () {
+    final m = PayoutMethod.fromJson({
+      'id': 6, 'method': 'wise', 'isDefault': true,
+      'displayLabel': 'Wise Bank Transfer', 'summary': 'tunisia - ****3839',
+    });
+    expect(m.type, 'WISE'); // drives the 50 minimum
+    expect(m.label, 'Wise Bank Transfer · tunisia - ****3839');
+    expect(m.isDefault, isTrue);
   });
 }

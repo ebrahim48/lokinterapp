@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'core/services/api_service.dart';
@@ -35,6 +36,16 @@ class MyApp extends StatelessWidget {
           translations: AppTranslations(),
           locale: Get.find<LanguageService>().locale,
           fallbackLocale: const Locale(LanguageService.fallback),
+          // built-in widget text (date/time pickers, dialogs, text selection)
+          // follows the app language too
+          supportedLocales: [
+            for (final c in LanguageService.supported) Locale(c),
+          ],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           home: child,
         );
       },

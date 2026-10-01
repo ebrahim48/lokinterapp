@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 class Review {
   final String reviewer;
   final int rating;
@@ -12,7 +13,7 @@ class Review {
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        reviewer: json['user']?['name'] ?? 'Anonymous',
+        reviewer: json['user']?['name'] ?? 'anonymous'.tr,
         rating: json['stars'] ?? 0,
         comment: json['comment'] ?? '',
         date: (json['createdAt'] ?? json['created_at'] ?? '').toString(),

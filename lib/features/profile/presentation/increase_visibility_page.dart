@@ -170,8 +170,7 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
           Text(
-            'Get recommended to senders connected to your trip routes and show up '
-            'higher in search.',
+            'increase_visibility_intro'.tr,
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.5),
           ),
           SizedBox(height: 20.h),
@@ -187,8 +186,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
             return _planCard(
               context,
               title: 'recommended_traveler'.tr,
-              price: 'Free',
-              blurb: 'For travelers who meet all the conditions below.',
+              price: 'free'.tr,
+              blurb: 'recommended_traveler_blurb'.tr,
               child: Column(
                 children: [
                   _condition(
@@ -245,8 +244,8 @@ class _IncreaseVisibilityPageState extends State<IncreaseVisibilityPage> {
             return _planCard(
               context,
               title: 'recommended_transporter'.tr,
-              price: _planPrice ?? 'USD 23.99 / month',
-              blurb: 'For transporters who want premium placement while subscribed.',
+              price: _planPrice ?? 'price_per_month'.trParams({'price': 'USD 23.99'}),
+              blurb: 'recommended_transporter_blurb'.tr,
               child: Column(
                 children: [
                   if (alreadyActive) ...[

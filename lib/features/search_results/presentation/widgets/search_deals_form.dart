@@ -107,7 +107,7 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
               SizedBox(
                 width: 168.w,
                 child: LokSegmented(
-                  labels: const ['Local', 'International'],
+                  labels: ['local'.tr, 'international'.tr],
                   selected: _mode,
                   onChanged: (i) => setState(() {
                     _mode = i;

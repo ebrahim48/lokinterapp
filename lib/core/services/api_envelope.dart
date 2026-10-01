@@ -1,3 +1,4 @@
+import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import 'package:dio/dio.dart';
 import '../exceptions/app_exceptions.dart';
 
@@ -8,9 +9,9 @@ dynamic unwrapData(Response res) {
   final body = res.data;
   if (body is Map<String, dynamic>) {
     if (body['status'] == true) return body['data'];
-    throw ServerException(body['message'] ?? 'Request failed', res.statusCode);
+    throw ServerException(body['message'] ?? 'request_failed'.tr, res.statusCode);
   }
-  throw ParsingException('Unexpected response body');
+  throw ParsingException();
 }
 
 class Paged<T> {

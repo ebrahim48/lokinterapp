@@ -28,7 +28,7 @@ class PostRequestPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
         children: [
           Text(
-            editId == null ? 'Post your delivery request' : 'Edit delivery request',
+            editId == null ? 'post_your_delivery_request'.tr : 'edit_delivery_request'.tr,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           SizedBox(height: 4.h),
@@ -45,7 +45,7 @@ class PostRequestPage extends StatelessWidget {
                     icon: Icons.shopping_bag_outlined,
                     iconColor: AppPalette.primary,
                     title: 'buy_for_me_and_deliver'.tr,
-                    subtitle: 'Ask a traveler to buy a product and bring it to you',
+                    subtitle: 'buy_for_me_subtitle'.tr,
                     selected: c.wantTo.value == WantTo.buyAndDeliver,
                     onTap: () => c.wantTo.value = WantTo.buyAndDeliver,
                   ),
@@ -56,7 +56,7 @@ class PostRequestPage extends StatelessWidget {
                     icon: Icons.inventory_2_outlined,
                     iconColor: AppPalette.intlAccent,
                     title: 'deliver_ready_item'.tr,
-                    subtitle: 'You already have the item ready to be delivered',
+                    subtitle: 'deliver_ready_subtitle'.tr,
                     selected: c.wantTo.value == WantTo.send,
                     onTap: () => c.wantTo.value = WantTo.send,
                   ),
@@ -80,7 +80,7 @@ class PostRequestPage extends StatelessWidget {
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Text(
-                            "Couldn't load countries, so the form can't be filled in.",
+                            'countries_load_failed'.tr,
                             style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
                           ),
                         ),
@@ -115,7 +115,7 @@ class PostRequestPage extends StatelessWidget {
                   icon: Icons.location_on,
                   iconColor: AppPalette.localAccent,
                   title: 'local'.tr,
-                  subtitle: 'Inside your country',
+                  subtitle: 'inside_your_country'.tr,
                   selected: c.location.value == PostLocation.local,
                   onTap: () => c.location.value = PostLocation.local,
                 ),
@@ -126,7 +126,7 @@ class PostRequestPage extends StatelessWidget {
                   icon: Icons.flight,
                   iconColor: AppPalette.intlAccent,
                   title: 'international'.tr,
-                  subtitle: 'From one country to another',
+                  subtitle: 'from_one_country_to_another'.tr,
                   selected: c.location.value == PostLocation.international,
                   onTap: () => c.location.value = PostLocation.international,
                 ),
@@ -312,7 +312,7 @@ class PostRequestPage extends StatelessWidget {
             )),
         SizedBox(height: 18.h),
         LokBusyButton(
-            busy: c.busy, label: editId == null ? 'Post' : 'Save changes', onPressed: c.submit),
+            busy: c.busy, label: editId == null ? 'post'.tr : 'save_changes'.tr, onPressed: c.submit),
       ],
     );
   }

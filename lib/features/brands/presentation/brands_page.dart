@@ -108,7 +108,7 @@ class _BrandCard extends StatelessWidget {
         final uri = Uri.parse(
             brand.url.startsWith('http') ? brand.url : 'https://${brand.url}');
         if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-          toast('Could not open ${brand.url}');
+          toast('could_not_open_link'.trParams({'url': brand.url}));
         }
       },
       child: Container(

@@ -16,7 +16,7 @@ import '../theme/app_palette.dart';
 ///
 /// Returns true when the number is verified; otherwise it explains why and
 /// offers the verification screen, then returns its result.
-Future<bool> requirePhoneVerified({String action = 'continue'}) async {
+Future<bool> requirePhoneVerified({String? action}) async {
   final session = Get.find<SessionService>();
 
   // the cached user can predate a verification done elsewhere (the website, or
@@ -27,7 +27,7 @@ Future<bool> requirePhoneVerified({String action = 'continue'}) async {
   final go = await Get.dialog<bool>(
     AlertDialog(
       title: Text('verify_phone_number'.tr),
-      content: Text('phone_needed_to_action'.trParams({'action': action})),
+      content: Text('phone_needed_to_action'.trParams({'action': action ?? 'action_continue'.tr})),
       actions: [
         TextButton(
             onPressed: () => Get.back(result: false), child: Text('not_now'.tr)),

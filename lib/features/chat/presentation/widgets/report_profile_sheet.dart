@@ -108,7 +108,7 @@ class _ReportProfileSheetState extends State<ReportProfileSheet> {
               TextField(
                 controller: _details,
                 maxLines: 3,
-                decoration: const InputDecoration(hintText: 'Add details (optional)'),
+                decoration: InputDecoration(hintText: 'add_details_optional'.tr),
               ),
               SizedBox(height: 18.h),
               Row(

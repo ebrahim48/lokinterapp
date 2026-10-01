@@ -137,7 +137,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
           toast('enter_a_valid_paypal_email'.tr);
           return false;
         }
-        _run(() => _repo.addPaypal(email.text.trim()), 'PayPal added');
+        _run(() => _repo.addPaypal(email.text.trim()), 'paypal_added'.tr);
         return true;
       },
     );
@@ -220,7 +220,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
             beneficiaryCountry: country.text.trim(),
             bankAddress: bankAddress.text.trim(),
           ),
-          'Bank account added — our team will review it',
+          'bank_account_added_review'.tr,
         );
         return true;
       },
@@ -271,13 +271,13 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
     Get.dialog(
       AlertDialog(
         title: Text('remove_payout_method'.tr),
-        content: Text('${m.label} will no longer receive withdrawals.'),
+        content: Text('method_no_longer_receives'.trParams({'method': m.label})),
         actions: [
           TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr)),
           TextButton(
             onPressed: () {
               Get.back();
-              _run(() => _repo.removeMethod(m.id), 'Payout method removed');
+              _run(() => _repo.removeMethod(m.id), 'payout_method_removed'.tr);
             },
             child: Text('remove'.tr, style: TextStyle(color: AppPalette.primary)),
           ),
@@ -329,18 +329,20 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
                           context,
                           Icons.bolt,
                           _stripe?.status == 'active'
-                              ? 'Stripe dashboard'
+                              ? 'stripe_dashboard'.tr
                               : _stripe?.status == 'onboarding'
-                                  ? 'Resume Stripe onboarding'
-                                  : 'Connect Stripe',
+                                  ? 'resume_stripe_onboarding'.tr
+                                  : 'connect_stripe'.tr,
                           _stripe?.status == 'active'
-                              ? 'Connected — open your Express dashboard'
-                              : 'Fastest payouts, min \$10',
+                              ? 'stripe_connected_open_dashboard'.tr
+                              : 'stripe_fastest_payouts'.tr,
                           _busy ? null : _linkStripe),
-                      _addTile(context, Icons.account_balance_wallet_outlined, 'Add PayPal',
-                          'Min \$10', _busy ? null : _addPaypal),
-                      _addTile(context, Icons.account_balance_outlined, 'Add bank (Wise)',
-                          'Min \$50, reviewed by our team', _busy ? null : _addWise),
+                      // PayPal is off unless the server enables it
+                      if (WalletRepository.paypalEnabled)
+                        _addTile(context, Icons.account_balance_wallet_outlined,
+                            'add_paypal'.tr, 'min_10'.tr, _busy ? null : _addPaypal),
+                      _addTile(context, Icons.account_balance_outlined, 'add_bank_wise'.tr,
+                          'wise_min_reviewed'.tr, _busy ? null : _addWise),
                     ],
                   ),
                 ),
@@ -380,7 +382,7 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
             TextButton(
               onPressed: _busy
                   ? null
-                  : () => _run(() => _repo.setDefaultMethod(m.id), 'Default updated'),
+                  : () => _run(() => _repo.setDefaultMethod(m.id), 'default_updated'.tr),
               child: Text('set_default'.tr, style: TextStyle(fontSize: 11.sp)),
             ),
           IconButton(

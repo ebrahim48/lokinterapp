@@ -138,7 +138,7 @@ class HomeFeedPage extends StatelessWidget {
               if (c.error.value != null && posts.isEmpty) {
                 return _EmptyNote(text: c.error.value!);
               }
-              if (posts.isEmpty) return const _EmptyNote(text: 'Nothing posted yet');
+              if (posts.isEmpty) return _EmptyNote(text: 'nothing_posted_yet'.tr);
               return Column(
                 children: [
                   for (final post in posts) ...[

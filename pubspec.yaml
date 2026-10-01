@@ -13,6 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Material/Cupertino widget strings (date picker, dialogs, copy/paste) in fr
+  flutter_localizations:
+    sdk: flutter
 
   get: ^4.6.6
   flutter_screenutil: ^5.9.3

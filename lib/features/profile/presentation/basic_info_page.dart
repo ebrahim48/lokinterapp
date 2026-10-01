@@ -125,9 +125,9 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
   // ---- KYC (hosted flow, opened in the system browser) ----
 
   String get _kycActionLabel => switch (_kyc?.status ?? 'not_started') {
-        'pending' => 'Resume',
-        'declined' => 'Contact support',
-        _ => 'Verify',
+        'pending' => 'resume'.tr,
+        'declined' => 'contact_support'.tr,
+        _ => 'verify'.tr,
       };
 
   Future<void> _startKyc() async {
@@ -143,8 +143,8 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
         final s = await KycRepository().status();
         if (mounted) setState(() => _kyc = s);
         toast(s.verified
-            ? 'Your identity is already verified.'
-            : 'Verification is not available right now');
+            ? 'identity_already_verified'.tr
+            : 'verification_not_available'.tr);
         return;
       }
       final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
@@ -189,8 +189,8 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
               SizedBox(height: 6.h),
               Text(
                 step.value == 0
-                    ? 'We will send a verification code to your WhatsApp.'
-                    : 'Enter the 4-digit code we sent to your WhatsApp.',
+                    ? 'we_send_a_code_to_your_whatsapp'.tr
+                    : 'enter_the_code_we_sent_to_whatsapp'.tr,
                 style: TextStyle(
                     fontSize: 13.sp,
                     color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -439,7 +439,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           SizedBox(height: 20.h),
           _verifyRow(
             context,
-            'Identity document',
+            'identity_document'.tr,
             identityVerified,
             actionLabel: _kycActionLabel,
             onVerify: _startKyc,
@@ -447,11 +447,11 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           SizedBox(height: 10.h),
           _verifyRow(
             context,
-            'Phone number',
+            'phone_number'.tr,
             // /auth/user is the authority here — phoneVerified, or the
             // phoneVerifiedAt timestamp when an older payload omits the flag
             user?.phoneVerified ?? summary?.phoneVerified ?? false,
-            actionLabel: 'Verify',
+            actionLabel: 'verify'.tr,
             onVerify: _verifyPhone,
           ),
           SizedBox(height: 10.h),

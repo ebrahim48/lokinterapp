@@ -19,7 +19,7 @@ void main() {
     const sameByDesign = {
       'USD', 'SWIFT / BIC', 'KG', 'International', 'Local', 'Notifications',
       'Message', 'Options', 'Documents', 'Transport', 'Contact', 'Format',
-      'Description',
+      'Description', 'Transactions', 'Total', 'Min. @amount',
     };
     final identical = en.keys
         .where((k) => fr[k] == en[k])

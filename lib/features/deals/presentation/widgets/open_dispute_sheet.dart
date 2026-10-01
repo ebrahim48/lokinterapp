@@ -72,12 +72,12 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
         final canDispute = window['canDispute'];
         if (canDispute == false) {
           _windowClosed = true;
-          _windowNote = 'The dispute window for this deal has closed.';
+          _windowNote = 'dispute_window_closed'.tr;
         } else if (window['remainingSeconds'] is num) {
           final mins = ((window['remainingSeconds'] as num) / 60).ceil();
           _windowNote = mins > 120
-              ? 'Dispute window open — about ${(mins / 60).floor()}h left.'
-              : 'Dispute window open — about ${mins}m left.';
+              ? 'dispute_window_open_left'.trParams({'time': '${(mins / 60).floor()}h'})
+              : 'dispute_window_open_left'.trParams({'time': '${mins}m'});
         }
       });
     } on AppException catch (e) {
@@ -161,8 +161,7 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
               Text('open_a_dispute'.tr, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
-                'Tell us what went wrong with this delivery. '
-                'Funds stay locked until our team decides.',
+                'dispute_sheet_intro'.tr,
                 style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.4),
               ),
               if (_windowNote != null) ...[
@@ -237,8 +236,8 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                   controller: _description,
                   maxLines: 3,
                   enabled: !_windowClosed,
-                  decoration: const InputDecoration(
-                    hintText: 'Describe what happened (optional)',
+                  decoration: InputDecoration(
+                    hintText: 'describe_what_happened_optional'.tr,
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -261,10 +260,11 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                         Expanded(
                           child: Text(
                             _evidence.isNotEmpty
-                                ? '${_evidence.length} photo(s) selected'
+                                ? 'photos_selected'
+                                    .trParams({'count': '${_evidence.length}'})
                                 : _needsEvidence
-                                    ? 'Add photo evidence (required)'
-                                    : 'Add photo evidence (optional)',
+                                    ? 'add_photo_evidence_required'.tr
+                                    : 'add_photo_evidence_optional'.tr,
                             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
                             overflow: TextOverflow.ellipsis,
                           ),

@@ -100,7 +100,7 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
               ),
               SizedBox(height: 8.h),
               LokSegmented(
-                labels: const ['Local', 'International'],
+                labels: ['local'.tr, 'international'.tr],
                 selected: _mode,
                 onChanged: (i) => setState(() => _mode = i),
               ),

@@ -36,7 +36,7 @@ class _OtpPageState extends State<OtpPage> {
           Text('verify_your_email'.tr, style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 6.h),
           Text(
-            'We sent a code to ${c.email.text.trim()}. Enter it below to finish creating your account.',
+            'otp_sent_to_email'.trParams({'email': c.email.text.trim()}),
             style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
           SizedBox(height: 28.h),

@@ -41,9 +41,9 @@ class PushService extends GetxService {
   /// Must match `default_notification_channel_id` in AndroidManifest.xml, or a
   /// backgrounded push lands in a channel the user never sees.
   static const _channelId = 'high_importance_channel';
-  static const _channelName = 'Deals, chat and payments';
-  static const _channelDescription =
-      'Deal updates, new messages, payments and verification results.';
+  // shown in the system notification settings, in the app language
+  static String get _channelName => 'push_channel_name'.tr;
+  static String get _channelDescription => 'push_channel_description'.tr;
 
   /// Resolved on use, not in the constructor: `FirebaseMessaging.instance`
   /// reaches for the default Firebase app and throws when there is none (no
@@ -200,7 +200,7 @@ class PushService extends GetxService {
     if (Platform.isAndroid) {
       await _local
           .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(const AndroidNotificationChannel(
+          ?.createNotificationChannel(AndroidNotificationChannel(
             _channelId,
             _channelName,
             description: _channelDescription,
@@ -230,7 +230,7 @@ class PushService extends GetxService {
       id: message.hashCode,
       title: title,
       body: body,
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,
           _channelName,

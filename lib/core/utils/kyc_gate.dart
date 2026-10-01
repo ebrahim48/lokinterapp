@@ -11,7 +11,7 @@ import 'notify.dart';
 /// verified identity (`identityVerificationGuard` on the web routes).
 /// Returns true when the user may continue; otherwise shows the same
 /// verify-first dialog the chat gate uses and returns false.
-Future<bool> requireIdentityVerified({String action = 'post'}) async {
+Future<bool> requireIdentityVerified({String? action}) async {
   if (!requireLogin()) return false;
 
   KycStatus kyc;
@@ -28,7 +28,7 @@ Future<bool> requireIdentityVerified({String action = 'post'}) async {
     AlertDialog(
       title: Text('verify_your_identity'.tr),
       content: Text(
-        'You need a verified identity before you can $action. ${kyc.message}',
+        '${'kyc_needed_to_action'.trParams({'action': action ?? 'action_post'.tr})} ${kyc.message}',
       ),
       actions: [
         TextButton(onPressed: () => Get.back(), child: Text('not_now'.tr)),

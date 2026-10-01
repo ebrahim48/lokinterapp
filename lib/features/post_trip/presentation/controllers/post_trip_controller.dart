@@ -174,7 +174,7 @@ class PostTripController extends GetxController {
           noSpecificDate: noSpecificDate.value,
         );
       }
-      toast(isEditing ? 'Trip updated' : 'Trip posted');
+      toast(isEditing ? 'trip_updated'.tr : 'trip_posted'.tr);
       Get.back(result: true);
     } on AppException catch (e) {
       toastError(e);
