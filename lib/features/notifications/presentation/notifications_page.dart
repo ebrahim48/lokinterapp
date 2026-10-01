@@ -314,19 +314,19 @@ class _NotificationSettingsState extends State<_NotificationSettings> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _toggle('Push notifications', _push, (v) {
+                    _toggle('push_notifications'.tr, _push, (v) {
                       setState(() => _push = v);
                       _set('notif_push', v);
                     }),
-                    _toggle('Trip alerts', _trips, (v) {
+                    _toggle('trip_alerts'.tr, _trips, (v) {
                       setState(() => _trips = v);
                       _set('notif_trips', v);
                     }),
-                    _toggle('Delivery request alerts', _requests, (v) {
+                    _toggle('delivery_request_alerts'.tr, _requests, (v) {
                       setState(() => _requests = v);
                       _set('notif_requests', v);
                     }),
-                    _toggle('Marketing & promotions', _marketing, (v) {
+                    _toggle('marketing_promotions'.tr, _marketing, (v) {
                       setState(() => _marketing = v);
                       _set('notif_marketing', v);
                     }),

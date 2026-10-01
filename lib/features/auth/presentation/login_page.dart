@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Don't have an account? ",
+                'auth.noAccount'.tr,
                 style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
               ),
               GestureDetector(

@@ -202,7 +202,7 @@ class ChatConversationPage extends StatelessWidget {
               child: Text(
                 // website (from-to): only a DELIVER post prefixes "Before"
                 post.isDeliver
-                    ? 'Before ${post.beforeDate}'
+                    ? 'before_date_value'.trParams({'date': '${post.beforeDate}'})
                     : '${post.beforeDate}',
                 style: TextStyle(fontSize: 9.5.sp, color: Colors.white),
               ),
@@ -256,14 +256,14 @@ class ChatConversationPage extends StatelessWidget {
     final status = c.deal.value?.status ?? '';
     final (label, colour) = switch (status) {
       // same amber the deal status badge uses for PENDING
-      'PENDING' => ('Deal Pending', const Color(0xFF854D0E)),
-      'ACCEPTED' => ('Deal accepted', AppPalette.confirmGreen),
-      'OUTGOING' => ('Deal Ongoing', AppPalette.intlAccent),
-      'COMPLETED' => ('Completed Deal', AppPalette.confirmGreen),
-      'DISPUTED' => ('View Dispute', AppPalette.primary),
-      'CANCELED' || 'CANCELLED' => ('Deal Canceled', AppPalette.grey),
-      'REJECTED' => ('Deal Rejected', AppPalette.grey),
-      _ => ('Show Deal', AppPalette.confirmGreen),
+      'PENDING' => ('deal_bar_pending'.tr, const Color(0xFF854D0E)),
+      'ACCEPTED' => ('deal_bar_accepted'.tr, AppPalette.confirmGreen),
+      'OUTGOING' => ('deal_bar_ongoing'.tr, AppPalette.intlAccent),
+      'COMPLETED' => ('deal_bar_completed'.tr, AppPalette.confirmGreen),
+      'DISPUTED' => ('deal_bar_dispute'.tr, AppPalette.primary),
+      'CANCELED' || 'CANCELLED' => ('deal_bar_canceled'.tr, AppPalette.grey),
+      'REJECTED' => ('deal_bar_rejected'.tr, AppPalette.grey),
+      _ => ('deal_bar_show'.tr, AppPalette.confirmGreen),
     };
     return Container(
       padding: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 10.h),
@@ -303,7 +303,7 @@ class ChatConversationPage extends StatelessWidget {
   // form opens — not after they've filled everything in
   Future<void> _startConfirm(
       BuildContext context, ChatConversationController c) async {
-    if (!await requirePhoneVerified(action: 'create a deal')) return;
+    if (!await requirePhoneVerified(action: 'action_create_deal'.tr)) return;
     if (!await requireVerified()) return;
     if (!context.mounted) return;
     _openConfirm(context, c);
@@ -354,7 +354,7 @@ class ChatConversationPage extends StatelessWidget {
                 controller: c.composer,
                 onSubmitted: (_) => c.send(),
                 decoration: InputDecoration(
-                  hintText: 'Message...',
+                  hintText: 'chat.message'.tr,
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 16.w,
                     vertical: 10.h,
@@ -412,7 +412,10 @@ class _AgreementSheetState extends State<_AgreementSheet> {
   final _receiverPhone = TextEditingController();
   DateTime? _tripDate;
   DateTime? _arrivalDate;
-  String? _payment = 'Pay Online';
+  // options are shown translated, so compare against the same getters
+  String get _payOnline => 'pay_online'.tr;
+  String get _cashOnDelivery => 'cash_on_delivery'.tr;
+  late String? _payment = _payOnline;
   bool _securityDeposit = false;
   bool _sending = false;
   final List<XFile> _photos = [];
@@ -424,13 +427,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
 
   // the sender chooses what they want (website: the "I want to" dropdown),
   // seeded from the post — each choice shows its own linked fields
-  static const _sendLabel = 'Deliver Ready Items';
-  static const _buyLabel = 'Buy for Me and Deliver';
+  String get _sendLabel => 'deliver_ready_item'.tr;
+  String get _buyLabel => 'buy_for_me_and_deliver'.tr;
   late String _wantTo =
       widget.post.wantTo == 'BUY_AND_DELIVER' ? _buyLabel : _sendLabel;
 
   bool get _isBuyAndDeliver => _wantTo == _buyLabel;
-  bool get _isStripe => _payment == 'Pay Online';
+  bool get _isStripe => _payment == _payOnline;
 
   List<String> get _countryNames => _countries.map((e) => e.name).toList();
 
@@ -496,7 +499,9 @@ class _AgreementSheetState extends State<_AgreementSheet> {
     // a card-paid send with a security deposit; cash deals send 0
     final itemValueRequired = _isStripe && (_isBuyAndDeliver || _securityDeposit);
     if (itemValueRequired && (itemValue == null || itemValue <= 0)) {
-      toast(_isBuyAndDeliver ? 'Add the item value' : 'Add the security deposit amount');
+      toast(_isBuyAndDeliver
+          ? 'add_the_item_value'.tr
+          : 'add_the_security_deposit_amount'.tr);
       return;
     }
     if (_arrivalDate == null) {
@@ -631,8 +636,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Lock in the details agreed with ${widget.peer.name} — '
-                      'weight, price, and dates — and move to the deal.',
+                      'agreement_sheet_intro'.trParams({'name': widget.peer.name}),
                       style: TextStyle(
                         fontSize: 13.sp,
                         color: cs.onSurfaceVariant,
@@ -647,7 +651,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       hint: 'choose'.tr,
                       icon: Icons.local_shipping_outlined,
                       required: true,
-                      options: const [_sendLabel, _buyLabel],
+                      options: [_sendLabel, _buyLabel],
                       value: _wantTo,
                       onChanged: (v) => setState(() {
                         _wantTo = v;
@@ -675,9 +679,11 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                         Expanded(
                           child: LokTextField(
                             label: _isBuyAndDeliver
-                                ? 'Item value'
-                                : 'Security deposit amount',
-                            hint: _isBuyAndDeliver ? 'item worth' : 'held, not charged',
+                                ? 'item_value'.tr
+                                : 'security_deposit_amount'.tr,
+                            hint: _isBuyAndDeliver
+                                ? 'item_worth'.tr
+                                : 'held_not_charged'.tr,
                             icon: Icons.sell_outlined,
                             required: _isStripe && (_isBuyAndDeliver || _securityDeposit),
                             // send: stays grayed until a deposit is required
@@ -706,10 +712,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       Padding(
                         padding: EdgeInsets.only(left: 34.w, top: 4.h, right: 4.w),
                         child: Text(
-                          'A temporary hold is placed on the traveler’s card for the '
-                          'item’s value to protect against loss or damage. It is released '
-                          'after successful delivery — they are never charged unless a '
-                          'dispute is raised.',
+                          'security_deposit_explainer'.tr,
                           style: TextStyle(
                             fontSize: 11.sp,
                             color: cs.onSurfaceVariant,
@@ -782,9 +785,10 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                               child: Text(
                                 _photos.isEmpty
                                     ? (_isBuyAndDeliver
-                                        ? 'Add reference images (optional)'
-                                        : 'Add item photos (optional)')
-                                    : '${_photos.length} photo${_photos.length > 1 ? 's' : ''} selected',
+                                        ? 'add_reference_images_optional'.tr
+                                        : 'add_item_photos_optional'.tr)
+                                    : 'photos_selected'
+                                        .trParams({'count': '${_photos.length}'}),
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: cs.onSurfaceVariant,
@@ -855,7 +859,7 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'payment_method'.tr,
                       hint: 'payment_method_2'.tr,
                       icon: Icons.credit_card,
-                      options: const ['Pay Online', 'Cash On Delivery'],
+                      options: [_payOnline, _cashOnDelivery],
                       value: _payment,
                       onChanged: (v) => setState(() {
                         _payment = v;
@@ -935,7 +939,7 @@ class _Attachment extends StatelessWidget {
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
             ),
-            errorWidget: (_, __, ___) => _fileChip(fg, 'Image unavailable'),
+            errorWidget: (_, __, ___) => _fileChip(fg, 'image_unavailable'.tr),
           ),
         ),
       );

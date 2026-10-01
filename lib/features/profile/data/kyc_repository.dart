@@ -15,9 +15,9 @@ class KycStatus {
 
   // what to tell the user when they're blocked
   String get message => switch (status) {
-        'pending' => 'Your identity check is still being reviewed.',
-        'declined' => 'Your identity check was declined. Please try again.',
-        _ => 'Verify your identity before you can create a deal.',
+        'pending' => 'kyc_pending_message'.tr,
+        'declined' => 'kyc_declined_message'.tr,
+        _ => 'kyc_required_message'.tr,
       };
 }
 

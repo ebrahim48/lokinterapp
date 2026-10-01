@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,7 @@ class ModeBadge extends StatelessWidget {
         dot,
         SizedBox(height: 4.h),
         Text(
-          local ? 'LOCAL' : 'INTERNATIONAL',
+          (local ? 'local'.tr : 'international'.tr).toUpperCase(),
           style: TextStyle(
             fontSize: 9.sp,
             letterSpacing: 0.5,

@@ -19,14 +19,16 @@ class ReportRepository {
 // Same reason codes the website's report-profile dialog submits.
 class ReportReason {
   final String code;
-  final String label;
-  const ReportReason(this.code, this.label);
+  final String _labelKey;
+  const ReportReason(this.code, this._labelKey);
+
+  String get label => _labelKey.tr;
 }
 
 const reportReasons = [
-  ReportReason('FRAUD', 'Fraud or scam'),
-  ReportReason('INAPPROPRIATE_LANGUAGE', 'Inappropriate language'),
-  ReportReason('UNPROFESSIONAL_BEHAVIOR', 'Unprofessional behavior'),
-  ReportReason('LOST_OR_DAMAGED_ITEMS', 'Lost or damaged items'),
-  ReportReason('OTHER', 'Something else'),
+  ReportReason('FRAUD', 'report_reason_fraud'),
+  ReportReason('INAPPROPRIATE_LANGUAGE', 'report_reason_language'),
+  ReportReason('UNPROFESSIONAL_BEHAVIOR', 'report_reason_unprofessional'),
+  ReportReason('LOST_OR_DAMAGED_ITEMS', 'report_reason_lost_damaged'),
+  ReportReason('OTHER', 'report_reason_other'),
 ];

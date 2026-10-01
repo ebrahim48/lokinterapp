@@ -65,7 +65,7 @@ void toastError(Object e) {
       ? e.message
       : e is String
           ? e
-          : 'Something went wrong';
+          : 'something_went_wrong'.tr;
   _snack(msg, AppPalette.primary);
 }
 

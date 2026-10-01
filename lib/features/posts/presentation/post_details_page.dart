@@ -25,7 +25,7 @@ class PostDetailsPage extends StatelessWidget {
     final buy = post.wantTo == WantTo.buyAndDeliver;
 
     return Scaffold(
-      appBar: AppBar(title: Text(post.isTrip ? 'Trip' : 'Delivery request')),
+      appBar: AppBar(title: Text(post.isTrip ? 'trip'.tr : 'delivery_request'.tr)),
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
         children: [
@@ -59,7 +59,7 @@ class PostDetailsPage extends StatelessWidget {
           _routeCard(context),
           if (!post.isTrip) ...[
             SizedBox(height: 16.h),
-            Text(buy ? 'Buy for me and deliver' : 'Deliver ready item',
+            Text(buy ? 'buy_for_me_and_deliver'.tr : 'deliver_ready_item'.tr,
                 style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
             if (post.title != null) ...[
               SizedBox(height: 4.h),
@@ -89,7 +89,7 @@ class PostDetailsPage extends StatelessWidget {
               ? PostTripPage(editId: post.id)
               : PostRequestPage(editId: post.id)),
           icon: const Icon(Icons.edit_outlined),
-          label: Text(post.isTrip ? 'Edit this trip' : 'Edit this request'),
+          label: Text(post.isTrip ? 'edit_this_trip'.tr : 'edit_this_request'.tr),
         ),
         SizedBox(height: 12.h),
         OutlinedButton.icon(
@@ -106,8 +106,8 @@ class PostDetailsPage extends StatelessWidget {
         onPressed: () => openChat(post.user, postId: post.id),
         icon: const Icon(Icons.chat_bubble_outline),
         label: Text(post.isTrip
-            ? 'Chat with ${post.user.name}'
-            : 'Chat about this request'),
+            ? 'chat_with_name'.trParams({'name': post.user.name})
+            : 'chat_about_this_request'.tr),
       ),
     ];
   }
@@ -148,9 +148,9 @@ class PostDetailsPage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(child: _end(context, 'FROM', post.from, false)),
+          Expanded(child: _end(context, 'from'.tr.toUpperCase(), post.from, false)),
           ModeBadge(location: post.location, place: post.from, iso: post.flagIso),
-          Expanded(child: _end(context, 'TO', post.to, true)),
+          Expanded(child: _end(context, 'to'.tr.toUpperCase(), post.to, true)),
         ],
       ),
     );
@@ -171,19 +171,19 @@ class PostDetailsPage extends StatelessWidget {
 
   Widget _metaList(BuildContext context) {
     final rows = <(IconData, String, String)>[
-      (Icons.event_outlined, post.isTrip ? 'Trip date' : 'Before', post.dateText),
-      (Icons.luggage_outlined, 'Weight', post.weightDetailText),
+      (Icons.event_outlined, post.isTrip ? 'trip_date'.tr : 'before'.tr, post.dateText),
+      (Icons.luggage_outlined, 'weight'.tr, post.weightDetailText),
       // every category the sender picked, not just the first
       if (!post.isTrip && post.categoriesText.isNotEmpty)
-        (Icons.category_outlined, 'Category', post.categoriesText),
+        (Icons.category_outlined, 'category'.tr, post.categoriesText),
       // trips list what they won't carry
       if (post.isTrip && post.rejectedCategories.isNotEmpty)
-        (Icons.block_outlined, 'Not carried', post.rejectedCategories.join(', ')),
+        (Icons.block_outlined, 'not_carried'.tr, post.rejectedCategories.join(', ')),
       if (!post.isTrip && post.profitText != null)
-        (Icons.payments_outlined, 'Traveler profit', post.profitText!),
+        (Icons.payments_outlined, 'traveler_profit'.tr, post.profitText!),
       // whatever the poster typed in the notes box
       if ((post.notes ?? '').isNotEmpty)
-        (Icons.notes_outlined, 'Notes', post.notes!),
+        (Icons.notes_outlined, 'notes'.tr, post.notes!),
     ];
     final cs = Theme.of(context).colorScheme;
     return Container(

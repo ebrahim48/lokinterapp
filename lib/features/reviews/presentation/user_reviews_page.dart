@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import '../../posts/presentation/widgets/transporter_chip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/theme/app_palette.dart';
@@ -61,12 +63,12 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final title = widget.userId == null
-        ? 'Reviews'
+        ? 'reviews'.tr
         : (widget.userName?.isNotEmpty ?? false)
             ? widget.userName!
             : (_summaryInfo?.userName.isNotEmpty ?? false)
                 ? _summaryInfo!.userName
-                : 'Profile';
+                : 'profile'.tr;
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: _loading
@@ -121,7 +123,7 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
         ? s.userName
         : (widget.userName ?? '').isNotEmpty
             ? widget.userName!
-            : 'User';
+            : 'user'.tr;
 
     Widget chip(String label, bool ok) => Container(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
@@ -190,6 +192,11 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // same chip the post cards and own profile show
+                    if (s.isApprovedTransporter) ...[
+                      TransporterChip(recommended: s.isFeaturedTransporter),
+                      SizedBox(height: 6.h),
+                    ],
                     Text(name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -202,14 +209,27 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
                       children: [
                         _stars(s.averageStars.round()),
                         SizedBox(width: 6.w),
-                        Text(
-                          s.averageStars == 0
-                              ? 'No ratings yet'
-                              : '${s.averageStars.toStringAsFixed(1)} · ${s.totalRates} review${s.totalRates == 1 ? '' : 's'}',
-                          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                        Flexible(
+                          child: Text(
+                            s.averageStars == 0
+                                ? 'no_ratings_yet'.tr
+                                : '${s.averageStars.toStringAsFixed(1)} · ${'reviews_count'.trParams({'count': '${s.totalRates}'})}',
+                            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                          ),
                         ),
                       ],
                     ),
+                    if (s.operatingCountries.isNotEmpty) ...[
+                      SizedBox(height: 6.h),
+                      Wrap(
+                        spacing: 4.w,
+                        runSpacing: 4.h,
+                        children: [
+                          for (final c in s.operatingCountries)
+                            CountryFlag.fromCountryCode(c, height: 12.h, width: 18.w),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -218,13 +238,13 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
           Divider(height: 22.h, color: cs.outline),
           Row(
             children: [
-              stat('As traveler',
+              stat('as_traveler'.tr,
                   s.averageStarsAsTraveler == 0 ? '—' : s.averageStarsAsTraveler.toStringAsFixed(1)),
-              stat('As sender',
+              stat('as_sender'.tr,
                   s.averageStarsAsSender == 0 ? '—' : s.averageStarsAsSender.toStringAsFixed(1)),
-              stat('Trips', '${s.totalTrips}'),
-              stat('Requests', '${s.totalRequests}'),
-              stat('Delivers', '${s.totalDelivers}'),
+              stat('trips'.tr, '${s.totalTrips}'),
+              stat('requests'.tr, '${s.totalRequests}'),
+              stat('delivers'.tr, '${s.totalDelivers}'),
             ],
           ),
           SizedBox(height: 12.h),
@@ -232,9 +252,12 @@ class _UserReviewsPageState extends State<UserReviewsPage> {
             spacing: 8.w,
             runSpacing: 6.h,
             children: [
-              chip('ID verified', s.identityVerified),
-              chip('Phone verified', s.phoneVerified),
-              chip('Email verified', s.emailVerified),
+              chip(s.identityVerified ? 'id_verified'.tr : 'id_not_verified'.tr,
+                  s.identityVerified),
+              chip(s.phoneVerified ? 'phone_verified'.tr : 'phone_not_verified'.tr,
+                  s.phoneVerified),
+              chip(s.emailVerified ? 'email_verified'.tr : 'email_not_verified'.tr,
+                  s.emailVerified),
             ],
           ),
         ],

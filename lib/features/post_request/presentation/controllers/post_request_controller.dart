@@ -205,7 +205,7 @@ class PostRequestController extends GetxController {
         Get.back(result: true);
         return;
       }
-      await _repo.addRequest(
+      final postId = await _repo.addRequest(
         local: isLocal,
         buyAndDeliver: isBuy,
         title: itemName.text.trim().isEmpty
@@ -244,7 +244,8 @@ class PostRequestController extends GetxController {
             .then((recommended) {
           // showIfEligible applies client-side filter (approved + visibilityActive)
           // and only shows the dialog when at least one eligible transporter exists.
-          RecommendedTransportersDialog.showIfEligible(recommended);
+          RecommendedTransportersDialog.showIfEligible(recommended,
+              postId: postId);
         }).catchError((_) {});
       }
     } on AppException catch (e) {

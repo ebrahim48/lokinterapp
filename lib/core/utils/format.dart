@@ -1,22 +1,32 @@
+import 'package:get/get.dart';
+
 // Small formatting helpers so we don't pull in intl just for a few strings.
+// Month names and the clock follow the app language (fr: "3 oct. 2026 · 14:05").
 const _months = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ];
+const _monthsFr = [
+  'janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin',
+  'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.',
+];
 
-String shortDate(DateTime d) => '${_months[d.month - 1]} ${d.day}, ${d.year}';
+bool get _fr => (Get.locale?.languageCode ?? 'en') == 'fr';
 
-String shortDateTime(DateTime d) {
-  final h = d.hour % 12 == 0 ? 12 : d.hour % 12;
-  final ampm = d.hour < 12 ? 'AM' : 'PM';
-  return '${shortDate(d)} · $h:${d.minute.toString().padLeft(2, '0')} $ampm';
-}
+String _month(int m) => (_fr ? _monthsFr : _months)[m - 1];
 
-String dayMonth(DateTime d) => '${d.day} ${_months[d.month - 1]}';
+String shortDate(DateTime d) =>
+    _fr ? '${d.day} ${_month(d.month)} ${d.year}' : '${_month(d.month)} ${d.day}, ${d.year}';
+
+String shortDateTime(DateTime d) => '${shortDate(d)} · ${clockTime(d)}';
+
+String dayMonth(DateTime d) => '${d.day} ${_month(d.month)}';
 
 String clockTime(DateTime d) {
+  final mm = d.minute.toString().padLeft(2, '0');
+  if (_fr) return '${d.hour.toString().padLeft(2, '0')}:$mm';
   final h = d.hour % 12 == 0 ? 12 : d.hour % 12;
-  return '$h:${d.minute.toString().padLeft(2, '0')} ${d.hour < 12 ? 'AM' : 'PM'}';
+  return '$h:$mm ${d.hour < 12 ? 'AM' : 'PM'}';
 }
 
 // Parses whatever timestamp shape the API sends into DEVICE-LOCAL time. The
@@ -67,7 +77,7 @@ String chatTime(String raw) {
   final yesterday = now.subtract(const Duration(days: 1));
   final wasYesterday =
       d.year == yesterday.year && d.month == yesterday.month && d.day == yesterday.day;
-  if (wasYesterday) return 'Yesterday ${clockTime(d)}';
+  if (wasYesterday) return 'yesterday_at'.trParams({'time': clockTime(d)});
 
   return '${dayMonth(d)}, ${clockTime(d)}';
 }

@@ -22,7 +22,7 @@ class PostTripPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
         children: [
-          Text(editId == null ? 'Post a Trip' : 'Edit Trip',
+          Text(editId == null ? 'post_a_trip'.tr : 'edit_trip'.tr,
               style: Theme.of(context).textTheme.headlineMedium),
           SizedBox(height: 4.h),
           Text(
@@ -38,7 +38,7 @@ class PostTripPage extends StatelessWidget {
                     icon: Icons.location_on,
                     iconColor: AppPalette.localAccent,
                     title: 'local'.tr,
-                    subtitle: 'Travel within your city or region',
+                    subtitle: 'travel_within_region'.tr,
                     selected: c.location.value == PostLocation.local,
                     onTap: () => c.location.value = PostLocation.local,
                   ),
@@ -49,7 +49,7 @@ class PostTripPage extends StatelessWidget {
                     icon: Icons.flight,
                     iconColor: AppPalette.intlAccent,
                     title: 'international'.tr,
-                    subtitle: 'Travel to any country around the world',
+                    subtitle: 'travel_to_any_country'.tr,
                     selected: c.location.value == PostLocation.international,
                     onTap: () => c.location.value = PostLocation.international,
                   ),
@@ -73,7 +73,7 @@ class PostTripPage extends StatelessWidget {
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Text(
-                            "Couldn't load countries, so the form can't be filled in.",
+                            'countries_load_failed'.tr,
                             style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
                           ),
                         ),
@@ -203,13 +203,12 @@ class PostTripPage extends StatelessWidget {
         ),
         SizedBox(height: 18.h),
         Text(
-          'By clicking post, I confirm that the details of this trip are '
-          'accurate and I agree to post it.',
+          'post_trip_confirmation'.tr,
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
         SizedBox(height: 16.h),
         LokBusyButton(
-            busy: c.busy, label: editId == null ? 'Post' : 'Save changes', onPressed: c.submit),
+            busy: c.busy, label: editId == null ? 'post'.tr : 'save_changes'.tr, onPressed: c.submit),
       ],
     );
   }

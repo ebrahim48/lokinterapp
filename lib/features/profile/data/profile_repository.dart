@@ -24,6 +24,12 @@ class RatingSummary {
   final int totalDelivers;
   final String userName;
   final String? avatarUrl;
+  /// Admin-approved transporter — shows the transporter badge.
+  final bool isApprovedTransporter;
+  /// Active visibility subscription — gold "recommended" badge variant.
+  final bool isFeaturedTransporter;
+  /// ISO2 codes of the transporter's countries of operation.
+  final List<String> operatingCountries;
 
   const RatingSummary({
     this.averageStars = 0,
@@ -39,6 +45,9 @@ class RatingSummary {
     this.totalDelivers = 0,
     this.userName = '',
     this.avatarUrl,
+    this.isApprovedTransporter = false,
+    this.isFeaturedTransporter = false,
+    this.operatingCountries = const [],
   });
 
   // verification flags live under data.user; the activity counts under
@@ -48,7 +57,12 @@ class RatingSummary {
     final posts = Map<String, dynamic>.from(json['posts'] ?? {});
     double numOf(dynamic v) => v is num ? v.toDouble() : double.tryParse('$v') ?? 0;
     int intOf(dynamic v) => v is int ? v : int.tryParse('$v') ?? 0;
-    final url = (user['avatarUrl'] ?? user['imageUrl'] ?? user['avatar']?['url'])?.toString();
+    // the fallback avatar is an SVG placeholder the image widget can't draw
+    final fallback = user['avatar'] is Map && user['avatar']['isFallback'] == true;
+    final rawUrl = fallback
+        ? null
+        : (user['avatarUrl'] ?? user['imageUrl'] ?? user['avatar']?['url'])?.toString();
+    final url = (rawUrl?.toLowerCase().endsWith('.svg') ?? false) ? null : rawUrl;
     return RatingSummary(
       averageStars: numOf(json['averageStars']),
       averageStarsAsTraveler: numOf(json['averageStarsAsTraveler']),
@@ -68,6 +82,17 @@ class RatingSummary {
           .toString()
           .trim(),
       avatarUrl: (url == null || url.isEmpty) ? null : url,
+      isApprovedTransporter:
+          user['isApprovedTransporter'] == true || user['transporterBadge'] == true,
+      isFeaturedTransporter:
+          user['isFeaturedTransporter'] == true || user['visibilityActive'] == true,
+      operatingCountries: [
+        for (final c in (user['operatingCountries'] is List
+            ? user['operatingCountries'] as List
+            : const []))
+          if ('${c is Map ? c['code'] : c}'.length == 2)
+            '${c is Map ? c['code'] : c}'.toUpperCase(),
+      ],
     );
   }
 }

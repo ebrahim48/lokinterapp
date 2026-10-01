@@ -129,7 +129,9 @@ class PostsRepository {
     DataBus.changed(DataTopic.posts);
   }
 
-  Future<void> addRequest({
+  /// Returns the new post's id (null if an older API build omits it) so the
+  /// recommended-transporters popup can link its chats to this request.
+  Future<int?> addRequest({
     required bool local,
     required bool buyAndDeliver,
     required String title,
@@ -173,8 +175,10 @@ class PostsRepository {
         'attachFile': await MultipartFile.fromFile(attachFilePath,
             filename: attachFilePath.split('/').last),
     });
-    unwrapData(await _api.post('/posts/addNewPost', data: form));
+    final data = unwrapData(await _api.post('/posts/addNewPost', data: form));
     DataBus.changed(DataTopic.posts);
+    final id = data is Map ? data['id'] : null;
+    return id is num ? id.toInt() : int.tryParse('${id ?? ''}');
   }
 
   // same payload as addNewPost, just aimed at an existing post

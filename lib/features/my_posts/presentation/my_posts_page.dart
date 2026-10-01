@@ -80,7 +80,7 @@ class _MyPostsPageState extends State<MyPostsPage> {
           Padding(
             padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 12.h),
             child: LokSegmented(
-              labels: const ['Trips', 'Requests'],
+              labels: ['trips'.tr, 'requests'.tr],
               selected: _tab,
               onChanged: (i) => setState(() => _tab = i),
             ),

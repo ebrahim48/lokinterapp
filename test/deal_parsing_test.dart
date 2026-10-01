@@ -1,11 +1,14 @@
 // Parses the exact payloads the live dev API returned on 2026-07-20, so a
 // shape change on the backend shows up here instead of as an empty screen.
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:flutter_task/core/i18n/app_translations.dart';
 import 'package:flutter_task/features/chat/data/chat_model.dart';
 import 'package:flutter_task/features/deals/data/deal_model.dart';
 import 'package:flutter_task/features/posts/data/models/post_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 
 const _listRow = '''
 {"id":1,"location":"INTERNATIONAL","from":"United States","to":"France",
@@ -34,6 +37,10 @@ const _detail = '''
 ''';
 
 void main() {
+  // labels go through the app translations
+  Get.addTranslations(AppTranslations().keys);
+  Get.locale = const Locale('en');
+
   test('deal list row parses', () {
     final d = Deal.fromListJson(jsonDecode(_listRow));
     expect(d.id, 1);
@@ -42,7 +49,7 @@ void main() {
     expect(d.toCountry, 'France');
     expect(d.profitAmount, 120);
     expect(d.profitLabel, '\$120.00');
-    expect(d.paymentLabel, 'Pay Online');
+    expect(d.paymentLabel, 'Pay online');
     expect(d.date.year, 2026);
     expect(d.date.month, 8);
   });
@@ -138,7 +145,7 @@ void main() {
     // traveler sees the sender as the counterpart
     expect(d.counterpart.name, 'Test User');
     expect(d.receiverName, 'Marie Curie');
-    expect(d.cancelReasonLabel, 'Personal Reasons'); // code → label
+    expect(d.cancelReasonLabel, 'Personal reasons'); // code → label
     expect(d.tripDate?.day, 20);
     expect(d.arrivalDate?.day, 22);
     // cancelled deals never prompt for a card hold

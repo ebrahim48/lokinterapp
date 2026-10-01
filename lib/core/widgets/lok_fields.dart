@@ -78,14 +78,14 @@ class LokTextField extends StatelessWidget {
 }
 
 class LokPasswordField extends StatefulWidget {
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final TextEditingController? controller;
 
   const LokPasswordField({
     super.key,
-    this.label = 'Password',
-    this.hint = 'your password',
+    this.label,
+    this.hint,
     this.controller,
   });
 
@@ -101,12 +101,12 @@ class _LokPasswordFieldState extends State<LokPasswordField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _Label(widget.label, required: true),
+        _Label(widget.label ?? 'password'.tr, required: true),
         TextField(
           controller: widget.controller,
           obscureText: _hidden,
           decoration: InputDecoration(
-            hintText: widget.hint,
+            hintText: widget.hint ?? 'your_password'.tr,
             prefixIcon: Icon(Icons.lock_outline, size: 18.sp),
             suffixIcon: IconButton(
               onPressed: () => setState(() => _hidden = !_hidden),
@@ -530,13 +530,13 @@ class LokDateField extends StatelessWidget {
 }
 
 class LokUploadField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String? fileName;
   final VoidCallback onTap;
 
   const LokUploadField({
     super.key,
-    this.label = 'Upload Product Picture',
+    this.label,
     this.fileName,
     required this.onTap,
   });
@@ -555,7 +555,7 @@ class LokUploadField extends StatelessWidget {
             SizedBox(width: 8.w),
             Flexible(
               child: Text(
-                fileName ?? label,
+                fileName ?? label ?? 'upload_product_picture'.tr,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

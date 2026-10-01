@@ -33,7 +33,7 @@ class SearchResultsPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 16.h),
             child: Obx(() => LokSegmented(
-                  labels: const ['Trips', 'Requests'],
+                  labels: ['trips'.tr, 'requests'.tr],
                   selected: c.tab.value,
                   onChanged: (i) => c.tab.value = i,
                 )),
@@ -48,7 +48,7 @@ class SearchResultsPage extends StatelessWidget {
                 return _message(cs, c.error.value!, retry: c.load);
               }
               if (c.results.isEmpty) {
-                return _message(cs, 'Nothing matches your search yet');
+                return _message(cs, 'nothing_matches_your_search'.tr);
               }
               return RefreshIndicator(
                 onRefresh: c.load,

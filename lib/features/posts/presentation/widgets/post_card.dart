@@ -120,9 +120,9 @@ class RequestCard extends StatelessWidget {
             SizedBox(height: 14.h),
             Row(
               children: [
-                _meta(Icons.card_giftcard, 'PROFIT', post.profitText ?? '-'),
-                _meta(Icons.shopping_bag_outlined, 'WEIGHT', post.weightText),
-                _meta(Icons.event_outlined, 'BEFORE', post.shortDateText),
+                _meta(Icons.card_giftcard, 'profit'.tr.toUpperCase(), post.profitText ?? '-'),
+                _meta(Icons.shopping_bag_outlined, 'weight'.tr.toUpperCase(), post.weightText),
+                _meta(Icons.event_outlined, 'before'.tr.toUpperCase(), post.shortDateText),
               ],
             ),
             if (showUser || showChat) ...[
@@ -166,7 +166,7 @@ class RequestCard extends StatelessWidget {
           SizedBox(width: 7.w),
           Flexible(
             child: Text(
-              buy ? 'BUY FOR ME & DELIVER' : 'DELIVER READY ITEMS',
+              (buy ? 'buy_for_me_and_deliver'.tr : 'deliver_ready_item'.tr).toUpperCase(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -297,9 +297,9 @@ class TripCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _endpoint('FROM', post.from, CrossAxisAlignment.start)),
+                    Expanded(child: _endpoint('from'.tr.toUpperCase(), post.from, CrossAxisAlignment.start)),
                     ModeBadge(location: post.location, place: post.from, iso: post.flagIso),
-                    Expanded(child: _endpoint('TO', post.to, CrossAxisAlignment.end)),
+                    Expanded(child: _endpoint('to'.tr.toUpperCase(), post.to, CrossAxisAlignment.end)),
                   ],
                 ),
                 SizedBox(height: 14.h),
@@ -307,8 +307,8 @@ class TripCard extends StatelessWidget {
                 SizedBox(height: 12.h),
                 Row(
                   children: [
-                    _meta(Icons.event_outlined, 'DATE', post.dateText),
-                    _meta(Icons.luggage_outlined, 'WEIGHT', post.weightText,
+                    _meta(Icons.event_outlined, 'date'.tr.toUpperCase(), post.dateText),
+                    _meta(Icons.luggage_outlined, 'weight'.tr.toUpperCase(), post.weightText,
                         alignEnd: true),
                   ],
                 ),
@@ -351,7 +351,7 @@ class TripCard extends StatelessWidget {
             ),
           ),
           if (post.user.isTransporter)
-            CornerRibbon(text: 'TRANSPORTER', color: AppPalette.primary, radius: 16.r),
+            CornerRibbon(text: 'transporter'.tr.toUpperCase(), color: AppPalette.primary, radius: 16.r),
         ],
       ),
     );

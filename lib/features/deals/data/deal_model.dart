@@ -9,16 +9,18 @@ enum DealStatus { pending, accepted, outgoing, completed, cancelled, disputes }
 // Reasons offered when cancelling — the API stores them as codes
 // (a live deal came back with "PERSONAL_REASONS").
 enum CancelReason {
-  packageConcern('PACKAGE_CONCERN', 'Package Concern'),
-  tripChanged('TRIP_CHANGED', 'Trip Changed/Cancelled'),
-  cantFindItem('CANT_FIND_ITEM', 'Can\'t Find Requested Item'),
-  pointsProblem('DELIVERY_PICKUP_POINTS_PROBLEM', 'Delivery/Pickup points problem'),
-  paymentConcerns('PAYMENT_CONCERNS', 'Payment Concerns'),
-  personalReasons('PERSONAL_REASONS', 'Personal Reasons');
+  packageConcern('PACKAGE_CONCERN', 'cancel_reason_package_concern'),
+  tripChanged('TRIP_CHANGED', 'cancel_reason_trip_changed'),
+  cantFindItem('CANT_FIND_ITEM', 'cancel_reason_cant_find_item'),
+  pointsProblem('DELIVERY_PICKUP_POINTS_PROBLEM', 'cancel_reason_points_problem'),
+  paymentConcerns('PAYMENT_CONCERNS', 'cancel_reason_payment_concerns'),
+  personalReasons('PERSONAL_REASONS', 'cancel_reason_personal_reasons');
 
   final String code;
-  final String label;
-  const CancelReason(this.code, this.label);
+  final String _labelKey;
+  const CancelReason(this.code, this._labelKey);
+
+  String get label => _labelKey.tr;
 }
 
 List<String> _attachUrls(dynamic raw) => (raw as List? ?? const [])
@@ -70,6 +72,14 @@ class Deal {
   final bool hasOpenDispute;
   /// Full dispute detail block returned by GET /disputes/deal/{id}.
   final Map<String, dynamic>? disputeDetails;
+  /// When the traveler accepted — the sender's 24h payment window starts here.
+  final DateTime? acceptedAt;
+  /// End of the post-completion dispute window (2h local / 6h international).
+  final DateTime? disputeWindowEnd;
+  /// Server says a dispute can still be opened.
+  final bool canDispute;
+  /// QR_SCAN | SENDER_CONFIRMATION | AUTO_COMPLETED_48H
+  final String? completionType;
 
   const Deal({
     this.id = 0,
@@ -107,6 +117,10 @@ class Deal {
     this.canMarkCompleted = true,
     this.hasOpenDispute = false,
     this.disputeDetails,
+    this.acceptedAt,
+    this.disputeWindowEnd,
+    this.canDispute = false,
+    this.completionType,
   });
 
   // getById omits the item name/notes/attachments that the list row carries,
@@ -160,10 +174,14 @@ class Deal {
         tripDate: tripDate,
         arrivalDate: arrivalDate,
         fundsLockedForDispute: fundsLockedForDispute,
-        dispute: dispute,
+        dispute: dispute ?? other.dispute,
         canMarkCompleted: canMarkCompleted,
         hasOpenDispute: hasOpenDispute,
         disputeDetails: disputeDetails,
+        acceptedAt: acceptedAt ?? other.acceptedAt,
+        disputeWindowEnd: disputeWindowEnd ?? other.disputeWindowEnd,
+        canDispute: canDispute,
+        completionType: completionType ?? other.completionType,
       );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
@@ -188,7 +206,30 @@ class Deal {
         countdownSeconds: json['countdownSeconds'],
         fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
         hasOpenDispute: json['hasOpenDispute'] == true,
+        cancelReason: json['cancelReason'],
+        dispute: _listDispute(json),
+        acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
+        disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
+        canDispute: json['canDispute'] == true,
+        completionType: json['completionType']?.toString(),
       );
+
+  /// List rows carry the dispute at the root (disputeStatus, disputeReason…);
+  /// fold it into the same shape the detail screen reads.
+  static Map<String, dynamic>? _listDispute(Map<String, dynamic> json) {
+    if (json['hasDispute'] != true && json['isDisputed'] != true) return null;
+    return {
+      'id': json['disputeId'],
+      'status': json['disputeStatus'],
+      'statusLabel': json['disputeStatusLabel'],
+      'reasonLabel': json['disputeReason'],
+      'description': json['disputeDescription'],
+      'decisionLabel': json['disputeDecisionLabel'] ?? json['disputeAdminDecision'],
+      'resolutionNotes': json['disputeResolutionNotes'],
+      'resolvedAt': json['disputeResolvedAt'],
+      'attachments': json['disputeAttachments'],
+    };
+  }
 
   // Full detail from /deals/getById/{id}
   /// The API now nests everything the sender filled in under
@@ -268,7 +309,60 @@ class Deal {
       disputeDetails: json['disputeDetails'] is Map
           ? Map<String, dynamic>.from(json['disputeDetails'])
           : null,
+      acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
+      disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
+      canDispute: json['canDispute'] == true,
+      completionType: json['completionType']?.toString(),
     );
+  }
+
+  static const paymentWindow = Duration(hours: 24);
+  static const arrivalWindow = Duration(hours: 48);
+
+  /// Online deal accepted but not paid yet — the sender has 24h from
+  /// acceptance before the server auto-cancels it. Null when not running.
+  /// Only while still running — a deadline already behind us means the server
+  /// should have cancelled the deal; a frozen 00:00:00 helps nobody.
+  DateTime? get paymentDeadline {
+    if (status != DealStatus.accepted ||
+        paymentMethod.toUpperCase() != 'STRIPE' ||
+        senderFundsHeld ||
+        acceptedAt == null) {
+      return null;
+    }
+    final end = acceptedAt!.add(paymentWindow);
+    return end.isAfter(DateTime.now()) ? end : null;
+  }
+
+  /// From the scheduled arrival, 48h to scan the QR, confirm or dispute
+  /// before the server auto-completes. Applies to online and COD deals and
+  /// stops once a dispute is open. Null when not running.
+  DateTime? get arrivalWindowEnd {
+    if (status != DealStatus.outgoing || disputeActive) return null;
+    final arrival = arrivalDate;
+    if (arrival == null || DateTime.now().isBefore(arrival)) return null;
+    final end = arrival.add(arrivalWindow);
+    return end.isAfter(DateTime.now()) ? end : null;
+  }
+
+  /// Post-completion dispute window still counting. Null when not running.
+  DateTime? get disputeWindowEndsAt =>
+      status == DealStatus.completed &&
+              canDispute &&
+              !hasDisputeRecord &&
+              disputeWindowEnd != null &&
+              disputeWindowEnd!.isAfter(DateTime.now())
+          ? disputeWindowEnd
+          : null;
+
+  bool get isAutoCompleted =>
+      (completionType ?? '').toUpperCase().startsWith('AUTO_COMPLETED');
+
+  /// Cancelled by the server because the 24h payment window ran out.
+  bool get isAutoCancelledUnpaid {
+    final r = (cancelReason ?? '').toLowerCase();
+    return r.contains('auto-cancel') || r.contains('auto_cancel') ||
+        r.contains('within 24h') || r.contains('24 heures');
   }
 
   bool get isLocal => location == PostLocation.local;
@@ -287,6 +381,8 @@ class Deal {
     if (status == DealStatus.disputes || hasOpenDispute) return true;
     final info = disputeInfo;
     if (info == null) return false;
+    // raw status / isResolved only — the labels are translated
+    if (info['isResolved'] == true) return false;
     final s = '${info['status'] ?? ''}'.toUpperCase();
     return !const ['RESOLV', 'CLOS', 'REJECT', 'CANCEL', 'DISMISS']
         .any(s.contains);
@@ -340,8 +436,8 @@ class Deal {
       (!sdRequired || travelerGuaranteeHeld);
 
   String get paymentLabel => switch (paymentMethod.toUpperCase()) {
-        'STRIPE' => 'Pay Online',
-        'COD' => 'Cash on delivery',
+        'STRIPE' => 'pay_online'.tr,
+        'COD' || 'CASH_ON_DELIVERY' => 'cash_on_delivery'.tr,
         '' => '—',
         _ => paymentMethod,
       };
@@ -349,6 +445,7 @@ class Deal {
   // reason codes read better as the label the user originally picked
   String? get cancelReasonLabel {
     if (cancelReason == null || cancelReason!.isEmpty) return null;
+    if (isAutoCancelledUnpaid) return 'auto_cancelled_unpaid_24h'.tr;
     for (final r in CancelReason.values) {
       if (r.code == cancelReason) return r.label;
     }
@@ -389,12 +486,12 @@ class Deal {
 
 extension DealStatusX on DealStatus {
   String get label => switch (this) {
-        DealStatus.pending => 'Pending',
-        DealStatus.accepted => 'Accepted',
-        DealStatus.outgoing => 'Outgoing',
-        DealStatus.completed => 'Completed',
-        DealStatus.cancelled => 'Cancelled',
-        DealStatus.disputes => 'Dispute',
+        DealStatus.pending => 'deal_status_pending'.tr,
+        DealStatus.accepted => 'deal_status_accepted'.tr,
+        DealStatus.outgoing => 'deal_status_ongoing'.tr,
+        DealStatus.completed => 'deal_status_completed'.tr,
+        DealStatus.cancelled => 'deal_status_cancelled'.tr,
+        DealStatus.disputes => 'deal_status_dispute'.tr,
       };
 
   // what /deals/getAllDeals expects in ?status=

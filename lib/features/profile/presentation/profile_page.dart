@@ -13,6 +13,7 @@ import 'become_transporter_page.dart';
 import 'increase_visibility_page.dart';
 import 'wallet_page.dart';
 import '../../../core/widgets/user_badge.dart';
+import '../../posts/presentation/widgets/transporter_chip.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -66,7 +67,7 @@ class ProfilePage extends StatelessWidget {
           ]),
           SizedBox(height: 14.h),
           _group(context, [
-            _Item(Icons.logout, 'Log out', c.logout, danger: true),
+            _Item(Icons.logout, 'log_out'.tr, c.logout, danger: true),
             _Item(Icons.delete_forever_outlined, 'delete_account'.tr,
                 () => _confirmDelete(c), danger: true),
           ]),
@@ -127,7 +128,13 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // badge sits beside the name so the standing reads at a glance
+                    // same chip the post cards show, above the name
+                    if (user?.showTransporterBadge ?? false) ...[
+                      TransporterChip(
+                          recommended: user?.showRecommendedBadge ?? false),
+                      SizedBox(height: 6.h),
+                    ],
+                    // verified check sits beside the name for non-transporters
                     Row(
                       children: [
                         Flexible(
@@ -139,21 +146,11 @@ class ProfilePage extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   color: cs.onSurface)),
                         ),
-                        SizedBox(width: 6.w),
-                        UserBadge.from(
-                          isTransporter: user?.isTransporter ?? false,
-                          isApprovedTransporter:
-                              user?.isApprovedTransporter ?? false,
-                          transporterBadge:
-                              user?.transporterBadge ?? false,
-                          transporterVerificationStatus:
-                              user?.transporterVerificationStatus,
-                          isFeaturedTransporter:
-                              user?.isFeaturedTransporter ?? false,
-                          transporterVisibilityStatus:
-                              user?.transporterVisibilityStatus,
-                          identityVerified: user?.identityVerified ?? false,
-                        ),
+                        if (!(user?.showTransporterBadge ?? false) &&
+                            (user?.identityVerified ?? false)) ...[
+                          SizedBox(width: 6.w),
+                          const UserBadge(UserBadgeKind.verified),
+                        ],
                       ],
                     ),
                     SizedBox(height: 2.h),
@@ -166,7 +163,7 @@ class ProfilePage extends StatelessWidget {
                         SizedBox(width: 4.w),
                         Text(
                           '${(summary?.averageStars ?? 0).toStringAsFixed(1)}'
-                          '  •  ${summary?.totalRates ?? 0} reviews',
+                          '  •  ${'reviews_count'.trParams({'count': '${summary?.totalRates ?? 0}'})}',
                           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
                         ),
                       ],
@@ -179,9 +176,11 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: 14.h),
           Row(
             children: [
-              _verifyChip(context, 'ID', user?.identityVerified ?? false),
+              _verifyChip(context, 'id_verified'.tr, 'id_not_verified'.tr,
+                  user?.identityVerified ?? false),
               SizedBox(width: 8.w),
-              _verifyChip(context, 'Phone', user?.phoneVerified ?? false),
+              _verifyChip(context, 'phone_verified'.tr, 'phone_not_verified'.tr,
+                  user?.phoneVerified ?? false),
             ],
           ),
         ],
@@ -189,7 +188,8 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _verifyChip(BuildContext context, String label, bool ok) {
+  Widget _verifyChip(
+      BuildContext context, String verifiedText, String notVerifiedText, bool ok) {
     final color = ok ? AppPalette.verified : Theme.of(context).colorScheme.onSurfaceVariant;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
@@ -202,7 +202,7 @@ class ProfilePage extends StatelessWidget {
         children: [
           Icon(ok ? Icons.verified : Icons.error_outline, size: 13.sp, color: color),
           SizedBox(width: 5.w),
-          Text('$label ${ok ? 'verified' : 'not verified'}',
+          Text(ok ? verifiedText : notVerifiedText,
               style: TextStyle(fontSize: 10.sp, color: color, fontWeight: FontWeight.w600)),
         ],
       ),

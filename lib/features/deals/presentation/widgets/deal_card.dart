@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/format.dart';
 import '../../data/deal_model.dart';
+import 'deal_countdown.dart';
 import 'status_badge.dart';
+import 'package:get/get.dart';
+import '../deals_controller.dart';
 import '../../../posts/presentation/widgets/transporter_chip.dart';
 
 class DealCard extends StatelessWidget {
@@ -55,7 +58,7 @@ class DealCard extends StatelessWidget {
             Row(
               children: [
                 _meta(context, deal.isLocal ? Icons.location_on : Icons.flight,
-                    deal.isLocal ? 'Local' : 'International'),
+                    deal.isLocal ? 'local'.tr : 'international'.tr),
                 SizedBox(width: 16.w),
                 _meta(context, Icons.event_outlined, shortDate(deal.date)),
               ],
@@ -78,9 +81,63 @@ class DealCard extends StatelessWidget {
                     style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
               ],
             ),
+            // disputed deals lead with the dispute itself
+            if (deal.hasDisputeRecord) ...[
+              SizedBox(height: 10.h),
+              _disputeLine(context),
+            ],
+            if (deal.status == DealStatus.completed && deal.isAutoCompleted) ...[
+              SizedBox(height: 10.h),
+              const AutoCompletedChip(),
+            ],
+            // completed deals: time left to open a dispute
+            if (deal.disputeWindowEndsAt != null) ...[
+              SizedBox(height: 10.h),
+              DealCountdown(
+                endsAt: deal.disputeWindowEndsAt!,
+                window: DealWindow.dispute,
+                compact: true,
+                onExpired: () {
+                  if (Get.isRegistered<DealsController>()) {
+                    Get.find<DealsController>().load();
+                  }
+                },
+              ),
+            ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _disputeLine(BuildContext context) {
+    final (_, fg) = DealStatus.disputes.colors;
+    final d = deal.disputeInfo ?? const <String, dynamic>{};
+    final reason = '${d['reasonLabel'] ?? d['reason'] ?? ''}';
+    final status = '${d['statusLabel'] ?? d['status'] ?? ''}';
+    return Row(
+      children: [
+        Icon(Icons.gpp_maybe_outlined, size: 15.sp, color: fg),
+        SizedBox(width: 6.w),
+        Expanded(
+          child: Text(
+            reason.isNotEmpty ? reason : 'dispute_report'.tr,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: fg),
+          ),
+        ),
+        if (status.isNotEmpty)
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+            decoration: BoxDecoration(
+              color: fg.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Text(status,
+                style: TextStyle(fontSize: 9.5.sp, fontWeight: FontWeight.w700, color: fg)),
+          ),
+      ],
     );
   }
 

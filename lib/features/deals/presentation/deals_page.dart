@@ -50,7 +50,7 @@ class DealsPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               children: [
-                _chip(context, c, null, 'All'),
+                _chip(context, c, null, 'deals.all'.tr),
                 for (final s in DealStatus.values) _chip(context, c, s, s.label),
               ],
             ),
@@ -97,7 +97,7 @@ class DealsPage extends StatelessWidget {
   void _openFilter(BuildContext context, DealsController c) {
     final cs = Theme.of(context).colorScheme;
     final options = <(DealStatus?, String)>[
-      (null, 'All'),
+      (null, 'deals.all'.tr),
       for (final s in DealStatus.values) (s, s.label),
     ];
     showModalBottomSheet<void>(

@@ -471,14 +471,14 @@ class ApiService {
         final body = error.response?.data;
         final message = (body is Map ? body['message'] : null) ??
             error.response?.statusMessage ??
-            'Server error';
+            'server_error'.tr;
         return ServerException(message, statusCode, error.message);
 
       case DioExceptionType.cancel:
-        return UnknownException('Request cancelled');
+        return UnknownException('request_cancelled'.tr);
 
       case DioExceptionType.badCertificate:
-        return ServerException('Bad certificate', null, error.message);
+        return ServerException('secure_connection_failed'.tr, null, error.message);
 
       case DioExceptionType.unknown:
         if (error.message?.contains('SocketException') ?? false) {
