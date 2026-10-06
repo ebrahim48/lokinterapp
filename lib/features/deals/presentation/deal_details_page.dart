@@ -13,6 +13,7 @@ import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
+import '../../../core/utils/media_url.dart';
 import '../../../core/utils/notify.dart';
 import '../../../core/utils/phone_gate.dart';
 import '../../../core/utils/stripe_sheet.dart';
@@ -26,6 +27,7 @@ import 'deals_controller.dart';
 import 'scan_delivery_page.dart';
 import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
+import 'widgets/deal_countdown.dart';
 import 'widgets/status_badge.dart';
 import '../../../core/widgets/image_viewer.dart';
 
@@ -44,6 +46,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   /// The submitted dispute, fetched when the deal payload doesn't carry it.
   Map<String, dynamic>? _disputeReport;
   bool _busy = false;
+  /// Disputed deals lead with the dispute; the rest of the deal is one tap away.
+  bool _showFullReport = false;
   bool _loading = true;
   StreamSubscription<Map<String, dynamic>>? _dealSub;
   Timer? _pollTimer;
@@ -157,14 +161,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     );
   }
 
-  Future<void> _cancel() => _changeWithReason('CANCELED', 'Deal cancelled');
-  Future<void> _reject() => _changeWithReason('REJECTED', 'Deal rejected');
+  Future<void> _cancel() => _changeWithReason('CANCELED', 'deal_cancelled_toast'.tr);
+  Future<void> _reject() => _changeWithReason('REJECTED', 'deal_rejected_toast'.tr);
 
   // accepting is entering the agreement: verified number, then documents
   Future<void> _acceptDeal() async {
-    if (!await requirePhoneVerified(action: 'accept a deal')) return;
+    if (!await requirePhoneVerified(action: 'action_accept_deal'.tr)) return;
     if (!await requireVerified()) return;
-    await _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'), 'Deal accepted', pop: false);
+    await _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'), 'deal_bar_accepted'.tr, pop: false);
   }
 
   // Traveler guarantee: card HOLD for the item value. Same two-step the
@@ -255,11 +259,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (b['itemCost'] != null && double.tryParse('${b['itemCost']}') != 0)
-              line('Item cost', b['itemCost']),
-            if (b['profit'] != null) line('Traveler profit', b['profit']),
-            if (b['lokinterFee'] != null) line('Lokinter fee', b['lokinterFee']),
+              line('item_cost'.tr, b['itemCost']),
+            if (b['profit'] != null) line('traveler_profit'.tr, b['profit']),
+            if (b['lokinterFee'] != null) line('lokinter_fee'.tr, b['lokinterFee']),
             Divider(height: 16.h),
-            line('Total', b['total'], bold: true),
+            line('total'.tr, b['total'], bold: true),
           ],
         ),
         actions: [
@@ -375,9 +379,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       }
 
       return (x.path, x.name);
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // no camera (emulator without one) or permission refused
-      toast(e.message ?? 'Could not open the camera');
+      toast('could_not_open_the_camera'.tr);
       return null;
     }
   }
@@ -416,7 +420,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    v == 0 ? 'Preparing…' : '${(v * 100).round()}%',
+                    v == 0 ? 'preparing'.tr : '${(v * 100).round()}%',
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ],
@@ -474,7 +478,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           if (total > 0) progress.value = sent / total;
         },
       );
-      await _repo.markCompleted(ref);
+      await _repo.markCompleted(ref, completionType: 'QR_SCAN');
       done = true;
     } on AppException catch (e) {
       toastError(e);
@@ -596,6 +600,50 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 28.h),
                 children: [
                   _summary(context),
+                  // the server cron acts when a window runs out — reload so
+                  // the auto-cancel / auto-complete / release shows up
+                  if (deal.paymentDeadline != null) ...[
+                    SizedBox(height: 12.h),
+                    DealCountdown(
+                      endsAt: deal.paymentDeadline!,
+                      window: DealWindow.payment,
+                      onExpired: () => _loadDetail(quiet: true),
+                    ),
+                  ],
+                  if (deal.arrivalWindowEnd != null) ...[
+                    SizedBox(height: 12.h),
+                    DealCountdown(
+                      endsAt: deal.arrivalWindowEnd!,
+                      window: DealWindow.arrival,
+                      onExpired: () => _loadDetail(quiet: true),
+                    ),
+                  ],
+                  if (deal.disputeWindowEndsAt != null) ...[
+                    SizedBox(height: 12.h),
+                    DealCountdown(
+                      endsAt: deal.disputeWindowEndsAt!,
+                      window: DealWindow.dispute,
+                      onExpired: () => _loadDetail(quiet: true),
+                    ),
+                  ],
+                  // disputed deal: the dispute report is the point of this
+                  // screen — status, decision and evidence come first
+                  if (deal.hasDisputeRecord) ...[
+                    SizedBox(height: 16.h),
+                    _dispute(context),
+                    SizedBox(height: 12.h),
+                    OutlinedButton.icon(
+                      onPressed: () =>
+                          setState(() => _showFullReport = !_showFullReport),
+                      icon: Icon(
+                          _showFullReport ? Icons.expand_less : Icons.expand_more,
+                          size: 18.sp),
+                      label: Text(_showFullReport
+                          ? 'hide_full_deal_report'.tr
+                          : 'view_full_deal_report'.tr),
+                    ),
+                  ],
+                  if (!deal.hasDisputeRecord || _showFullReport) ...[
                   SizedBox(height: 16.h),
                   _counterpart(context),
                   SizedBox(height: 16.h),
@@ -623,11 +671,6 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                     SizedBox(height: 16.h),
                     _ongoing(context),
                   ],
-                  // the submitted report stays visible for the whole dispute,
-                  // even if the server kept the deal's own status
-                  if (deal.hasDisputeRecord) ...[
-                    SizedBox(height: 16.h),
-                    _dispute(context),
                   ],
                   if (deal.status == DealStatus.cancelled &&
                       deal.cancelReasonLabel != null) ...[
@@ -663,12 +706,12 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         children: [
           Row(
             children: [
-              Expanded(child: _stat(context, 'FROM', deal.fromCountry)),
+              Expanded(child: _stat(context, 'from'.tr.toUpperCase(), deal.fromCountry)),
               ModeBadge(location: deal.location, place: deal.fromCountry),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: _stat(context, 'TO', deal.toCountry, end: true),
+                  child: _stat(context, 'to'.tr.toUpperCase(), deal.toCountry, end: true),
                 ),
               ),
             ],
@@ -677,13 +720,25 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _stat(context, 'DATE', shortDate(deal.date)),
-              _stat(context, 'WEIGHT', kg(deal.weight)),
-              _stat(context, 'TRAVELER PROFIT', deal.profitLabel),
+              _stat(context, 'date'.tr.toUpperCase(), shortDate(deal.date)),
+              _stat(context, 'weight'.tr.toUpperCase(), kg(deal.weight)),
+              _stat(context, 'traveler_profit'.tr.toUpperCase(), deal.profitLabel),
             ],
           ),
           SizedBox(height: 12.h),
-          Align(alignment: Alignment.centerLeft, child: StatusBadge(status: deal.status)),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              spacing: 8.w,
+              runSpacing: 6.h,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                StatusBadge(status: deal.status),
+                if (deal.status == DealStatus.completed && deal.isAutoCompleted)
+                  const AutoCompletedChip(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -726,7 +781,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 Row(
                   children: [
                     Flexible(
-                      child: Text(name.isEmpty ? 'Counterpart' : name,
+                      child: Text(name.isEmpty ? 'counterpart'.tr : name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -739,7 +794,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   ],
                 ),
                 SizedBox(height: 2.h),
-                Text(deal.isTraveler ? 'Sender' : 'Traveler',
+                Text(deal.isTraveler ? 'sender'.tr : 'traveler'.tr,
                     style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
               ],
             ),
@@ -773,9 +828,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
           SizedBox(height: 12.h),
           _depositRow(context),
-          _row(context, 'Receiver name', deal.receiverName ?? '—'),
-          _row(context, 'Receiver phone', deal.receiverPhone ?? '—'),
-          _row(context, 'Traveler profit', deal.profitLabel),
+          _row(context, 'receiver_name'.tr, deal.receiverName ?? '—'),
+          _row(context, 'receiver_phone'.tr, deal.receiverPhone ?? '—'),
+          _row(context, 'traveler_profit'.tr, deal.profitLabel),
           // what the item is worth — the security-deposit basis on a SEND deal
           if (deal.itemEstimatedCost != null && deal.itemEstimatedCost! > 0)
             _row(
@@ -785,24 +840,24 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   : 'security_deposit_amount'.tr,
               deal.depositLabel,
             ),
-          _row(context, 'Payment method', deal.paymentLabel),
+          _row(context, 'payment_method'.tr, deal.paymentLabel),
           // item details the sender filled in — the traveler needs these
           if ((deal.itemName ?? '').isNotEmpty)
-            _row(context, 'Item name', deal.itemName!),
+            _row(context, 'item_name'.tr, deal.itemName!),
           if (deal.wantToLabel != null)
             _row(context, 'i_want_to'.tr, deal.wantToLabel!),
           if ((deal.itemLink ?? '').isNotEmpty) _linkRow(context, deal.itemLink!),
           if ((deal.notes ?? '').isNotEmpty)
-            _row(context, 'Notes', deal.notes!),
+            _row(context, 'notes'.tr, deal.notes!),
           if (deal.attachUrls.isNotEmpty)
             _attachmentGallery(context)
           else if (deal.attachUrl == null)
-            _row(context, 'Attachment', 'Not provided')
+            _row(context, 'attachment'.tr, 'not_provided'.tr)
           else
             _attachmentRow(context),
-          if (deal.tripDate != null) _row(context, 'Trip date', shortDate(deal.tripDate!)),
+          if (deal.tripDate != null) _row(context, 'trip_date'.tr, shortDate(deal.tripDate!)),
           if (deal.arrivalDate != null)
-            _row(context, 'Arrival date', shortDate(deal.arrivalDate!)),
+            _row(context, 'arrival_date'.tr, shortDate(deal.arrivalDate!)),
         ],
       ),
     );
@@ -869,7 +924,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   color: required ? const Color(0xFFFEF9C3) : cs.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: Text(required ? 'Required' : 'Not required',
+                child: Text(required ? 'required'.tr : 'not_required'.tr,
                     style: TextStyle(
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w700,
@@ -999,7 +1054,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
           SizedBox(height: 8.h),
           Text(
-            'Authorize ${deal.depositLabel} on your card as guarantee for the item value.',
+            'authorize_guarantee_on_card'.trParams({'amount': deal.depositLabel}),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
@@ -1118,8 +1173,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           SizedBox(height: 8.h),
           Text(
             deal.isTraveler
-                ? 'You have the parcel. Mark it delivered once the receiver has it.'
-                : 'The traveler has picked up the parcel and is on the way.',
+                ? 'ongoing_traveler_hint'.tr
+                : 'ongoing_sender_hint'.tr,
             style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
           ),
           if (deal.arrivalDate != null) ...[
@@ -1146,8 +1201,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
           SizedBox(height: 6.h),
           Text(
-            'Have the receiver scan this code when the parcel arrives — '
-            'it confirms the delivery and releases the deal.',
+            'receiver_qr_hint'.tr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
           ),
@@ -1174,13 +1228,57 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final (bg, fg) = DealStatus.disputes.colors;
     // prefer the rich disputeDetails block over the legacy dispute map
     final details = deal.disputeDetails ?? _disputeReport ?? deal.dispute;
-    final reason = (details?['reasonLabel'] ??
-            details?['reason_label'] ??
-            details?['reason'])
-        ?.toString();
-    final description = details?['description']?.toString();
-    final statusLabel = details?['statusLabel']?.toString() ?? details?['status']?.toString();
-    final attachments = details?['attachments'];
+    String? pick(List<String> keys) {
+      for (final k in keys) {
+        final v = details?[k];
+        if (v != null && '$v'.trim().isNotEmpty) return '$v';
+      }
+      return null;
+    }
+
+    final reason = pick(['reasonLabel', 'reason_label', 'reason']);
+    final description = pick(['description']);
+    final statusLabel = pick(['statusLabel', 'status_label', 'status']);
+    // the outcome is what people come back for
+    final decision = pick(['decisionLabel', 'decision_label', 'adminDecision']);
+    final notes = pick(['resolutionNotes', 'resolution_notes']);
+    final resolvedAt = pick(['resolvedAt', 'resolved_at']);
+    final resolvedDate = resolvedAt == null ? null : parseServerDate(resolvedAt);
+    final raw = details?['attachments'] ?? details?['disputeAttachments'];
+    final attachments = [
+      for (final a in (raw is List ? raw : const []))
+        if (a is Map)
+          (
+            url: fixMediaUrl('${a['signedUrl'] ?? a['url'] ?? ''}') ?? '',
+            video: '${a['mimeType'] ?? ''}'.startsWith('video') ||
+                RegExp(r'\.(mp4|mov|m4v|webm)$', caseSensitive: false)
+                    .hasMatch('${a['fileName'] ?? a['url'] ?? ''}'),
+          )
+        else if (a != null)
+          (url: fixMediaUrl('$a') ?? '', video: false),
+    ].where((a) => a.url.isNotEmpty).toList();
+
+    Widget labelled(String label, String value, {bool strong = false}) => Padding(
+          padding: EdgeInsets.only(top: 8.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label,
+                  style: TextStyle(
+                      color: fg.withValues(alpha: 0.8),
+                      fontSize: 10.5.sp,
+                      letterSpacing: 0.3)),
+              SizedBox(height: 2.h),
+              Text(value,
+                  style: TextStyle(
+                      color: fg,
+                      fontSize: 12.5.sp,
+                      height: 1.4,
+                      fontWeight: strong ? FontWeight.w700 : FontWeight.w500)),
+            ],
+          ),
+        );
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16.r)),
@@ -1193,7 +1291,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               SizedBox(width: 8.w),
               Text(deal.disputeActive ? 'dispute_open'.tr : 'dispute_report'.tr,
                   style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
-              if (statusLabel != null && statusLabel.isNotEmpty) ...[
+              if (statusLabel != null) ...[
                 const Spacer(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
@@ -1208,19 +1306,16 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               ],
             ],
           ),
-          if (reason != null && reason.isNotEmpty) ...[
-            SizedBox(height: 8.h),
-            Text(reason,
-                style: TextStyle(
-                    color: fg, fontSize: 13.sp, fontWeight: FontWeight.w600)),
-          ],
-          if (description != null && description.isNotEmpty) ...[
-            SizedBox(height: 6.h),
-            Text(description,
-                style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
-          ],
-          if (attachments is List && attachments.isNotEmpty) ...[
+          if (reason != null) labelled('reason'.tr, reason, strong: true),
+          if (description != null) labelled('description'.tr, description),
+          if (attachments.isNotEmpty) ...[
             SizedBox(height: 10.h),
+            Text('evidence_count'.trParams({'count': '${attachments.length}'}),
+                style: TextStyle(
+                    color: fg.withValues(alpha: 0.8),
+                    fontSize: 10.5.sp,
+                    letterSpacing: 0.3)),
+            SizedBox(height: 6.h),
             SizedBox(
               height: 72.r,
               child: ListView.separated(
@@ -1228,36 +1323,47 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 itemCount: attachments.length,
                 separatorBuilder: (_, __) => SizedBox(width: 8.w),
                 itemBuilder: (ctx, i) {
-                  final url = attachments[i] is Map
-                      ? (attachments[i]['url'] ?? attachments[i]['signedUrl'] ?? '')
-                      : '${attachments[i]}';
-                  return GestureDetector(
-                    onTap: () => ImageViewerPage.open(ctx, '$url'),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.r),
-                      child: Image.network(
-                        '$url',
-                        width: 72.r,
-                        height: 72.r,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
+                  final a = attachments[i];
+                  Widget box(Widget child) => ClipRRect(
+                        borderRadius: BorderRadius.circular(8.r),
+                        child: Container(
                           width: 72.r,
                           height: 72.r,
                           color: fg.withValues(alpha: 0.15),
-                          child: Icon(Icons.broken_image_outlined,
-                              size: 20.sp, color: fg),
+                          child: child,
                         ),
-                      ),
-                    ),
+                      );
+                  return GestureDetector(
+                    // videos open in the system player, images in the viewer
+                    onTap: () => a.video
+                        ? launchUrl(Uri.parse(a.url),
+                            mode: LaunchMode.externalApplication)
+                        : ImageViewerPage.open(ctx, a.url),
+                    child: a.video
+                        ? box(Icon(Icons.play_circle_outline,
+                            size: 28.sp, color: fg))
+                        : box(Image.network(
+                            a.url,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Icon(
+                                Icons.broken_image_outlined,
+                                size: 20.sp,
+                                color: fg),
+                          )),
                   );
                 },
               ),
             ),
           ],
+          if (decision != null) labelled('admin_decision'.tr, decision, strong: true),
+          if (notes != null) labelled('admin_notes'.tr, notes),
+          if (resolvedAt != null)
+            labelled('resolved'.tr,
+                resolvedDate == null ? resolvedAt : shortDateTime(resolvedDate)),
           if (reason == null && description == null)
             Padding(
               padding: EdgeInsets.only(top: 8.h),
-              child: Text('The team is reviewing this delivery.',
+              child: Text('the_team_is_reviewing_this_delivery'.tr,
                   style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
             ),
         ],
@@ -1352,7 +1458,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               ElevatedButton(
                 onPressed: _busy
                     ? null
-                    : () => _run(() => _repo.markCompleted(deal.refId), 'Marked as completed'),
+                    : () => _run(
+                        () => _repo.markCompleted(deal.refId,
+                            completionType: 'SENDER_CONFIRMATION'),
+                        'marked_as_completed'.tr),
                 child: Text('mark_as_completed'.tr),
               ),
               SizedBox(height: 12.h),
@@ -1478,7 +1587,7 @@ class _RateSheetState extends State<_RateSheet> {
             TextField(
               controller: _comment,
               maxLines: 3,
-              decoration: const InputDecoration(hintText: 'Leave a comment (optional)'),
+              decoration: InputDecoration(hintText: 'leave_a_comment_optional'.tr),
             ),
             SizedBox(height: 18.h),
             ElevatedButton(
