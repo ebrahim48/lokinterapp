@@ -38,7 +38,12 @@ class AppNotification {
     final meta = json['metadata'] is Map
         ? Map<String, dynamic>.from(json['metadata'] as Map)
         : <String, dynamic>{};
-    final rawDealId = json['dealId'] ?? data['dealId'] ?? meta['dealId'];
+    final rawDealId = json['dealId'] ??
+        data['dealId'] ??
+        meta['dealId'] ??
+        json['deal_id'] ??
+        data['deal_id'] ??
+        meta['deal_id'];
     final dealId = rawDealId is int
         ? rawDealId
         : int.tryParse('${rawDealId ?? ''}');
@@ -84,6 +89,19 @@ class AppNotification {
 
   static String _normaliseDealTitle(String title) {
     final t = title.toLowerCase();
+    // checked first: a decision title often also says "completed"/"cancelled"
+    // ("Dispute resolved — deal completed"), and the admin's decision fires
+    // two notifications with different wording for the same event
+    final isDispute = t.contains('dispute') || t.contains('litige');
+    if (isDispute || t.contains('decision') || t.contains('décision')) {
+      final decided = t.contains('resolv') ||
+          t.contains('résolu') ||
+          t.contains('decision') ||
+          t.contains('décision') ||
+          t.contains('closed') ||
+          t.contains('clôtur');
+      if (decided) return 'dispute_decision';
+    }
     if (t.contains('reject') || t.contains('refus')) return 'rejected';
     if (t.contains('accept') || t.contains('approv')) return 'accepted';
     if (t.contains('cancel') || t.contains('annul')) return 'cancelled';

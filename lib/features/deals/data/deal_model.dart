@@ -64,6 +64,11 @@ class Deal {
   final int? countdownSeconds;
   final DateTime? tripDate;
   final DateTime? arrivalDate;
+  /// The exact scheduled arrival (date + time the sender picked), when the
+  /// server returns it — arrivalDate alone is often just the day.
+  final DateTime? arrivalAt;
+  /// Server-computed end of the 48h auto-completion window, when sent.
+  final DateTime? autoCompleteAt;
   final bool fundsLockedForDispute;
   final Map<String, dynamic>? dispute;
   /// When false the "Mark Completed" button must be hidden.
@@ -112,6 +117,8 @@ class Deal {
     this.countdownSeconds,
     this.tripDate,
     this.arrivalDate,
+    this.arrivalAt,
+    this.autoCompleteAt,
     this.fundsLockedForDispute = false,
     this.dispute,
     this.canMarkCompleted = true,
@@ -172,7 +179,9 @@ class Deal {
         senderFundsHeld: senderFundsHeld,
         countdownSeconds: countdownSeconds,
         tripDate: tripDate,
-        arrivalDate: arrivalDate,
+        arrivalDate: arrivalDate ?? other.arrivalDate,
+        arrivalAt: arrivalAt ?? other.arrivalAt,
+        autoCompleteAt: autoCompleteAt ?? other.autoCompleteAt,
         fundsLockedForDispute: fundsLockedForDispute,
         dispute: dispute ?? other.dispute,
         canMarkCompleted: canMarkCompleted,
@@ -204,6 +213,9 @@ class Deal {
         isTraveler: _hasRole(json, 'TRAVELER', 'isTraveler'),
         paymentMethod: json['paymentMethod'] ?? '',
         countdownSeconds: json['countdownSeconds'],
+        arrivalDate: _nullableDate(json['arrivalDate']),
+        arrivalAt: _arrivalAt(json),
+        autoCompleteAt: _autoCompleteAt(json),
         fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
         hasOpenDispute: json['hasOpenDispute'] == true,
         cancelReason: json['cancelReason'],
@@ -299,6 +311,8 @@ class Deal {
       countdownSeconds: json['countdownSeconds'],
       tripDate: _nullableDate(json['tripDate']),
       arrivalDate: _nullableDate(json['arrivalDate']),
+      arrivalAt: _arrivalAt(json),
+      autoCompleteAt: _autoCompleteAt(json),
       fundsLockedForDispute: json['isLockedByDoubleDispute'] ?? false,
       dispute: json['dispute'] is Map
           ? Map<String, dynamic>.from(json['dispute'])
@@ -334,15 +348,34 @@ class Deal {
     return end.isAfter(DateTime.now()) ? end : null;
   }
 
+  /// The scheduled arrival — exact date + time when known, else the day.
+  DateTime? get scheduledArrival => arrivalAt ?? arrivalDate;
+
+  /// End of the 48h window: the server's own deadline wins, otherwise 48h
+  /// from the scheduled arrival (never from the deal's creation).
+  DateTime? get _autoCompleteDeadline =>
+      autoCompleteAt ?? scheduledArrival?.add(arrivalWindow);
+
   /// From the scheduled arrival, 48h to scan the QR, confirm or dispute
   /// before the server auto-completes. Applies to online and COD deals and
   /// stops once a dispute is open. Null when not running.
   DateTime? get arrivalWindowEnd {
     if (status != DealStatus.outgoing || disputeActive) return null;
-    final arrival = arrivalDate;
-    if (arrival == null || DateTime.now().isBefore(arrival)) return null;
-    final end = arrival.add(arrivalWindow);
-    return end.isAfter(DateTime.now()) ? end : null;
+    final end = _autoCompleteDeadline;
+    if (end == null) return null;
+    final now = DateTime.now();
+    if (now.isBefore(end.subtract(arrivalWindow))) return null;
+    return end.isAfter(now) ? end : null;
+  }
+
+  /// Ongoing deal still before its scheduled arrival: when the 48h window
+  /// will open. Null once it has started (or doesn't apply).
+  DateTime? get arrivalWindowStartsAt {
+    if (status != DealStatus.outgoing || disputeActive) return null;
+    final end = _autoCompleteDeadline;
+    if (end == null) return null;
+    final start = end.subtract(arrivalWindow);
+    return DateTime.now().isBefore(start) ? start : null;
   }
 
   /// Post-completion dispute window still counting. Null when not running.
@@ -467,8 +500,39 @@ class Deal {
         _ => DealStatus.pending,
       };
 
-  static DateTime? _nullableDate(dynamic raw) =>
-      raw is String && raw.isNotEmpty ? DateTime.tryParse(raw) : null;
+  static DateTime? _nullableDate(dynamic raw) {
+    if (raw is! String || raw.isEmpty) return null;
+    return DateTime.tryParse(raw) ?? _parseUsDate(raw);
+  }
+
+  /// Exact arrival moment: an explicit field, or arrivalDate + arrivalTime.
+  static DateTime? _arrivalAt(Map<String, dynamic> json) {
+    final exact = _nullableDate(
+        json['arrivalAt'] ?? json['arrivalDateTime'] ?? json['arrival_at']);
+    if (exact != null) return exact;
+    final day = _nullableDate(json['arrivalDate']);
+    final time = '${json['arrivalTime'] ?? ''}'.split(':');
+    if (day == null || time.length < 2) return null;
+    final h = int.tryParse(time[0]), m = int.tryParse(time[1]);
+    if (h == null || m == null) return null;
+    return DateTime(day.year, day.month, day.day, h, m);
+  }
+
+  static DateTime? _autoCompleteAt(Map<String, dynamic> json) => _nullableDate(
+      json['autoCompleteAt'] ?? json['autoCompletesAt'] ?? json['arrivalWindowEnd']);
+
+  /// "10/05/2026 06:00 PM" — the API's display format for dates.
+  static DateTime? _parseUsDate(String raw) {
+    final m = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{4})(?:\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])?)?')
+        .firstMatch(raw.trim());
+    if (m == null) return null;
+    var hour = int.tryParse(m.group(4) ?? '') ?? 0;
+    final ampm = m.group(6)?.toUpperCase();
+    if (ampm == 'PM' && hour < 12) hour += 12;
+    if (ampm == 'AM' && hour == 12) hour = 0;
+    return DateTime(int.parse(m.group(3)!), int.parse(m.group(1)!),
+        int.parse(m.group(2)!), hour, int.tryParse(m.group(5) ?? '') ?? 0);
+  }
 
   // dates arrive as "08/01/2026 06:00 AM" or ISO-8601
   static DateTime _parseDate(dynamic raw) {

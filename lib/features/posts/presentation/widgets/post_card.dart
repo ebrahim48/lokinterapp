@@ -18,6 +18,7 @@ class PostCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool showChat; // hidden on the user's own posts
   final bool showUser; // also hidden on own posts — no point showing yourself
+  final Widget? footer; // extra row inside the card (e.g. edit / delete)
 
   const PostCard({
     super.key,
@@ -26,6 +27,7 @@ class PostCard extends StatelessWidget {
     this.onTap,
     this.showChat = true,
     this.showUser = true,
+    this.footer,
   });
 
   @override
@@ -35,8 +37,8 @@ class PostCard extends StatelessWidget {
     final chat = showChat && !(post.user.id != 0 && post.user.id == myId);
 
     return post.isTrip
-        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser)
-        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser);
+        ? TripCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser, footer: footer)
+        : RequestCard(post: post, onChat: onChat, onTap: onTap, showChat: chat, showUser: showUser, footer: footer);
   }
 }
 
@@ -47,6 +49,7 @@ class RequestCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool showChat;
   final bool showUser;
+  final Widget? footer;
 
   const RequestCard({
     super.key,
@@ -55,6 +58,7 @@ class RequestCard extends StatelessWidget {
     this.onTap,
     this.showChat = true,
     this.showUser = true,
+    this.footer,
   });
 
   @override
@@ -135,6 +139,12 @@ class RequestCard extends StatelessWidget {
                   if (showChat) _ChatPill(onTap: onChat, light: true),
                 ],
               ),
+            ],
+            if (footer != null) ...[
+              SizedBox(height: 12.h),
+              const _DashedLine(),
+              SizedBox(height: 12.h),
+              footer!,
             ],
           ],
         ),
@@ -262,6 +272,7 @@ class TripCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool showChat;
   final bool showUser;
+  final Widget? footer;
 
   const TripCard({
     super.key,
@@ -270,6 +281,7 @@ class TripCard extends StatelessWidget {
     this.onTap,
     this.showChat = true,
     this.showUser = true,
+    this.footer,
   });
 
   @override
@@ -346,6 +358,12 @@ class TripCard extends StatelessWidget {
                       if (showChat) _ChatPill(onTap: onChat, light: false),
                     ],
                   ),
+                ],
+                if (footer != null) ...[
+                  SizedBox(height: 12.h),
+                  Divider(color: AppPalette.navy.withValues(alpha: 0.1), height: 1),
+                  SizedBox(height: 12.h),
+                  footer!,
                 ],
               ],
             ),

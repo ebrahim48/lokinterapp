@@ -17,7 +17,7 @@ class UserBadge extends StatelessWidget {
 
   const UserBadge(this.kind, {super.key, this.compact = false});
 
-  static const _gold = Color(0xFFB8860B);
+  static const _green = Color(0xFF1FB25A); // recommended — web profile green
 
   /// Resolves the badge from the flags the API returns.
   ///
@@ -55,7 +55,7 @@ class UserBadge extends StatelessWidget {
 
   (IconData, Color, String) get _style => switch (kind) {
         UserBadgeKind.recommended =>
-          (Icons.workspace_premium, _gold, 'recommended_transporter_2'),
+          (Icons.diamond_outlined, _green, 'recommended_transporter_2'),
         UserBadgeKind.transporter =>
           (Icons.local_shipping, AppPalette.primary, 'transporter'),
         UserBadgeKind.verified =>
@@ -70,24 +70,27 @@ class UserBadge extends StatelessWidget {
 
     if (compact) return Icon(icon, size: 14.sp, color: colour);
 
+    // recommended is a solid green pill like the web; the rest stay tinted
+    final solid = kind == UserBadgeKind.recommended;
+    final fg = solid ? Colors.white : colour;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 2.h),
       decoration: BoxDecoration(
-        color: colour.withValues(alpha: 0.12),
+        color: solid ? colour : colour.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: colour.withValues(alpha: 0.4)),
+        border: Border.all(color: colour.withValues(alpha: solid ? 1 : 0.4)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 11.sp, color: colour),
+          Icon(icon, size: 11.sp, color: fg),
           SizedBox(width: 4.w),
           Text(
             label.tr,
             style: TextStyle(
               fontSize: 9.sp,
               fontWeight: FontWeight.w800,
-              color: colour,
+              color: fg,
               letterSpacing: 0.3,
             ),
           ),

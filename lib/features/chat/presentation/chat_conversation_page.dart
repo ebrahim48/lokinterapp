@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,9 @@ import '../data/chat_model.dart';
 import 'controllers/chat_conversation_controller.dart';
 import 'widgets/report_profile_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:video_player/video_player.dart';
+import '../../../core/utils/media_url.dart';
 import '../../reviews/presentation/user_reviews_page.dart';
 
 class ChatConversationPage extends StatelessWidget {
@@ -141,7 +145,7 @@ class ChatConversationPage extends StatelessWidget {
                   final m = c.messages[c.messages.length - 1 - i];
                   return m.isSystem
                       ? _SystemBubble(message: m)
-                      : _Bubble(message: m);
+                      : _Bubble(message: m, peer: user);
                 },
               );
             }),
@@ -918,6 +922,16 @@ class _Attachment extends StatelessWidget {
     ).hasMatch(probe);
   }
 
+  static bool isVideo(String url, String? mime, String? name) {
+    if (mime != null && mime.isNotEmpty) {
+      return mime.toLowerCase().startsWith('video/');
+    }
+    return RegExp(
+      r'\.(mp4|mov|m4v|webm|3gp)(\?|$)',
+      caseSensitive: false,
+    ).hasMatch(name ?? url);
+  }
+
   @override
   Widget build(BuildContext context) {
     final fg = me ? Colors.white : Theme.of(context).colorScheme.onSurface;
@@ -932,13 +946,8 @@ class _Attachment extends StatelessWidget {
             imageUrl: url,
             width: 0.52.sw,
             fit: BoxFit.cover,
-            placeholder: (_, __) => SizedBox(
-              width: 0.52.sw,
-              height: 120.h,
-              child: const Center(
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            ),
+            placeholder: (_, __) =>
+                _MediaShimmer(width: 0.52.sw, height: 160.h),
             errorWidget: (_, __, ___) => _fileChip(fg, 'image_unavailable'.tr),
           ),
         ),
@@ -1041,10 +1050,17 @@ class _SystemBubble extends StatelessWidget {
 
 class _Bubble extends StatelessWidget {
   final ChatMessage message;
-  const _Bubble({required this.message});
+  final PostUser peer;
+  const _Bubble({required this.message, required this.peer});
+
+  bool get _isVideo =>
+      message.attachmentUrl != null &&
+      _Attachment.isVideo(message.attachmentUrl!, message.attachmentMime,
+          message.attachmentName);
 
   @override
   Widget build(BuildContext context) {
+    if (_isVideo) return _videoBubble(context);
     final cs = Theme.of(context).colorScheme;
     final me = message.fromMe;
     return Align(
@@ -1096,6 +1112,261 @@ class _Bubble extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  // videos sit in a navy frame with the sender's photo beside it, like the
+  // web chat
+  Widget _videoBubble(BuildContext context) {
+    final me = message.fromMe;
+    final session = Get.find<SessionService>().user.value;
+    final avatar = _ChatAvatar(
+      name: me ? (session?.fullName ?? '') : peer.name,
+      url: me ? session?.imageUrl : peer.avatarUrl,
+    );
+    final bubble = Container(
+      constraints: BoxConstraints(maxWidth: 0.6.sw),
+      padding: EdgeInsets.fromLTRB(8.w, 8.w, 8.w, 8.h),
+      decoration: BoxDecoration(
+        color: AppPalette.navy,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ChatVideo(
+              url: message.attachmentUrl!, size: message.attachmentSize),
+          if (message.text.isNotEmpty) ...[
+            SizedBox(height: 6.h),
+            Text(
+              message.text,
+              style: TextStyle(
+                  fontSize: 13.sp, color: Colors.white, height: 1.3),
+            ),
+          ],
+          SizedBox(height: 6.h),
+          Text(
+            chatTime(message.time),
+            style: TextStyle(
+              fontSize: 9.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white.withValues(alpha: 0.85),
+            ),
+          ),
+        ],
+      ),
+    );
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        mainAxisAlignment:
+            me ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: me
+            ? [bubble, SizedBox(width: 8.w), avatar]
+            : [avatar, SizedBox(width: 8.w), bubble],
+      ),
+    );
+  }
+}
+
+class _ChatAvatar extends StatelessWidget {
+  final String name;
+  final String? url;
+  const _ChatAvatar({required this.name, this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    final img = fixMediaUrl(url);
+    final hasImg =
+        img != null && img.isNotEmpty && !img.toLowerCase().endsWith('.svg');
+    return CircleAvatar(
+      radius: 16.r,
+      backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
+      backgroundImage: hasImg ? CachedNetworkImageProvider(img) : null,
+      child: hasImg
+          ? null
+          : Text(
+              name.isEmpty ? '?' : name[0].toUpperCase(),
+              style: TextStyle(
+                color: AppPalette.primary,
+                fontWeight: FontWeight.w700,
+                fontSize: 13.sp,
+              ),
+            ),
+    );
+  }
+}
+
+/// Inline player: first frame as the poster, tap to play/pause, a progress
+/// bar along the bottom. Falls back to opening the file if it can't load.
+class _ChatVideo extends StatefulWidget {
+  final String url;
+  final int? size;
+  const _ChatVideo({required this.url, this.size});
+
+  @override
+  State<_ChatVideo> createState() => _ChatVideoState();
+}
+
+class _ChatVideoState extends State<_ChatVideo> {
+  // the media endpoint answers range requests with the whole file (200, not
+  // 206), which AVPlayer refuses to stream — so the clip is downloaded into
+  // the file cache and played from disk. Big clips wait for a tap so opening
+  // a chat doesn't pull tens of MB over mobile data.
+  static const _autoLoadBytes = 20 * 1024 * 1024;
+
+  VideoPlayerController? _ctrl;
+  bool _loading = false;
+  bool _failed = false;
+  bool _playing = false;
+  bool _playWhenReady = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if ((widget.size ?? 0) <= _autoLoadBytes) _load();
+  }
+
+  Future<void> _load() async {
+    if (_loading || _ctrl != null) return;
+    setState(() {
+      _loading = true;
+      _failed = false;
+    });
+    try {
+      final file = await DefaultCacheManager().getSingleFile(widget.url);
+      final ctrl = VideoPlayerController.file(file);
+      await ctrl.initialize();
+      if (!mounted) {
+        ctrl.dispose();
+        return;
+      }
+      ctrl.addListener(_onTick);
+      setState(() {
+        _ctrl = ctrl;
+        _loading = false;
+      });
+      if (_playWhenReady) ctrl.play();
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _loading = false;
+          _failed = true;
+        });
+      }
+    }
+  }
+
+  void _onTick() {
+    final v = _ctrl!.value;
+    // rewind at the end so the next tap replays from the start
+    if (v.isInitialized && !v.isPlaying && v.position >= v.duration) {
+      _ctrl!.seekTo(Duration.zero);
+    }
+    if (v.isPlaying != _playing && mounted) {
+      setState(() => _playing = v.isPlaying);
+    }
+  }
+
+  @override
+  void dispose() {
+    _ctrl?.removeListener(_onTick);
+    _ctrl?.dispose();
+    super.dispose();
+  }
+
+  void _toggle() {
+    final ctrl = _ctrl;
+    if (ctrl == null) {
+      // not loaded yet (large clip) or failed — fetch, then start playing
+      _playWhenReady = true;
+      _load();
+      return;
+    }
+    ctrl.value.isPlaying ? ctrl.pause() : ctrl.play();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ctrl = _ctrl;
+    final ready = ctrl != null;
+    // portrait phone clips are the norm; keep very wide/tall ones in bounds
+    final ratio =
+        ready ? ctrl.value.aspectRatio.clamp(0.5, 1.8).toDouble() : 9 / 14;
+    return GestureDetector(
+      onTap: _toggle,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.r),
+        child: AspectRatio(
+          aspectRatio: ratio,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              if (_loading)
+                const _MediaShimmer(dark: true)
+              else
+                Container(color: Colors.black),
+              if (ready) VideoPlayer(ctrl),
+              if (_failed)
+                Center(
+                  child: Icon(Icons.refresh_rounded,
+                      color: Colors.white70, size: 30.sp),
+                ),
+              if (!_loading && !_failed && !_playing)
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(10.w),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.45),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.play_arrow_rounded,
+                        color: Colors.white, size: 30.sp),
+                  ),
+                ),
+              if (ready)
+                Positioned(
+                  left: 8.w,
+                  right: 8.w,
+                  bottom: 8.h,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(2.r),
+                    child: VideoProgressIndicator(
+                      ctrl,
+                      allowScrubbing: true,
+                      padding: EdgeInsets.zero,
+                      colors: VideoProgressColors(
+                        playedColor: Colors.white,
+                        bufferedColor: Colors.white38,
+                        backgroundColor: Colors.white24,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Placeholder while a chat photo or video is still coming in.
+class _MediaShimmer extends StatelessWidget {
+  final double? width;
+  final double? height;
+  final bool dark; // inside the navy video frame
+  const _MediaShimmer({this.width, this.height, this.dark = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Shimmer.fromColors(
+      baseColor: dark ? const Color(0xFF1E2747) : cs.surfaceContainerHighest,
+      highlightColor: dark ? const Color(0xFF34406A) : cs.surface,
+      child: Container(width: width, height: height, color: Colors.white),
     );
   }
 }

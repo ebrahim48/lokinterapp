@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_compress/video_compress.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/socket_service.dart';
@@ -367,18 +368,28 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       );
       if (x == null) return null;
 
-      // Check file size before attempting the upload.
-      // Raw camera video can be 50–200 MB for 30 seconds; the server limit is
+      // iOS records .MOV and raw camera video runs 50–200 MB for 30s; re-encode
+      // to a medium-quality MP4 so every recording is a type and size the
+      // server accepts. Falls back to the original if the encoder fails.
+      var path = x.path;
+      var name = x.name;
+      final mp4 = await _compressVideo(x.path);
+      if (mp4 != null) {
+        path = mp4;
+        name = '${x.name.split('.').first}.mp4';
+      }
+
+      // Check file size before attempting the upload — the server limit is
       // 200 MB. Warn the user early so the progress dialog never appears for a
       // video that will be rejected server-side.
-      final bytes = await File(x.path).length();
+      final bytes = await File(path).length();
       const maxBytes = 200 * 1024 * 1024; // 200 MB
       if (bytes > maxBytes) {
         toast('video_too_large_keep_it_under_30_seconds'.tr);
         return null;
       }
 
-      return (x.path, x.name);
+      return (path, name);
     } on PlatformException {
       // no camera (emulator without one) or permission refused
       toast('could_not_open_the_camera'.tr);
@@ -386,7 +397,26 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
-  void _showUploadProgress(ValueNotifier<double> progress) {
+  Future<String?> _compressVideo(String path) async {
+    final preparing = ValueNotifier<double>(0);
+    _showUploadProgress(preparing, preparing: true);
+    try {
+      final info = await VideoCompress.compressVideo(
+        path,
+        quality: VideoQuality.MediumQuality,
+        includeAudio: true,
+      );
+      return info?.path;
+    } catch (_) {
+      return null;
+    } finally {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+      preparing.dispose();
+    }
+  }
+
+  void _showUploadProgress(ValueNotifier<double> progress,
+      {bool preparing = false}) {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -400,7 +430,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 Icon(Icons.cloud_upload_outlined,
                     color: AppPalette.primary, size: 20.sp),
                 SizedBox(width: 10.w),
-                Text('uploading_video'.tr,
+                Text(preparing ? 'preparing_video'.tr : 'uploading_video'.tr,
                     style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
               ],
             ),
@@ -482,6 +512,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       done = true;
     } on AppException catch (e) {
       toastError(e);
+    } catch (_) {
+      toast('video_upload_failed_please_try_again'.tr);
     } finally {
       if (mounted) Navigator.of(context, rootNavigator: true).pop();
       progress.dispose();
@@ -609,6 +641,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                       window: DealWindow.payment,
                       onExpired: () => _loadDetail(quiet: true),
                     ),
+                  ],
+                  if (deal.arrivalWindowStartsAt != null) ...[
+                    SizedBox(height: 12.h),
+                    _arrivalWindowNote(context, deal.arrivalWindowStartsAt!),
                   ],
                   if (deal.arrivalWindowEnd != null) ...[
                     SizedBox(height: 12.h),
@@ -856,8 +892,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           else
             _attachmentRow(context),
           if (deal.tripDate != null) _row(context, 'trip_date'.tr, shortDate(deal.tripDate!)),
-          if (deal.arrivalDate != null)
-            _row(context, 'arrival_date'.tr, shortDate(deal.arrivalDate!)),
+          if (deal.scheduledArrival != null)
+            _row(
+                context,
+                'arrival_date'.tr,
+                deal.arrivalAt != null
+                    ? shortDateTime(deal.arrivalAt!)
+                    : shortDate(deal.arrivalDate!)),
         ],
       ),
     );
@@ -1177,11 +1218,43 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 : 'ongoing_sender_hint'.tr,
             style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
           ),
-          if (deal.arrivalDate != null) ...[
+          if (deal.scheduledArrival != null) ...[
             SizedBox(height: 6.h),
-            Text('expected_arrival_on'.trParams({'date': shortDate(deal.arrivalDate!)}),
+            Text(
+                'expected_arrival_on'.trParams({
+                  'date': deal.arrivalAt != null
+                      ? shortDateTime(deal.arrivalAt!)
+                      : shortDate(deal.arrivalDate!)
+                }),
                 style: TextStyle(color: fg, fontSize: 11.sp)),
           ],
+        ],
+      ),
+    );
+  }
+
+  /// Before the scheduled arrival: when the 48h auto-completion window opens.
+  Widget _arrivalWindowNote(BuildContext context, DateTime startsAt) {
+    const color = Color(0xFF0369A1);
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.schedule, size: 18.sp, color: color),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Text(
+                'arrival_window_starts_on'
+                    .trParams({'date': shortDateTime(startsAt)}),
+                style: TextStyle(fontSize: 12.5.sp, color: color, height: 1.4)),
+          ),
         ],
       ),
     );

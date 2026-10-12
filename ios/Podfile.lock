@@ -8,10 +8,13 @@ PODS:
     - NWWebSocket (~> 0.5.10)
     - PusherTweetNacl (~> 1.2.0)
   - PusherTweetNacl (1.2.0)
+  - video_compress (0.3.0):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - pusher_channels_flutter (from `.symlinks/plugins/pusher_channels_flutter/ios`)
+  - video_compress (from `.symlinks/plugins/video_compress/ios`)
 
 SPEC REPOS:
   trunk:
@@ -24,6 +27,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   pusher_channels_flutter:
     :path: ".symlinks/plugins/pusher_channels_flutter/ios"
+  video_compress:
+    :path: ".symlinks/plugins/video_compress/ios"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
@@ -31,6 +36,7 @@ SPEC CHECKSUMS:
   pusher_channels_flutter: 2723222f2686852dd91d13780938d11cca114a39
   PusherSwift: 6022fe6584b4317dc5c177091292b2a4d80a8c35
   PusherTweetNacl: 015f56f2cf010e718703f2bd9bca66fdcc91b208
+  video_compress: f2133a07762889d67f0711ac831faa26f956980e
 
 PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
 

@@ -3,6 +3,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/media_url.dart';
@@ -30,19 +31,45 @@ class RecommendedTransportersDialog extends StatelessWidget {
   const RecommendedTransportersDialog(
       {super.key, required this.transporters, this.postId});
 
-  /// Returns only transporters that pass the eligibility check:
-  /// - isApprovedTransporter == true  (approved/accepted by admin)
-  /// - visibilityActive == true       (active Increase Visibility subscription)
+  static const _approvalKeys = [
+    'isApprovedTransporter',
+    'transporterBadge',
+    'showTransporterBadge',
+  ];
+  static const _visibilityKeys = [
+    'visibilityActive',
+    'featuredTransporter',
+    'isFeaturedTransporter',
+    'isRecommendedTransporter',
+    'hasActiveSubscription',
+  ];
+
+  /// Paid visibility running — any of the flags the API uses for it.
+  static bool isVisible(Map<String, dynamic> t) =>
+      _visibilityKeys.any((k) => t[k] == true) ||
+      '${t['visibilityStatus'] ?? ''}'.toLowerCase() == 'active';
+
+  /// Safety net on top of the backend's own route + subscription filter:
+  /// drop a transporter only when the payload says outright that they are
+  /// not approved or have no active visibility. A flag the payload doesn't
+  /// carry is not a "no" — reading it that way hid paid transporters whose
+  /// row only had `visibilityStatus: active`.
   static List<Map<String, dynamic>> filter(
       List<Map<String, dynamic>> raw) {
+    // the API lists every transporter on the route, the poster included — a
+    // transporter posting a request must not be recommended to themselves
+    final myId = Get.isRegistered<SessionService>()
+        ? Get.find<SessionService>().user.value?.id
+        : null;
     return raw.where((t) {
-      final approved = t['isApprovedTransporter'] == true ||
-          t['transporterBadge'] == true ||
-          t['showTransporterBadge'] == true;
-      final visible = t['visibilityActive'] == true ||
-          t['featuredTransporter'] == true ||
-          t['isFeaturedTransporter'] == true;
-      return approved && visible;
+      final id = int.tryParse('${t['id'] ?? t['userId'] ?? ''}');
+      if (myId != null && id == myId) return false;
+      final approvalFlags = _approvalKeys.where(t.containsKey);
+      final approved = approvalFlags.isEmpty ||
+          approvalFlags.any((k) => t[k] == true);
+      final hasVisibilityFlag = _visibilityKeys.any(t.containsKey) ||
+          t.containsKey('visibilityStatus');
+      return approved && (!hasVisibilityFlag || isVisible(t));
     }).toList();
   }
 
@@ -171,9 +198,7 @@ class _TransporterRow extends StatelessWidget {
     final reviewsLabel = '${t['reviewsLabel'] ?? ''}'.trim();
     final avatar = _avatar;
     final countries = _countries;
-    final featured = t['visibilityActive'] == true ||
-        t['featuredTransporter'] == true ||
-        t['isFeaturedTransporter'] == true;
+    final featured = RecommendedTransportersDialog.isVisible(t);
     final meta = TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant);
 
     // the dialog stays underneath — back from the profile returns here

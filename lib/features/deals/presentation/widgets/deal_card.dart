@@ -90,6 +90,20 @@ class DealCard extends StatelessWidget {
               SizedBox(height: 10.h),
               const AutoCompletedChip(),
             ],
+            // ongoing deals past arrival: time left before auto-completion
+            if (deal.arrivalWindowEnd != null) ...[
+              SizedBox(height: 10.h),
+              DealCountdown(
+                endsAt: deal.arrivalWindowEnd!,
+                window: DealWindow.arrival,
+                compact: true,
+                onExpired: () {
+                  if (Get.isRegistered<DealsController>()) {
+                    Get.find<DealsController>().load();
+                  }
+                },
+              ),
+            ],
             // completed deals: time left to open a dispute
             if (deal.disputeWindowEndsAt != null) ...[
               SizedBox(height: 10.h),

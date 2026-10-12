@@ -95,7 +95,14 @@ class DealsRepository {
       // same as posts: a double serialises to "10.0" and fails integer validation
       'weight': weight.round(),
       'tripDate': _ymd(tripDate),
-      'arrivalDate': _ymd(arrivalDate),
+      // the 48h auto-completion window runs from the scheduled arrival, and the
+      // server reads that moment from arrivalDate alone (a datetime column,
+      // validated with Laravel's `date` rule) — send the full UTC instant, not
+      // just the day, or the window starts at midnight. arrivalTime/arrivalAt
+      // ride along for any reader that wants them separately.
+      'arrivalDate': arrivalDate.toUtc().toIso8601String(),
+      'arrivalTime': _hm(arrivalDate),
+      'arrivalAt': arrivalDate.toUtc().toIso8601String(),
       'sdRequired': sdRequired ? 1 : 0,
       if (itemName != null && itemName.isNotEmpty) 'itemName': itemName,
       if (itemLink != null && itemLink.isNotEmpty) 'itemLink': itemLink,
@@ -117,6 +124,20 @@ class DealsRepository {
 
   String _ymd(DateTime d) =>
       '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  String _hm(DateTime d) =>
+      '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
+
+  // Dio sends files as application/octet-stream unless told otherwise, which
+  // a mime-checking upload rule can reject — name the video type explicitly.
+  Future<MultipartFile> _videoPart(String filePath, String fileName) =>
+      MultipartFile.fromFile(
+        filePath,
+        filename: fileName,
+        contentType: fileName.toLowerCase().endsWith('.mov')
+            ? DioMediaType('video', 'quicktime')
+            : DioMediaType('video', 'mp4'),
+      );
 
   Future<Deal> getById(int id) async {
     final res = await _api.get('/deals/getById/$id');
@@ -183,7 +204,7 @@ class DealsRepository {
     Duration timeout = const Duration(seconds: 300),
   }) async {
     final form = FormData.fromMap({
-      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+      'video': await _videoPart(filePath, fileName),
     });
     unwrapData(await _api.post(
       '/deals/$dealId/uploadPickupVideo',
@@ -202,12 +223,16 @@ class DealsRepository {
     String filePath,
     String fileName, {
     void Function(int sent, int total)? onProgress,
+    Duration timeout = const Duration(seconds: 600),
   }) async {
     final form = FormData.fromMap({
-      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+      'video': await _videoPart(filePath, fileName),
     });
+    // the default 30s receive timeout is too short for a video upload
     unwrapData(await _api.post('/deals/$referenceId/uploadDeliveryVideo',
-        data: form, onSendProgress: onProgress));
+        data: form,
+        onSendProgress: onProgress,
+        options: Options(receiveTimeout: timeout, sendTimeout: timeout)));
     DataBus.changed(DataTopic.deals);
   }
 
