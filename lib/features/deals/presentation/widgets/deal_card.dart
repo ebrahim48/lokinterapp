@@ -157,6 +157,7 @@ class DealCard extends StatelessWidget {
 
   Widget _meta(BuildContext context, IconData icon, String text) {
     final cs = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Icon(icon, size: 14.sp, color: cs.onSurfaceVariant),
