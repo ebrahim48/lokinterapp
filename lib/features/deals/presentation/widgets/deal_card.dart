@@ -155,6 +155,7 @@ class DealCard extends StatelessWidget {
     );
   }
 
+
   Widget _meta(BuildContext context, IconData icon, String text) {
     final cs = Theme.of(context).colorScheme;
 
