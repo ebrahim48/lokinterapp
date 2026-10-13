@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Full-screen, pinch-to-zoom view of a remote image — used for chat attachments
@@ -23,10 +24,16 @@ class ImageViewerPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
+        // the app theme's icon/title colours win over foregroundColor and
+        // are dark — invisible on black
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         title: title == null
             ? null
-            : Text(title!, style: TextStyle(fontSize: 14.sp), maxLines: 1),
+            : Text(title!,
+                style: TextStyle(fontSize: 14.sp, color: Colors.white),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis),
       ),
       body: Center(
         // double-tap or pinch to zoom; drag to pan once zoomed in
@@ -36,7 +43,12 @@ class ImageViewerPage extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: url,
             fit: BoxFit.contain,
-            placeholder: (_, __) => const CircularProgressIndicator(strokeWidth: 2),
+            placeholder: (_, __) => Shimmer.fromColors(
+              baseColor: const Color(0xFF1C1C1C),
+              highlightColor: const Color(0xFF3A3A3A),
+              child: Container(
+                  width: double.infinity, height: 320.h, color: Colors.white),
+            ),
             errorWidget: (_, __, ___) => Icon(
               Icons.broken_image_outlined,
               color: Colors.white54,

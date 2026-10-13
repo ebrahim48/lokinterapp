@@ -11,6 +11,7 @@ class ChatMessage {
   // reliable way to tell an image from a document
   final String? attachmentMime;
   final String? attachmentName;
+  final int? attachmentSize; // bytes
   // system messages announce deal events and link back to the deal
   final bool isSystem;
   final String? systemType; // e.g. DEAL_ACCEPT
@@ -24,6 +25,7 @@ class ChatMessage {
     this.attachmentUrl,
     this.attachmentMime,
     this.attachmentName,
+    this.attachmentSize,
     this.isSystem = false,
     this.systemType,
     this.dealId,
@@ -43,6 +45,7 @@ class ChatMessage {
           fixMediaUrl(json['fileUrl'] ?? (file is Map ? file['url'] : null)),
       attachmentMime: file is Map ? file['mimeType'] as String? : null,
       attachmentName: file is Map ? (file['fileName'] ?? file['name']) as String? : null,
+      attachmentSize: file is Map ? int.tryParse('${file['size'] ?? ''}') : null,
       isSystem: json['type'] == 'system',
       systemType: json['systemMessageType'],
       // data.id arrives as a string

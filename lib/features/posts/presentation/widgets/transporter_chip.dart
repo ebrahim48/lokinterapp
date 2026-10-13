@@ -10,20 +10,21 @@ class TransporterChip extends StatelessWidget {
   final bool recommended;
   const TransporterChip({super.key, this.recommended = false});
 
-  static const _gold = Color(0xFFB8860B);
+  // green pill with a diamond, matching the web profile
+  static const _green = Color(0xFF1FB25A);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: recommended ? _gold : AppPalette.primary,
+        color: recommended ? _green : AppPalette.primary,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(recommended ? Icons.workspace_premium : Icons.verified_user,
+          Icon(recommended ? Icons.diamond_outlined : Icons.verified_user,
               color: Colors.white, size: 12.sp),
           SizedBox(width: 5.w),
           Text(

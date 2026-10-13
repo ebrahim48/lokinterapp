@@ -25,6 +25,9 @@ class WalletEarning {
   final String statusLabel;
   final DateTime? releaseAt;
   final int? countdownSeconds;
+  /// Frozen because a dispute was opened on the deal — shown under "On hold"
+  /// as waiting for the dispute resolution, never as a pending earning.
+  final bool onHold;
 
   const WalletEarning({
     required this.dealId,
@@ -36,6 +39,7 @@ class WalletEarning {
     this.statusLabel = '',
     this.releaseAt,
     this.countdownSeconds,
+    this.onHold = false,
   });
 
   factory WalletEarning.fromJson(Map<String, dynamic> e) => WalletEarning(
@@ -47,17 +51,26 @@ class WalletEarning {
         itemCost: double.tryParse('${e['itemCost'] ?? 0}') ?? 0,
         statusLabel: '${e['statusLabel'] ?? e['reason'] ?? ''}',
         releaseAt: DateTime.tryParse('${e['releaseAt'] ?? ''}'),
-        countdownSeconds: e['countdownSeconds'] is num
-            ? (e['countdownSeconds'] as num).toInt()
+        countdownSeconds: (e['countdownSeconds'] ?? e['disputeCountdownSeconds']) is num
+            ? ((e['countdownSeconds'] ?? e['disputeCountdownSeconds']) as num).toInt()
             : null,
+        onHold: _bool(e['fundsLockedForDispute']) ||
+            _bool(e['isOnHold']) ||
+            '${e['status'] ?? ''}'.toUpperCase() == 'ON_HOLD' ||
+            const ['DISPUTED', 'DISPUTES', 'DISPUTE']
+                .contains('${e['dealStatus'] ?? ''}'.toUpperCase()),
       );
+
+  /// Why the money is not withdrawable yet, in the app language for holds.
+  String get reasonLabel =>
+      onHold ? 'waiting_for_dispute_resolution'.tr : statusLabel;
 
   /// "5h 20m left" while the hold is still counting down.
   String? get countdownText {
     final s = countdownSeconds;
     if (s == null || s <= 0) return null;
     final h = s ~/ 3600, m = (s % 3600) ~/ 60;
-    return h > 0 ? '${h}h ${m}m left' : '${m}m left';
+    return 'time_left'.trParams({'time': h > 0 ? '${h}h ${m}m' : '${m}m'});
   }
 }
 
@@ -109,6 +122,8 @@ class WalletData {
   final bool hasStripeConnect;
   /// Everything still owed to the traveler, each with why it is held.
   final List<WalletEarning> potential;
+  /// Earnings frozen by an open dispute (moved out of pending).
+  final List<WalletEarning> onHoldEarnings;
   final List<WalletDispute> disputes;
 
   const WalletData({
@@ -123,38 +138,71 @@ class WalletData {
     this.currency = 'USD',
     this.hasStripeConnect = false,
     this.potential = const [],
+    this.onHoldEarnings = const [],
     this.disputes = const [],
   });
 
   /// The value to show in the "Available" slot in the UI.
   double get displayBalance => walletBalance > 0 ? walletBalance : withdrawable;
 
-  factory WalletData.fromJson(Map<String, dynamic> json) => WalletData(
-        // primary keys per spec
-        walletBalance: _d(json['walletBalance']),
-        withdrawable: _d(json['withdrawable']),
-        // kept for reference but do NOT show this as "Available"
-        available: _d(json['available']),
-        pendingEarnings: _d(json['pendingEarnings']),
-        onHold: _d(json['onHold'] ?? json['onHoldDispute']),
-        pendingWithdrawal: _d(json['pendingWithdrawal']),
-        totalPending: _d(json['totalPending']),
-        lifetimeEarnings: _d(json['lifetimeEarnings']),
-        currency: '${json['currency'] ?? 'USD'}',
-        hasStripeConnect: _bool(json['hasStripeConnect']),
-        potential: [
-          for (final e in (json['potentialEarningsList'] as List? ??
-                  json['recentEarnings'] as List? ??
-                  const [])
-              .whereType<Map>())
+  factory WalletData.fromJson(Map<String, dynamic> json) {
+    List<WalletEarning> earnings(dynamic raw) => [
+          for (final e in (raw is List ? raw : const []).whereType<Map>())
             WalletEarning.fromJson(Map<String, dynamic>.from(e)),
-        ],
-        disputes: [
-          for (final e in (json['disputeHistory'] as List? ?? const [])
-              .whereType<Map>())
-            WalletDispute.fromJson(Map<String, dynamic>.from(e)),
-        ],
-      );
+        ];
+    // earnings frozen by a dispute: the dedicated list, plus anything the
+    // pending list still flags as locked
+    final pending = earnings(json['potentialEarningsList'] ??
+        json['pendingDealsList'] ??
+        json['recentEarnings']);
+    final held = earnings(json['onHoldDeals'] ?? json['onHoldList']);
+    final heldIds = {for (final e in held) e.dealId};
+    for (final e in pending) {
+      if (e.onHold && heldIds.add(e.dealId)) {
+        held.add(WalletEarning(
+          dealId: e.dealId,
+          dealRef: e.dealRef,
+          dealStatus: e.dealStatus,
+          amount: e.amount,
+          profit: e.profit,
+          itemCost: e.itemCost,
+          statusLabel: e.statusLabel,
+          onHold: true,
+        ));
+      }
+    }
+    // the API has sent the hold under three names; a 0 under the first one
+    // must not hide a real amount under another
+    final heldTotal = [
+      _d(json['onHold']),
+      _d(json['disputeHoldAmount']),
+      _d(json['onHoldDispute']),
+    ].fold<double>(0, (a, b) => b > a ? b : a);
+    final heldListTotal = held.fold<double>(0, (a, e) => a + e.amount);
+
+    return WalletData(
+      // primary keys per spec
+      walletBalance: _d(json['walletBalance']),
+      withdrawable: _d(json['withdrawable']),
+      // kept for reference but do NOT show this as "Available"
+      available: _d(json['available']),
+      pendingEarnings: _d(json['pendingEarnings']),
+      onHold: heldTotal > 0 ? heldTotal : heldListTotal,
+      pendingWithdrawal: _d(json['pendingWithdrawal']),
+      totalPending: _d(json['totalPending']),
+      lifetimeEarnings: _d(json['lifetimeEarnings']),
+      currency: '${json['currency'] ?? 'USD'}',
+      hasStripeConnect: _bool(json['hasStripeConnect']),
+      // held earnings are listed under "On hold", not twice
+      potential: [for (final e in pending) if (!heldIds.contains(e.dealId)) e],
+      onHoldEarnings: held,
+      disputes: [
+        for (final e in (json['disputeHistory'] as List? ?? const [])
+            .whereType<Map>())
+          WalletDispute.fromJson(Map<String, dynamic>.from(e)),
+      ],
+    );
+  }
 
   static double _d(dynamic v) =>
       v == null ? 0 : (v is num ? v.toDouble() : double.tryParse('$v') ?? 0);
@@ -175,12 +223,17 @@ class PayoutMethod {
 
   factory PayoutMethod.fromJson(Map<String, dynamic> json) => PayoutMethod(
         id: _int(json['id']),
-        type: (json['type'] ?? json['provider'] ?? '').toString().toUpperCase(),
+        // the API names it `method` ("wise"); older payloads used type/provider
+        type: (json['type'] ?? json['provider'] ?? json['method'] ?? '')
+            .toString()
+            .toUpperCase(),
         isDefault: _bool(json['isDefault'] ?? json['is_default']),
         label: [
-          json['type'] ?? json['provider'] ?? 'Account',
-          json['last4'] != null ? '•••• ${json['last4']}' : (json['email'] ?? ''),
-        ].where((s) => s.toString().isNotEmpty).join(' '),
+          json['displayLabel'] ?? json['type'] ?? json['provider'] ?? json['method'] ??
+              'account'.tr,
+          json['summary'] ??
+              (json['last4'] != null ? '•••• ${json['last4']}' : (json['email'] ?? '')),
+        ].where((s) => s.toString().isNotEmpty).join(' · '),
       );
 }
 
@@ -336,6 +389,10 @@ class StripeConnectStatus {
 class WalletRepository {
   final _api = Get.find<ApiService>();
 
+  /// Server switch for PayPal payouts (`paypalEnabled` on payout-methods).
+  /// Off unless the API turns it on — PayPal is not used for now.
+  static bool paypalEnabled = false;
+
   Future<WalletData> dashboard() async {
     final res = await _api.get('/wallet/');
     return WalletData.fromJson(Map<String, dynamic>.from(unwrapData(res)));
@@ -371,9 +428,12 @@ class WalletRepository {
     } else {
       raw = const [];
     }
+    paypalEnabled = data is Map && _bool(data['paypalEnabled']);
     return raw
         .whereType<Map>()
         .map((e) => PayoutMethod.fromJson(Map<String, dynamic>.from(e)))
+        // a PayPal method saved earlier stays hidden while PayPal is off
+        .where((m) => paypalEnabled || m.type != 'PAYPAL')
         .toList();
   }
 

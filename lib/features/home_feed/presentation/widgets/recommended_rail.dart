@@ -15,16 +15,23 @@ class RecommendedRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 144.h,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 2.w),
-        itemCount: travelers.length,
-        separatorBuilder: (_, __) => SizedBox(width: 12.w),
-        itemBuilder: (_, i) => _TravelerCard(
-          post: travelers[i],
-          onTap: onTap == null ? null : () => onTap!(travelers[i]),
+    // sized by the tallest card rather than a fixed height — the transporter
+    // chip and larger accessibility text sizes both make cards taller
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(horizontal: 2.w),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (var i = 0; i < travelers.length; i++) ...[
+              if (i > 0) SizedBox(width: 12.w),
+              _TravelerCard(
+                post: travelers[i],
+                onTap: onTap == null ? null : () => onTap!(travelers[i]),
+              ),
+            ],
+          ],
         ),
       ),
     );

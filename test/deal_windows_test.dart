@@ -41,6 +41,52 @@ void main() {
     expect(cod.paymentDeadline, isNull);
   });
 
+  test('48h window runs from the arrival time, not midnight of the day', () {
+    final arrival = now.subtract(const Duration(hours: 2));
+    final d = Deal.fromJson({
+      'id': 1, 'status': 'OUTGOING',
+      // the day alone would start the clock at 00:00
+      'arrivalDate': '${arrival.year}-${arrival.month.toString().padLeft(2, '0')}-${arrival.day.toString().padLeft(2, '0')}',
+      'arrivalAt': _iso(arrival),
+    });
+    expect(d.arrivalWindowEnd!.difference(arrival).inMinutes,
+        const Duration(hours: 48).inMinutes);
+  });
+
+  test('arrivalDate + arrivalTime combine into the exact arrival', () {
+    final d = Deal.fromJson({
+      'id': 1, 'status': 'OUTGOING',
+      'arrivalDate': '2026-10-05', 'arrivalTime': '14:30',
+    });
+    expect(d.scheduledArrival, DateTime(2026, 10, 5, 14, 30));
+  });
+
+  test("the server's autoCompleteAt wins over the computed deadline", () {
+    final end = now.add(const Duration(hours: 10));
+    final d = Deal.fromJson({
+      'id': 1, 'status': 'OUTGOING',
+      'arrivalDate': _iso(now.subtract(const Duration(hours: 1))),
+      'autoCompleteAt': _iso(end),
+    });
+    expect(d.arrivalWindowEnd!.difference(end).inSeconds, 0);
+  });
+
+  test('before arrival: no countdown, but the window opening is known', () {
+    final arrival = now.add(const Duration(hours: 5));
+    final d = Deal.fromJson({
+      'id': 1, 'status': 'OUTGOING', 'arrivalAt': _iso(arrival),
+    });
+    expect(d.arrivalWindowEnd, isNull);
+    expect(d.arrivalWindowStartsAt!.difference(arrival).inSeconds, 0);
+  });
+
+  test('US display format parses with its time', () {
+    final d = Deal.fromJson({
+      'id': 1, 'status': 'OUTGOING', 'arrivalDate': '10/05/2026 06:15 PM',
+    });
+    expect(d.arrivalDate, DateTime(2026, 10, 5, 18, 15));
+  });
+
   test('48h window starts at arrival and stops on a dispute', () {
     final arrival = now.subtract(const Duration(hours: 5));
     final ongoing = Deal.fromJson({

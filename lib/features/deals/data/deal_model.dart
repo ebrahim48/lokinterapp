@@ -9,16 +9,18 @@ enum DealStatus { pending, accepted, outgoing, completed, cancelled, disputes }
 // Reasons offered when cancelling — the API stores them as codes
 // (a live deal came back with "PERSONAL_REASONS").
 enum CancelReason {
-  packageConcern('PACKAGE_CONCERN', 'Package Concern'),
-  tripChanged('TRIP_CHANGED', 'Trip Changed/Cancelled'),
-  cantFindItem('CANT_FIND_ITEM', 'Can\'t Find Requested Item'),
-  pointsProblem('DELIVERY_PICKUP_POINTS_PROBLEM', 'Delivery/Pickup points problem'),
-  paymentConcerns('PAYMENT_CONCERNS', 'Payment Concerns'),
-  personalReasons('PERSONAL_REASONS', 'Personal Reasons');
+  packageConcern('PACKAGE_CONCERN', 'cancel_reason_package_concern'),
+  tripChanged('TRIP_CHANGED', 'cancel_reason_trip_changed'),
+  cantFindItem('CANT_FIND_ITEM', 'cancel_reason_cant_find_item'),
+  pointsProblem('DELIVERY_PICKUP_POINTS_PROBLEM', 'cancel_reason_points_problem'),
+  paymentConcerns('PAYMENT_CONCERNS', 'cancel_reason_payment_concerns'),
+  personalReasons('PERSONAL_REASONS', 'cancel_reason_personal_reasons');
 
   final String code;
-  final String label;
-  const CancelReason(this.code, this.label);
+  final String _labelKey;
+  const CancelReason(this.code, this._labelKey);
+
+  String get label => _labelKey.tr;
 }
 
 List<String> _attachUrls(dynamic raw) => (raw as List? ?? const [])
@@ -62,6 +64,11 @@ class Deal {
   final int? countdownSeconds;
   final DateTime? tripDate;
   final DateTime? arrivalDate;
+  /// The exact scheduled arrival (date + time the sender picked), when the
+  /// server returns it — arrivalDate alone is often just the day.
+  final DateTime? arrivalAt;
+  /// Server-computed end of the 48h auto-completion window, when sent.
+  final DateTime? autoCompleteAt;
   final bool fundsLockedForDispute;
   final Map<String, dynamic>? dispute;
   /// When false the "Mark Completed" button must be hidden.
@@ -70,6 +77,14 @@ class Deal {
   final bool hasOpenDispute;
   /// Full dispute detail block returned by GET /disputes/deal/{id}.
   final Map<String, dynamic>? disputeDetails;
+  /// When the traveler accepted — the sender's 24h payment window starts here.
+  final DateTime? acceptedAt;
+  /// End of the post-completion dispute window (2h local / 6h international).
+  final DateTime? disputeWindowEnd;
+  /// Server says a dispute can still be opened.
+  final bool canDispute;
+  /// QR_SCAN | SENDER_CONFIRMATION | AUTO_COMPLETED_48H
+  final String? completionType;
 
   const Deal({
     this.id = 0,
@@ -102,11 +117,17 @@ class Deal {
     this.countdownSeconds,
     this.tripDate,
     this.arrivalDate,
+    this.arrivalAt,
+    this.autoCompleteAt,
     this.fundsLockedForDispute = false,
     this.dispute,
     this.canMarkCompleted = true,
     this.hasOpenDispute = false,
     this.disputeDetails,
+    this.acceptedAt,
+    this.disputeWindowEnd,
+    this.canDispute = false,
+    this.completionType,
   });
 
   // getById omits the item name/notes/attachments that the list row carries,
@@ -158,12 +179,18 @@ class Deal {
         senderFundsHeld: senderFundsHeld,
         countdownSeconds: countdownSeconds,
         tripDate: tripDate,
-        arrivalDate: arrivalDate,
+        arrivalDate: arrivalDate ?? other.arrivalDate,
+        arrivalAt: arrivalAt ?? other.arrivalAt,
+        autoCompleteAt: autoCompleteAt ?? other.autoCompleteAt,
         fundsLockedForDispute: fundsLockedForDispute,
-        dispute: dispute,
+        dispute: dispute ?? other.dispute,
         canMarkCompleted: canMarkCompleted,
         hasOpenDispute: hasOpenDispute,
         disputeDetails: disputeDetails,
+        acceptedAt: acceptedAt ?? other.acceptedAt,
+        disputeWindowEnd: disputeWindowEnd ?? other.disputeWindowEnd,
+        canDispute: canDispute,
+        completionType: completionType ?? other.completionType,
       );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
@@ -186,9 +213,35 @@ class Deal {
         isTraveler: _hasRole(json, 'TRAVELER', 'isTraveler'),
         paymentMethod: json['paymentMethod'] ?? '',
         countdownSeconds: json['countdownSeconds'],
+        arrivalDate: _nullableDate(json['arrivalDate']),
+        arrivalAt: _arrivalAt(json),
+        autoCompleteAt: _autoCompleteAt(json),
         fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
         hasOpenDispute: json['hasOpenDispute'] == true,
+        cancelReason: json['cancelReason'],
+        dispute: _listDispute(json),
+        acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
+        disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
+        canDispute: json['canDispute'] == true,
+        completionType: json['completionType']?.toString(),
       );
+
+  /// List rows carry the dispute at the root (disputeStatus, disputeReason…);
+  /// fold it into the same shape the detail screen reads.
+  static Map<String, dynamic>? _listDispute(Map<String, dynamic> json) {
+    if (json['hasDispute'] != true && json['isDisputed'] != true) return null;
+    return {
+      'id': json['disputeId'],
+      'status': json['disputeStatus'],
+      'statusLabel': json['disputeStatusLabel'],
+      'reasonLabel': json['disputeReason'],
+      'description': json['disputeDescription'],
+      'decisionLabel': json['disputeDecisionLabel'] ?? json['disputeAdminDecision'],
+      'resolutionNotes': json['disputeResolutionNotes'],
+      'resolvedAt': json['disputeResolvedAt'],
+      'attachments': json['disputeAttachments'],
+    };
+  }
 
   // Full detail from /deals/getById/{id}
   /// The API now nests everything the sender filled in under
@@ -258,6 +311,8 @@ class Deal {
       countdownSeconds: json['countdownSeconds'],
       tripDate: _nullableDate(json['tripDate']),
       arrivalDate: _nullableDate(json['arrivalDate']),
+      arrivalAt: _arrivalAt(json),
+      autoCompleteAt: _autoCompleteAt(json),
       fundsLockedForDispute: json['isLockedByDoubleDispute'] ?? false,
       dispute: json['dispute'] is Map
           ? Map<String, dynamic>.from(json['dispute'])
@@ -268,7 +323,79 @@ class Deal {
       disputeDetails: json['disputeDetails'] is Map
           ? Map<String, dynamic>.from(json['disputeDetails'])
           : null,
+      acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
+      disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
+      canDispute: json['canDispute'] == true,
+      completionType: json['completionType']?.toString(),
     );
+  }
+
+  static const paymentWindow = Duration(hours: 24);
+  static const arrivalWindow = Duration(hours: 48);
+
+  /// Online deal accepted but not paid yet — the sender has 24h from
+  /// acceptance before the server auto-cancels it. Null when not running.
+  /// Only while still running — a deadline already behind us means the server
+  /// should have cancelled the deal; a frozen 00:00:00 helps nobody.
+  DateTime? get paymentDeadline {
+    if (status != DealStatus.accepted ||
+        paymentMethod.toUpperCase() != 'STRIPE' ||
+        senderFundsHeld ||
+        acceptedAt == null) {
+      return null;
+    }
+    final end = acceptedAt!.add(paymentWindow);
+    return end.isAfter(DateTime.now()) ? end : null;
+  }
+
+  /// The scheduled arrival — exact date + time when known, else the day.
+  DateTime? get scheduledArrival => arrivalAt ?? arrivalDate;
+
+  /// End of the 48h window: the server's own deadline wins, otherwise 48h
+  /// from the scheduled arrival (never from the deal's creation).
+  DateTime? get _autoCompleteDeadline =>
+      autoCompleteAt ?? scheduledArrival?.add(arrivalWindow);
+
+  /// From the scheduled arrival, 48h to scan the QR, confirm or dispute
+  /// before the server auto-completes. Applies to online and COD deals and
+  /// stops once a dispute is open. Null when not running.
+  DateTime? get arrivalWindowEnd {
+    if (status != DealStatus.outgoing || disputeActive) return null;
+    final end = _autoCompleteDeadline;
+    if (end == null) return null;
+    final now = DateTime.now();
+    if (now.isBefore(end.subtract(arrivalWindow))) return null;
+    return end.isAfter(now) ? end : null;
+  }
+
+  /// Ongoing deal still before its scheduled arrival: when the 48h window
+  /// will open. Null once it has started (or doesn't apply).
+  DateTime? get arrivalWindowStartsAt {
+    if (status != DealStatus.outgoing || disputeActive) return null;
+    final end = _autoCompleteDeadline;
+    if (end == null) return null;
+    final start = end.subtract(arrivalWindow);
+    return DateTime.now().isBefore(start) ? start : null;
+  }
+
+  /// Post-completion dispute window still counting. Null when not running.
+  DateTime? get disputeWindowEndsAt =>
+      status == DealStatus.completed &&
+              canDispute &&
+              !hasDisputeRecord &&
+              disputeWindowEnd != null &&
+              disputeWindowEnd!.isAfter(DateTime.now())
+          ? disputeWindowEnd
+          : null;
+
+  bool get isAutoCompleted =>
+      (completionType ?? '').toUpperCase().startsWith('AUTO_COMPLETED');
+
+  /// Cancelled by the server because the 24h payment window ran out.
+  bool get isAutoCancelledUnpaid {
+    final r = (cancelReason ?? '').toLowerCase();
+    return r.contains('auto-cancel') || r.contains('auto_cancel') ||
+        r.contains('within 24h') || r.contains('24 heures');
   }
 
   bool get isLocal => location == PostLocation.local;
@@ -287,6 +414,8 @@ class Deal {
     if (status == DealStatus.disputes || hasOpenDispute) return true;
     final info = disputeInfo;
     if (info == null) return false;
+    // raw status / isResolved only — the labels are translated
+    if (info['isResolved'] == true) return false;
     final s = '${info['status'] ?? ''}'.toUpperCase();
     return !const ['RESOLV', 'CLOS', 'REJECT', 'CANCEL', 'DISMISS']
         .any(s.contains);
@@ -340,8 +469,8 @@ class Deal {
       (!sdRequired || travelerGuaranteeHeld);
 
   String get paymentLabel => switch (paymentMethod.toUpperCase()) {
-        'STRIPE' => 'Pay Online',
-        'COD' => 'Cash on delivery',
+        'STRIPE' => 'pay_online'.tr,
+        'COD' || 'CASH_ON_DELIVERY' => 'cash_on_delivery'.tr,
         '' => '—',
         _ => paymentMethod,
       };
@@ -349,6 +478,7 @@ class Deal {
   // reason codes read better as the label the user originally picked
   String? get cancelReasonLabel {
     if (cancelReason == null || cancelReason!.isEmpty) return null;
+    if (isAutoCancelledUnpaid) return 'auto_cancelled_unpaid_24h'.tr;
     for (final r in CancelReason.values) {
       if (r.code == cancelReason) return r.label;
     }
@@ -370,8 +500,39 @@ class Deal {
         _ => DealStatus.pending,
       };
 
-  static DateTime? _nullableDate(dynamic raw) =>
-      raw is String && raw.isNotEmpty ? DateTime.tryParse(raw) : null;
+  static DateTime? _nullableDate(dynamic raw) {
+    if (raw is! String || raw.isEmpty) return null;
+    return DateTime.tryParse(raw) ?? _parseUsDate(raw);
+  }
+
+  /// Exact arrival moment: an explicit field, or arrivalDate + arrivalTime.
+  static DateTime? _arrivalAt(Map<String, dynamic> json) {
+    final exact = _nullableDate(
+        json['arrivalAt'] ?? json['arrivalDateTime'] ?? json['arrival_at']);
+    if (exact != null) return exact;
+    final day = _nullableDate(json['arrivalDate']);
+    final time = '${json['arrivalTime'] ?? ''}'.split(':');
+    if (day == null || time.length < 2) return null;
+    final h = int.tryParse(time[0]), m = int.tryParse(time[1]);
+    if (h == null || m == null) return null;
+    return DateTime(day.year, day.month, day.day, h, m);
+  }
+
+  static DateTime? _autoCompleteAt(Map<String, dynamic> json) => _nullableDate(
+      json['autoCompleteAt'] ?? json['autoCompletesAt'] ?? json['arrivalWindowEnd']);
+
+  /// "10/05/2026 06:00 PM" — the API's display format for dates.
+  static DateTime? _parseUsDate(String raw) {
+    final m = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{4})(?:\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])?)?')
+        .firstMatch(raw.trim());
+    if (m == null) return null;
+    var hour = int.tryParse(m.group(4) ?? '') ?? 0;
+    final ampm = m.group(6)?.toUpperCase();
+    if (ampm == 'PM' && hour < 12) hour += 12;
+    if (ampm == 'AM' && hour == 12) hour = 0;
+    return DateTime(int.parse(m.group(3)!), int.parse(m.group(1)!),
+        int.parse(m.group(2)!), hour, int.tryParse(m.group(5) ?? '') ?? 0);
+  }
 
   // dates arrive as "08/01/2026 06:00 AM" or ISO-8601
   static DateTime _parseDate(dynamic raw) {
@@ -389,12 +550,12 @@ class Deal {
 
 extension DealStatusX on DealStatus {
   String get label => switch (this) {
-        DealStatus.pending => 'Pending',
-        DealStatus.accepted => 'Accepted',
-        DealStatus.outgoing => 'Outgoing',
-        DealStatus.completed => 'Completed',
-        DealStatus.cancelled => 'Cancelled',
-        DealStatus.disputes => 'Dispute',
+        DealStatus.pending => 'deal_status_pending'.tr,
+        DealStatus.accepted => 'deal_status_accepted'.tr,
+        DealStatus.outgoing => 'deal_status_ongoing'.tr,
+        DealStatus.completed => 'deal_status_completed'.tr,
+        DealStatus.cancelled => 'deal_status_cancelled'.tr,
+        DealStatus.disputes => 'deal_status_dispute'.tr,
       };
 
   // what /deals/getAllDeals expects in ?status=

@@ -123,7 +123,7 @@ class _WalletActivityPageState extends State<WalletActivityPage> {
     final dealLabel = rawDisplayId.isNotEmpty && !_looksEncrypted(rawDisplayId)
         ? rawDisplayId
         : t.dealId != 0
-            ? 'Deal #${t.dealId}'
+            ? 'deal_number'.trParams({'id': '${t.dealId}'})
             : '';
     final status = t.statusLabel.isNotEmpty
         ? t.statusLabel

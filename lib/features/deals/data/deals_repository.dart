@@ -95,7 +95,14 @@ class DealsRepository {
       // same as posts: a double serialises to "10.0" and fails integer validation
       'weight': weight.round(),
       'tripDate': _ymd(tripDate),
-      'arrivalDate': _ymd(arrivalDate),
+      // the 48h auto-completion window runs from the scheduled arrival, and the
+      // server reads that moment from arrivalDate alone (a datetime column,
+      // validated with Laravel's `date` rule) — send the full UTC instant, not
+      // just the day, or the window starts at midnight. arrivalTime/arrivalAt
+      // ride along for any reader that wants them separately.
+      'arrivalDate': arrivalDate.toUtc().toIso8601String(),
+      'arrivalTime': _hm(arrivalDate),
+      'arrivalAt': arrivalDate.toUtc().toIso8601String(),
       'sdRequired': sdRequired ? 1 : 0,
       if (itemName != null && itemName.isNotEmpty) 'itemName': itemName,
       if (itemLink != null && itemLink.isNotEmpty) 'itemLink': itemLink,
@@ -117,6 +124,20 @@ class DealsRepository {
 
   String _ymd(DateTime d) =>
       '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  String _hm(DateTime d) =>
+      '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
+
+  // Dio sends files as application/octet-stream unless told otherwise, which
+  // a mime-checking upload rule can reject — name the video type explicitly.
+  Future<MultipartFile> _videoPart(String filePath, String fileName) =>
+      MultipartFile.fromFile(
+        filePath,
+        filename: fileName,
+        contentType: fileName.toLowerCase().endsWith('.mov')
+            ? DioMediaType('video', 'quicktime')
+            : DioMediaType('video', 'mp4'),
+      );
 
   Future<Deal> getById(int id) async {
     final res = await _api.get('/deals/getById/$id');
@@ -183,7 +204,7 @@ class DealsRepository {
     Duration timeout = const Duration(seconds: 300),
   }) async {
     final form = FormData.fromMap({
-      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+      'video': await _videoPart(filePath, fileName),
     });
     unwrapData(await _api.post(
       '/deals/$dealId/uploadPickupVideo',
@@ -202,18 +223,25 @@ class DealsRepository {
     String filePath,
     String fileName, {
     void Function(int sent, int total)? onProgress,
+    Duration timeout = const Duration(seconds: 600),
   }) async {
     final form = FormData.fromMap({
-      'video': await MultipartFile.fromFile(filePath, filename: fileName),
+      'video': await _videoPart(filePath, fileName),
     });
+    // the default 30s receive timeout is too short for a video upload
     unwrapData(await _api.post('/deals/$referenceId/uploadDeliveryVideo',
-        data: form, onSendProgress: onProgress));
+        data: form,
+        onSendProgress: onProgress,
+        options: Options(receiveTimeout: timeout, sendTimeout: timeout)));
     DataBus.changed(DataTopic.deals);
   }
 
   // completion goes by reference, not numeric id
-  Future<void> markCompleted(String referenceId) async {
-    unwrapData(await _api.post('/deals/markAsCompleted/$referenceId'));
+  /// [completionType]: QR_SCAN (traveler scanned the receiver's code) or
+  /// SENDER_CONFIRMATION (sender marked it delivered).
+  Future<void> markCompleted(String referenceId, {String? completionType}) async {
+    unwrapData(await _api.post('/deals/markAsCompleted/$referenceId',
+        data: {if (completionType != null) 'completion_type': completionType}));
     DataBus.changed(DataTopic.deals);
   }
 
@@ -272,8 +300,9 @@ class DealsRepository {
 
   /// ITEM_DAMAGED / WRONG_ITEM require photo/video evidence — enforced
   /// server-side, mirrored in the sheet before calling this.
-  /// Supports multiple images via `attachments[]` field; single `attachment`
-  /// is still accepted for backward compatibility.
+  /// Every picked file goes up as `proof_files[]` on createDispute — the
+  /// endpoint that stores all of them (the older /disputes/deal/{id} route
+  /// kept only one, so the admin saw a single image).
   Future<void> createDispute(
     int dealId, {
     required String reason,
@@ -288,27 +317,19 @@ class DealsRepository {
     ];
 
     final form = FormData.fromMap({
+      'deal_id': dealId,
       'reason': reason,
       if (description != null && description.isNotEmpty) 'description': description,
     });
 
-    // attachments[] carries every image; the legacy single `attachment` field
-    // still gets the first one so older API builds keep their evidence
     for (final path in allPaths) {
       form.files.add(MapEntry(
-        'attachments[]',
+        'proof_files[]',
         await MultipartFile.fromFile(path, filename: path.split('/').last),
       ));
     }
-    if (allPaths.isNotEmpty) {
-      form.files.add(MapEntry(
-        'attachment',
-        await MultipartFile.fromFile(allPaths.first,
-            filename: allPaths.first.split('/').last),
-      ));
-    }
 
-    unwrapData(await _api.post('/disputes/deal/$dealId', data: form));
+    unwrapData(await _api.post('/disputes/createDispute/$dealId', data: form));
     DataBus.changed(DataTopic.deals);
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get/get.dart' hide FormData, MultipartFile, Response;
 import '../../../core/services/api_envelope.dart';
 import '../../../core/services/api_service.dart';
@@ -294,7 +295,10 @@ class PostsRepository {
       final list = data['list'];
       if (list is! List || list.isEmpty) return [];
       return list.whereType<Map>().map((e) => Map<String, dynamic>.from(e)).toList();
-    } catch (_) {
+    } catch (e) {
+      // the popup is a bonus, never a blocker — but leave a trace when it
+      // silently doesn't show
+      debugPrint('recommendedTransporters($fromCountry→$toCountry) failed: $e');
       return [];
     }
   }

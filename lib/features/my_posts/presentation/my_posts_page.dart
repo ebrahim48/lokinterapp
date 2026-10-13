@@ -117,41 +117,44 @@ class _MyPostsPageState extends State<MyPostsPage> {
   }
 
   Widget _postWithActions(Post post) {
-    return Column(
+    // the buttons sit inside the card; on the coral request card they go white
+    final onCoral = !post.isTrip;
+    final editColor = onCoral ? Colors.white : AppPalette.navy;
+    final deleteColor = onCoral ? Colors.white : AppPalette.primary;
+    final actions = Row(
       children: [
-        PostCard(post: post, showChat: false, showUser: false),
-        SizedBox(height: 8.h),
-        Row(
-          children: [
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () async {
-                  final saved = await Get.to<bool>(() => post.isTrip
-                      ? PostTripPage(editId: post.id)
-                      : PostRequestPage(editId: post.id));
-                  if (saved == true) _load();
-                },
-                icon: Icon(Icons.edit_outlined, size: 16.sp),
-                label: Text('edit'.tr),
-                style: OutlinedButton.styleFrom(minimumSize: Size(0, 42.h)),
-              ),
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () async {
+              final saved = await Get.to<bool>(() => post.isTrip
+                  ? PostTripPage(editId: post.id)
+                  : PostRequestPage(editId: post.id));
+              if (saved == true) _load();
+            },
+            icon: Icon(Icons.edit_outlined, size: 16.sp, color: editColor),
+            label: Text('edit'.tr, style: TextStyle(color: editColor)),
+            style: OutlinedButton.styleFrom(
+              minimumSize: Size(0, 40.h),
+              side: BorderSide(color: editColor.withValues(alpha: 0.35)),
             ),
-            SizedBox(width: 12.w),
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () => _confirmDelete(post),
-                icon: Icon(Icons.delete_outline, size: 16.sp, color: AppPalette.primary),
-                label: Text('delete'.tr, style: TextStyle(color: AppPalette.primary)),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size(0, 42.h),
-                  side: const BorderSide(color: AppPalette.primary),
-                ),
-              ),
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () => _confirmDelete(post),
+            icon: Icon(Icons.delete_outline, size: 16.sp, color: deleteColor),
+            label: Text('delete'.tr, style: TextStyle(color: deleteColor)),
+            style: OutlinedButton.styleFrom(
+              minimumSize: Size(0, 40.h),
+              side: BorderSide(color: deleteColor),
             ),
-          ],
+          ),
         ),
       ],
     );
+    return PostCard(
+        post: post, showChat: false, showUser: false, footer: actions);
   }
 
   void _confirmDelete(Post post) {
