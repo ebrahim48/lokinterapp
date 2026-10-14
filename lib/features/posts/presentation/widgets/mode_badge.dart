@@ -88,7 +88,7 @@ class ModeBadge extends StatelessWidget {
         color: AppPalette.intlAccent.withValues(alpha: 0.15),
         shape: BoxShape.circle,
       ),
-      child: Icon(Icons.flight, color: AppPalette.intlAccent, size: 18.sp),
+      child: Icon(Icons.public, color: AppPalette.intlAccent, size: 18.sp),
     );
   }
 }

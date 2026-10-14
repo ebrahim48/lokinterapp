@@ -85,6 +85,17 @@ class Deal {
   final bool canDispute;
   /// QR_SCAN | SENDER_CONFIRMATION | AUTO_COMPLETED_48H
   final String? completionType;
+  /// The signed-in user already rated this deal — one rating per deal.
+  final bool hasRated;
+  /// Server's say on showing "Rate": completed, a participant, not yet rated.
+  /// Null on older payloads.
+  final bool? canRate;
+  /// Re-request tracking: a rejected sender may try up to [maxAttempts] times
+  /// with the same traveler. Null when the API doesn't send it.
+  final int? dealAttemptNumber;
+  final int? remainingAttempts;
+  final int maxAttempts;
+  final String? attemptLabel;
 
   const Deal({
     this.id = 0,
@@ -128,6 +139,12 @@ class Deal {
     this.disputeWindowEnd,
     this.canDispute = false,
     this.completionType,
+    this.hasRated = false,
+    this.canRate,
+    this.dealAttemptNumber,
+    this.remainingAttempts,
+    this.maxAttempts = 3,
+    this.attemptLabel,
   });
 
   // getById omits the item name/notes/attachments that the list row carries,
@@ -140,6 +157,38 @@ class Deal {
     }
     if (v == 'DELIVERITEMS' || v == 'SEND') return 'SEND';
     return v;
+  }
+
+  static int? _int(dynamic v) => v is num ? v.toInt() : int.tryParse('${v ?? ''}');
+
+  static String? _str(dynamic v) {
+    final t = v?.toString().trim() ?? '';
+    return t.isEmpty ? null : t;
+  }
+
+  /// Whether this user may rate the deal now. The server's canRate wins; on
+  /// older payloads only the sender of a completed, unrated deal may.
+  bool get rateable =>
+      status == DealStatus.completed &&
+      !hasRated &&
+      (canRate ?? !isTraveler);
+
+  /// "Attempt 2 of 3" — the server's label, or ours from the numbers.
+  String? get attemptText {
+    if (attemptLabel != null) return attemptLabel;
+    final n = dealAttemptNumber;
+    if (n == null) return null;
+    return 'attempt_x_of_y'.trParams({'n': '$n', 'max': '$maxAttempts'});
+  }
+
+  /// Shown after a rejection: how many re-requests are left.
+  String? get remainingAttemptsText {
+    final left = remainingAttempts;
+    if (left == null) return null;
+    if (left <= 0) return 'maximum_attempts_reached'.tr;
+    return left == 1
+        ? 'one_attempt_remaining'.tr
+        : 'attempts_remaining'.trParams({'n': '$left'});
   }
 
   /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
@@ -191,6 +240,12 @@ class Deal {
         disputeWindowEnd: disputeWindowEnd ?? other.disputeWindowEnd,
         canDispute: canDispute,
         completionType: completionType ?? other.completionType,
+        hasRated: hasRated || other.hasRated,
+        canRate: canRate ?? other.canRate,
+        dealAttemptNumber: dealAttemptNumber ?? other.dealAttemptNumber,
+        remainingAttempts: remainingAttempts ?? other.remainingAttempts,
+        maxAttempts: maxAttempts,
+        attemptLabel: attemptLabel ?? other.attemptLabel,
       );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
@@ -224,6 +279,12 @@ class Deal {
         disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
         canDispute: json['canDispute'] == true,
         completionType: json['completionType']?.toString(),
+        hasRated: json['hasRated'] == true,
+        canRate: json['canRate'] is bool ? json['canRate'] as bool : null,
+        dealAttemptNumber: _int(json['dealAttemptNumber']),
+        remainingAttempts: _int(json['remainingAttempts']),
+        maxAttempts: _int(json['maxAttempts']) ?? 3,
+        attemptLabel: _str(json['attemptLabel']),
       );
 
   /// List rows carry the dispute at the root (disputeStatus, disputeReason…);
@@ -327,6 +388,12 @@ class Deal {
       disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
       canDispute: json['canDispute'] == true,
       completionType: json['completionType']?.toString(),
+      hasRated: json['hasRated'] == true,
+      canRate: json['canRate'] is bool ? json['canRate'] as bool : null,
+      dealAttemptNumber: _int(json['dealAttemptNumber']),
+      remainingAttempts: _int(json['remainingAttempts']),
+      maxAttempts: _int(json['maxAttempts']) ?? 3,
+      attemptLabel: _str(json['attemptLabel']),
     );
   }
 

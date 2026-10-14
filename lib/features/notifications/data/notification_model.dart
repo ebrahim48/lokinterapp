@@ -133,7 +133,7 @@ extension NotifTypeX on NotifType {
   IconData get icon => switch (this) {
         NotifType.deal => Icons.handshake_outlined,
         NotifType.chat => Icons.chat_bubble_outline,
-        NotifType.trip => Icons.flight_takeoff,
+        NotifType.trip => Icons.luggage_outlined,
         NotifType.request => Icons.inventory_2_outlined,
         NotifType.verification => Icons.verified_outlined,
       };

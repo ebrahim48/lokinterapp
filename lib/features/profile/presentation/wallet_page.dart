@@ -548,7 +548,7 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
 
   /// Minimum withdrawal allowed for the currently selected method.
   double get _minimumAmount => switch (_selected?.type) {
-        'WISE' => 50.0,
+        'WISE' => 10.0,
         'STRIPE' => 10.0,
         'PAYPAL' => 10.0,
         _ => 0.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/utils/map_link.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
@@ -14,6 +15,7 @@ import '../data/posts_repository.dart';
 import 'widgets/mode_badge.dart';
 import 'widgets/transporter_chip.dart';
 import '../../../core/widgets/image_viewer.dart';
+import '../../../core/widgets/user_avatar.dart';
 
 class PostDetailsPage extends StatelessWidget {
   final Post post;
@@ -170,20 +172,33 @@ class PostDetailsPage extends StatelessWidget {
   }
 
   Widget _metaList(BuildContext context) {
-    final rows = <(IconData, String, String)>[
-      (Icons.event_outlined, post.isTrip ? 'trip_date'.tr : 'before'.tr, post.dateText),
-      (Icons.luggage_outlined, 'weight'.tr, post.weightDetailText),
+    // a location row opens Maps when tapped (null = plain row)
+    VoidCallback? mapTap(String? place, String? link) =>
+        hasPlace(place) || link != null ? () => openMapLink(link, place) : null;
+    final rows = <(IconData, String, String, VoidCallback?)>[
+      (Icons.event_outlined, post.isTrip ? 'trip_date'.tr : 'before'.tr, post.dateText, null),
+      (Icons.luggage_outlined, post.isTrip ? 'available_weight'.tr : 'weight'.tr,
+          post.weightDetailText, null),
+      // requests always show both ends, "-" when one wasn't given
+      if (!post.isTrip) ...[
+        (Icons.trip_origin, 'pickup_location'.tr,
+            hasPlace(post.pickupLocation) ? post.pickupLocation!.trim() : '-',
+            mapTap(post.pickupLocation, post.pickupLocationLink)),
+        (Icons.location_on_outlined, 'dropoff_location'.tr,
+            hasPlace(post.dropoffLocation) ? post.dropoffLocation!.trim() : '-',
+            mapTap(post.dropoffLocation, post.dropoffLocationLink)),
+      ],
       // every category the sender picked, not just the first
       if (!post.isTrip && post.categoriesText.isNotEmpty)
-        (Icons.category_outlined, 'category'.tr, post.categoriesText),
+        (Icons.category_outlined, 'category'.tr, post.categoriesText, null),
       // trips list what they won't carry
       if (post.isTrip && post.rejectedCategories.isNotEmpty)
-        (Icons.block_outlined, 'not_carried'.tr, post.rejectedCategories.join(', ')),
+        (Icons.block_outlined, 'not_carried'.tr, post.rejectedCategories.join(', '), null),
       if (!post.isTrip && post.profitText != null)
-        (Icons.payments_outlined, 'traveler_profit'.tr, post.profitText!),
+        (Icons.payments_outlined, 'traveler_profit'.tr, post.profitText!, null),
       // whatever the poster typed in the notes box
       if ((post.notes ?? '').isNotEmpty)
-        (Icons.notes_outlined, 'notes'.tr, post.notes!),
+        (Icons.notes_outlined, 'notes'.tr, post.notes!, null),
     ];
     final cs = Theme.of(context).colorScheme;
     return Container(
@@ -196,7 +211,9 @@ class PostDetailsPage extends StatelessWidget {
         children: [
           for (var i = 0; i < rows.length; i++) ...[
             if (i > 0) Divider(height: 1, color: cs.outline),
-            Padding(
+            InkWell(
+              onTap: rows[i].$4,
+              child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,11 +231,13 @@ class PostDetailsPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w700,
-                          color: cs.onSurface),
+                          color: rows[i].$4 != null ? AppPalette.primary : cs.onSurface,
+                          decoration: rows[i].$4 != null ? TextDecoration.underline : null),
                     ),
                   ),
                 ],
               ),
+            ),
             ),
           ],
         ],
@@ -243,12 +262,7 @@ class PostDetailsPage extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 22.r,
-            backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
-            child: Text(post.user.name[0],
-                style: const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700)),
-          ),
+          UserAvatar(name: post.user.name, url: post.user.avatarUrl, radius: 22.r),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

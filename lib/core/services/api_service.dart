@@ -35,7 +35,11 @@ class ApiService {
         onRequest: (options, handler) {
           final session = Get.isRegistered<SessionService>() ? Get.find<SessionService>() : null;
           final token = session?.accessToken;
-          if (token != null && token.isNotEmpty) {
+          // a caller may pin its own bearer (logout cleanup runs with the
+          // old token after the session is already cleared)
+          if (token != null &&
+              token.isNotEmpty &&
+              !options.headers.containsKey('Authorization')) {
             options.headers['Authorization'] = 'Bearer $token';
           }
           // the active UI language wins (priority 1) — server messages + CMS
@@ -112,30 +116,67 @@ class ApiService {
     }
   }
 
+  // one refresh at a time: the refresh token rotates, so two parallel 401s
+  // refreshing with the same token would make the second one fail and log
+  // the user out
+  Future<String?>? _refreshing;
+
   Future<Response?> _refreshAndRetry(RequestOptions failed) async {
     final session = Get.isRegistered<SessionService>() ? Get.find<SessionService>() : null;
-    final refresh = session?.refreshToken;
-    if (session == null || refresh == null || refresh.isEmpty) return null;
+    if (session == null || !session.loggedIn) return null;
 
+    // the token may already have been refreshed while this request was out
+    final sentWith = failed.headers['Authorization'];
+    String? access = session.accessToken;
+    if (sentWith == 'Bearer $access') {
+      access = await (_refreshing ??= _refresh(session)
+        ..whenComplete(() => _refreshing = null));
+    }
+    if (access == null) return null;
+    try {
+      failed.headers['Authorization'] = 'Bearer $access';
+      return await _dio.fetch(failed);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// New access token, or null. Only an explicit rejection of the refresh
+  /// (401/403) ends the session — no internet, a timeout or a server error
+  /// must never log the user out.
+  Future<String?> _refresh(SessionService session) async {
+    final refresh = session.refreshToken;
+    if (refresh == null || refresh.isEmpty) {
+      await _expire(session);
+      return null;
+    }
     try {
       // bare client so a 401 here doesn't loop back into this interceptor;
       // the backend wants both tokens in the body, not a bearer header
-      final res = await Dio(BaseOptions(baseUrl: ApiConstants.baseUrl)).post(
+      final res = await Dio(BaseOptions(
+        baseUrl: ApiConstants.baseUrl,
+        headers: ApiConstants.headers,
+      )).post(
         '/auth/refreshToken',
         data: {'accessToken': session.accessToken, 'refreshToken': refresh},
       );
       final token = res.data?['data']?['token'] ?? res.data?['data'] ?? {};
-      final access = token['accessToken'] as String?;
-      if (access == null) throw Exception('no token in refresh response');
+      final access = token is Map ? token['accessToken'] as String? : null;
+      if (access == null) return null;
       await session.setTokens(access, token['refreshToken'] ?? refresh);
-
-      failed.headers['Authorization'] = 'Bearer $access';
-      return await _dio.fetch(failed);
+      return access;
+    } on DioException catch (e) {
+      final code = e.response?.statusCode;
+      if (code == 401 || code == 403) await _expire(session);
+      return null;
     } catch (_) {
-      await session.clear();
-      onSessionExpired?.call();
       return null;
     }
+  }
+
+  Future<void> _expire(SessionService session) async {
+    await session.clear();
+    onSessionExpired?.call();
   }
 
   Dio get dio => _dio;

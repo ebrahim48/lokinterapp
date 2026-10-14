@@ -1,3 +1,5 @@
+import '../../../../core/utils/media_url.dart';
+
 class AuthUser {
   final int id;
   final String fullName;
@@ -135,7 +137,7 @@ class AuthUser {
         lastName: json['lastName'],
         phone: json['phone']?.toString(),
         country: json['country'],
-        imageUrl: json['imageUrl'] ?? json['avatarUrl'],
+        imageUrl: avatarUrlFrom(json),
         identityVerified: json['identityVerified'] ?? false,
         notificationsCount: json['notificationsCount'] ?? 0,
         lang: json['lang'],

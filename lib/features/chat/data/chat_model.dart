@@ -96,14 +96,24 @@ const dealClosedStatuses = ['CANCELED', 'CANCELLED', 'REJECTED'];
 class ChatDealRef {
   final int id;
   final String status;
+  // re-requests left after a rejection (3 per sender/traveler pair); null when
+  // the API doesn't say
+  final int? remainingAttempts;
 
-  const ChatDealRef({required this.id, this.status = ''});
+  const ChatDealRef({required this.id, this.status = '', this.remainingAttempts});
+
+  bool get rejected => status.toUpperCase() == 'REJECTED';
 
   static ChatDealRef? fromJson(dynamic json) {
     if (json is! Map || json['id'] == null) return null;
     final id = json['id'] is int ? json['id'] as int : int.tryParse('${json['id']}');
     if (id == null) return null;
-    return ChatDealRef(id: id, status: '${json['status'] ?? ''}');
+    final left = json['remainingAttempts'];
+    return ChatDealRef(
+      id: id,
+      status: '${json['status'] ?? ''}',
+      remainingAttempts: left is num ? left.toInt() : int.tryParse('${left ?? ''}'),
+    );
   }
 }
 

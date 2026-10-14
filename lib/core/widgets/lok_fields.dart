@@ -40,6 +40,8 @@ class LokTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final bool readOnly;
+  // trailing unit shown inside the field, e.g. the currency code
+  final String? suffixText;
 
   const LokTextField({
     super.key,
@@ -51,6 +53,7 @@ class LokTextField extends StatelessWidget {
     this.keyboardType,
     this.controller,
     this.readOnly = false,
+    this.suffixText,
   });
 
   @override
@@ -70,6 +73,7 @@ class LokTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: icon == null ? null : Icon(icon, size: 18.sp),
+            suffixText: suffixText,
           ),
         ),
       ],

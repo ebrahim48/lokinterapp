@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -100,16 +101,30 @@ class AuthRepository {
     return user;
   }
 
+  /// Clears the local session right away so the UI can leave instantly; the
+  /// server side (device token, token revoke) finishes in the background with
+  /// the old bearer pinned.
   Future<void> logout() async {
-    // drop the device token first — it needs the bearer token that logout is
-    // about to invalidate, or the next account here inherits these pushes
-    await Get.find<PushService>().stop();
-    try {
-      await _api.post('/auth/logout');
-    } catch (_) {
-      // token may already be dead — clear locally either way
-    }
+    final token = _session.accessToken;
+    unawaited(_serverLogout(token));
     await _session.clear();
+  }
+
+  Future<void> _serverLogout(String? token) async {
+    if (token == null || token.isEmpty) return;
+    final auth = Options(headers: {'Authorization': 'Bearer $token'});
+    // drop the device token first — the next account here mustn't inherit
+    // these pushes
+    try {
+      await Get.find<PushService>()
+          .stop(options: auth)
+          .timeout(const Duration(seconds: 10));
+    } catch (_) {}
+    try {
+      await _api.post('/auth/logout', options: auth).timeout(const Duration(seconds: 10));
+    } catch (_) {
+      // token may already be dead — the local session is gone either way
+    }
   }
 
   /// Permanent account removal. The backend wipes the account and kills the

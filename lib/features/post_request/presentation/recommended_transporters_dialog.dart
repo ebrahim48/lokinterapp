@@ -3,6 +3,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/theme/lokinter_theme.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
@@ -79,7 +80,11 @@ class RecommendedTransportersDialog extends StatelessWidget {
     final eligible = filter(raw);
     if (eligible.isEmpty) return false;
     Get.dialog(
-      RecommendedTransportersDialog(transporters: eligible, postId: postId),
+      // the recommended section keeps its light look in dark mode too
+      Theme(
+        data: LokinterTheme.light,
+        child: RecommendedTransportersDialog(transporters: eligible, postId: postId),
+      ),
       // only "Close" or opening a chat dismisses it
       barrierDismissible: false,
     );

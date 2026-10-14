@@ -14,6 +14,7 @@ import 'increase_visibility_page.dart';
 import 'wallet_page.dart';
 import '../../../core/widgets/user_badge.dart';
 import '../../posts/presentation/widgets/transporter_chip.dart';
+import '../../../core/widgets/user_avatar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -114,14 +115,11 @@ class ProfilePage extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
+              UserAvatar(
+                name: name,
+                url: user?.imageUrl,
                 radius: 30.r,
-                backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
-                child: Text(
-                  name.isEmpty ? '?' : name[0],
-                  style: TextStyle(
-                      color: AppPalette.primary, fontSize: 24.sp, fontWeight: FontWeight.w800),
-                ),
+                fontSize: 24.sp,
               ),
               SizedBox(width: 14.w),
               Expanded(

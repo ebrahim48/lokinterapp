@@ -123,7 +123,7 @@ class PostRequestPage extends StatelessWidget {
               SizedBox(width: 12.w),
               Expanded(
                 child: OptionCard(
-                  icon: Icons.flight,
+                  icon: Icons.public,
                   iconColor: AppPalette.intlAccent,
                   title: 'international'.tr,
                   subtitle: 'from_one_country_to_another'.tr,
@@ -277,14 +277,16 @@ class PostRequestPage extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // the unit follows the picked currency, not a hardcoded USD
             Expanded(
-              child: LokTextField(
-                label: 'traveler_profit_2'.tr,
-                hint: 'offered_profit'.tr,
-                icon: Icons.payments_outlined,
-                keyboardType: TextInputType.number,
-                controller: c.profit,
-              ),
+              child: Obx(() => LokTextField(
+                    label: 'traveler_profit_2'.tr,
+                    hint: 'offered_profit'.tr,
+                    icon: Icons.payments_outlined,
+                    keyboardType: TextInputType.number,
+                    controller: c.profit,
+                    suffixText: c.currency.value,
+                  )),
             ),
             SizedBox(width: 12.w),
             SizedBox(
@@ -292,7 +294,7 @@ class PostRequestPage extends StatelessWidget {
               child: Obx(() => LokDropdownField(
                     label: 'currency'.tr,
                     hint: 'usd'.tr,
-                    icon: Icons.attach_money,
+                    icon: Icons.currency_exchange,
                     options: _currencies,
                     value: c.currency.value,
                     onChanged: (v) => c.currency.value = v,
