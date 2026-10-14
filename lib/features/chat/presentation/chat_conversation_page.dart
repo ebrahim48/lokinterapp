@@ -27,6 +27,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 import '../../../core/utils/media_url.dart';
 import '../../reviews/presentation/user_reviews_page.dart';
+import '../../../core/widgets/user_avatar.dart';
 
 class ChatConversationPage extends StatelessWidget {
   final PostUser user;
@@ -70,17 +71,11 @@ class ChatConversationPage extends StatelessWidget {
                   UserReviewsPage(userId: user.id, userName: user.name)),
           child: Row(
           children: [
-            CircleAvatar(
+            UserAvatar(
+              name: user.name,
+              url: user.avatarUrl,
               radius: 16.r,
-              backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
-              child: Text(
-                user.name.isEmpty ? '?' : user.name[0],
-                style: TextStyle(
-                  color: AppPalette.primary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13.sp,
-                ),
-              ),
+              fontSize: 13.sp,
             ),
             SizedBox(width: 10.w),
             Expanded(
@@ -137,6 +132,18 @@ class ChatConversationPage extends StatelessWidget {
                   ),
                 );
               }
+              // "Click Here" only on the first system message of a deal — the
+              // request the carrier must accept or reject — and only while that
+              // deal is still pending. After that the big deal-status button
+              // at the bottom drives every action.
+              final deal = c.deal.value;
+              final pending = deal != null && deal.status.toUpperCase() == 'PENDING';
+              final actionable = <int>{};
+              if (pending) {
+                final first = c.messages.firstWhereOrNull(
+                    (m) => m.isSystem && m.dealId == deal.id);
+                if (first != null) actionable.add(first.id);
+              }
               return ListView.builder(
                 reverse: true,
                 padding: EdgeInsets.all(16.w),
@@ -144,7 +151,8 @@ class ChatConversationPage extends StatelessWidget {
                 itemBuilder: (_, i) {
                   final m = c.messages[c.messages.length - 1 - i];
                   return m.isSystem
-                      ? _SystemBubble(message: m)
+                      ? _SystemBubble(
+                          message: m, showAction: actionable.contains(m.id))
                       : _Bubble(message: m, peer: user);
                 },
               );
@@ -162,11 +170,24 @@ class ChatConversationPage extends StatelessWidget {
             // never both propose: only the deal SENDER gets Confirm (the
             // delivery creator, or the trip finder), and only while no deal is
             // live. Anyone else with a deal gets its status button instead.
-            if (post.canRequestDeal(myId, deal?.status)) {
-              return _confirmBar(context, c);
+            // after a rejection both sides see how many re-requests are left;
+            // once none are, the sender can't propose again
+            final left = deal != null && deal.rejected ? deal.remainingAttempts : null;
+            final Widget bar;
+            if (left != null && left <= 0) {
+              bar = deal != null ? _dealBar(context, c) : const SizedBox.shrink();
+            } else if (post.canRequestDeal(myId, deal?.status)) {
+              bar = _confirmBar(context, c);
+            } else if (deal != null) {
+              bar = _dealBar(context, c);
+            } else {
+              return const SizedBox.shrink();
             }
-            if (deal != null) return _dealBar(context, c);
-            return const SizedBox.shrink();
+            if (left == null) return bar;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [_attemptsNote(context, left), bar],
+            );
           }),
           _composer(context, c, cs),
         ],
@@ -223,6 +244,36 @@ class ChatConversationPage extends StatelessWidget {
                 color: cs.onSurface,
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _attemptsNote(BuildContext context, int left) {
+    final cs = Theme.of(context).colorScheme;
+    final text = left <= 0
+        ? 'maximum_attempts_reached'.tr
+        : left == 1
+            ? 'one_attempt_remaining'.tr
+            : 'attempts_remaining'.trParams({'n': '$left'});
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      color: (left <= 0 ? AppPalette.primary : AppPalette.intlAccent)
+          .withValues(alpha: 0.1),
+      child: Row(
+        children: [
+          Icon(left <= 0 ? Icons.block : Icons.replay,
+              size: 15.sp, color: left <= 0 ? AppPalette.primary : cs.onSurfaceVariant),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text(text,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: left <= 0 ? AppPalette.primary : cs.onSurface,
+                )),
           ),
         ],
       ),
@@ -521,17 +572,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('arrival_must_be_within_3_days_of_the_trip_date'.tr);
       return;
     }
-    // buy-and-deliver needs the item named, linked and paid through Stripe
+    // buy-and-deliver needs the item named and linked (card or cash on delivery)
     if (_isBuyAndDeliver && _itemName.text.trim().isEmpty) {
       toast('add_the_item_name'.tr);
       return;
     }
     if (_isBuyAndDeliver && _itemLink.text.trim().isEmpty) {
       toast('add_the_item_link'.tr);
-      return;
-    }
-    if (_isBuyAndDeliver && !_isStripe) {
-      toast('buy_and_deliver_deals_must_be_paid_by_card'.tr);
       return;
     }
     // a security deposit is a card hold — impossible with cash
@@ -664,8 +711,8 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       }),
                     ),
                     SizedBox(height: 14.h),
-                    // profit sits beside the value field — the item value for a
-                    // buy, the (grayed until required) deposit amount for a send
+                    // profit sits beside the item value for a buy; a send's
+                    // deposit amount only appears once the deposit is required
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -677,32 +724,30 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                             required: true,
                             keyboardType: TextInputType.number,
                             controller: _cost,
+                            suffixText: 'usd'.tr,
                           ),
                         ),
-                        SizedBox(width: 12.w),
-                        Expanded(
-                          child: LokTextField(
-                            label: _isBuyAndDeliver
-                                ? 'item_value'.tr
-                                : 'security_deposit_amount'.tr,
-                            hint: _isBuyAndDeliver
-                                ? 'item_worth'.tr
-                                : 'held_not_charged'.tr,
-                            icon: Icons.sell_outlined,
-                            required: _isStripe && (_isBuyAndDeliver || _securityDeposit),
-                            // send: stays grayed until a deposit is required
-                            readOnly: !_isBuyAndDeliver && !_securityDeposit,
-                            keyboardType: TextInputType.number,
-                            controller: _itemValue,
+                        if (_isBuyAndDeliver) ...[
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: LokTextField(
+                              label: 'item_value'.tr,
+                              hint: 'item_worth'.tr,
+                              icon: Icons.sell_outlined,
+                              required: _isStripe,
+                              keyboardType: TextInputType.number,
+                              controller: _itemValue,
+                              suffixText: 'usd'.tr,
+                            ),
                           ),
-                        ),
+                        ],
                       ],
                     ),
                     SizedBox(height: 10.h),
                     // live FX estimate for the amount just entered
                     CurrencyConverter(amount: _cost),
-                    // send + card: offer the deposit hold, with the same wording
-                    // the website shows under the toggle
+                    // send + card: offer the deposit hold; the amount field stays
+                    // hidden until the sender asks for a deposit
                     if (!_isBuyAndDeliver && _isStripe) ...[
                       SizedBox(height: 12.h),
                       LokCheckbox(
@@ -724,6 +769,18 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                           ),
                         ),
                       ),
+                      if (_securityDeposit) ...[
+                        SizedBox(height: 12.h),
+                        LokTextField(
+                          label: 'security_deposit_amount'.tr,
+                          hint: 'held_not_charged'.tr,
+                          icon: Icons.sell_outlined,
+                          required: true,
+                          keyboardType: TextInputType.number,
+                          controller: _itemValue,
+                          suffixText: 'usd'.tr,
+                        ),
+                      ],
                     ],
                     SizedBox(height: 14.h),
                     LokTextField(
@@ -991,7 +1048,9 @@ class _Attachment extends StatelessWidget {
 // to the deal they refer to.
 class _SystemBubble extends StatelessWidget {
   final ChatMessage message;
-  const _SystemBubble({required this.message});
+  // only the deal's opening request keeps its inline button
+  final bool showAction;
+  const _SystemBubble({required this.message, this.showAction = false});
 
   Future<void> _openDeal() async {
     final id = message.dealId;
@@ -1021,7 +1080,7 @@ class _SystemBubble extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.sp, color: Colors.white, height: 1.4),
           ),
-          if (message.dealId != null) ...[
+          if (showAction && message.dealId != null) ...[
             SizedBox(height: 10.h),
             ElevatedButton(
               onPressed: _openDeal,

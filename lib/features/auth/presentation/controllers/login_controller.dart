@@ -25,7 +25,7 @@ class LoginController extends GetxController {
     busy.value = true;
     try {
       await _repo.login(email.text.trim(), password.text);
-      Get.offAll(() => const MainShell());
+      MainShell.enter();
     } on AppException catch (e) {
       toastError(e);
     } finally {

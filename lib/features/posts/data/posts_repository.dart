@@ -14,8 +14,8 @@ class PostsRepository {
   // the website posts these fixed values for fields it doesn't show but the
   // API still validates as required
   static const _defaultAirline = 'Cairo Airport';
-  // recognised server-side and echoed back as "No specific date and time"
-  static const _noDate = 'no specific date/time';
+  // recognised server-side: the post stays live for the posting day only
+  static const _noDate = 'Available upon request';
   static const _noPlace = '-';
 
   final _api = Get.find<ApiService>();
@@ -35,7 +35,19 @@ class PostsRepository {
       ...filters,
     }..removeWhere((_, v) => v == null);
     final res = await _api.get('/posts/getPosts', queryParameters: query);
-    final paged = Paged.fromJson(unwrapData(res), Post.fromJson);
+    var paged = Paged.fromJson(unwrapData(res), Post.fromJson);
+    // a local search is for one country only — drop any stray row the server
+    // still returns from another country
+    final localIso = query['postLocation'] == 'LOCAL' ? query['country'] : null;
+    if (localIso is String && localIso.isNotEmpty) {
+      paged = Paged(
+        list: paged.list
+            .where((p) =>
+                p.fromIso == null || p.fromIso!.toUpperCase() == localIso.toUpperCase())
+            .toList(),
+        totalRecords: paged.totalRecords,
+      );
+    }
     if (page == 1 && filters.isEmpty) {
       await _cache.put('posts_$searchAs', jsonEncode(res.data['data']));
     }
@@ -112,7 +124,7 @@ class PostsRepository {
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       // a trip posted without a date sends the phrase the API recognises
       // rather than a made-up one (beforeDate is required, not date-typed)
-      'beforeDate': noSpecificDate ? _noDate : _date(date),
+      'beforeDate': noSpecificDate ? _noDate : _date(date, withTime: local),
       // the API requires an airline on international trips; live mode hides the
       // field and posts a fixed default, so mirror that instead of asking
       'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,
@@ -148,6 +160,7 @@ class PostsRepository {
     String? description,
     String? attachFilePath,
     double? profit,
+    String? currency,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -158,7 +171,7 @@ class PostsRepository {
       if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
-      'beforeDate': _date(date),
+      'beforeDate': _date(date, withTime: local),
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
@@ -166,6 +179,8 @@ class PostsRepository {
       'categoryIds': jsonEncode(categoryIds),
       if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
       if (profit != null) 'travelerProfit': profit,
+      // the currency the profit is quoted in (the post model reads it back)
+      if (currency != null) 'currency': currency,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       // the website stores the item description in `deliveryPoints` —
@@ -208,7 +223,7 @@ class PostsRepository {
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
       // a trip posted without a date sends the phrase the API recognises
       // rather than a made-up one (beforeDate is required, not date-typed)
-      'beforeDate': noSpecificDate ? _noDate : _date(date),
+      'beforeDate': noSpecificDate ? _noDate : _date(date, withTime: local),
       // the API requires an airline on international trips; live mode hides the
       // field and posts a fixed default, so mirror that instead of asking
       'airLine': (airline == null || airline.isEmpty) ? _defaultAirline : airline,
@@ -242,6 +257,7 @@ class PostsRepository {
     String? description,
     String? attachFilePath,
     double? profit,
+    String? currency,
   }) async {
     final form = FormData.fromMap({
       'postType': 'DELIVER',
@@ -252,7 +268,7 @@ class PostsRepository {
       if (toCountry != null) 'toCountry': jsonEncode(toCountry.toJson()),
       if (fromCity != null) 'fromCity': jsonEncode(fromCity.toJson()),
       if (toCity != null) 'toCity': jsonEncode(toCity.toJson()),
-      'beforeDate': _date(date),
+      'beforeDate': _date(date, withTime: local),
       // the API validates weight as an integer — a double serialises to "10.0"
       // in multipart and gets rejected
       'weight': weight.round(),
@@ -260,6 +276,8 @@ class PostsRepository {
       'categoryIds': jsonEncode(categoryIds),
       if (categoryIds.isNotEmpty) 'categoryId': categoryIds.first,
       if (profit != null) 'travelerProfit': profit,
+      // the currency the profit is quoted in (the post model reads it back)
+      if (currency != null) 'currency': currency,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
       if (description != null && description.isNotEmpty)
@@ -303,6 +321,11 @@ class PostsRepository {
     }
   }
 
-  String _date(DateTime d) =>
-      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+  // local posts carry the wall-clock time the user picked ("2026-10-10 15:00"),
+  // sent as-is with no timezone conversion so it reads back unchanged
+  String _date(DateTime d, {bool withTime = false}) {
+    String two(int v) => v.toString().padLeft(2, '0');
+    final day = '${d.year}-${two(d.month)}-${two(d.day)}';
+    return withTime ? '$day ${two(d.hour)}:${two(d.minute)}' : day;
+  }
 }

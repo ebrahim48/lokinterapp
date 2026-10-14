@@ -114,8 +114,7 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
               SizedBox(width: 8.w),
               Expanded(
                 child: Text(
-                  'convert_to_settlement'
-                      .trParams({'currency': widget.settlementCurrency}),
+                  'we_charge_in_usd_note'.tr,
                   style: TextStyle(fontSize: 11.5.sp, color: cs.onSurfaceVariant),
                 ),
               ),

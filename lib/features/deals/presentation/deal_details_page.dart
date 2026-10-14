@@ -26,6 +26,7 @@ import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
 import 'scan_delivery_page.dart';
+import 'widgets/attempt_badge.dart';
 import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/deal_countdown.dart';
@@ -47,6 +48,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   /// The submitted dispute, fetched when the deal payload doesn't carry it.
   Map<String, dynamic>? _disputeReport;
   bool _busy = false;
+  /// Rated in this session — hides the button before the next reload lands.
+  bool _rated = false;
   /// Disputed deals lead with the dispute; the rest of the deal is one tap away.
   bool _showFullReport = false;
   bool _loading = true;
@@ -770,6 +773,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 StatusBadge(status: deal.status),
+                if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
                 if (deal.status == DealStatus.completed && deal.isAutoCompleted)
                   const AutoCompletedChip(),
               ],
@@ -1543,12 +1547,25 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ],
         ];
       case DealStatus.completed:
-        // only the sender reviews the deal (website: isDealReviewable)
+        // one rating per deal: the button goes once it's been rated
         return [
-          if (!deal.isTraveler) ...[
+          if (deal.rateable && !_rated) ...[
             ElevatedButton(
               onPressed: () => _openRateSheet(context),
               child: Text('rate_this_deal'.tr),
+            ),
+            SizedBox(height: 12.h),
+          ] else if (deal.hasRated || _rated) ...[
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.star, color: Colors.amber, size: 18.sp),
+                  SizedBox(width: 6.w),
+                  Text('deal_rated'.tr,
+                      style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700)),
+                ],
+              ),
             ),
             SizedBox(height: 12.h),
           ],
@@ -1561,6 +1578,23 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         return _disputeActions();
       case DealStatus.cancelled:
         return [
+          // after a rejection, both sides see how many re-requests remain
+          if (deal.remainingAttemptsText != null) ...[
+            Center(
+              child: Text(
+                deal.remainingAttemptsText!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                  color: (deal.remainingAttempts ?? 1) <= 0
+                      ? AppPalette.primary
+                      : AppPalette.intlAccent,
+                ),
+              ),
+            ),
+            SizedBox(height: 12.h),
+          ],
           OutlinedButton(onPressed: () => Get.back(), child: Text('back_to_deals'.tr)),
         ];
     }
@@ -1592,14 +1626,20 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22.r)),
       ),
-      builder: (_) => _RateSheet(deal: deal),
+      builder: (_) => _RateSheet(
+        deal: deal,
+        onRated: () {
+          if (mounted) setState(() => _rated = true);
+        },
+      ),
     );
   }
 }
 
 class _RateSheet extends StatefulWidget {
   final Deal deal;
-  const _RateSheet({required this.deal});
+  final VoidCallback onRated;
+  const _RateSheet({required this.deal, required this.onRated});
 
   @override
   State<_RateSheet> createState() => _RateSheetState();
@@ -1621,10 +1661,17 @@ class _RateSheetState extends State<_RateSheet> {
     setState(() => _sending = true);
     try {
       await _repo.rate(widget.deal.id, _stars, _comment.text.trim());
+      widget.onRated();
       if (!mounted) return;
       Navigator.pop(context);
       toast('thanks_for_the_review'.tr);
     } on AppException catch (e) {
+      // the server refuses a second rating (422 alreadyRated) — hide the button
+      if (e is ServerException && e.statusCode == 422 &&
+          '${e.message} ${e.details ?? ''}'.toLowerCase().contains('already')) {
+        widget.onRated();
+        if (mounted) Navigator.pop(context);
+      }
       toastError(e);
     } finally {
       if (mounted) setState(() => _sending = false);

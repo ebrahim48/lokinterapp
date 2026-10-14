@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
@@ -72,7 +73,8 @@ class SessionService extends GetxService {
       PaintingBinding.instance.imageCache
         ..clear()
         ..clearLiveImages();
-      await DefaultCacheManager().emptyCache(); // on-disk cached images
+      // on-disk cached images — can be slow, so it never holds up logout
+      unawaited(DefaultCacheManager().emptyCache().catchError((_) {}));
     } catch (_) {
       // never let cache cleanup block a logout
     }

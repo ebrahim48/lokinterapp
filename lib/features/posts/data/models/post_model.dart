@@ -34,7 +34,7 @@ class PostUser {
         name: json['name'] ?? '',
         verified: json['identityVerified'] ?? false,
         rating: Post._num(json['rate']),
-        avatarUrl: json['imageUrl'] ?? json['avatarUrl'],
+        avatarUrl: avatarUrlFrom(json),
         // badge logic per spec: use isApprovedTransporter or transporterBadge
         // (both explicit boolean flags). Do NOT gate on isTransporter alone —
         // that field is set before admin approval on older payloads.
@@ -70,6 +70,14 @@ class Post {
   final String? airline;
   final String? pickupLocation;
   final String? dropoffLocation;
+  // Google Maps search links the API builds for the two locations
+  final String? pickupLocationLink;
+  final String? dropoffLocationLink;
+  // server's own capacity text, e.g. "10 kg left"
+  final String? remainingWeightDisplay;
+  // past its date / every kg already booked — no longer an active post
+  final bool isExpired;
+  final bool isFullyConsumed;
   final String? status;
   // free-text notes: deliveryPoints on a request, pickupPoints on a trip
   final String? notes;
@@ -115,6 +123,11 @@ class Post {
     this.airline,
     this.pickupLocation,
     this.dropoffLocation,
+    this.pickupLocationLink,
+    this.dropoffLocationLink,
+    this.remainingWeightDisplay,
+    this.isExpired = false,
+    this.isFullyConsumed = false,
     this.status,
     required this.user,
     this.recommended = false,
@@ -141,9 +154,10 @@ class Post {
       toIso: _iso(json['toCountry']),
       fromCity: _nullableName(json['fromCity']),
       toCity: _nullableName(json['toCity']),
-      date: _parseDate(json['beforeDate']),
+      // rawBeforeDate is the wall-clock time exactly as the poster picked it
+      date: _parseDate(json['rawBeforeDate'] ?? json['beforeDate']),
       weight: _num(json['weight']),
-      remainingWeight: json['remainingWeight'] == null ? null : _num(json['remainingWeight']),
+      remainingWeight: _remaining(json),
       // the API returns the offered profit as `travelerProfit`; `profit` is the
       // older pre-formatted string some endpoints still send
       profit: json['travelerProfit'] != null
@@ -165,6 +179,11 @@ class Post {
       airline: json['airLine'],
       pickupLocation: json['pickupLocation'],
       dropoffLocation: json['dropoffLocation'],
+      pickupLocationLink: _link(json['pickupLocationLink']),
+      dropoffLocationLink: _link(json['dropoffLocationLink']),
+      remainingWeightDisplay: _text(json['remainingWeightDisplay']),
+      isExpired: json['isExpired'] == true,
+      isFullyConsumed: json['isFullyConsumed'] == true,
       status: json['status'],
       user: PostUser.fromJson(Map<String, dynamic>.from(json['user'] ?? {})),
       isPostCreator: json['isPostCreator'] is bool ? json['isPostCreator'] : null,
@@ -183,11 +202,17 @@ class Post {
             json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
         fromCountry: _name(json['from']),
         toCountry: _name(json['to']),
-        date: _parseDate(json['beforeDate']),
+        date: _parseDate(json['rawBeforeDate'] ?? json['beforeDate']),
         dateLabel: _dateLabel(json['beforeDate']),
         weight: _num(json['weight']), // arrives as a string ("20")
-        remainingWeight:
-            json['remainingWeight'] == null ? null : _num(json['remainingWeight']),
+        remainingWeight: _remaining(json),
+        remainingWeightDisplay: _text(json['remainingWeightDisplay']),
+        isExpired: json['isExpired'] == true,
+        isFullyConsumed: json['isFullyConsumed'] == true,
+        pickupLocation: json['pickupLocation'],
+        dropoffLocation: json['dropoffLocation'],
+        pickupLocationLink: _link(json['pickupLocationLink']),
+        dropoffLocationLink: _link(json['dropoffLocationLink']),
         // the my-posts endpoint carries the full row now, so own posts show the
         // same information as any other result card
         wantTo: _wantTo(json['wantTo'] ?? json['dealType']),
@@ -235,18 +260,38 @@ class Post {
   /// reading the post.
   double get availableWeight => remainingWeight ?? weight;
 
-  /// Compact for cards: "10 / 20 kg" once partly booked, otherwise "20 kg".
-  String get weightText => partlyBooked
-      ? '${kg(availableWeight).replaceAll(' kg', '')} / ${kg(weight)}'
-      : kg(weight);
+  /// A trip shows what's still free ("10 kg left"); a request shows the kg
+  /// it asks for until part of it is booked.
+  String get weightText {
+    if (!isTrip && !partlyBooked) return kg(weight);
+    // the API's own phrase is English-only, so localize ours in French
+    final server = remainingWeightDisplay;
+    if (server != null && (Get.locale?.languageCode ?? 'en') != 'fr') {
+      return server;
+    }
+    return 'kg_left'.trParams({'kg': kg(availableWeight)});
+  }
 
-  /// Roomier phrasing for the details screen.
-  String get weightDetailText => partlyBooked
-      ? 'weight_left_of_total'.trParams({
-          'left': kg(availableWeight),
-          'total': kg(weight),
-        })
-      : kg(weight);
+  /// Same on the details screen.
+  String get weightDetailText => weightText;
+
+  /// Not active any more: past its date, or every kg already booked.
+  bool get isInactive =>
+      isExpired ||
+      isFullyConsumed ||
+      isPastDate ||
+      (isTrip && remainingWeight != null && remainingWeight! <= 0);
+
+  /// The scheduled moment has passed. A post stays live until its exact time;
+  /// a date with no clock (00:00) counts as the whole day. "Available upon
+  /// request" posts have no date — the server's isExpired covers those.
+  bool get isPastDate {
+    if (_label != null) return false;
+    final until = date.hour == 0 && date.minute == 0
+        ? DateTime(date.year, date.month, date.day).add(const Duration(days: 1))
+        : date;
+    return !until.isAfter(DateTime.now());
+  }
 
   /// All categories on a request, or the single one older payloads send.
   String get categoriesText =>
@@ -256,7 +301,10 @@ class Post {
     final raw = dateLabel;
     if (raw == null) return null;
     final probe = raw.toLowerCase();
-    return probe.contains('no specific date') || probe.contains('pas de date')
+    return probe.contains('no specific date') ||
+            probe.contains('pas de date') ||
+            probe.contains('available upon request') ||
+            probe.contains('disponible sur demande')
         ? 'no_specific_date_time'.tr
         : raw;
   }
@@ -289,16 +337,44 @@ class Post {
 
   static String? _iso(dynamic v) => v is Map ? v['iso2'] : null;
 
-  // the API returns a phrase like "No specific date/time" when a trip was
-  // posted without one — keep it so the UI doesn't invent a date
-  static String? _dateLabel(dynamic raw) {
-    if (raw is! String || raw.isEmpty) return null;
-    return RegExp(r'^\d{1,2}/\d{1,2}/\d{4}').hasMatch(raw) ? null : raw;
+  // newer payloads send availableWeight, older ones remainingWeight
+  static double? _remaining(Map<String, dynamic> json) {
+    final v = json['availableWeight'] ?? json['remainingWeight'];
+    return v == null ? null : _num(v);
   }
 
-  // "08/01/2026 12:00 AM" — MM/dd/yyyy with a 12h clock
+  static String? _text(dynamic v) {
+    final t = v?.toString().trim() ?? '';
+    return t.isEmpty ? null : t;
+  }
+
+  static String? _link(dynamic v) {
+    final t = _text(v);
+    return t != null && t.startsWith('http') ? t : null;
+  }
+
+  // the API returns a phrase like "Available upon request" when a trip was
+  // posted without a date — keep it so the UI doesn't invent one
+  static String? _dateLabel(dynamic raw) {
+    if (raw is! String || raw.isEmpty) return null;
+    return RegExp(r'^\d{1,4}[/-]\d{1,2}[/-]\d{1,4}').hasMatch(raw) ? null : raw;
+  }
+
+  // "08/01/2026 12:00 AM" (MM/dd/yyyy, 12h clock) or "2026-08-01 15:00".
+  // Read as wall-clock time — never shifted through a timezone, so 3:00 PM
+  // posted shows 3:00 PM.
   static DateTime _parseDate(dynamic raw) {
     if (raw is! String || raw.isEmpty) return DateTime.now();
+    final iso = RegExp(r'^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?').firstMatch(raw);
+    if (iso != null) {
+      return DateTime(
+        int.parse(iso.group(1)!),
+        int.parse(iso.group(2)!),
+        int.parse(iso.group(3)!),
+        int.parse(iso.group(4) ?? '0'),
+        int.parse(iso.group(5) ?? '0'),
+      );
+    }
     try {
       final parts = raw.split(' ');
       final d = parts[0].split('/');

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../../core/theme/app_palette.dart';
 import '../../../../core/utils/flags.dart';
+import '../../../../core/utils/map_link.dart';
 import '../../data/models/post_model.dart';
 import 'corner_ribbon.dart';
 import 'mode_badge.dart';
@@ -129,6 +130,18 @@ class RequestCard extends StatelessWidget {
                 _meta(Icons.event_outlined, 'before'.tr.toUpperCase(), post.shortDateText),
               ],
             ),
+            // both ends of the delivery, each opening Maps when tapped
+            SizedBox(height: 12.h),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _place(Icons.trip_origin, 'pickup_location'.tr, post.pickupLocation,
+                    post.pickupLocationLink),
+                SizedBox(width: 10.w),
+                _place(Icons.location_on_outlined, 'dropoff_location'.tr,
+                    post.dropoffLocation, post.dropoffLocationLink),
+              ],
+            ),
             if (showUser || showChat) ...[
               SizedBox(height: 12.h),
               const _DashedLine(),
@@ -172,7 +185,7 @@ class RequestCard extends StatelessWidget {
           else if (local)
             Icon(Icons.location_on, color: AppPalette.localAccent, size: 16.sp)
           else
-            Icon(Icons.flight, color: AppPalette.intlAccent, size: 16.sp),
+            Icon(Icons.public, color: AppPalette.intlAccent, size: 16.sp),
           SizedBox(width: 7.w),
           Flexible(
             child: Text(
@@ -234,6 +247,48 @@ class RequestCard extends StatelessWidget {
           Icon(Icons.verified, color: AppPalette.verified, size: 15.sp),
         ],
       ],
+    );
+  }
+
+  Widget _place(IconData icon, String label, String? place, String? link) {
+    final known = hasPlace(place);
+    final tappable = known || link != null;
+    return Expanded(
+      child: GestureDetector(
+        onTap: tappable ? () => openMapLink(link, place) : null,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(icon, size: 12.sp, color: Colors.white.withValues(alpha: 0.8)),
+                SizedBox(width: 4.w),
+                Flexible(
+                  child: Text(label.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        fontSize: 9.sp,
+                        letterSpacing: 0.5,
+                      )),
+                ),
+              ],
+            ),
+            SizedBox(height: 3.h),
+            Text(known ? place!.trim() : '-',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  decoration: tappable ? TextDecoration.underline : null,
+                  decorationColor: Colors.white,
+                )),
+          ],
+        ),
+      ),
     );
   }
 
@@ -320,7 +375,7 @@ class TripCard extends StatelessWidget {
                 Row(
                   children: [
                     _meta(Icons.event_outlined, 'date'.tr.toUpperCase(), post.dateText),
-                    _meta(Icons.luggage_outlined, 'weight'.tr.toUpperCase(), post.weightText,
+                    _meta(Icons.luggage_outlined, 'available_weight'.tr.toUpperCase(), post.weightText,
                         alignEnd: true),
                   ],
                 ),

@@ -8,6 +8,7 @@ import 'status_badge.dart';
 import 'package:get/get.dart';
 import '../deals_controller.dart';
 import '../../../posts/presentation/widgets/transporter_chip.dart';
+import 'attempt_badge.dart';
 
 class DealCard extends StatelessWidget {
   final Deal deal;
@@ -54,10 +55,14 @@ class DealCard extends StatelessWidget {
                 StatusBadge(status: deal.status),
               ],
             ),
+            if (deal.attemptText != null) ...[
+              SizedBox(height: 8.h),
+              AttemptBadge(text: deal.attemptText!),
+            ],
             SizedBox(height: 12.h),
             Row(
               children: [
-                _meta(context, deal.isLocal ? Icons.location_on : Icons.flight,
+                _meta(context, deal.isLocal ? Icons.location_on : Icons.public,
                     deal.isLocal ? 'local'.tr : 'international'.tr),
                 SizedBox(width: 16.w),
                 _meta(context, Icons.event_outlined, shortDate(deal.date)),

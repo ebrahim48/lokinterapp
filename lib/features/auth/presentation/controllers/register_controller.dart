@@ -162,7 +162,7 @@ class RegisterController extends GetxController {
         transportLicense: licenseFile.value,
         businessDocuments: businessDocuments,
       );
-      Get.offAll(() => const MainShell());
+      MainShell.enter();
     } on AppException catch (e) {
       toastError(e);
     } finally {

@@ -13,9 +13,24 @@ import '../../post_request/presentation/post_request_page.dart';
 import '../../post_trip/presentation/post_trip_page.dart';
 import '../../profile/presentation/profile_page.dart';
 import '../../chat/presentation/controllers/chat_inbox_controller.dart';
+import '../../deals/presentation/deals_controller.dart';
+import '../../home_feed/presentation/controllers/home_feed_controller.dart';
+import '../../profile/presentation/controllers/profile_controller.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
+
+  /// Enters the app after login / register. The tab controllers of the shell
+  /// being replaced (a guest's, or the previous account's) are dropped first —
+  /// otherwise the new shell picks up the stale instance, which is disposed a
+  /// moment later, and the feed stays blank until a manual refresh.
+  static void enter() {
+    Get.delete<HomeFeedController>(force: true);
+    Get.delete<DealsController>(force: true);
+    Get.delete<ChatInboxController>(force: true);
+    Get.delete<ProfileController>(force: true);
+    Get.offAll(() => const MainShell());
+  }
 
   @override
   State<MainShell> createState() => _MainShellState();
@@ -158,7 +173,7 @@ class _MainShellState extends State<MainShell> {
           children: [
             SizedBox(height: 8.h),
             ListTile(
-              leading: const Icon(Icons.flight_takeoff, color: AppPalette.intlAccent),
+              leading: const Icon(Icons.luggage_outlined, color: AppPalette.intlAccent),
               title: Text('post_a_trip'.tr),
               onTap: () {
                 // posting asks for nothing — verification happens only at the

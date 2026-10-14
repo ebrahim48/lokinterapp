@@ -121,7 +121,7 @@ class HomeFeedPage extends StatelessWidget {
                 SizedBox(width: 12.w),
                 Expanded(
                   child: _BrowseTile(
-                    icon: Icons.flight_takeoff,
+                    icon: Icons.luggage_outlined,
                     label: 'trips'.tr,
                     color: AppPalette.intlAccent,
                     onTap: () => Get.to(() => const SearchResultsPage(), arguments: 0),

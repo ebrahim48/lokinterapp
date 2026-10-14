@@ -58,8 +58,9 @@ class _MyPostsPageState extends State<MyPostsPage> {
       final results = await Future.wait([_repo.myPosts('TRIP'), _repo.myPosts('DELIVER')]);
       if (!mounted) return;
       setState(() {
-        _trips = results[0];
-        _requests = results[1];
+        // expired or fully booked posts aren't active any more
+        _trips = results[0].where((p) => !p.isInactive).toList();
+        _requests = results[1].where((p) => !p.isInactive).toList();
         _loading = false;
       });
     } on AppException catch (e) {
