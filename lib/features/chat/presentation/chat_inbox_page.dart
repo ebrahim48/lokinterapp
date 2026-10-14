@@ -5,6 +5,7 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/chat_gate.dart';
 import '../../../core/utils/format.dart';
 import 'controllers/chat_inbox_controller.dart';
+import '../../../core/widgets/user_avatar.dart';
 
 class ChatInboxPage extends StatelessWidget {
   const ChatInboxPage({super.key});
@@ -57,14 +58,10 @@ class ChatInboxPage extends StatelessWidget {
               return ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                 onTap: () => openChat(conv.user, chatId: conv.chatId),
-                leading: CircleAvatar(
+                leading: UserAvatar(
+                  name: conv.user.name,
+                  url: conv.user.avatarUrl,
                   radius: 24.r,
-                  backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
-                  child: Text(
-                    conv.user.name.isEmpty ? '?' : conv.user.name[0],
-                    style: const TextStyle(
-                        color: AppPalette.primary, fontWeight: FontWeight.w700),
-                  ),
                 ),
                 title: Row(
                   children: [

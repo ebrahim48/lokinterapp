@@ -45,7 +45,8 @@ class ProfileController extends GetxController {
 
   Future<void> logout() async {
     loggingOut.value = true;
-    await Get.find<SocketService>().disconnect();
+    // nothing here waits on the network — the user leaves at once
+    unawaited(Get.find<SocketService>().disconnect());
     await _auth.logout();
     Get.offAll(() => const WelcomePage());
   }

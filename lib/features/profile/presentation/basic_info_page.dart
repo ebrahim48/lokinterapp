@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -102,6 +103,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
       return;
     }
     setState(() => _saving = true);
+    final oldAvatar = Get.find<SessionService>().user.value?.imageUrl;
     try {
       await _repo.updateProfile(
         firstName: _firstName.text.trim(),
@@ -111,6 +113,16 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
         country: _countries.firstWhereOrNull((c) => c.name == _country)?.iso2,
         avatarPath: _pickedAvatar?.path,
       );
+      // a new photo may reuse the old URL — drop the cached copy so the new
+      // one shows everywhere right away
+      if (_pickedAvatar != null) {
+        if (oldAvatar != null) {
+          await CachedNetworkImage.evictFromCache(oldAvatar).catchError((_) => false);
+        }
+        PaintingBinding.instance.imageCache
+          ..clear()
+          ..clearLiveImages();
+      }
       await AuthRepository().me(); // pull the fresh profile into the session
       if (Get.isRegistered<ProfileController>()) Get.find<ProfileController>().load();
       toast('profile_updated'.tr);
@@ -428,7 +440,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
           ),
           SizedBox(height: 16.h),
           LokDropdownField(
-            label: 'country'.tr,
+            label: 'country_of_residence'.tr,
             hint: 'select_a_country'.tr,
             icon: Icons.public,
             options: _countries.map((c) => c.name).toList(),

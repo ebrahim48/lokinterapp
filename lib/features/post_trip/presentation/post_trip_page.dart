@@ -46,7 +46,7 @@ class PostTripPage extends StatelessWidget {
                 SizedBox(width: 12.w),
                 Expanded(
                   child: OptionCard(
-                    icon: Icons.flight,
+                    icon: Icons.public,
                     iconColor: AppPalette.intlAccent,
                     title: 'international'.tr,
                     subtitle: 'travel_to_any_country'.tr,

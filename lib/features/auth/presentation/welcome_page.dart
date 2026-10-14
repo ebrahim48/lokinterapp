@@ -77,7 +77,7 @@ class WelcomePage extends StatelessWidget {
             height: 210.r,
             child: const _HeroCarousel(),
           ),
-          _floating(Alignment.topLeft, Icons.flight, AppPalette.intlAccent),
+          _floating(Alignment.topLeft, Icons.public, AppPalette.intlAccent),
           _floating(Alignment.topRight, Icons.people_alt_outlined, AppPalette.primary),
           _floating(Alignment.bottomLeft, Icons.inventory_2_outlined, AppPalette.primary),
           _floating(Alignment.bottomRight, Icons.verified_user_outlined, AppPalette.intlAccent),

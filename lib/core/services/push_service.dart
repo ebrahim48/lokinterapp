@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:dio/dio.dart' show Options;
 import 'package:get/get.dart' hide Response;
 import '../utils/push_router.dart';
 import 'api_service.dart';
@@ -118,14 +119,16 @@ class PushService extends GetxService {
   /// Drops the token server-side and locally so the next account on this phone
   /// doesn't inherit the last one's pushes. Must run while the bearer token is
   /// still valid — i.e. before [SessionService.clear].
-  Future<void> stop() async {
+  /// [options] pins the bearer when the session is already cleared (logout).
+  Future<void> stop({Options? options}) async {
     await _tokenRefresh?.cancel();
     _tokenRefresh = null;
     if (!_ready) return;
     try {
       final token = _storage.getString(StorageKeys.fcmToken) ?? await _currentToken();
       if (token != null) {
-        await _api.delete('/auth/fcm-token', data: {'fcmToken': token});
+        await _api.delete('/auth/fcm-token',
+            data: {'fcmToken': token}, options: options);
       }
       await _fcm.deleteToken();
     } catch (e) {

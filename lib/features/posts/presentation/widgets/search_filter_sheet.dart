@@ -44,6 +44,9 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
   // the search endpoint keys countries by ISO2 code, not the numeric id
   String? _countryIso(String? name) =>
       _c.countries.firstWhereOrNull((e) => e.name == name)?.iso2;
+  String? _countryIsoOf(String? name) => _countryIso(name);
+  int? _countryNumId(String? name) =>
+      _c.countries.firstWhereOrNull((e) => e.name == name)?.id;
   int? _cityId(String? name) => _c.cities.firstWhereOrNull((e) => e.name == name)?.id;
 
   @override
@@ -61,6 +64,11 @@ class _SearchFilterSheetState extends State<SearchFilterSheet> {
 
     _c.applyFilters({
       'searchType': _local ? 'LOCAL' : 'INTERNATIONAL',
+      'postLocation': _local ? 'LOCAL' : 'INTERNATIONAL',
+      // a local search is pinned to one country — send it every way the API
+      // matches it (numeric id and ISO2)
+      'countryId': _local ? _countryNumId(_localCountry) : null,
+      'country': _local ? _countryIsoOf(_localCountry) : null,
       'fromCountryId': _countryIso(_local ? _localCountry : _fromCountry),
       'toCountryId': _local ? null : _countryIso(_toCountry),
       'fromCityId': _local ? _cityId(_fromCity) : null,

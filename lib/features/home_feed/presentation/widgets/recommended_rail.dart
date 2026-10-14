@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/app_palette.dart';
@@ -45,16 +46,19 @@ class _TravelerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    // always the light-mode look, dark mode included — white card, dark text
+    const textColor = AppPalette.navy;
+    final mutedColor = AppPalette.navy.withValues(alpha: 0.6);
+    final avatar = post.user.avatarUrl;
     return GestureDetector(
       onTap: onTap,
       child: Container(
       width: 198.w,
       padding: EdgeInsets.all(11.w),
       decoration: BoxDecoration(
-        color: cs.surface,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: cs.outline),
+        border: Border.all(color: AppPalette.navy.withValues(alpha: 0.12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,10 +73,14 @@ class _TravelerCard extends StatelessWidget {
               CircleAvatar(
                 radius: 13.r,
                 backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
-                child: Text(
-                  post.user.name[0],
-                  style: TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700, fontSize: 12.sp),
-                ),
+                backgroundImage:
+                    avatar == null ? null : CachedNetworkImageProvider(avatar),
+                child: avatar != null
+                    ? null
+                    : Text(
+                        post.user.name.isEmpty ? '?' : post.user.name[0],
+                        style: TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700, fontSize: 12.sp),
+                      ),
               ),
               SizedBox(width: 7.w),
               Expanded(
@@ -80,7 +88,7 @@ class _TravelerCard extends StatelessWidget {
                   post.user.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: textColor),
                 ),
               ),
               ModeBadge(location: post.location, place: post.from, iso: post.flagIso, showLabel: false),
@@ -91,14 +99,14 @@ class _TravelerCard extends StatelessWidget {
             '${post.from} → ${post.to}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: cs.onSurface),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5.sp, color: textColor),
           ),
           SizedBox(height: 2.h),
-          Text(post.dateText, style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant)),
+          Text(post.dateText, style: TextStyle(fontSize: 10.5.sp, color: mutedColor)),
           SizedBox(height: 6.h),
           Text(
-            'kg_space_left'.trParams({'kg': kg(post.availableWeight)}),
-            style: TextStyle(fontSize: 10.5.sp, color: cs.onSurfaceVariant),
+            'kg_left'.trParams({'kg': kg(post.availableWeight)}),
+            style: TextStyle(fontSize: 10.5.sp, color: mutedColor),
           ),
         ],
       ),

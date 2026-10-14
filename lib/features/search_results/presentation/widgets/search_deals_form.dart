@@ -35,6 +35,9 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
 
   String? _iso(String? name) =>
       _countries.firstWhereOrNull((e) => e.name == name)?.iso2;
+  String? _countryIsoOf(String? name) => _iso(name);
+  int? _countryNumId(String? name) =>
+      _countries.firstWhereOrNull((e) => e.name == name)?.id;
   int? _cityId(String? name) => _cities.firstWhereOrNull((e) => e.name == name)?.id;
 
   @override
@@ -74,6 +77,11 @@ class _SearchDealsFormState extends State<SearchDealsForm> {
     }
     final filters = <String, dynamic>{
       'searchType': _local ? 'LOCAL' : 'INTERNATIONAL',
+      'postLocation': _local ? 'LOCAL' : 'INTERNATIONAL',
+      // a local search is pinned to one country — send it every way the API
+      // matches it (numeric id and ISO2)
+      'countryId': _local ? _countryNumId(_localCountry) : null,
+      'country': _local ? _countryIsoOf(_localCountry) : null,
       'fromCountryId': _iso(_local ? _localCountry : _fromCountry),
       'toCountryId': _local ? null : _iso(_toCountry),
       'fromCityId': _local ? _cityId(_fromCity) : null,
