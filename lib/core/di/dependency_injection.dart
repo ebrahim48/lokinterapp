@@ -26,7 +26,7 @@ class DependencyInjection {
     Get.put<LanguageService>(LanguageService(storage).restore(), permanent: true);
 
     // restore any saved login before the first screen decides where to go
-    final session = SessionService(storage).restore();
+    final session = await SessionService(storage).restore();
     Get.put<SessionService>(session, permanent: true);
     Get.put<SocketService>(SocketService(session), permanent: true);
 

@@ -28,6 +28,8 @@ dependencies:
   connectivity_plus: ^6.0.5
   path_provider: ^2.1.4
   shared_preferences: ^2.3.2
+  # auth tokens in Keychain / Keystore so the login survives restarts
+  flutter_secure_storage: ^9.2.2
   # image caching + loading placeholders
   cached_network_image: ^3.4.1
   # the cache manager behind cached_network_image — emptied on logout

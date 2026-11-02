@@ -32,6 +32,8 @@ class RecommendedTravelersRepository {
       return list
           .whereType<Map>()
           .map((e) => Post.fromJson(Map<String, dynamic>.from(e), recommended: true))
+          // a cached row may have expired since it was saved
+          .where((p) => p.showInRecommended)
           .toList();
     } catch (_) {
       return null;
@@ -68,6 +70,9 @@ class RecommendedTravelersRepository {
 
     return list
         .map((e) => Post.fromJson(e, recommended: true))
+        // expired "Available upon request" trips and travelers whose
+        // visibility is off must not show here
+        .where((p) => p.showInRecommended)
         .toList();
   }
 

@@ -77,6 +77,10 @@ class _PayoutMethodsPageState extends State<PayoutMethodsPage> {
       await _load();
     } on AppException catch (e) {
       toastError(e);
+    } catch (_) {
+      // a non-API failure used to vanish silently — the Wise form looked
+      // like it did nothing
+      toast('something_went_wrong_try_again'.tr);
     } finally {
       if (mounted) setState(() => _busy = false);
     }

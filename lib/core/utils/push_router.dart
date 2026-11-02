@@ -110,6 +110,9 @@ Future<bool> _open(String key, Map<String, dynamic> data) async {
 
     case 'transporter_subscription':
     case 'transporter_boost':
+    // admin switched visibility off, or the paid period ran out
+    case 'visibility_disabled':
+    case 'visibility_expired':
       Get.to(() => const IncreaseVisibilityPage());
       return true;
   }

@@ -217,7 +217,7 @@ class ChatConversationPage extends StatelessWidget {
               ),
             ),
           ),
-          if (post.beforeDate != null)
+          if (post.dateText != null)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
               decoration: BoxDecoration(
@@ -225,10 +225,7 @@ class ChatConversationPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
-                // website (from-to): only a DELIVER post prefixes "Before"
-                post.isDeliver
-                    ? 'before_date_value'.trParams({'date': '${post.beforeDate}'})
-                    : '${post.beforeDate}',
+                post.dateText!,
                 style: TextStyle(fontSize: 9.5.sp, color: Colors.white),
               ),
             ),

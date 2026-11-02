@@ -37,24 +37,13 @@ class RecommendedTransportersDialog extends StatelessWidget {
     'transporterBadge',
     'showTransporterBadge',
   ];
-  static const _visibilityKeys = [
-    'visibilityActive',
-    'featuredTransporter',
-    'isFeaturedTransporter',
-    'isRecommendedTransporter',
-    'hasActiveSubscription',
-  ];
-
-  /// Paid visibility running — any of the flags the API uses for it.
-  static bool isVisible(Map<String, dynamic> t) =>
-      _visibilityKeys.any((k) => t[k] == true) ||
-      '${t['visibilityStatus'] ?? ''}'.toLowerCase() == 'active';
+  /// Paid visibility running — and not switched off by admin.
+  static bool isVisible(Map<String, dynamic> t) => visibilityState(t) == true;
 
   /// Safety net on top of the backend's own route + subscription filter:
-  /// drop a transporter only when the payload says outright that they are
-  /// not approved or have no active visibility. A flag the payload doesn't
-  /// carry is not a "no" — reading it that way hid paid transporters whose
-  /// row only had `visibilityStatus: active`.
+  /// a transporter is only recommended while their paid visibility is
+  /// confirmed active. No flag, an expired subscription, or an admin
+  /// switch-off all keep them out — they are never recommended by default.
   static List<Map<String, dynamic>> filter(
       List<Map<String, dynamic>> raw) {
     // the API lists every transporter on the route, the poster included — a
@@ -68,9 +57,7 @@ class RecommendedTransportersDialog extends StatelessWidget {
       final approvalFlags = _approvalKeys.where(t.containsKey);
       final approved = approvalFlags.isEmpty ||
           approvalFlags.any((k) => t[k] == true);
-      final hasVisibilityFlag = _visibilityKeys.any(t.containsKey) ||
-          t.containsKey('visibilityStatus');
-      return approved && (!hasVisibilityFlag || isVisible(t));
+      return approved && isVisible(t);
     }).toList();
   }
 

@@ -191,6 +191,10 @@ class Deal {
         : 'attempts_remaining'.trParams({'n': '$left'});
   }
 
+  /// The re-request counter the sender sees once the traveler rejected.
+  String? get senderAttemptsText =>
+      isSender && status == DealStatus.cancelled ? remainingAttemptsText : null;
+
   /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
   String? get wantToLabel => switch (wantTo) {
         'BUY_AND_DELIVER' => 'buy_for_me_and_deliver'.tr,

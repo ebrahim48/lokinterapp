@@ -209,11 +209,13 @@ class ProfilePage extends StatelessWidget {
 
   Widget _group(BuildContext context, List<_Item> items) {
     final cs = Theme.of(context).colorScheme;
-    return Container(
-      decoration: BoxDecoration(
-        color: cs.surface,
+    // Material, not a coloured Container, so the tiles' ink splashes show
+    return Material(
+      color: cs.surface,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: cs.outline),
+        side: BorderSide(color: cs.outline),
       ),
       child: Column(
         children: [

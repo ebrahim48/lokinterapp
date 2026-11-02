@@ -18,6 +18,10 @@ class PostUser {
   final bool isTransporter; // approved transporter
   // paid premium placement — shows the gold badge instead of the plain one
   final bool isRecommendedTransporter;
+  /// Increase-visibility state from the payload: true when it is running,
+  /// false when it is off/expired/disabled by admin, null when the row
+  /// doesn't say.
+  final bool? visibilityActive;
 
   const PostUser({
     this.id = 0,
@@ -27,6 +31,7 @@ class PostUser {
     this.avatarUrl,
     this.isTransporter = false,
     this.isRecommendedTransporter = false,
+    this.visibilityActive,
   });
 
   factory PostUser.fromJson(Map<String, dynamic> json) => PostUser(
@@ -44,6 +49,7 @@ class PostUser {
                 (json['transporterVerificationStatus'] ?? 'approved') == 'approved'),
         isRecommendedTransporter: (json['isFeaturedTransporter'] ?? false) &&
             json['transporterVisibilityStatus'] == 'active',
+        visibilityActive: visibilityState(json),
       );
 }
 
@@ -94,6 +100,11 @@ class Post {
   /// The API says outright whether the signed-in user created this post; when
   /// it doesn't, comparing `user.id` still works.
   final bool? isPostCreator;
+  /// When the post was created — an "Available upon request" post only lives
+  /// for that day.
+  final DateTime? createdAt;
+  /// Visibility flags some endpoints put on the post row instead of the user.
+  final bool? visibilityActive;
 
   const Post({
     this.dateLabel,
@@ -132,6 +143,8 @@ class Post {
     required this.user,
     this.recommended = false,
     this.isPostCreator,
+    this.createdAt,
+    this.visibilityActive,
   });
 
   /// True when this is my own post. Prefers the server's flag.
@@ -188,6 +201,8 @@ class Post {
       user: PostUser.fromJson(Map<String, dynamic>.from(json['user'] ?? {})),
       isPostCreator: json['isPostCreator'] is bool ? json['isPostCreator'] : null,
       recommended: recommended,
+      createdAt: _created(json),
+      visibilityActive: visibilityState(json),
     );
   }
 
@@ -222,6 +237,8 @@ class Post {
         profit: json['profit'] != null
             ? '${json['profit']}'
             : (json['reward'] != null ? '${json['reward']}' : null),
+        currency: json['currency'] ?? 'USD',
+        createdAt: _created(json),
         imageUrl: fixMediaUrl(json['attachLink'] ??
             (json['attachment'] is Map ? json['attachment']['url'] : null)),
         user: const PostUser(name: ''),
@@ -280,6 +297,7 @@ class Post {
       isExpired ||
       isFullyConsumed ||
       isPastDate ||
+      isStaleNoDate ||
       (isTrip && remainingWeight != null && remainingWeight! <= 0);
 
   /// The scheduled moment has passed. A post stays live until its exact time;
@@ -293,6 +311,24 @@ class Post {
     return !until.isAfter(DateTime.now());
   }
 
+  /// "Available upon request" posts are only good for the day they were
+  /// posted. The server's isExpired should already say so; this catches lists
+  /// that don't apply it (recommended travelers).
+  bool get isStaleNoDate {
+    final c = createdAt;
+    if (_label == null || c == null) return false;
+    final now = DateTime.now();
+    return DateTime(c.year, c.month, c.day).isBefore(DateTime(now.year, now.month, now.day));
+  }
+
+  /// Whether a recommended-travelers row may be shown: still active, and the
+  /// traveler's increase visibility isn't off. Rows that don't carry a
+  /// visibility flag are left to the server's own filter.
+  bool get showInRecommended {
+    if (isInactive) return false;
+    return visibilityActive != false && user.visibilityActive != false;
+  }
+
   /// All categories on a request, or the single one older payloads send.
   String get categoriesText =>
       categories.isNotEmpty ? categories.join(', ') : (category ?? '');
@@ -300,13 +336,7 @@ class Post {
   String? get _label {
     final raw = dateLabel;
     if (raw == null) return null;
-    final probe = raw.toLowerCase();
-    return probe.contains('no specific date') ||
-            probe.contains('pas de date') ||
-            probe.contains('available upon request') ||
-            probe.contains('disponible sur demande')
-        ? 'no_specific_date_time'.tr
-        : raw;
+    return isNoDateLabel(raw) ? 'no_specific_date_time'.tr : raw;
   }
 
   // the API uses BUY_AND_DELIVER on posts and BUYITEM on deals for the same
@@ -341,6 +371,11 @@ class Post {
   static double? _remaining(Map<String, dynamic> json) {
     final v = json['availableWeight'] ?? json['remainingWeight'];
     return v == null ? null : _num(v);
+  }
+
+  static DateTime? _created(Map<String, dynamic> json) {
+    final raw = json['createdAt'] ?? json['created_at'] ?? json['postedAt'];
+    return raw is String ? parseServerDate(raw) : null;
   }
 
   static String? _text(dynamic v) {
@@ -390,4 +425,51 @@ class Post {
       return DateTime.now();
     }
   }
+}
+
+/// Increase-visibility state read off a user/transporter row: true when it is
+/// running, false when the row says it is off (expired, unpaid, or disabled by
+/// admin), null when the row carries no visibility field at all.
+bool? visibilityState(Map<String, dynamic> t) {
+  const off = ['disabled', 'expired', 'inactive', 'none', 'suspended', 'revoked', 'cancelled'];
+  // an admin switch-off wins over any stale "featured" flag
+  if (t['visibilityEnabled'] == false ||
+      t['visibilityDisabled'] == true ||
+      t['isVisibilityDisabled'] == true) {
+    return false;
+  }
+  const statusKeys = [
+    'visibilityStatus',
+    'transporterVisibilityStatus',
+    'travelerVisibilityStatus',
+  ];
+  final statuses = statusKeys
+      .where((k) => t[k] != null)
+      .map((k) => '${t[k]}'.toLowerCase())
+      .toList();
+  if (statuses.any(off.contains) && !statuses.contains('active')) return false;
+  if (statuses.contains('active')) return true;
+  const flagKeys = [
+    'visibilityActive',
+    'isFeatured',
+    'featuredTransporter',
+    'isFeaturedTransporter',
+    'isFeaturedTraveler',
+    'isRecommendedTransporter',
+    'isRecommendedTraveler',
+    'hasActiveSubscription',
+  ];
+  final flags = flagKeys.where(t.containsKey).toList();
+  if (flags.isEmpty) return statuses.isEmpty ? null : false;
+  return flags.any((k) => t[k] == true);
+}
+
+/// Whether an API date text means "no date" — older payloads say "No specific
+/// date/time", newer ones "Available upon request", in either language.
+bool isNoDateLabel(String raw) {
+  final probe = raw.toLowerCase();
+  return probe.contains('no specific date') ||
+      probe.contains('pas de date') ||
+      probe.contains('available upon request') ||
+      probe.contains('disponible sur demande');
 }

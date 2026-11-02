@@ -774,6 +774,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               children: [
                 StatusBadge(status: deal.status),
                 if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
+                if (deal.senderAttemptsText != null)
+                  AttemptBadge(text: deal.senderAttemptsText!),
                 if (deal.status == DealStatus.completed && deal.isAutoCompleted)
                   const AutoCompletedChip(),
               ],

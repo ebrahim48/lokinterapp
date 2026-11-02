@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '../../../core/utils/media_url.dart';
 import '../../posts/data/models/post_model.dart';
 
@@ -134,6 +135,15 @@ class ChatPostContext {
 
   // DELIVER posts label the pill "Before {date}"; trips show the date bare
   bool get isDeliver => type == 'DELIVER';
+
+  /// The header pill: "Available upon request" in the app language when the
+  /// post has no date, otherwise the date ("Before …" on a delivery request).
+  String? get dateText {
+    final raw = beforeDate;
+    if (raw == null) return null;
+    if (isNoDateLabel(raw)) return 'no_specific_date_time'.tr;
+    return isDeliver ? 'before_date_value'.trParams({'date': raw}) : raw;
+  }
 
   const ChatPostContext({
     required this.id,
