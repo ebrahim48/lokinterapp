@@ -4,6 +4,20 @@ import UIKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
+  // Under the UIScene lifecycle the window belongs to the scene, so this is nil
+  // by default. flutter_stripe presents from `delegate.window`: with no window
+  // it falls back to a detached view controller and iOS silently refuses to
+  // show the payment sheet (and 3-D Secure), leaving "Pay now" dead.
+  override var window: UIWindow? {
+    get {
+      super.window ?? UIApplication.shared.connectedScenes
+        .compactMap { $0 as? UIWindowScene }
+        .flatMap { $0.windows }
+        .first { $0.isKeyWindow }
+    }
+    set { super.window = newValue }
+  }
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?

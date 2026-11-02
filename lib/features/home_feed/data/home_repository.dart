@@ -22,6 +22,9 @@ class HomeData {
         banners: _items(json['banners']).map(HomeBanner.fromJson).toList(),
         recommended: _items(json['recommendedTravelers'])
             .map((e) => Post.fromJson(e, recommended: true))
+            // expired "Available upon request" trips and travelers whose
+            // visibility is off must not linger in the rail
+            .where((p) => p.showInRecommended)
             .toList(),
         latestDeals: _items(json['latestDeals']).map(Post.fromJson).toList(),
       );

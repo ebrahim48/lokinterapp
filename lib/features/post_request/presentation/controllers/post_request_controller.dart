@@ -9,6 +9,9 @@ import '../../../posts/data/models/post_model.dart';
 import '../../../posts/data/posts_repository.dart';
 import '../recommended_transporters_dialog.dart';
 
+// currencies a request's profit can be quoted in
+const requestCurrencies = ['USD', 'EUR', 'TND', 'GBP'];
+
 class PostRequestController extends GetxController {
   // set when the form is opened to edit an existing request
   final int? editId;
@@ -109,6 +112,11 @@ class PostRequestController extends GetxController {
       pickupLocation.text = post.pickupLocation ?? '';
       dropoffLocation.text = post.dropoffLocation ?? '';
       categories_.assignAll(post.categories);
+      // keep the poster's currency — falling back to the USD default made an
+      // edited TND/EUR request show (and resave) its profit in USD
+      if (requestCurrencies.contains(post.currency)) currency.value = post.currency;
+      final p = double.tryParse(post.profit ?? '');
+      if (p != null) profit.text = p == p.roundToDouble() ? p.toStringAsFixed(0) : '$p';
       acceptedTerms.value = true; // already agreed when first posted
     } on AppException catch (e) {
       toastError(e);

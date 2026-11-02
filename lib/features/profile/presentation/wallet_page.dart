@@ -26,6 +26,8 @@ class _WalletPageState extends State<WalletPage> {
   String? _error;
   /// Default (or first) payout method — named on the payout-account card.
   PayoutMethod? _payoutMethod;
+  /// False when the methods call failed — then "none linked" isn't known.
+  bool _methodsKnown = false;
 
   @override
   void initState() {
@@ -47,11 +49,16 @@ class _WalletPageState extends State<WalletPage> {
     try {
       final data = await _repo.dashboard();
       // the card only names the method; a failure here mustn't fail the wallet
-      final methods = await _repo.payoutMethods().catchError((_) => <PayoutMethod>[]);
+      final methods = await _repo
+          .payoutMethods()
+          .timeout(const Duration(seconds: 15))
+          .then<List<PayoutMethod>?>((m) => m)
+          .catchError((_) => null);
       if (!mounted) return;
       setState(() {
         _data = data;
-        _payoutMethod = methods.isEmpty
+        _methodsKnown = methods != null;
+        _payoutMethod = methods == null || methods.isEmpty
             ? null
             : methods.firstWhere((m) => m.isDefault, orElse: () => methods.first);
         _loading = false;
@@ -418,6 +425,12 @@ class _WalletPageState extends State<WalletPage> {
   /// Returns the translated tooltip text, falling back to [fallback] when the
   /// translation key is missing (i.e. the translation equals the raw key).
   void _openWithdraw() {
+    // nowhere to send the money yet — say so instead of a sheet that can't
+    // submit
+    if (_methodsKnown && _payoutMethod == null) {
+      _promptAddMethod();
+      return;
+    }
     final cs = Theme.of(context).colorScheme;
     showModalBottomSheet<void>(
       context: context,
@@ -435,6 +448,24 @@ class _WalletPageState extends State<WalletPage> {
         },
       ),
     );
+  }
+
+  void _promptAddMethod() {
+    Get.dialog(AlertDialog(
+      title: Text('add_withdrawal_method'.tr),
+      content: Text('add_withdrawal_method_first'.tr),
+      actions: [
+        TextButton(onPressed: Get.back, child: Text('cancel'.tr)),
+        ElevatedButton(
+          onPressed: () async {
+            Get.back();
+            await Get.to(() => const PayoutMethodsPage());
+            _load();
+          },
+          child: Text('add_method'.tr),
+        ),
+      ],
+    ));
   }
 
   Widget _miniBtn(BuildContext context, IconData icon, String label) {
@@ -679,6 +710,9 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
       widget.onDone(amount);
     } on AppException catch (e) {
       toastError(e);
+    } catch (_) {
+      // anything else must still end the spinner with a message
+      toast('something_went_wrong_try_again'.tr);
     } finally {
       if (mounted) setState(() => _sending = false);
     }
@@ -734,6 +768,14 @@ class _WithdrawSheetState extends State<_WithdrawSheet> {
               SizedBox(height: 18.h),
               if (_methodsLoading)
                 const Center(child: CircularProgressIndicator())
+              else if (!_methodsError && _methods.isEmpty)
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Get.to(() => const PayoutMethodsPage());
+                  },
+                  child: Text('add_method'.tr),
+                )
               else if (!_methodsError) ...[
                 LokDropdownField(
                   label: 'payout_method'.tr,
