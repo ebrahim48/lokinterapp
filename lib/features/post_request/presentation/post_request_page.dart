@@ -11,6 +11,7 @@ import '../../posts/data/models/post_model.dart';
 import '../../static/presentation/terms_page.dart';
 import 'controllers/post_request_controller.dart';
 
+const _currencies = ['USD', 'EUR', 'TND', 'GBP'];
 
 class PostRequestPage extends StatelessWidget {
   final int? editId; // editing an existing request instead of posting a new one
@@ -288,15 +289,13 @@ class PostRequestPage extends StatelessWidget {
                   )),
             ),
             SizedBox(width: 12.w),
-            // wide enough for "USD" beside the icon and the arrow — at 110 it
-            // wrapped to "US / D"
             SizedBox(
-              width: 132.w,
+              width: 110.w,
               child: Obx(() => LokDropdownField(
                     label: 'currency'.tr,
                     hint: 'usd'.tr,
                     icon: Icons.currency_exchange,
-                    options: requestCurrencies,
+                    options: _currencies,
                     value: c.currency.value,
                     onChanged: (v) => c.currency.value = v,
                   )),

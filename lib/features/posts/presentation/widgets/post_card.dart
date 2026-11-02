@@ -252,7 +252,7 @@ class RequestCard extends StatelessWidget {
 
   Widget _place(IconData icon, String label, String? place, String? link) {
     final known = hasPlace(place);
-    final tappable = mapUrl(link, place) != null;
+    final tappable = known || link != null;
     return Expanded(
       child: GestureDetector(
         onTap: tappable ? () => openMapLink(link, place) : null,
