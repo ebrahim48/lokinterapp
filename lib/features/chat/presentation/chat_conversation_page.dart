@@ -12,6 +12,7 @@ import '../../../core/utils/notify.dart';
 import '../../../core/utils/phone_gate.dart';
 import '../../../core/utils/verify_gate.dart';
 import '../../../core/widgets/image_viewer.dart';
+import '../../../core/widgets/location_picker_page.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../deals/data/deals_repository.dart';
 import '../../deals/presentation/widgets/currency_converter.dart';
@@ -467,8 +468,14 @@ class _AgreementSheetState extends State<_AgreementSheet> {
   // options are shown translated, so compare against the same getters
   String get _payOnline => 'pay_online'.tr;
   String get _cashOnDelivery => 'cash_on_delivery'.tr;
-  late String? _payment = _payOnline;
+  late String? _payment = _isLocal ? _cashOnDelivery : _payOnline;
   bool _securityDeposit = false;
+
+  // REQ §2–§5: a Tunisia local deal is COD only, carries no deposit or trip
+  // date, and needs both points pinned on the map
+  bool get _isLocal => widget.post.isTunisiaLocal;
+  PickedPlace? _pickup;
+  PickedPlace? _dropoff;
   bool _sending = false;
   final List<XFile> _photos = [];
 
@@ -492,9 +499,30 @@ class _AgreementSheetState extends State<_AgreementSheet> {
   @override
   void initState() {
     super.initState();
+    _prefillFromRequest();
     _lookups.countries().then((list) {
       if (mounted) setState(() => _countries = list);
     }).catchError((_) {});
+  }
+
+  // A deal opened from a delivery request starts with the request's points and
+  // deadline (REQ §4, §5); contacting a trip directly leaves them to the
+  // sender. Only exact pins pre-fill — an address alone can't place a marker.
+  void _prefillFromRequest() {
+    final p = widget.post;
+    if (!p.isDeliver) return;
+    if (p.pickupLat != null && p.pickupLng != null) {
+      _pickup = PickedPlace(
+          label: p.pickupLocation ?? '', lat: p.pickupLat!, lng: p.pickupLng!);
+    }
+    if (p.dropoffLat != null && p.dropoffLng != null) {
+      _dropoff = PickedPlace(
+          label: p.dropoffLocation ?? '', lat: p.dropoffLat!, lng: p.dropoffLng!);
+    }
+    final deadline = p.deadline;
+    if (deadline != null && deadline.isAfter(DateTime.now())) {
+      _arrivalDate = deadline;
+    }
   }
 
   // picking a country stamps the matching dial code onto the phone field,
@@ -543,8 +571,11 @@ class _AgreementSheetState extends State<_AgreementSheet> {
     final cost = double.tryParse(_cost.text);
     final itemValue = double.tryParse(_itemValue.text);
     final weight = double.tryParse(_weight.text);
-    if (cost == null || weight == null || _tripDate == null) {
-      toast('cost_weight_and_trip_date_are_required'.tr);
+    // a local deal has no trip date — the arrival is its deadline (REQ §5)
+    if (cost == null || weight == null || (!_isLocal && _tripDate == null)) {
+      toast(_isLocal
+          ? 'cost_and_weight_are_required'.tr
+          : 'cost_weight_and_trip_date_are_required'.tr);
       return;
     }
     // website rule: item value only required for a card-paid buy-and-deliver or
@@ -560,14 +591,26 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('pick_the_arrival_date'.tr);
       return;
     }
-    if (_arrivalDate!.isBefore(_tripDate!)) {
-      toast('arrival_must_be_on_or_after_the_trip_date'.tr);
-      return;
-    }
-    // server rule: arrival within 3 days of the trip date
-    if (_arrivalDate!.difference(_tripDate!).inDays > 3) {
-      toast('arrival_must_be_within_3_days_of_the_trip_date'.tr);
-      return;
+    if (_isLocal) {
+      // the agreed delivery deadline must still be ahead (REQ §5)
+      if (!_arrivalDate!.isAfter(DateTime.now())) {
+        toast('arrival_must_be_in_the_future'.tr);
+        return;
+      }
+      if (_pickup == null || _dropoff == null) {
+        toast('pin_the_pickup_and_dropoff_points'.tr);
+        return;
+      }
+    } else {
+      if (_arrivalDate!.isBefore(_tripDate!)) {
+        toast('arrival_must_be_on_or_after_the_trip_date'.tr);
+        return;
+      }
+      // server rule: arrival within 3 days of the trip date
+      if (_arrivalDate!.difference(_tripDate!).inDays > 3) {
+        toast('arrival_must_be_within_3_days_of_the_trip_date'.tr);
+        return;
+      }
     }
     // buy-and-deliver needs the item named and linked (card or cash on delivery)
     if (_isBuyAndDeliver && _itemName.text.trim().isEmpty) {
@@ -583,17 +626,13 @@ class _AgreementSheetState extends State<_AgreementSheet> {
       toast('a_security_deposit_needs_card_payment'.tr);
       return;
     }
-    // the API rejects the deal without them, so catch it here
-    if (_receiverName.text.trim().isEmpty ||
-        _receiverPhone.text.trim().isEmpty) {
-      toast('add_the_receiver_name_and_phone'.tr);
-      return;
-    }
-    // country picker drives the phone prefix (skip only if the list never loaded)
-    if (_countries.isNotEmpty && _receiverCountry == null) {
-      toast('pick_the_receiver_country'.tr);
-      return;
-    }
+    // receiver name / phone / country are optional since REQ §3: the sender
+    // shares the delivery QR with whoever collects the parcel
+    // a bare "+216" left by the country picker is not a phone number
+    final receiverPhone =
+        RegExp(r'^\+?\d{0,4}$').hasMatch(_receiverPhone.text.trim())
+            ? ''
+            : _receiverPhone.text.trim();
 
     // only the sender can open this form, so the current user is the sender
     // and the chat peer is the traveler
@@ -609,17 +648,27 @@ class _AgreementSheetState extends State<_AgreementSheet> {
         cost: cost,
         itemEstimatedCost: itemValue ?? 0,
         weight: weight,
-        tripDate: _tripDate!,
+        tripDate: _isLocal ? null : _tripDate,
         arrivalDate: _arrivalDate!,
-        sdRequired: _securityDeposit,
         itemName: _itemName.text.trim(),
         itemLink: _itemLink.text.trim(),
         itemDescription: _itemDescription.text.trim(),
         receiverName: _receiverName.text.trim(),
-        receiverPhone: _receiverPhone.text.trim(),
+        receiverPhone: receiverPhone,
+        receiverCountry: _receiverCountry,
+        pickupLocation: _pickup?.label,
+        pickupLat: _pickup?.lat,
+        pickupLng: _pickup?.lng,
+        dropoffLocation: _dropoff?.label,
+        dropoffLat: _dropoff?.lat,
+        dropoffLng: _dropoff?.lng,
         attachFilePaths: _photos.map((x) => x.path).toList(),
-        // API enum value — the label shown in the dropdown is friendlier
-        paymentMethod: _isStripe ? 'STRIPE' : 'CASH_ON_DELIVERY',
+        // API enum value — the label shown in the dropdown is friendlier.
+        // A local deal is always cash: the card path stays wired for the day
+        // online payment opens to local deals (REQ §2).
+        paymentMethod:
+            (!_isLocal && _isStripe) ? 'STRIPE' : 'CASH_ON_DELIVERY',
+        sdRequired: !_isLocal && _securityDeposit,
       );
       // flip the chat's action bar over to the new agreement before closing,
       // so the button is already "Deal Pending" when the sheet disappears.
@@ -866,19 +915,43 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 14.h),
-                    LokDateField(
-                      label: 'trip_date'.tr,
-                      hint: 'when_it_travels'.tr,
-                      required: true,
-                      withTime: true,
-                      value: _tripDate,
-                      onChanged: (d) => setState(() => _tripDate = d),
-                    ),
+                    // REQ §4: both points are mandatory on a local deal —
+                    // pre-filled from a request, picked by hand from a trip
+                    if (_isLocal) ...[
+                      SizedBox(height: 14.h),
+                      LokLocationField(
+                        label: 'pickup_location'.tr,
+                        hint: 'pin_the_pickup_point'.tr,
+                        required: true,
+                        value: _pickup,
+                        onChanged: (p) => setState(() => _pickup = p),
+                      ),
+                      SizedBox(height: 14.h),
+                      LokLocationField(
+                        label: 'dropoff_location'.tr,
+                        hint: 'pin_the_dropoff_point'.tr,
+                        required: true,
+                        value: _dropoff,
+                        onChanged: (p) => setState(() => _dropoff = p),
+                      ),
+                    ],
+                    // REQ §5: a local deal has no Trip Date/Time — the arrival
+                    // below is its delivery deadline
+                    if (!_isLocal) ...[
+                      SizedBox(height: 14.h),
+                      LokDateField(
+                        label: 'trip_date'.tr,
+                        hint: 'when_it_travels'.tr,
+                        required: true,
+                        withTime: true,
+                        value: _tripDate,
+                        onChanged: (d) => setState(() => _tripDate = d),
+                      ),
+                    ],
                     SizedBox(height: 14.h),
                     LokDateField(
                       label: 'arrival_date'.tr,
-                      hint: 'when_it_lands'.tr,
+                      hint: _isLocal ? 'delivery_deadline'.tr : 'when_it_lands'.tr,
                       required: true,
                       withTime: true,
                       value: _arrivalDate,
@@ -889,7 +962,6 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'receiver_name'.tr,
                       hint: 'who_picks_it_up'.tr,
                       icon: Icons.person_outline,
-                      required: true,
                       controller: _receiverName,
                     ),
                     SizedBox(height: 14.h),
@@ -897,7 +969,6 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       label: 'receiver_country'.tr,
                       hint: 'receiver_country_2'.tr,
                       icon: Icons.public,
-                      required: true,
                       options: _countryNames,
                       searchable: true,
                       value: _receiverCountry,
@@ -909,22 +980,24 @@ class _AgreementSheetState extends State<_AgreementSheet> {
                       hint: '+216...',
                       icon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
-                      required: true,
                       controller: _receiverPhone,
                     ),
                     SizedBox(height: 14.h),
-                    LokDropdownField(
-                      label: 'payment_method'.tr,
-                      hint: 'payment_method_2'.tr,
-                      icon: Icons.credit_card,
-                      options: [_payOnline, _cashOnDelivery],
-                      value: _payment,
-                      onChanged: (v) => setState(() {
-                        _payment = v;
-                        // a security deposit is a card hold — impossible on cash
-                        if (!_isStripe) _securityDeposit = false;
-                      }),
-                    ),
+                    if (_isLocal)
+                      const _CodNotice()
+                    else
+                      LokDropdownField(
+                        label: 'payment_method'.tr,
+                        hint: 'payment_method_2'.tr,
+                        icon: Icons.credit_card,
+                        options: [_payOnline, _cashOnDelivery],
+                        value: _payment,
+                        onChanged: (v) => setState(() {
+                          _payment = v;
+                          // a security deposit is a card hold — impossible on cash
+                          if (!_isStripe) _securityDeposit = false;
+                        }),
+                      ),
                     SizedBox(height: 18.h),
                     ElevatedButton(
                       onPressed: _sending ? null : _submit,
@@ -945,6 +1018,54 @@ class _AgreementSheetState extends State<_AgreementSheet> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Local deals: cash on delivery is the only method and the sender pays no
+/// Lokinter fee (REQ §2 · GUIDE Screen 2).
+class _CodNotice extends StatelessWidget {
+  const _CodNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: AppPalette.localAccent.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: AppPalette.localAccent.withValues(alpha: 0.35)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.payments_outlined, size: 18.sp, color: AppPalette.localAccent),
+              SizedBox(width: 8.w),
+              Text('cash_on_delivery'.tr,
+                  style: TextStyle(
+                      fontSize: 13.5.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+          SizedBox(height: 6.h),
+          Text('cod_local_notice'.tr,
+              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4)),
+          SizedBox(height: 10.h),
+          Row(
+            children: [
+              Expanded(
+                child: Text('sender_platform_fee'.tr,
+                    style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+              ),
+              Text('sender_fee_free_tnd'.tr,
+                  style: TextStyle(
+                      fontSize: 12.5.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+            ],
+          ),
+        ],
       ),
     );
   }

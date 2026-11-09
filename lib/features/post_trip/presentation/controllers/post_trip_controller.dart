@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/role_rules.dart';
 import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../../posts/data/posts_repository.dart';
+import '../../../../core/utils/fee_gate.dart';
 
 class PostTripController extends GetxController {
   // set when the form is opened to edit an existing trip
@@ -42,6 +44,13 @@ class PostTripController extends GetxController {
   final _lookups = LookupsRepository();
 
   bool get isLocal => location.value == PostLocation.local;
+
+  /// A local trip inside Tunisia. Reads both Rx values, so an Obx rebuilds
+  /// as soon as either the mode or the country changes.
+  bool get isTunisiaLocal => isLocal && isTunisia(_byName(insideCountry.value));
+
+  /// REQ §1: only approved transporters may post Tunisia local trips.
+  bool get localTripBlocked => isTunisiaLocal && !isVerifiedTransporter;
 
   List<String> get countryNames => countries.map((e) => e.name).toList();
   List<String> get cityNames => cities.map((e) => e.name).toList();
@@ -117,6 +126,11 @@ class PostTripController extends GetxController {
       toast('fill_in_the_route_and_weight_first'.tr);
       return;
     }
+    if (localTripBlocked) {
+      toast('local_trip_transporters_only'.tr);
+      return;
+    }
+    if (!isEditing && !await FeeGate.allow(FeeGate.postTrip)) return;
     if (isLocal && (fromCity.value == null || toCity.value == null)) {
       toast('pick_the_from_and_to_cities'.tr);
       return;
@@ -177,7 +191,7 @@ class PostTripController extends GetxController {
       toast(isEditing ? 'trip_updated'.tr : 'trip_posted'.tr);
       Get.back(result: true);
     } on AppException catch (e) {
-      toastError(e);
+      if (!FeeGate.handle(e, FeeGate.postTrip)) toastError(e);
     } finally {
       busy.value = false;
     }

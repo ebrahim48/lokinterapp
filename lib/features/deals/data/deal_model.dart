@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'deal_extras.dart';
+export 'deal_extras.dart';
 import '../../../core/constants/api_constants.dart';
 import '../../../core/utils/media_url.dart';
 import '../../posts/data/models/post_model.dart';
@@ -96,6 +98,8 @@ class Deal {
   final int? remainingAttempts;
   final int maxAttempts;
   final String? attemptLabel;
+  /// Nov 2026 additions: accept roles, delivery QR token, pins, tracking, fee.
+  final DealExtras extras;
 
   const Deal({
     this.id = 0,
@@ -145,6 +149,7 @@ class Deal {
     this.remainingAttempts,
     this.maxAttempts = 3,
     this.attemptLabel,
+    this.extras = const DealExtras(),
   });
 
   // getById omits the item name/notes/attachments that the list row carries,
@@ -190,6 +195,10 @@ class Deal {
         ? 'one_attempt_remaining'.tr
         : 'attempts_remaining'.trParams({'n': '$left'});
   }
+
+  /// The re-request counter the sender sees once the traveler rejected.
+  String? get senderAttemptsText =>
+      isSender && status == DealStatus.cancelled ? remainingAttemptsText : null;
 
   /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
   String? get wantToLabel => switch (wantTo) {
@@ -246,6 +255,7 @@ class Deal {
         remainingAttempts: remainingAttempts ?? other.remainingAttempts,
         maxAttempts: maxAttempts,
         attemptLabel: attemptLabel ?? other.attemptLabel,
+        extras: extras,
       );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
@@ -285,6 +295,7 @@ class Deal {
         remainingAttempts: _int(json['remainingAttempts']),
         maxAttempts: _int(json['maxAttempts']) ?? 3,
         attemptLabel: _str(json['attemptLabel']),
+        extras: DealExtras.fromJson(json),
       );
 
   /// List rows carry the dispute at the root (disputeStatus, disputeReason…);
@@ -394,6 +405,7 @@ class Deal {
       remainingAttempts: _int(json['remainingAttempts']),
       maxAttempts: _int(json['maxAttempts']) ?? 3,
       attemptLabel: _str(json['attemptLabel']),
+      extras: DealExtras.fromJson(json),
     );
   }
 
@@ -495,11 +507,26 @@ class Deal {
   // The deal is always created by the sender (website: canRequestDeal is
   // sender-only), so the proposer is simply the sender. Accepting/rejecting a
   // pending deal is the traveler's call.
-  bool get isProposer => isSender;
+  // The server now states it (canAcceptDeal / isProposer); older payloads
+  // fall back to the sender-proposes rule.
+  bool get isProposer => extras.isProposer ?? isSender;
+
+  /// The counterparty may accept/reject this pending deal (GUIDE Screen 3).
+  bool get canAcceptDeal =>
+      status == DealStatus.pending && (extras.canAcceptDeal ?? !isSender);
 
   // the receiver scans this at handover — it opens the website's public
   // confirmation page for this deal (getByReferenceId under the hood)
   String get confirmationLink => '${ApiConstants.webBaseUrl}/deal-details/$refId';
+
+  /// What the sender's handover QR encodes: the single-use token (REQ §3),
+  /// or the old public link for deals created before tokens existed.
+  String get handoverQrData => extras.deliveryQrToken ?? confirmationLink;
+
+  /// Track My Order applies to a live local deal, for its two parties.
+  bool get trackingAvailable =>
+      extras.trackingAvailable ??
+      (isLocal && status == DealStatus.outgoing && (isSender || isTraveler));
 
   // the traveler must put up a card hold before the item moves
   bool get needsGuarantee =>

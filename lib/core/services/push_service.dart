@@ -14,6 +14,8 @@ import 'api_service.dart';
 import 'data_bus.dart';
 import 'session_service.dart';
 import 'storage_service.dart';
+import '../utils/fee_gate.dart';
+import 'location_tracker_service.dart';
 
 /// Runs in its own isolate when a push lands with the app backgrounded or dead.
 /// The tray entry is drawn by the system from the message's `notification`
@@ -214,6 +216,9 @@ class PushService extends GetxService {
 
   void _onForeground(RemoteMessage message) {
     if (kDebugMode) print('push (foreground): ${message.data}');
+    // Nov 2026 update: tracking stop is silent; fee/ledger events change the
+    // overdue restrictions, which live on the profile
+    if (_handleSilent(message.data)) return;
     // a push means something changed server-side — refresh what's on screen
     // now instead of waiting for the user to pull
     DataBus.changed(DataTopic.deals);
@@ -245,6 +250,23 @@ class PushService extends GetxService {
       ),
       payload: jsonEncode(message.data),
     );
+  }
+
+  /// Returns true when the push was housekeeping with nothing to show.
+  bool _handleSilent(Map<String, dynamic> data) {
+    final type = '${data['type'] ?? data['notificationType'] ?? ''}'.toUpperCase();
+    if (type == 'TRACKING_STOP') {
+      final id = int.tryParse('${data['dealId'] ?? data['deal_id'] ?? ''}');
+      if (id != null && Get.isRegistered<LocationTrackerService>()) {
+        Get.find<LocationTrackerService>().stop(id);
+      }
+      DataBus.changed(DataTopic.deals);
+      return true;
+    }
+    if (type.startsWith('LEDGER_') || type.startsWith('FEE_')) {
+      FeeGate.refresh(force: true);
+    }
+    return false;
   }
 
   @override

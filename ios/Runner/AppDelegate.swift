@@ -1,5 +1,6 @@
 import FirebaseCore
 import Flutter
+import GoogleMaps
 import UIKit
 
 @main
@@ -22,6 +23,9 @@ import UIKit
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    // Google Maps SDK (Track My Order map, pickup/drop-off picker). Must run
+    // before any GoogleMap widget is created.
+    GMSServices.provideAPIKey("AIzaSyBbuPRJ8cuHMk-23kqL_8B8myJx_BnnHw0")
     // FirebaseApp.configure() raises when GoogleService-Info.plist is not in the
     // bundle, which takes the whole app down at launch. PushService degrades to
     // "no push" in that case, and android/app/build.gradle.kts skips the Google

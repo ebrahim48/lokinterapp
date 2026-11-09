@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../core/services/location_tracker_service.dart';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -105,6 +106,10 @@ class AuthRepository {
   /// server side (device token, token revoke) finishes in the background with
   /// the old bearer pinned.
   Future<void> logout() async {
+    // location sharing belongs to this account — never to the next one
+    if (Get.isRegistered<LocationTrackerService>()) {
+      await Get.find<LocationTrackerService>().stopAll();
+    }
     final token = _session.accessToken;
     unawaited(_serverLogout(token));
     await _session.clear();

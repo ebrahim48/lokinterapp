@@ -109,8 +109,12 @@ class ServerException extends AppException {
   /// HTTP status code (e.g., 404, 500)
   final int? statusCode;
 
+  /// Machine-readable reason from the API body (`code`), e.g. QR_INVALID,
+  /// LEDGER_OVERDUE, DEAL_ALREADY_CONFIRMED. Null when the API sent none.
+  final String? code;
+
   /// Creates a [ServerException] with a [message], optional [statusCode], and [details].
-  ServerException(super.message, [this.statusCode, super.details]);
+  ServerException(super.message, [this.statusCode, super.details, this.code]);
 
   @override
   String toString() {

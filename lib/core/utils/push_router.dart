@@ -11,6 +11,8 @@ import '../../features/profile/presentation/increase_visibility_page.dart';
 import '../../features/profile/presentation/wallet_page.dart';
 import '../services/session_service.dart';
 import 'chat_gate.dart';
+import '../../features/fees/presentation/fee_ledgers_page.dart';
+import '../../features/fees/presentation/invoices_page.dart';
 
 /// Opens the screen a tapped push points at.
 ///
@@ -106,6 +108,24 @@ Future<bool> _open(String key, Map<String, dynamic> data) async {
 
     case 'transporter_verification':
       Get.to(() => const BecomeTransporterPage());
+      return true;
+
+    // transporter fee ledgers (REQ §10): threshold, reminder, overdue,
+    // payment confirmed / failed, restriction lifted
+    case 'ledger':
+    case 'fee_ledger':
+    case 'transporter-ledgers':
+    case 'LEDGER_PAYMENT_REQUIRED':
+    case 'LEDGER_PAYMENT_REMINDER':
+    case 'LEDGER_OVERDUE':
+    case 'LEDGER_PAYMENT_FAILED':
+    case 'FEE_RESTRICTION_LIFTED':
+      Get.to(() => const FeeLedgersPage());
+      return true;
+
+    case 'invoice':
+    case 'LEDGER_PAYMENT_CONFIRMED':
+      Get.to(() => const InvoicesPage());
       return true;
 
     case 'transporter_subscription':

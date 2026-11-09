@@ -55,9 +55,17 @@ class DealCard extends StatelessWidget {
                 StatusBadge(status: deal.status),
               ],
             ),
-            if (deal.attemptText != null) ...[
+            if (deal.attemptText != null || deal.senderAttemptsText != null) ...[
               SizedBox(height: 8.h),
-              AttemptBadge(text: deal.attemptText!),
+              Wrap(
+                spacing: 6.w,
+                runSpacing: 6.h,
+                children: [
+                  if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
+                  if (deal.senderAttemptsText != null)
+                    AttemptBadge(text: deal.senderAttemptsText!),
+                ],
+              ),
             ],
             SizedBox(height: 12.h),
             Row(
