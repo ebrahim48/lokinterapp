@@ -1,13 +1,15 @@
 import 'package:get/get.dart';
 
+import 'update_translations.dart';
+
 // App-owned UI copy in English and French. Server messages and CMS content are
 // localized by the API (via the X-Lang header) and are not repeated here.
 // Add keys as more screens are localized; missing keys fall back to English.
 class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
-        'en': {..._enAuto, ..._en},
-        'fr': {..._frAuto, ..._fr},
+        'en': {..._enAuto, ..._en, ...updateEn},
+        'fr': {..._frAuto, ..._fr, ...updateFr},
       };
 }
 

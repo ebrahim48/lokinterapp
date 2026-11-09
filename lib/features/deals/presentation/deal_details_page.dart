@@ -9,9 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_compress/video_compress.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/exceptions/app_exceptions.dart';
+import '../../../core/services/location_tracker_service.dart';
 import '../../../core/services/socket_service.dart';
+import '../../../core/utils/map_link.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/format.dart';
 import '../../../core/utils/media_url.dart';
@@ -26,12 +27,16 @@ import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
 import 'deals_controller.dart';
 import 'scan_delivery_page.dart';
+import 'track_order_page.dart';
 import 'widgets/attempt_badge.dart';
 import 'widgets/cancel_reason_sheet.dart';
 import 'widgets/open_dispute_sheet.dart';
 import 'widgets/deal_countdown.dart';
 import 'widgets/status_badge.dart';
+import 'widgets/handover_qr_card.dart';
 import '../../../core/widgets/image_viewer.dart';
+import '../../../core/utils/fee_gate.dart';
+import 'widgets/platform_fee_card.dart';
 
 class DealDetailsPage extends StatefulWidget {
   final Deal deal;
@@ -101,6 +106,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         deal = full.withItemDetailsFrom(widget.deal);
         _loading = false;
       });
+      // start sharing once this delivery is ONGOING, stop once it's over
+      if (Get.isRegistered<LocationTrackerService>()) {
+        Get.find<LocationTrackerService>().ensure(deal);
+      }
       if (full.hasDisputeRecord &&
           full.disputeDetails == null &&
           _disputeReport == null) {
@@ -172,7 +181,54 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   Future<void> _acceptDeal() async {
     if (!await requirePhoneVerified(action: 'action_accept_deal'.tr)) return;
     if (!await requireVerified()) return;
-    await _run(() => _repo.changeStatus(deal.id, 'ACCEPTED'), 'deal_bar_accepted'.tr, pop: false);
+    // an overdue fee ledger blocks accepting new deals (REQ §10.2)
+    if (!await FeeGate.allow(FeeGate.acceptDeal)) return;
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      await _repo.changeStatus(deal.id, 'ACCEPTED');
+      _refreshList();
+      toast('deal_bar_accepted'.tr);
+      await _loadDetail();
+    } on AppException catch (e) {
+      // REQ §2: one transporter per request — someone else got there first
+      if (_isAlreadyConfirmed(e)) {
+        await _showDealUnavailable();
+      } else if (FeeGate.handle(e, FeeGate.acceptDeal)) {
+        // explained by the restriction dialog
+      } else if (!maybeKycPrompt(e)) {
+        toastError(e);
+      }
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  /// The backend's concurrency lock (GUIDE Screen 3): a stable code when it
+  /// sends one, otherwise its English message.
+  bool _isAlreadyConfirmed(AppException e) {
+    if (e is! ServerException) return false;
+    if (e.code == 'DEAL_ALREADY_CONFIRMED') return true;
+    return (e.statusCode == 400 || e.statusCode == 409) &&
+        e.message.toLowerCase().contains('already has an active or confirmed deal');
+  }
+
+  Future<void> _showDealUnavailable() async {
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('deal_unavailable'.tr),
+        content: Text('deal_already_confirmed_by_another'.tr),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text('ok'.tr),
+          ),
+        ],
+      ),
+    );
+    _refreshList();
+    if (mounted) await _loadDetail();
   }
 
   // Traveler guarantee: card HOLD for the item value. Same two-step the
@@ -465,12 +521,80 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     );
   }
 
+  /// Token handover: delivery video first (the evidence trail stays as it
+  /// was), then `confirm-qr-delivery` with the scanned token.
+  Future<void> _completeWithToken(String token) async {
+    final pick = await _pickVideo();
+    if (pick == null) {
+      toast('record_the_delivery_video_to_complete'.tr);
+      return;
+    }
+    if (deal.disputeActive) {
+      toast('deal_under_dispute_cannot_complete'.tr);
+      return;
+    }
+    setState(() => _busy = true);
+    final progress = ValueNotifier<double>(0);
+    _showUploadProgress(progress);
+    var done = false;
+    AppException? failure;
+    try {
+      await _repo.uploadDeliveryVideo(
+        deal.refId,
+        pick.$1,
+        pick.$2,
+        onProgress: (sent, total) {
+          if (total > 0) progress.value = sent / total;
+        },
+      );
+      await _repo.confirmQrDelivery(deal.id, token);
+      done = true;
+    } on AppException catch (e) {
+      failure = e;
+    } catch (_) {
+      toast('video_upload_failed_please_try_again'.tr);
+    } finally {
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+      progress.dispose();
+      if (mounted) setState(() => _busy = false);
+    }
+
+    if (failure != null && mounted) {
+      final invalid = failure is ServerException &&
+          (failure.code == 'QR_INVALID' || failure.statusCode == 422);
+      if (invalid) {
+        await showDialog<void>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('qr_not_accepted'.tr),
+            content: Text('qr_invalid_or_used'.tr),
+            actions: [
+              TextButton(onPressed: () => Navigator.pop(ctx), child: Text('ok'.tr)),
+            ],
+          ),
+        );
+      } else {
+        toastError(failure);
+      }
+    }
+    if (done) {
+      _refreshList();
+      toast('delivery_handover_confirmed'.tr);
+      await _loadDetail();
+    }
+  }
+
   // Handover: scan the receiver's QR, record the delivery, close the deal.
   // The website reaches the same endpoints from its public deal-details page;
   // doing it here keeps the traveler in the app.
   Future<void> _scanAndComplete() async {
-    final ref = await ScanDeliveryPage.open(context);
-    if (ref == null || !mounted) return;
+    final raw = await ScanDeliveryPage.open(context);
+    if (raw == null || !mounted) return;
+    // new deals hand over with a single-use token (REQ §3 · GUIDE Screen 5);
+    // a public deal link is a deal from before tokens
+    if (!isLegacyDealLink(raw)) return _completeWithToken(raw);
+    final ref = referenceFromLink(raw);
+    if (ref == null) return;
 
     // guard against scanning some other deal's code
     if (ref != deal.refId) {
@@ -691,7 +815,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   // live deal, not just once it's outgoing
                   if (deal.showsReceiverQr) ...[
                     SizedBox(height: 16.h),
-                    _qrCard(context),
+                    HandoverQrCard(
+                      deal: deal,
+                      onRegenerated: () => _loadDetail(quiet: true),
+                    ),
                   ],
                   if (deal.needsGuarantee) ...[
                     SizedBox(height: 16.h),
@@ -709,6 +836,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   if (deal.status == DealStatus.outgoing) ...[
                     SizedBox(height: 16.h),
                     _ongoing(context),
+                  ],
+                  // GUIDE Screen 8: the carrier's platform fee on this deal
+                  if (deal.status == DealStatus.completed && deal.isTraveler) ...[
+                    SizedBox(height: 16.h),
+                    PlatformFeeCard(deal: deal),
                   ],
                   ],
                   if (deal.status == DealStatus.cancelled &&
@@ -774,6 +906,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               children: [
                 StatusBadge(status: deal.status),
                 if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
+                if (deal.senderAttemptsText != null)
+                  AttemptBadge(text: deal.senderAttemptsText!),
                 if (deal.status == DealStatus.completed && deal.isAutoCompleted)
                   const AutoCompletedChip(),
               ],
@@ -868,8 +1002,17 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           ),
           SizedBox(height: 12.h),
           _depositRow(context),
-          _row(context, 'receiver_name'.tr, deal.receiverName ?? '—'),
-          _row(context, 'receiver_phone'.tr, deal.receiverPhone ?? '—'),
+          // optional since REQ §3 — only shown when the sender filled them in
+          if ((deal.receiverName ?? '').isNotEmpty)
+            _row(context, 'receiver_name'.tr, deal.receiverName!),
+          if ((deal.receiverPhone ?? '').isNotEmpty)
+            _row(context, 'receiver_phone'.tr, deal.receiverPhone!),
+          if (deal.extras.pickupLocation != null || deal.extras.hasPickupPin)
+            _placeRow(context, 'pickup_location'.tr, deal.extras.pickupLocation,
+                deal.extras.pickupLat, deal.extras.pickupLng),
+          if (deal.extras.dropoffLocation != null || deal.extras.hasDropoffPin)
+            _placeRow(context, 'dropoff_location'.tr, deal.extras.dropoffLocation,
+                deal.extras.dropoffLat, deal.extras.dropoffLng),
           _row(context, 'traveler_profit'.tr, deal.profitLabel),
           // what the item is worth — the security-deposit basis on a SEND deal
           if (deal.itemEstimatedCost != null && deal.itemEstimatedCost! > 0)
@@ -904,6 +1047,42 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                     ? shortDateTime(deal.arrivalAt!)
                     : shortDate(deal.arrivalDate!)),
         ],
+      ),
+    );
+  }
+
+  /// A pinned point: the address, tappable to open it in Maps.
+  Widget _placeRow(
+      BuildContext context, String label, String? place, double? lat, double? lng) {
+    final link = lat != null && lng != null
+        ? 'https://www.google.com/maps/search/?api=1&query=$lat,$lng'
+        : null;
+    final text = place ?? (lat != null ? '$lat, $lng' : '—');
+    return InkWell(
+      onTap: () => openMapLink(link, place),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 6.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Text(label,
+                  style: TextStyle(
+                      fontSize: 12.5.sp,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(text,
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontSize: 12.5.sp,
+                      color: AppPalette.primary,
+                      decoration: TextDecoration.underline)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1232,9 +1411,74 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 }),
                 style: TextStyle(color: fg, fontSize: 11.sp)),
           ],
+          // REQ §6: local deliveries are tracked live while ONGOING
+          if (deal.trackingAvailable) ...[
+            SizedBox(height: 12.h),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () => TrackOrderPage.open(deal),
+                icon: Icon(Icons.map_outlined, size: 17.sp),
+                label: Text('track_my_order'.tr),
+              ),
+            ),
+          ],
+          if (deal.isTraveler && LocationTrackerService.shouldTrack(deal) &&
+              Get.isRegistered<LocationTrackerService>()) ...[
+            SizedBox(height: 10.h),
+            _sharingStatus(context),
+          ],
         ],
       ),
     );
+  }
+
+  /// The transporter's own location-sharing state, with a way out when it's
+  /// blocked (GUIDE Screen 7.3). Never blocks the delivery itself.
+  Widget _sharingStatus(BuildContext context) {
+    final tracker = Get.find<LocationTrackerService>();
+    return Obx(() {
+      final p = tracker.permission.value;
+      final on = tracker.activeDealIds.contains(deal.id) &&
+          (p == TrackerPermission.granted || p == TrackerPermission.foregroundOnly);
+      final blocked = p == TrackerPermission.denied || p == TrackerPermission.servicesOff;
+      final color = blocked
+          ? const Color(0xFFB45309)
+          : (on ? const Color(0xFF15803D) : const Color(0xFF6B7280));
+      final text = switch (p) {
+        TrackerPermission.denied => 'location_permission_required_banner'.tr,
+        TrackerPermission.servicesOff => 'location_services_off_banner'.tr,
+        TrackerPermission.foregroundOnly => 'sharing_location_foreground_only'.tr,
+        _ => on ? 'sharing_location_with_sender'.tr : 'starting_location_sharing'.tr,
+      };
+      return Container(
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: color.withValues(alpha: 0.35)),
+        ),
+        child: Row(
+          children: [
+            Icon(blocked ? Icons.location_disabled : Icons.my_location,
+                size: 18.sp, color: color),
+            SizedBox(width: 8.w),
+            Expanded(
+              child: Text(text,
+                  style: TextStyle(fontSize: 11.5.sp, color: color, height: 1.35)),
+            ),
+            if (blocked || p == TrackerPermission.foregroundOnly)
+              TextButton(
+                onPressed: () async {
+                  await tracker.openSettings();
+                  await tracker.retry();
+                },
+                child: Text('enable_in_settings'.tr, style: TextStyle(fontSize: 11.5.sp)),
+              ),
+          ],
+        ),
+      );
+    });
   }
 
   /// Before the scheduled arrival: when the 48h auto-completion window opens.
@@ -1258,43 +1502,6 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 'arrival_window_starts_on'
                     .trParams({'date': shortDateTime(startsAt)}),
                 style: TextStyle(fontSize: 12.5.sp, color: color, height: 1.4)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // The receiver scans this to confirm delivery on the website's public
-  // deal page (deal-details/{refId}) — no app or account needed.
-  Widget _qrCard(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final link = deal.confirmationLink;
-    return _card(
-      context,
-      Column(
-        children: [
-          Text('receiver_confirmation'.tr,
-              style: TextStyle(
-                  fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
-          SizedBox(height: 6.h),
-          Text(
-            'receiver_qr_hint'.tr,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
-          ),
-          SizedBox(height: 14.h),
-          Container(
-            padding: EdgeInsets.all(10.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: cs.outline),
-            ),
-            child: QrImageView(
-              data: link,
-              size: 180.r,
-              backgroundColor: Colors.white,
-            ),
           ),
         ],
       ),
@@ -1469,9 +1676,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   List<Widget> _actions(BuildContext context) {
     switch (deal.status) {
       case DealStatus.pending:
-        // website: only the traveler (non-sender) accepts or rejects a pending
-        // deal; the sender who proposed it just waits
-        if (deal.isSender) return const [];
+        // the counterparty accepts or rejects; the proposer waits — the
+        // server states which side the viewer is on (canAcceptDeal/isProposer)
+        if (!deal.canAcceptDeal) {
+          return [if (deal.isProposer) _waitingForAcceptance(context)];
+        }
         return [
           ElevatedButton(
             onPressed: _busy ? null : _acceptDeal,
@@ -1598,6 +1807,31 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           OutlinedButton(onPressed: () => Get.back(), child: Text('back_to_deals'.tr)),
         ];
     }
+  }
+
+  /// "Waiting for {name} to accept" — shown to the proposer instead of an
+  /// Accept button they could only fail with (GUIDE Screen 3).
+  Widget _waitingForAcceptance(BuildContext context) {
+    final (bg, fg) = DealStatus.pending.colors;
+    final name = deal.extras.proposedByName != null && !deal.isProposer
+        ? deal.extras.proposedByName!
+        : (deal.counterpart.name.isNotEmpty
+            ? deal.counterpart.name.split(' ').first
+            : 'counterparty'.tr);
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14.r)),
+      child: Row(
+        children: [
+          Icon(Icons.hourglass_top, color: fg, size: 17.sp),
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Text('waiting_for_name_to_accept'.trParams({'name': name}),
+                style: TextStyle(color: fg, fontSize: 12.5.sp)),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _openDisputeButton() => OutlinedButton.icon(

@@ -73,7 +73,22 @@ class LokTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: icon == null ? null : Icon(icon, size: 18.sp),
-            suffixText: suffixText,
+            // as a suffixIcon, not suffixText: suffixText hides while the field
+            // is empty and unfocused, and the unit ("USD") must always show
+            suffixIcon: suffixText == null
+                ? null
+                : Padding(
+                    padding: EdgeInsets.only(right: 14.w),
+                    child: Text(
+                      suffixText!,
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+            suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
           ),
         ),
       ],

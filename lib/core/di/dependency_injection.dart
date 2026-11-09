@@ -3,6 +3,7 @@ import '../services/api_service.dart';
 import '../services/cache_service.dart';
 import '../services/connectivity_service.dart';
 import '../services/language_service.dart';
+import '../services/location_tracker_service.dart';
 import '../services/push_service.dart';
 import '../services/session_service.dart';
 import '../services/socket_service.dart';
@@ -29,6 +30,8 @@ class DependencyInjection {
     final session = await SessionService(storage).restore();
     Get.put<SessionService>(session, permanent: true);
     Get.put<SocketService>(SocketService(session), permanent: true);
+    // Track My Order: shares the transporter's GPS while a local deal is ONGOING
+    Get.put<LocationTrackerService>(LocationTrackerService(), permanent: true);
 
     // Firebase + the FCM listeners come up here so a push that cold-started the
     // app is already waiting when the first screen asks for it. The permission

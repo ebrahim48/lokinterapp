@@ -57,6 +57,9 @@
 		<!-- lets a data-only push wake the app so firebase_messaging's
 		     background handler runs before the user taps anything -->
 		<string>remote-notification</string>
+		<!-- Track My Order: keeps sending the transporter's position while a
+		     local deal is ONGOING and the app is in the background -->
+		<string>location</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
@@ -83,6 +86,10 @@
 	<string>Lokinter needs the camera to record the pickup video that confirms a parcel's condition.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Lokinter records audio with the pickup video so both parties can verify the handover.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Lokinter uses your location to pin pickup and drop-off points and, while you carry a local delivery, to show the sender where their parcel is.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>While you carry a local delivery, Lokinter shares your location with the sender even when the app is in the background. Tracking stops as soon as the delivery ends.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Lokinter needs photo access to attach item pictures and pickup videos to your deals.</string>
 </dict>

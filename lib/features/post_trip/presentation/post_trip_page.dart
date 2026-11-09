@@ -6,6 +6,7 @@ import '../../../core/widgets/lok_busy_button.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
 import '../../posts/data/models/post_model.dart';
+import '../../profile/presentation/become_transporter_page.dart';
 import 'controllers/post_trip_controller.dart';
 
 class PostTripPage extends StatelessWidget {
@@ -112,6 +113,12 @@ class PostTripPage extends StatelessWidget {
                 value: c.insideCountry.value,
                 onChanged: (v) => c.insideCountry.value = v,
               )),
+          Obx(() => c.localTripBlocked
+              ? Padding(
+                  padding: EdgeInsets.only(top: 12.h),
+                  child: const TransporterOnlyBanner(),
+                )
+              : const SizedBox.shrink()),
           SizedBox(height: 16.h),
           Obx(() => LokDropdownField(
                 label: 'from'.tr,
@@ -207,9 +214,62 @@ class PostTripPage extends StatelessWidget {
           style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
         ),
         SizedBox(height: 16.h),
-        LokBusyButton(
-            busy: c.busy, label: editId == null ? 'post'.tr : 'save_changes'.tr, onPressed: c.submit),
+        // REQ §1: a non-transporter can't submit a Tunisia local trip
+        Obx(() => c.localTripBlocked
+            ? ElevatedButton(
+                onPressed: null,
+                child: Text(editId == null ? 'post'.tr : 'save_changes'.tr),
+              )
+            : LokBusyButton(
+                busy: c.busy,
+                label: editId == null ? 'post'.tr : 'save_changes'.tr,
+                onPressed: c.submit)),
       ],
+    );
+  }
+}
+
+/// "Only approved transporters can post Tunisia local trips" with a shortcut
+/// to the transporter application (GUIDE Screen 1).
+class TransporterOnlyBanner extends StatelessWidget {
+  const TransporterOnlyBanner({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(14.w),
+      decoration: BoxDecoration(
+        color: Colors.orange.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: Colors.orange.withValues(alpha: 0.4)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.verified_user_outlined, color: Colors.orange, size: 20.sp),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Text(
+                  'local_trip_transporters_only'.tr,
+                  style: TextStyle(fontSize: 12.5.sp, color: cs.onSurface, height: 1.4),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () => Get.to(() => const BecomeTransporterPage()),
+              child: Text('apply_for_transporter_verification'.tr,
+                  style: const TextStyle(color: AppPalette.primary)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

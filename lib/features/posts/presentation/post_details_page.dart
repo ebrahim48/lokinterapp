@@ -174,7 +174,7 @@ class PostDetailsPage extends StatelessWidget {
   Widget _metaList(BuildContext context) {
     // a location row opens Maps when tapped (null = plain row)
     VoidCallback? mapTap(String? place, String? link) =>
-        hasPlace(place) || link != null ? () => openMapLink(link, place) : null;
+        mapUrl(link, place) != null ? () => openMapLink(link, place) : null;
     final rows = <(IconData, String, String, VoidCallback?)>[
       (Icons.event_outlined, post.isTrip ? 'trip_date'.tr : 'before'.tr, post.dateText, null),
       (Icons.luggage_outlined, post.isTrip ? 'available_weight'.tr : 'weight'.tr,

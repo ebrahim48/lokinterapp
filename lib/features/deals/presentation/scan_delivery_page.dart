@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../core/theme/app_palette.dart';
 
-/// Scans the receiver's QR and hands back the deal reference it encodes.
+/// Scans the recipient's QR and hands back exactly what it encodes.
 ///
-/// The code carries `{webBaseUrl}/deal-details/{referenceId}`; scanning it in
-/// the app keeps the traveler in the delivery flow instead of bouncing them
-/// out to the website.
+/// New deals carry a single-use delivery token (REQ §3); deals created before
+/// tokens carry `{webBaseUrl}/deal-details/{referenceId}`. The deal page tells
+/// the two apart — see [isLegacyDealLink] / [referenceFromLink].
 class ScanDeliveryPage extends StatefulWidget {
   const ScanDeliveryPage({super.key});
 
@@ -25,22 +25,13 @@ class _ScanDeliveryPageState extends State<ScanDeliveryPage> {
   final _controller = MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
   bool _handled = false;
 
-  // the payload is a URL, but plain reference codes are accepted too
-  static String? _referenceFrom(String raw) {
-    final value = raw.trim();
-    if (value.isEmpty) return null;
-    final match = RegExp(r'deal-details/([^/?#\s]+)').firstMatch(value);
-    if (match != null) return match.group(1);
-    return value.contains('/') ? value.split('/').last : value;
-  }
-
   void _onDetect(BarcodeCapture capture) {
     if (_handled) return;
     for (final code in capture.barcodes) {
-      final ref = _referenceFrom(code.rawValue ?? '');
-      if (ref != null && ref.isNotEmpty) {
+      final raw = (code.rawValue ?? '').trim();
+      if (raw.isNotEmpty) {
         _handled = true;
-        Navigator.of(context).pop(ref);
+        Navigator.of(context).pop(raw);
         return;
       }
     }
@@ -97,4 +88,16 @@ class _ScanDeliveryPageState extends State<ScanDeliveryPage> {
       ),
     );
   }
+}
+
+/// A pre-token QR: the public `deal-details/{referenceId}` link.
+bool isLegacyDealLink(String raw) => raw.contains('deal-details/');
+
+/// The reference inside a legacy link (or a bare reference code).
+String? referenceFromLink(String raw) {
+  final value = raw.trim();
+  if (value.isEmpty) return null;
+  final match = RegExp(r'deal-details/([^/?#\s]+)').firstMatch(value);
+  if (match != null) return match.group(1);
+  return value.contains('/') ? value.split('/').last : value;
 }

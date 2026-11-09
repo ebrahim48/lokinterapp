@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import '../constants/api_constants.dart';
 import '../exceptions/app_exceptions.dart';
+import 'api_envelope.dart' show errorCodeOf;
 import '../utils/notify.dart';
 import 'language_service.dart';
 import 'session_service.dart';
@@ -513,7 +514,8 @@ class ApiService {
         final message = (body is Map ? body['message'] : null) ??
             error.response?.statusMessage ??
             'server_error'.tr;
-        return ServerException(message, statusCode, error.message);
+        final code = errorCodeOf(body);
+        return ServerException('$message', statusCode, error.message, code);
 
       case DioExceptionType.cancel:
         return UnknownException('request_cancelled'.tr);

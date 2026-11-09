@@ -38,11 +38,15 @@ class SocketService extends GetxService {
   final _messages = StreamController<SocketMessage>.broadcast();
   final _notifications = StreamController<Map<String, dynamic>>.broadcast();
   final _dealEvents = StreamController<Map<String, dynamic>>.broadcast();
+  final _locations = StreamController<Map<String, dynamic>>.broadcast();
 
   Stream<Map<String, dynamic>> get chatListUpdates => _chatList.stream;
   Stream<SocketMessage> get messages => _messages.stream;
   Stream<Map<String, dynamic>> get notificationEvents => _notifications.stream;
   Stream<Map<String, dynamic>> get dealEvents => _dealEvents.stream;
+  /// Track My Order: `.deal.location.updated` on `private-deal.{id}` —
+  /// `{dealId, latitude, longitude, heading, connectionStatus, recordedAt}`.
+  Stream<Map<String, dynamic>> get locationUpdates => _locations.stream;
 
   // /broadcasting/auth sits at the host root, not under /api/v1
   String get _authUrl =>
@@ -147,6 +151,14 @@ class SocketService extends GetxService {
     } else if (name == 'chats.messages') {
       final chatId = _chatIdFrom(event.channelName);
       if (chatId != null) _messages.add(SocketMessage(chatId, payload));
+    } else if (name.contains('location.updated') ||
+        name.endsWith('DealLocationUpdated')) {
+      // a moving pin, not a state change — must not reload every deal list
+      final m = RegExp(r'private-deal\.(\d+)').firstMatch(event.channelName);
+      _locations.add({
+        ...payload,
+        'dealId': payload['dealId'] ?? (m == null ? null : int.tryParse(m.group(1)!)),
+      });
     } else if (name.contains('deal.status.updated') ||
         name.endsWith('DealStatusUpdated') ||
         event.channelName.startsWith('private-deal.')) {
@@ -186,7 +198,12 @@ class SocketService extends GetxService {
     } catch (_) {}
   }
 
+  // the deal page and Track My Order can both hold the same deal channel;
+  // it only goes when the last of them leaves
+  final _dealRefs = <int, int>{};
+
   Future<void> subscribeDeal(int dealId) async {
+    _dealRefs[dealId] = (_dealRefs[dealId] ?? 0) + 1;
     if (!_connected) await connect();
     if (!_connected) return;
     final ch = 'private-deal.$dealId';
@@ -199,6 +216,12 @@ class SocketService extends GetxService {
   }
 
   Future<void> leaveDeal(int dealId) async {
+    final left = (_dealRefs[dealId] ?? 1) - 1;
+    if (left > 0) {
+      _dealRefs[dealId] = left;
+      return;
+    }
+    _dealRefs.remove(dealId);
     final ch = 'private-deal.$dealId';
     if (!_rooms.remove(ch)) return;
     try {
@@ -208,6 +231,7 @@ class SocketService extends GetxService {
 
   Future<void> disconnect() async {
     _rooms.clear();
+    _dealRefs.clear();
     if (!_connected) return;
     _connected = false;
     try {

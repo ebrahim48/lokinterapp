@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import '../../../core/utils/format.dart';
 import '../../../core/utils/media_url.dart';
+import '../../../core/utils/role_rules.dart';
 import '../../posts/data/models/post_model.dart';
 
 class ChatMessage {
@@ -133,6 +135,27 @@ class ChatPostContext {
   /// does we trust it over inferring from the post type.
   final String? userRole;
 
+  // ---- Nov 2026 local update (REQ §2, §4, §5) ----
+  /// The post is LOCAL (one country, city to city).
+  final bool isLocal;
+  /// The country a local post runs inside — iso2 or name, whichever came.
+  final String? country;
+  /// Request pickup / drop-off, used to pre-fill the deal form (REQ §4).
+  final String? pickupLocation;
+  final double? pickupLat;
+  final double? pickupLng;
+  final String? dropoffLocation;
+  final double? dropoffLat;
+  final double? dropoffLng;
+  /// The request's deadline as a real instant (beforeDate can be a label like
+  /// "Available upon request") — pre-fills the local arrival (REQ §5).
+  final DateTime? deadline;
+
+  /// A Tunisia local deal: COD only, no deposit, no trip date, mandatory
+  /// pickup/drop-off (REQ §2–§5). A LOCAL post whose country the payload
+  /// leaves out is treated as Tunisian — local posting is Tunisia-only today.
+  bool get isTunisiaLocal => isLocal && (country == null || isTunisiaName(country));
+
   // DELIVER posts label the pill "Before {date}"; trips show the date bare
   bool get isDeliver => type == 'DELIVER';
 
@@ -154,6 +177,15 @@ class ChatPostContext {
     this.beforeDate,
     this.ownerId = 0,
     this.userRole,
+    this.isLocal = false,
+    this.country,
+    this.pickupLocation,
+    this.pickupLat,
+    this.pickupLng,
+    this.dropoffLocation,
+    this.dropoffLat,
+    this.dropoffLng,
+    this.deadline,
   });
 
   // on a TRIP post the sender is the OTHER party; on a delivery request the
@@ -198,7 +230,48 @@ class ChatPostContext {
               : int.tryParse('${owner['id']}') ?? 0)
           : (json['postCreatorId'] is int ? json['postCreatorId'] : 0),
       userRole: json['userRole'],
+      isLocal: local,
+      country: _countryKey(json['fromCountry']) ?? _countryKey(json['country']),
+      pickupLocation: _realPlace(json['pickupLocation']),
+      pickupLat: _double(json['pickupLat'] ?? json['pickup_lat']),
+      pickupLng: _double(json['pickupLng'] ?? json['pickup_lng']),
+      dropoffLocation: _realPlace(json['dropoffLocation']),
+      dropoffLat: _double(json['dropoffLat'] ?? json['dropoff_lat']),
+      dropoffLng: _double(json['dropoffLng'] ?? json['dropoff_lng']),
+      deadline: _deadline(json),
     );
+  }
+
+  static String? _countryKey(dynamic v) {
+    if (v is Map) {
+      for (final k in ['iso2', 'iso', 'name']) {
+        final s = '${v[k] ?? ''}'.trim();
+        if (s.isNotEmpty) return s;
+      }
+      return null;
+    }
+    final s = '${v ?? ''}'.trim();
+    return s.isEmpty ? null : s;
+  }
+
+  // the API stores "-" for a place nobody filled in
+  static String? _realPlace(dynamic v) {
+    final s = '${v ?? ''}'.trim();
+    return (s.isEmpty || s == '-') ? null : s;
+  }
+
+  static double? _double(dynamic v) =>
+      v is num ? v.toDouble() : double.tryParse('${v ?? ''}');
+
+  static DateTime? _deadline(Map json) {
+    for (final k in ['beforeDateRaw', 'arrivalDate', 'beforeDate']) {
+      final raw = json[k];
+      if (raw is String && raw.isNotEmpty && !isNoDateLabel(raw)) {
+        final d = parseServerDate(raw) ?? DateTime.tryParse(raw);
+        if (d != null) return d;
+      }
+    }
+    return null;
   }
 
   // preferred source first, the other as a fallback; both come as objects,

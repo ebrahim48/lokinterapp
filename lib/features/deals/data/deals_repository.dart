@@ -73,14 +73,25 @@ class DealsRepository {
     required double cost,
     required double itemEstimatedCost,
     required double weight,
-    required DateTime tripDate,
+    // null on a Tunisia local deal: the form drops Trip Date there and the
+    // arrival is the delivery deadline (REQ §5)
+    DateTime? tripDate,
     required DateTime arrivalDate,
     required bool sdRequired,
     String? itemName,
     String? itemLink,
     String? itemDescription,
+    // optional everywhere since REQ §3 — the recipient gets the QR instead
     String? receiverName,
     String? receiverPhone,
+    String? receiverCountry,
+    // mandatory on local deals, with the exact pin (REQ §4)
+    String? pickupLocation,
+    double? pickupLat,
+    double? pickupLng,
+    String? dropoffLocation,
+    double? dropoffLat,
+    double? dropoffLng,
     List<String> attachFilePaths = const [],
     String paymentMethod = 'COD',
   }) async {
@@ -94,7 +105,7 @@ class DealsRepository {
       'itemEstimatedCost': itemEstimatedCost,
       // same as posts: a double serialises to "10.0" and fails integer validation
       'weight': weight.round(),
-      'tripDate': _ymd(tripDate),
+      if (tripDate != null) 'tripDate': _ymd(tripDate),
       // the 48h auto-completion window runs from the scheduled arrival, and the
       // server reads that moment from arrivalDate alone (a datetime column,
       // validated with Laravel's `date` rule) — send the full UTC instant, not
@@ -110,6 +121,16 @@ class DealsRepository {
         'itemDescription': itemDescription,
       if (receiverName != null && receiverName.isNotEmpty) 'receiverName': receiverName,
       if (receiverPhone != null && receiverPhone.isNotEmpty) 'receiverPhone': receiverPhone,
+      if (receiverCountry != null && receiverCountry.isNotEmpty)
+        'receiverCountry': receiverCountry,
+      if (pickupLocation != null && pickupLocation.isNotEmpty)
+        'pickupLocation': pickupLocation,
+      if (pickupLat != null) 'pickupLat': pickupLat,
+      if (pickupLng != null) 'pickupLng': pickupLng,
+      if (dropoffLocation != null && dropoffLocation.isNotEmpty)
+        'dropoffLocation': dropoffLocation,
+      if (dropoffLat != null) 'dropoffLat': dropoffLat,
+      if (dropoffLng != null) 'dropoffLng': dropoffLng,
       'paymentMethod': paymentMethod,
     });
     for (final path in attachFilePaths) {
@@ -233,6 +254,27 @@ class DealsRepository {
         data: form,
         onSendProgress: onProgress,
         options: Options(receiveTimeout: timeout, sendTimeout: timeout)));
+    DataBus.changed(DataTopic.deals);
+  }
+
+  /// Sender revokes the handover QR and gets a fresh single-use token
+  /// (REQ §3 · GUIDE Screen 4). Every earlier screenshot stops working.
+  Future<String?> regenerateQr(int dealId) async {
+    final data = unwrapData(await _api.post('/deals/$dealId/regenerate-qr'));
+    DataBus.changed(DataTopic.deals);
+    if (data is Map) {
+      final t = data['deliveryQrToken'] ?? data['qrToken'] ?? data['token'];
+      if (t != null && '$t'.isNotEmpty) return '$t';
+    }
+    return null;
+  }
+
+  /// Transporter completes the handover with the token scanned from the
+  /// recipient's QR (GUIDE Screen 5). A revoked, used or foreign token comes
+  /// back as 422 / code QR_INVALID.
+  Future<void> confirmQrDelivery(int dealId, String qrToken) async {
+    unwrapData(await _api.post('/deals/$dealId/confirm-qr-delivery',
+        data: {'qr_token': qrToken}));
     DataBus.changed(DataTopic.deals);
   }
 

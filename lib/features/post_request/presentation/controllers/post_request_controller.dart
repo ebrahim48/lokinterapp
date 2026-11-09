@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
+import '../../../../core/utils/role_rules.dart';
 import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
 import '../../../posts/data/models/post_model.dart';
@@ -147,6 +148,11 @@ class PostRequestController extends GetxController {
   }
 
   Future<void> submit() async {
+    // REQ §1: approved transporters post trips, not delivery requests
+    if (!isEditing && isVerifiedTransporter) {
+      toast('requests_reserved_for_senders'.tr);
+      return;
+    }
     final origin = _byName(isLocal ? insideCountry.value : fromCountry.value);
     final kg = double.tryParse(weight.text);
     final catIds = categories

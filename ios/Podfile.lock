@@ -2,6 +2,15 @@ PODS:
   - Flutter (1.0.0)
   - flutter_secure_storage (6.0.0):
     - Flutter
+  - Google-Maps-iOS-Utils (6.1.0):
+    - GoogleMaps (~> 9.0)
+  - google_maps_flutter_ios (0.0.1):
+    - Flutter
+    - Google-Maps-iOS-Utils (< 7.0, >= 5.0)
+    - GoogleMaps (< 11.0, >= 8.4)
+  - GoogleMaps (9.4.0):
+    - GoogleMaps/Maps (= 9.4.0)
+  - GoogleMaps/Maps (9.4.0)
   - NWWebSocket (0.5.10)
   - pusher_channels_flutter (0.0.1):
     - Flutter
@@ -16,11 +25,14 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - pusher_channels_flutter (from `.symlinks/plugins/pusher_channels_flutter/ios`)
   - video_compress (from `.symlinks/plugins/video_compress/ios`)
 
 SPEC REPOS:
   trunk:
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - NWWebSocket
     - PusherSwift
     - PusherTweetNacl
@@ -30,6 +42,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  google_maps_flutter_ios:
+    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   pusher_channels_flutter:
     :path: ".symlinks/plugins/pusher_channels_flutter/ios"
   video_compress:
@@ -38,6 +52,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
+  Google-Maps-iOS-Utils: 0a484b05ed21d88c9f9ebbacb007956edd508a96
+  google_maps_flutter_ios: 17552876e72723da1d41accc22f03b5f7afbde69
+  GoogleMaps: 0608099d4870cac8754bdba9b6953db543432438
   NWWebSocket: 873eb4b18acd0317da70cdba388d792a3187ce00
   pusher_channels_flutter: 19ee24691d26965e9efca571f1620f536b9882bf
   PusherSwift: 6022fe6584b4317dc5c177091292b2a4d80a8c35

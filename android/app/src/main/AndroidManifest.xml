@@ -10,6 +10,15 @@
          buzz for deal/chat alerts -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <!-- Track My Order: the transporter's position while a local deal is
+         ONGOING, kept running behind the app as a location foreground service
+         (geolocator) — stopped the moment the deal completes or is cancelled -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- flutter_stripe validates the theme on the application context too, not
          just the activity — without this it fails to initialise on Android -->
@@ -49,6 +58,11 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_notification" />
+
+        <!-- Google Maps SDK: Track My Order map + pickup/drop-off pin picker -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBbuPRJ8cuHMk-23kqL_8B8myJx_BnnHw0" />
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

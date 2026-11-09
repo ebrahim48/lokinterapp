@@ -6,6 +6,7 @@ import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/auth_gate.dart';
+import '../../../core/utils/role_rules.dart';
 import '../../chat/presentation/chat_inbox_page.dart';
 import '../../deals/presentation/deals_page.dart';
 import '../../home_feed/presentation/home_feed_page.dart';
@@ -16,6 +17,7 @@ import '../../chat/presentation/controllers/chat_inbox_controller.dart';
 import '../../deals/presentation/deals_controller.dart';
 import '../../home_feed/presentation/controllers/home_feed_controller.dart';
 import '../../profile/presentation/controllers/profile_controller.dart';
+import '../../../core/utils/fee_gate.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -49,6 +51,10 @@ class _MainShellState extends State<MainShell> {
       // backend — here, not at launch, so a guest browsing the feed is spared
       // the prompt until they actually have an account to notify
       Get.find<PushService>().start();
+      // overdue-fee restrictions follow the server: re-read on start and on
+      // every return to the app (REQ §10.2)
+      FeeGate.watch();
+      FeeGate.refresh();
     }
   }
 
@@ -63,7 +69,9 @@ class _MainShellState extends State<MainShell> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      body: IndexedStack(index: _index, children: _pages),
+      body: FeeRestrictionScope(
+        child: IndexedStack(index: _index, children: _pages),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppPalette.primary,
@@ -175,21 +183,34 @@ class _MainShellState extends State<MainShell> {
             ListTile(
               leading: const Icon(Icons.luggage_outlined, color: AppPalette.intlAccent),
               title: Text('post_a_trip'.tr),
-              onTap: () {
+              onTap: () async {
                 // posting asks for nothing — verification happens only at the
                 // two deal moments (confirm agreement / accept deal)
                 Get.back();
+                // an overdue fee ledger blocks new trips (REQ §10.2)
+                if (!await FeeGate.allow(FeeGate.postTrip)) return;
                 Get.to(() => const PostTripPage());
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.inventory_2_outlined, color: AppPalette.primary),
-              title: Text('post_a_delivery_request'.tr),
-              onTap: () {
-                Get.back();
-                Get.to(() => const PostRequestPage());
-              },
-            ),
+            // REQ §1: delivery requests are for senders — an approved
+            // transporter sees the option greyed out with the reason
+            if (isVerifiedTransporter)
+              ListTile(
+                enabled: false,
+                leading: const Icon(Icons.inventory_2_outlined),
+                title: Text('post_a_delivery_request'.tr),
+                subtitle: Text('requests_reserved_for_senders'.tr,
+                    style: TextStyle(fontSize: 11.5.sp)),
+              )
+            else
+              ListTile(
+                leading: const Icon(Icons.inventory_2_outlined, color: AppPalette.primary),
+                title: Text('post_a_delivery_request'.tr),
+                onTap: () {
+                  Get.back();
+                  Get.to(() => const PostRequestPage());
+                },
+              ),
             SizedBox(height: 8.h),
           ],
         ),

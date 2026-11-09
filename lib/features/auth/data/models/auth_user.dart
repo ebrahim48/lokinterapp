@@ -48,6 +48,11 @@ class AuthUser {
   /// `{status, planTitle, startDate, endDate}` only while it is still in date.
   final Map<String, dynamic>? subscription;
 
+  /// Overdue transporter-fee restrictions (REQ §10.2), straight from
+  /// `/auth/user`: `{restricted, isOverdue, blocked:[POST_TRIP, ACCEPT_DEAL,
+  /// NEW_CHAT], overdue:[TND|USD]}`. Null when the account has none.
+  final Map<String, dynamic>? feeRestrictions;
+
   const AuthUser({
     required this.id,
     required this.fullName,
@@ -79,7 +84,34 @@ class AuthUser {
     this.hasNoDisputesOnCompletedDeliveries = false,
     this.phoneVerified = false,
     this.subscription,
+    this.feeRestrictions,
   });
+
+  /// Approved by admin — the only transporters allowed to post Tunisia local
+  /// trips (REQ §1). Same three approval signals as the badge.
+  bool get isVerifiedTransporter => showTransporterBadge;
+
+  bool get feeRestricted => feeRestrictions?['restricted'] == true;
+
+  /// One of POST_TRIP / ACCEPT_DEAL / NEW_CHAT is blocked by an overdue
+  /// fee ledger. When the payload doesn't list them, a restriction blocks all
+  /// three (GUIDE Screen 10).
+  bool feeBlocks(String action) {
+    if (!feeRestricted) return false;
+    final blocked = feeRestrictions?['blocked'];
+    if (blocked is! List || blocked.isEmpty) return true;
+    return blocked.map((e) => '$e'.toUpperCase()).contains(action);
+  }
+
+  /// Currencies of the overdue ledgers ("TND", "USD").
+  List<String> get overdueCurrencies {
+    final raw = feeRestrictions?['overdue'];
+    if (raw is! List) return const [];
+    return raw
+        .map((e) => e is Map ? '${e['currency'] ?? ''}' : '$e')
+        .where((e) => e.isNotEmpty)
+        .toList();
+  }
 
   /// True while a paid plan is running — the subscribe button stays disabled.
   bool get hasActiveSubscription => subscription?['status'] == true;
@@ -168,7 +200,16 @@ class AuthUser {
         subscription: json['subscription'] is Map
             ? Map<String, dynamic>.from(json['subscription'])
             : null,
+        feeRestrictions: _restrictions(json),
       );
+
+  static Map<String, dynamic>? _restrictions(Map<String, dynamic> json) {
+    final r = json['feeRestrictions'];
+    if (r is Map) return Map<String, dynamic>.from(r);
+    // older payloads only carry the top-level flag
+    if (json['isOverdue'] == true) return {'restricted': true, 'isOverdue': true};
+    return null;
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -201,5 +242,6 @@ class AuthUser {
         'hasNoDisputesOnCompletedDeliveries': hasNoDisputesOnCompletedDeliveries,
         'phoneVerified': phoneVerified,
         'subscription': subscription,
+        'feeRestrictions': feeRestrictions,
       };
 }

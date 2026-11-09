@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import '../../../core/services/data_bus.dart';
+import '../../../core/services/location_tracker_service.dart';
 import '../../../core/exceptions/app_exceptions.dart';
 import '../data/deal_model.dart';
 import '../data/deals_repository.dart';
@@ -42,6 +43,11 @@ class DealsController extends GetxController {
     try {
       deals.assignAll(await _repo.list(status));
       error.value = null;
+      // the full list is the source of truth for which local deliveries are
+      // ONGOING — start/stop location sharing to match (REQ §6.1)
+      if (status == 'ALL' && Get.isRegistered<LocationTrackerService>()) {
+        Get.find<LocationTrackerService>().syncFromDeals(deals);
+      }
     } on AppException catch (e) {
       if (deals.isEmpty) error.value = e.message;
     } finally {

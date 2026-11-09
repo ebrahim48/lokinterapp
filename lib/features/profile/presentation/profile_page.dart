@@ -15,6 +15,9 @@ import 'wallet_page.dart';
 import '../../../core/widgets/user_badge.dart';
 import '../../posts/presentation/widgets/transporter_chip.dart';
 import '../../../core/widgets/user_avatar.dart';
+import '../../../core/utils/role_rules.dart';
+import '../../fees/presentation/fee_ledgers_page.dart';
+import '../../fees/presentation/invoices_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -53,6 +56,14 @@ class ProfilePage extends StatelessWidget {
                 () => Get.to(() => const BecomeTransporterPage())),
             _Item(Icons.account_balance_wallet_outlined, 'wallet_payouts'.tr,
                 () => Get.to(() => const WalletPage())),
+            // REQ §9: only professional transporters carry fee ledgers —
+            // ordinary travelers never see fees
+            if (isVerifiedTransporter) ...[
+              _Item(Icons.account_balance_outlined, 'fee_ledgers'.tr,
+                  () => Get.to(() => const FeeLedgersPage())),
+              _Item(Icons.receipt_long_outlined, 'invoices_tax_records'.tr,
+                  () => Get.to(() => const InvoicesPage())),
+            ],
           ]),
           SizedBox(height: 14.h),
           _group(context, [
