@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../core/services/location_tracker_service.dart';
 import '../../../core/services/push_service.dart';
 import '../../../core/services/session_service.dart';
 import '../../../core/services/socket_service.dart';
@@ -55,6 +56,9 @@ class _MainShellState extends State<MainShell> {
       // every return to the app (REQ §10.2)
       FeeGate.watch();
       FeeGate.refresh();
+      // a transporter mid-delivery shares location again right after launch,
+      // without first having to open the Deals tab (REQ §6.1)
+      Get.find<LocationTrackerService>().resumeFromServer();
     }
   }
 

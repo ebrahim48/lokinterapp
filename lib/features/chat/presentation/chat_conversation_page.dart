@@ -1,3 +1,4 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -507,23 +508,56 @@ class _AgreementSheetState extends State<_AgreementSheet> {
 
   // A deal opened from a delivery request starts with the request's points and
   // deadline (REQ §4, §5); contacting a trip directly leaves them to the
-  // sender. Only exact pins pre-fill — an address alone can't place a marker.
+  // sender. Exact pins pre-fill straight away; a request that only has a
+  // typed address (older posts, the website) is looked up on the device
+  // geocoder so the marker still lands — if that finds nothing, the field
+  // stays empty for the sender to pin by hand.
   void _prefillFromRequest() {
     final p = widget.post;
     if (!p.isDeliver) return;
     if (p.pickupLat != null && p.pickupLng != null) {
       _pickup = PickedPlace(
           label: p.pickupLocation ?? '', lat: p.pickupLat!, lng: p.pickupLng!);
+    } else if (_isLocal) {
+      _geocodeInto(p.pickupLocation, (place) => _pickup ??= place);
     }
     if (p.dropoffLat != null && p.dropoffLng != null) {
       _dropoff = PickedPlace(
           label: p.dropoffLocation ?? '', lat: p.dropoffLat!, lng: p.dropoffLng!);
+    } else if (_isLocal) {
+      _geocodeInto(p.dropoffLocation, (place) => _dropoff ??= place);
     }
     final deadline = p.deadline;
     if (deadline != null && deadline.isAfter(DateTime.now())) {
       _arrivalDate = deadline;
     }
   }
+
+  /// Address text -> pin, keeping the request's own wording as the label.
+  /// [apply] uses `??=` so a point the sender already picked is never
+  /// overwritten by a late lookup.
+  Future<void> _geocodeInto(String? address, void Function(PickedPlace) apply) async {
+    final text = (address ?? '').trim();
+    if (text.isEmpty) return;
+    // the device geocoder guesses something even for nonsense text, so the
+    // query is anchored to Tunisia and a hit outside the country is dropped
+    final query = RegExp(r'tunisi', caseSensitive: false).hasMatch(text)
+        ? text
+        : '$text, Tunisia';
+    try {
+      final hits = await Geocoding().locationFromAddress(query);
+      if (!mounted) return;
+      final hit = hits.firstWhereOrNull((h) => _inTunisia(h.latitude, h.longitude));
+      if (hit == null) return;
+      setState(() => apply(PickedPlace(label: text, lat: hit.latitude, lng: hit.longitude)));
+    } catch (_) {
+      // unknown address or no network — the sender pins it by hand
+    }
+  }
+
+  // Tunisia's bounding box (Djerba to Bizerte, Algerian to Libyan border)
+  static bool _inTunisia(double lat, double lng) =>
+      lat >= 30.2 && lat <= 37.6 && lng >= 7.5 && lng <= 11.7;
 
   // picking a country stamps the matching dial code onto the phone field,
   // same as the website's receiver-country picker
