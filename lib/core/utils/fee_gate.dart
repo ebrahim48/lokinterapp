@@ -67,14 +67,17 @@ class FeeGate {
   /// The API refused with 403 LEDGER_OVERDUE — show the same explanation.
   /// Returns true when [e] was that refusal.
   static bool handle(AppException e, String action) {
-    if (e is! ServerException) return false;
-    final overdue = e.code == 'LEDGER_OVERDUE' ||
-        (e.statusCode == 403 && e.message.toLowerCase().contains('overdue'));
-    if (!overdue) return false;
+    if (!isOverdue(e)) return false;
     refresh(force: true);
     showRestricted(action);
     return true;
   }
+
+  /// [e] is the API's overdue-ledger refusal (403 LEDGER_OVERDUE).
+  static bool isOverdue(AppException e) =>
+      e is ServerException &&
+      (e.code == 'LEDGER_OVERDUE' ||
+          (e.statusCode == 403 && e.message.toLowerCase().contains('overdue')));
 
   static Future<void> showRestricted(String action) async {
     final ctx = Get.context;
