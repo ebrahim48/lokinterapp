@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/services/session_service.dart';
 import '../../../../core/services/socket_service.dart';
+import '../../../../core/utils/fee_gate.dart';
 import '../../../../core/utils/notify.dart';
 import '../../../posts/data/models/post_model.dart';
 import '../../data/chat_model.dart';
@@ -63,7 +64,14 @@ class ChatConversationController extends GetxController {
       // safety net — the socket is primary, this just heals missed frames
       _poll = Timer.periodic(const Duration(seconds: 5), (_) => _refresh());
     } on AppException catch (e) {
-      toastError(e);
+      // the server refused to open a NEW conversation while a fee ledger is
+      // overdue (REQ §10.2): leave the empty screen and explain why
+      if (FeeGate.isOverdue(e)) {
+        Get.back();
+        FeeGate.handle(e, FeeGate.newChat);
+      } else {
+        toastError(e);
+      }
     } finally {
       loading.value = false;
     }
@@ -131,7 +139,7 @@ class ChatConversationController extends GetxController {
       _notifyInbox(id, text);
       await _refresh(); // the sender is excluded from the socket broadcast
     } on AppException catch (e) {
-      toastError(e);
+      if (!FeeGate.handle(e, FeeGate.newChat)) toastError(e);
     } finally {
       sending.value = false;
     }
@@ -165,7 +173,7 @@ class ChatConversationController extends GetxController {
       await _refresh();
       toast('attachment_sent'.tr);
     } on AppException catch (e) {
-      toastError(e);
+      if (!FeeGate.handle(e, FeeGate.newChat)) toastError(e);
     } finally {
       sending.value = false;
     }
