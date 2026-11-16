@@ -76,6 +76,12 @@ class Post {
   final String? airline;
   final String? pickupLocation;
   final String? dropoffLocation;
+  // exact map pins for the two points — null when the poster typed an
+  // address only (older posts, the website); never guessed
+  final double? pickupLat;
+  final double? pickupLng;
+  final double? dropoffLat;
+  final double? dropoffLng;
   // Google Maps search links the API builds for the two locations
   final String? pickupLocationLink;
   final String? dropoffLocationLink;
@@ -134,6 +140,10 @@ class Post {
     this.airline,
     this.pickupLocation,
     this.dropoffLocation,
+    this.pickupLat,
+    this.pickupLng,
+    this.dropoffLat,
+    this.dropoffLng,
     this.pickupLocationLink,
     this.dropoffLocationLink,
     this.remainingWeightDisplay,
@@ -192,6 +202,10 @@ class Post {
       airline: json['airLine'],
       pickupLocation: json['pickupLocation'],
       dropoffLocation: json['dropoffLocation'],
+      pickupLat: _coord(json['pickupLat'] ?? json['pickup_lat']),
+      pickupLng: _coord(json['pickupLng'] ?? json['pickup_lng']),
+      dropoffLat: _coord(json['dropoffLat'] ?? json['dropoff_lat']),
+      dropoffLng: _coord(json['dropoffLng'] ?? json['dropoff_lng']),
       pickupLocationLink: _link(json['pickupLocationLink']),
       dropoffLocationLink: _link(json['dropoffLocationLink']),
       remainingWeightDisplay: _text(json['remainingWeightDisplay']),
@@ -226,6 +240,10 @@ class Post {
         isFullyConsumed: json['isFullyConsumed'] == true,
         pickupLocation: json['pickupLocation'],
         dropoffLocation: json['dropoffLocation'],
+        pickupLat: _coord(json['pickupLat'] ?? json['pickup_lat']),
+        pickupLng: _coord(json['pickupLng'] ?? json['pickup_lng']),
+        dropoffLat: _coord(json['dropoffLat'] ?? json['dropoff_lat']),
+        dropoffLng: _coord(json['dropoffLng'] ?? json['dropoff_lng']),
         pickupLocationLink: _link(json['pickupLocationLink']),
         dropoffLocationLink: _link(json['dropoffLocationLink']),
         // the my-posts endpoint carries the full row now, so own posts show the
@@ -351,6 +369,13 @@ class Post {
   // numbers sometimes arrive as strings ("5") — never trust the type
   static double _num(dynamic v) =>
       v is num ? v.toDouble() : double.tryParse(v?.toString() ?? '') ?? 0;
+
+  // a coordinate, or null when absent/unparseable — unlike [_num], never 0,
+  // since 0,0 would be a real (wrong) point on the map
+  static double? _coord(dynamic v) {
+    if (v == null) return null;
+    return v is num ? v.toDouble() : double.tryParse(v.toString());
+  }
 
   // country fields come as {id, name, iso2}; cities as {id, name}, plain
   // text, or a bare [] when unset

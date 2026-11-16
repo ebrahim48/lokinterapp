@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/widgets/lok_busy_button.dart';
+import '../../../core/widgets/location_picker_page.dart';
 import '../../../core/widgets/lok_fields.dart';
 import '../../../core/widgets/option_card.dart';
 import '../../brands/presentation/brands_page.dart';
@@ -231,24 +232,27 @@ class PostRequestPage extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: c.weight,
         ),
-        // live mode only asks for these on a local request
+        // live mode only asks for these on a local request. Picked on the map
+        // so the post stores exact pins a later deal copies (GUIDE Screen 1 §5)
         if (c.isLocal) ...[
           SizedBox(height: 16.h),
-          LokTextField(
-            label: 'pickup_location'.tr,
-            hint: 'where_the_item_is_collected'.tr,
-            icon: Icons.place_outlined,
-            required: true,
-            controller: c.pickupLocation,
-          ),
+          Obx(() => LokLocationField(
+                label: 'pickup_location'.tr,
+                hint: 'where_the_item_is_collected'.tr,
+                required: true,
+                value: c.pickup.value,
+                fallbackLabel: c.pickupAddress.value,
+                onChanged: (p) => c.pickup.value = p,
+              )),
           SizedBox(height: 16.h),
-          LokTextField(
-            label: 'dropoff_location'.tr,
-            hint: 'where_it_should_be_delivered'.tr,
-            icon: Icons.flag_outlined,
-            required: true,
-            controller: c.dropoffLocation,
-          ),
+          Obx(() => LokLocationField(
+                label: 'dropoff_location'.tr,
+                hint: 'where_it_should_be_delivered'.tr,
+                required: true,
+                value: c.dropoff.value,
+                fallbackLabel: c.dropoffAddress.value,
+                onChanged: (p) => c.dropoff.value = p,
+              )),
         ],
         SizedBox(height: 16.h),
         Obx(() => LokMultiSelectField(

@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/exceptions/app_exceptions.dart';
 import '../../../../core/utils/notify.dart';
 import '../../../../core/utils/role_rules.dart';
+import '../../../../core/widgets/location_picker_page.dart';
 import '../../../lookups/data/lookup_models.dart';
 import '../../../lookups/data/lookups_repository.dart';
 import '../../../posts/data/models/post_model.dart';
@@ -40,8 +41,15 @@ class PostRequestController extends GetxController {
   final weight = TextEditingController();
   final description = TextEditingController();
   final profit = TextEditingController();
-  final pickupLocation = TextEditingController(); // API requires both of these
-  final dropoffLocation = TextEditingController();
+  // GUIDE Screen 1 §5: the two points are picked on the map so the post
+  // carries exact pins (pickupLat/Lng, dropoffLat/Lng) next to the address.
+  // A deal opened from this request copies them.
+  final pickup = Rxn<PickedPlace>();
+  final dropoff = Rxn<PickedPlace>();
+  // address of an older post saved as text only — kept (and re-sent) as-is
+  // until the poster pins it; never turned into a guessed coordinate
+  final pickupAddress = ''.obs;
+  final dropoffAddress = ''.obs;
 
   final busy = false.obs;
   final lookupFailed = false.obs; // countries/categories couldn't be loaded
@@ -110,8 +118,10 @@ class PostRequestController extends GetxController {
       itemName.text = post.title ?? '';
       weight.text = post.weight == 0 ? '' : post.weight.toStringAsFixed(0);
       description.text = post.description ?? '';
-      pickupLocation.text = post.pickupLocation ?? '';
-      dropoffLocation.text = post.dropoffLocation ?? '';
+      pickup.value = placeFrom(post.pickupLocation, post.pickupLat, post.pickupLng);
+      dropoff.value = placeFrom(post.dropoffLocation, post.dropoffLat, post.dropoffLng);
+      pickupAddress.value = realAddress(post.pickupLocation);
+      dropoffAddress.value = realAddress(post.dropoffLocation);
       categories_.assignAll(post.categories);
       // keep the poster's currency — falling back to the USD default made an
       // edited TND/EUR request show (and resave) its profit in USD
@@ -176,16 +186,18 @@ class PostRequestController extends GetxController {
       toast('pick_a_destination_country'.tr);
       return;
     }
+    // international requests hide these; the repository posts the website's
+    // placeholder for whatever is left blank
+    final pickupText = isLocal ? (pickup.value?.label ?? pickupAddress.value).trim() : '';
+    final dropoffText = isLocal ? (dropoff.value?.label ?? dropoffAddress.value).trim() : '';
     // only a local request asks for these; international falls back to the route
-    if (isLocal &&
-        (pickupLocation.text.trim().isEmpty || dropoffLocation.text.trim().isEmpty)) {
+    if (isLocal && (pickupText.isEmpty || dropoffText.isEmpty)) {
       toast('add_the_pickup_and_dropoff_locations'.tr);
       return;
     }
-    // international requests hide these; the repository posts the website's
-    // placeholder for whatever is left blank
-    final pickup = pickupLocation.text.trim();
-    final dropoff = dropoffLocation.text.trim();
+    // pins only travel with a local request, and only once actually picked
+    final pickupPin = isLocal ? pickup.value : null;
+    final dropoffPin = isLocal ? dropoff.value : null;
     if (!acceptedTerms.value) {
       toast('accept_the_terms_and_conditions_first'.tr);
       return;
@@ -211,8 +223,12 @@ class PostRequestController extends GetxController {
           categoryIds: catIds,
           profit: double.tryParse(profit.text.trim()),
         currency: currency.value,
-          pickupLocation: pickup,
-          dropoffLocation: dropoff,
+          pickupLocation: pickupText,
+          dropoffLocation: dropoffText,
+          pickupLat: pickupPin?.lat,
+          pickupLng: pickupPin?.lng,
+          dropoffLat: dropoffPin?.lat,
+          dropoffLng: dropoffPin?.lng,
           description: description.text.trim(),
           attachFilePath: picturePath.value,
         );
@@ -235,8 +251,12 @@ class PostRequestController extends GetxController {
         categoryIds: catIds,
         profit: double.tryParse(profit.text.trim()),
         currency: currency.value,
-        pickupLocation: pickup,
-        dropoffLocation: dropoff,
+        pickupLocation: pickupText,
+        dropoffLocation: dropoffText,
+        pickupLat: pickupPin?.lat,
+        pickupLng: pickupPin?.lng,
+        dropoffLat: dropoffPin?.lat,
+        dropoffLng: dropoffPin?.lng,
         description: description.text.trim(),
         attachFilePath: picturePath.value,
       );
@@ -277,8 +297,6 @@ class PostRequestController extends GetxController {
     weight.dispose();
     description.dispose();
     profit.dispose();
-    pickupLocation.dispose();
-    dropoffLocation.dispose();
     super.onClose();
   }
 }
