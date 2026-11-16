@@ -111,6 +111,11 @@ class PostsRepository {
     required double weight,
     required String pickupLocation,
     required String dropoffLocation,
+    // exact map pins (GUIDE Screen 1 §5) — optional, sent only when picked
+    double? pickupLat,
+    double? pickupLng,
+    double? dropoffLat,
+    double? dropoffLng,
     List<int> rejectedCategoryIds = const [],
     String? notes,
     bool noSpecificDate = false,
@@ -137,6 +142,14 @@ class PostsRepository {
       if (notes != null && notes.isNotEmpty) 'pickupPoints': notes,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
+      if (pickupLat != null && pickupLng != null) ...{
+        'pickupLat': pickupLat,
+        'pickupLng': pickupLng,
+      },
+      if (dropoffLat != null && dropoffLng != null) ...{
+        'dropoffLat': dropoffLat,
+        'dropoffLng': dropoffLng,
+      },
     });
     unwrapData(await _api.post('/posts/addNewPost', data: form));
     DataBus.changed(DataTopic.posts);
@@ -157,6 +170,11 @@ class PostsRepository {
     required List<int> categoryIds,
     required String pickupLocation,
     required String dropoffLocation,
+    // exact map pins (GUIDE Screen 1 §5) — optional, sent only when picked
+    double? pickupLat,
+    double? pickupLng,
+    double? dropoffLat,
+    double? dropoffLng,
     String? description,
     String? attachFilePath,
     double? profit,
@@ -183,6 +201,14 @@ class PostsRepository {
       if (currency != null) 'currency': currency,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
+      if (pickupLat != null && pickupLng != null) ...{
+        'pickupLat': pickupLat,
+        'pickupLng': pickupLng,
+      },
+      if (dropoffLat != null && dropoffLng != null) ...{
+        'dropoffLat': dropoffLat,
+        'dropoffLng': dropoffLng,
+      },
       // the website stores the item description in `deliveryPoints` —
       // that's the field the API actually persists and returns
       if (description != null && description.isNotEmpty)
@@ -210,6 +236,11 @@ class PostsRepository {
     required double weight,
     required String pickupLocation,
     required String dropoffLocation,
+    // exact map pins (GUIDE Screen 1 §5) — optional, sent only when picked
+    double? pickupLat,
+    double? pickupLng,
+    double? dropoffLat,
+    double? dropoffLng,
     List<int> rejectedCategoryIds = const [],
     String? notes,
     bool noSpecificDate = false,
@@ -235,6 +266,14 @@ class PostsRepository {
       if (notes != null && notes.isNotEmpty) 'pickupPoints': notes,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
+      if (pickupLat != null && pickupLng != null) ...{
+        'pickupLat': pickupLat,
+        'pickupLng': pickupLng,
+      },
+      if (dropoffLat != null && dropoffLng != null) ...{
+        'dropoffLat': dropoffLat,
+        'dropoffLng': dropoffLng,
+      },
     });
     unwrapData(await _api.post('/posts/updatePost/$id', data: form));
     DataBus.changed(DataTopic.posts);
@@ -254,6 +293,11 @@ class PostsRepository {
     required List<int> categoryIds,
     required String pickupLocation,
     required String dropoffLocation,
+    // exact map pins (GUIDE Screen 1 §5) — optional, sent only when picked
+    double? pickupLat,
+    double? pickupLng,
+    double? dropoffLat,
+    double? dropoffLng,
     String? description,
     String? attachFilePath,
     double? profit,
@@ -280,6 +324,14 @@ class PostsRepository {
       if (currency != null) 'currency': currency,
       'pickupLocation': pickupLocation.isEmpty ? _noPlace : pickupLocation,
       'dropoffLocation': dropoffLocation.isEmpty ? _noPlace : dropoffLocation,
+      if (pickupLat != null && pickupLng != null) ...{
+        'pickupLat': pickupLat,
+        'pickupLng': pickupLng,
+      },
+      if (dropoffLat != null && dropoffLng != null) ...{
+        'dropoffLat': dropoffLat,
+        'dropoffLng': dropoffLng,
+      },
       if (description != null && description.isNotEmpty)
         'deliveryPoints': description,
       if (attachFilePath != null)

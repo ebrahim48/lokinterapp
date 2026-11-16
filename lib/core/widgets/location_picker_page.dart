@@ -20,6 +20,25 @@ class PickedPlace {
   const PickedPlace({required this.label, required this.lat, required this.lng});
 
   LatLng get latLng => LatLng(lat, lng);
+
+  /// Coordinates as text — the label when an address has no name.
+  String get coordsLabel => '${lat.toStringAsFixed(5)}, ${lng.toStringAsFixed(5)}';
+}
+
+/// A stored address, minus the `-` placeholder the API is sent for a blank one.
+String realAddress(String? raw) {
+  final t = (raw ?? '').trim();
+  return t == '-' ? '' : t;
+}
+
+/// The pin a post already stored, or null when it has no exact coordinates —
+/// an address alone is never turned into a guessed point.
+PickedPlace? placeFrom(String? address, double? lat, double? lng) {
+  if (lat == null || lng == null) return null;
+  final place = PickedPlace(label: realAddress(address), lat: lat, lng: lng);
+  return place.label.isEmpty
+      ? PickedPlace(label: place.coordsLabel, lat: lat, lng: lng)
+      : place;
 }
 
 /// Full-screen pin picker: the pin stays in the middle of the map and the
@@ -273,6 +292,9 @@ class LokLocationField extends StatelessWidget {
   final bool required;
   final PickedPlace? value;
   final ValueChanged<PickedPlace> onChanged;
+  /// Address shown while [value] is null — an older post saved as text with
+  /// no pin. Tapping still opens the map so it can be pinned exactly.
+  final String? fallbackLabel;
 
   const LokLocationField({
     super.key,
@@ -281,11 +303,14 @@ class LokLocationField extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.required = false,
+    this.fallbackLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final fallback = (fallbackLabel ?? '').trim();
+    final shown = value?.label ?? (fallback.isEmpty ? null : fallback);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -318,12 +343,12 @@ class LokLocationField extends StatelessWidget {
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
-                    value?.label ?? hint,
+                    shown ?? hint,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 13.sp,
-                      color: value == null ? cs.onSurfaceVariant : cs.onSurface,
+                      color: shown == null ? cs.onSurfaceVariant : cs.onSurface,
                     ),
                   ),
                 ),
