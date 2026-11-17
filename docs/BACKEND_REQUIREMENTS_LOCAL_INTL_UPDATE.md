@@ -207,6 +207,35 @@ body: { qr_token: "…" }
 
 ## §5. Track My Order (REQ §6 · GUIDE Screens 6, 7)
 
+> **Backend reply (16 Nov 2026), now used by the app:**
+> - `GET /deals/{id}/tracking/settings` → `shouldCollect`, `pingIntervalSeconds`. Called when a
+>   deal screen opens and on every deals refresh; `shouldCollect:false` stops sending.
+> - `POST /deals/{id}/tracking/location`: single point, or `{points:[…]}` batch (max 500, bad points skipped).
+>   The app also sends `accuracy`, `speed`, `heading` (REQ §6.3 asks to store accuracy).
+> - `GET /deals/{id}/tracking` (= `/tracking-status`): latest location, `connectionStatus`,
+>   pickup/drop-off, `breadcrumbs`, `pingIntervalSeconds`. The map draws breadcrumbs as the path
+>   already travelled and polls at the ping interval (10–45 s).
+>
+> **Answered (16 Nov), now in the app:** latest fix = `currentLocation` (null until the first);
+> `breadcrumbs` `[{lat,lng,recordedAt}]`, latest 100, oldest → newest (`route` = same with
+> latitude/longitude); accuracy/speed/heading stored; socket `deal.location.updated` and
+> `deal.tracking.stopped` on `private-deal.{id}`; silent FCM `TRACKING_STOP` (`deal_id`, strings),
+> handled in the foreground and in the background handler; settings `trackingState` + `maxBatchPoints`;
+> `400` on `tracking/location` = stopped for good; `400` on `GET /tracking` = message instead of map.
+>
+> **Realtime config (backend, 16 Nov), now in the app:** on login the socket calls
+> `GET /realtime-config` and uses its `key`, `cluster`, `useTLS`, `authEndpoint`, `channelPrefix` and
+> event names. The `realtime` block inside `/tracking` and `/tracking/settings` updates it too
+> (a changed key or cluster restarts the socket). The last server config is saved for offline launches;
+> the built-in `6be7243295ab894483a1` / `ap1` is only the last resort. `enabled:false`, a non-pusher
+> driver, or a custom `host` (the Flutter Pusher plugin can't reach self-hosted servers) → polling.
+> `retentionDays` from `/tracking/settings` is parsed.
+>
+> **Still open:**
+> - Each server's `APP_URL` must be its real public URL, because `authEndpoint` is built from it.
+> - Retention: `TRACKING_RETENTION_DAYS=0` (kept forever) until the client approves a period
+>   (REQ §6.3). Then set it in the server `.env`. The app needs no change for that.
+
 ### 5.1 Transporter sends a position
 
 ```

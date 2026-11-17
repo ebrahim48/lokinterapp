@@ -38,7 +38,11 @@ class DealCard extends StatelessWidget {
             ],
             Row(
               children: [
-                Icon(Icons.place_outlined, size: 16.sp, color: AppPalette.primary),
+                Icon(
+                  Icons.place_outlined,
+                  size: 16.sp,
+                  color: AppPalette.primary,
+                ),
                 SizedBox(width: 6.w),
                 Expanded(
                   child: Text(
@@ -55,13 +59,15 @@ class DealCard extends StatelessWidget {
                 StatusBadge(status: deal.status),
               ],
             ),
-            if (deal.attemptText != null || deal.senderAttemptsText != null) ...[
+            if (deal.attemptText != null ||
+                deal.senderAttemptsText != null) ...[
               SizedBox(height: 8.h),
               Wrap(
                 spacing: 6.w,
                 runSpacing: 6.h,
                 children: [
-                  if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
+                  if (deal.attemptText != null)
+                    AttemptBadge(text: deal.attemptText!),
                   if (deal.senderAttemptsText != null)
                     AttemptBadge(text: deal.senderAttemptsText!),
                 ],
@@ -70,8 +76,11 @@ class DealCard extends StatelessWidget {
             SizedBox(height: 12.h),
             Row(
               children: [
-                _meta(context, deal.isLocal ? Icons.location_on : Icons.public,
-                    deal.isLocal ? 'local'.tr : 'international'.tr),
+                _meta(
+                  context,
+                  deal.isLocal ? Icons.location_on : Icons.public,
+                  deal.isLocal ? 'local'.tr : 'international'.tr,
+                ),
                 SizedBox(width: 16.w),
                 _meta(context, Icons.event_outlined, shortDate(deal.date)),
               ],
@@ -79,7 +88,11 @@ class DealCard extends StatelessWidget {
             SizedBox(height: 10.h),
             Row(
               children: [
-                Icon(Icons.payments_outlined, size: 15.sp, color: AppPalette.verified),
+                Icon(
+                  Icons.payments_outlined,
+                  size: 15.sp,
+                  color: AppPalette.verified,
+                ),
                 SizedBox(width: 6.w),
                 Text(
                   deal.profitLabel,
@@ -90,8 +103,10 @@ class DealCard extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text('#${deal.id}',
-                    style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+                Text(
+                  '#${deal.id}',
+                  style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+                ),
               ],
             ),
             // disputed deals lead with the dispute itself
@@ -99,7 +114,8 @@ class DealCard extends StatelessWidget {
               SizedBox(height: 10.h),
               _disputeLine(context),
             ],
-            if (deal.status == DealStatus.completed && deal.isAutoCompleted) ...[
+            if (deal.status == DealStatus.completed &&
+                deal.isAutoCompleted) ...[
               SizedBox(height: 10.h),
               const AutoCompletedChip(),
             ],
@@ -151,7 +167,11 @@ class DealCard extends StatelessWidget {
             reason.isNotEmpty ? reason : 'dispute_report'.tr,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: fg),
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: fg,
+            ),
           ),
         ),
         if (status.isNotEmpty)
@@ -161,13 +181,18 @@ class DealCard extends StatelessWidget {
               color: fg.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(20.r),
             ),
-            child: Text(status,
-                style: TextStyle(fontSize: 9.5.sp, fontWeight: FontWeight.w700, color: fg)),
+            child: Text(
+              status,
+              style: TextStyle(
+                fontSize: 9.5.sp,
+                fontWeight: FontWeight.w700,
+                color: fg,
+              ),
+            ),
           ),
       ],
     );
   }
-
 
   Widget _meta(BuildContext context, IconData icon, String text) {
     final cs = Theme.of(context).colorScheme;
@@ -176,7 +201,10 @@ class DealCard extends StatelessWidget {
       children: [
         Icon(icon, size: 14.sp, color: cs.onSurfaceVariant),
         SizedBox(width: 5.w),
-        Text(text, style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant)),
+        Text(
+          text,
+          style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant),
+        ),
       ],
     );
   }

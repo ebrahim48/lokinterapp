@@ -68,6 +68,12 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   final _geocoder = Geocoding();
   late LatLng _center = widget.initial?.latLng ?? _fallback;
   String _label = '';
+  /// The exact point [_label] was looked up for. Confirm returns this point,
+  /// so the saved address and the saved coordinates always describe the same
+  /// place (a Dhaka address can never be saved with the Tunis start point).
+  LatLng? _labelAt;
+  /// The user searched or dragged: a late "find me" must not pull the pin away.
+  bool _userMoved = false;
   bool _resolving = false;
   final _search = TextEditingController();
   int _lookupSeq = 0;
@@ -76,6 +82,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
   void initState() {
     super.initState();
     _label = widget.initial?.label ?? '';
+    if (widget.initial != null) _labelAt = widget.initial!.latLng;
     if (widget.initial == null) _goToMe(silent: true);
   }
 
@@ -88,23 +95,34 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
 
   Future<void> _resolveAddress() async {
     final seq = ++_lookupSeq;
+    final at = _center;
     setState(() => _resolving = true);
     try {
-      final marks = await _geocoder.placemarkFromCoordinates(_center.latitude, _center.longitude);
+      final marks = await _geocoder.placemarkFromCoordinates(at.latitude, at.longitude);
       if (seq != _lookupSeq || !mounted) return;
-      setState(() => _label = marks.isEmpty ? _coordsLabel : _format(marks.first));
+      setState(() {
+        _label = marks.isEmpty ? _coordsOf(at) : _format(marks.first, at);
+        _labelAt = at;
+      });
     } catch (_) {
       // no geocoder / offline: the coordinates are still exact
-      if (seq == _lookupSeq && mounted) setState(() => _label = _coordsLabel);
+      if (seq == _lookupSeq && mounted) {
+        setState(() {
+          _label = _coordsOf(at);
+          _labelAt = at;
+        });
+      }
     } finally {
       if (seq == _lookupSeq && mounted) setState(() => _resolving = false);
     }
   }
 
-  String get _coordsLabel =>
-      '${_center.latitude.toStringAsFixed(5)}, ${_center.longitude.toStringAsFixed(5)}';
+  String get _coordsLabel => _coordsOf(_center);
 
-  String _format(Placemark p) {
+  static String _coordsOf(LatLng p) =>
+      '${p.latitude.toStringAsFixed(5)}, ${p.longitude.toStringAsFixed(5)}';
+
+  String _format(Placemark p, LatLng at) {
     final parts = <String>[
       if ((p.street ?? '').isNotEmpty) p.street!,
       if ((p.subLocality ?? '').isNotEmpty) p.subLocality!,
@@ -112,7 +130,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
       if ((p.administrativeArea ?? '').isNotEmpty && p.administrativeArea != p.locality)
         p.administrativeArea!,
     ];
-    return parts.isEmpty ? _coordsLabel : parts.toSet().join(', ');
+    return parts.isEmpty ? _coordsOf(at) : parts.toSet().join(', ');
   }
 
   Future<void> _searchAddress() async {
@@ -125,6 +143,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
         toast('no_place_found'.tr);
         return;
       }
+      _userMoved = true;
       _moveTo(LatLng(hits.first.latitude, hits.first.longitude), zoom: 16);
     } catch (_) {
       toast('no_place_found'.tr);
@@ -144,6 +163,9 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
       final pos = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
       ).timeout(const Duration(seconds: 10));
+      // the silent start-up lookup lost the race to a search or a drag
+      if (silent && _userMoved) return;
+      if (!silent) _userMoved = true;
       _moveTo(LatLng(pos.latitude, pos.longitude), zoom: 16);
     } catch (_) {
       if (!silent) toast('could_not_get_your_location'.tr);
@@ -174,6 +196,7 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
               _map = c;
               if (_label.isEmpty) _resolveAddress();
             },
+            onCameraMoveStarted: () => _labelAt = null,
             onCameraMove: (pos) => _center = pos.target,
             onCameraIdle: _resolveAddress,
           ),
@@ -263,13 +286,15 @@ class _LocationPickerPageState extends State<LocationPickerPage> {
                     ),
                     SizedBox(height: 12.h),
                     ElevatedButton(
-                      onPressed: _resolving
+                      // enabled only once the address under the pin is known
+                      // for the pin's current spot
+                      onPressed: (_resolving || _labelAt == null)
                           ? null
                           : () => Get.back(
                                 result: PickedPlace(
-                                  label: _label.isEmpty ? _coordsLabel : _label,
-                                  lat: _center.latitude,
-                                  lng: _center.longitude,
+                                  label: _label.isEmpty ? _coordsOf(_labelAt!) : _label,
+                                  lat: _labelAt!.latitude,
+                                  lng: _labelAt!.longitude,
                                 ),
                               ),
                       child: Text('confirm_this_location'.tr),

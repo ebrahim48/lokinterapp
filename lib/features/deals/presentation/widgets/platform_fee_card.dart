@@ -28,21 +28,34 @@ class PlatformFeeCard extends StatelessWidget {
 
     final String headline;
     if (exempt) {
-      headline = 'platform_fee_exempt'.trParams({'amount': formatFee(0, currency)});
+      headline = 'platform_fee_exempt'.trParams({
+        'amount': formatFee(0, currency),
+      });
     } else if (fee.isPending) {
       headline = 'platform_fee_pending'.tr;
     } else {
       final tier = fee.tierLabel;
       headline = tier.isEmpty
           ? 'platform_fee_amount'.trParams({'amount': fee.amountLabel})
-          : 'platform_fee_amount_tier'.trParams({'amount': fee.amountLabel, 'tier': tier});
+          : 'platform_fee_amount_tier'.trParams({
+              'amount': fee.amountLabel,
+              'tier': tier,
+            });
     }
 
-    final progress = !exempt && !fee.isPending && fee.nextRate != null && fee.dealsToNextTier != null
-        ? (fee.isLocal ? 'next_tier_this_month' : 'next_tier_90_days').trParams({
-            'n': '${fee.dealsToNextTier}',
-            'rate': formatFee(fee.nextRate, fee.currency.isEmpty ? currency : fee.currency),
-          })
+    final progress =
+        !exempt &&
+            !fee.isPending &&
+            fee.nextRate != null &&
+            fee.dealsToNextTier != null
+        ? (fee.isLocal ? 'next_tier_this_month' : 'next_tier_90_days')
+              .trParams({
+                'n': '${fee.dealsToNextTier}',
+                'rate': formatFee(
+                  fee.nextRate,
+                  fee.currency.isEmpty ? currency : fee.currency,
+                ),
+              })
         : null;
 
     return Container(
@@ -58,32 +71,54 @@ class PlatformFeeCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.receipt_outlined, size: 18.sp, color: AppPalette.primary),
+              Icon(
+                Icons.receipt_outlined,
+                size: 18.sp,
+                color: AppPalette.primary,
+              ),
               SizedBox(width: 8.w),
-              Text('platform_fee'.tr,
-                  style: TextStyle(
-                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              Text(
+                'platform_fee'.tr,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  color: cs.onSurface,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10.h),
-          Text(headline, style: TextStyle(fontSize: 13.sp, color: cs.onSurface, height: 1.35)),
+          Text(
+            headline,
+            style: TextStyle(
+              fontSize: 13.sp,
+              color: cs.onSurface,
+              height: 1.35,
+            ),
+          ),
           if (progress != null) ...[
             SizedBox(height: 10.h),
-            if (fee!.tierTo != null && fee.periodCount != null && fee.tierFrom != null)
+            if (fee!.tierTo != null &&
+                fee.periodCount != null &&
+                fee.tierFrom != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(6.r),
                 child: LinearProgressIndicator(
-                  value: ((fee.periodCount! - fee.tierFrom! + 1) /
-                          (fee.tierTo! - fee.tierFrom! + 1))
-                      .clamp(0, 1)
-                      .toDouble(),
+                  value:
+                      ((fee.periodCount! - fee.tierFrom! + 1) /
+                              (fee.tierTo! - fee.tierFrom! + 1))
+                          .clamp(0, 1)
+                          .toDouble(),
                   minHeight: 6.h,
                   color: AppPalette.primary,
                   backgroundColor: cs.outline.withValues(alpha: 0.4),
                 ),
               ),
             SizedBox(height: 6.h),
-            Text(progress, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+            Text(
+              progress,
+              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+            ),
           ],
           if (!exempt) ...[
             SizedBox(height: 6.h),

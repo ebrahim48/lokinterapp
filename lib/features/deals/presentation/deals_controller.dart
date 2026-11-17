@@ -21,7 +21,10 @@ class DealsController extends GetxController {
   void onInit() {
     super.onInit();
     // a write elsewhere in the app invalidates what's on screen
-    _busSub = DataBus.on({DataTopic.deals, DataTopic.posts}).listen((_) => load());
+    _busSub = DataBus.on({
+      DataTopic.deals,
+      DataTopic.posts,
+    }).listen((_) => load());
     ever(filter, (_) => load());
     load();
   }

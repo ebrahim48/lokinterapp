@@ -6,7 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import '../constants/api_constants.dart';
+import 'api_envelope.dart';
+import 'api_service.dart';
+import 'cache_service.dart';
+import 'realtime_config.dart';
 import 'data_bus.dart';
+import 'location_tracker_service.dart';
 import 'session_service.dart';
 
 // A live chat message pushed on a chatRoom channel, tagged with which chat it
@@ -26,8 +31,12 @@ class SocketService extends GetxService {
   final SessionService _session;
   SocketService(this._session);
 
-  static const _appKey = '6be7243295ab894483a1';
-  static const _cluster = 'ap1';
+  // Pusher key / cluster / auth URL come from the server (`/realtime-config`)
+  // — the built-in values in [RealtimeConfig.fallback] are the last resort.
+  static const _configCacheKey = 'realtime_config';
+  RealtimeConfig _config = RealtimeConfig.fallback;
+  bool _configFromServer = false;
+  RealtimeConfig get config => _config;
 
   final _pusher = PusherChannelsFlutter.getInstance();
   bool _inited = false;
@@ -39,6 +48,7 @@ class SocketService extends GetxService {
   final _notifications = StreamController<Map<String, dynamic>>.broadcast();
   final _dealEvents = StreamController<Map<String, dynamic>>.broadcast();
   final _locations = StreamController<Map<String, dynamic>>.broadcast();
+  final _trackingStopped = StreamController<Map<String, dynamic>>.broadcast();
 
   Stream<Map<String, dynamic>> get chatListUpdates => _chatList.stream;
   Stream<SocketMessage> get messages => _messages.stream;
@@ -47,20 +57,85 @@ class SocketService extends GetxService {
   /// Track My Order: `.deal.location.updated` on `private-deal.{id}` —
   /// `{dealId, latitude, longitude, heading, connectionStatus, recordedAt}`.
   Stream<Map<String, dynamic>> get locationUpdates => _locations.stream;
+  /// Track My Order: `deal.tracking.stopped` on `private-deal.{id}` —
+  /// `{dealId, dealStatus, reason, stoppedAt}`.
+  Stream<Map<String, dynamic>> get trackingStopped => _trackingStopped.stream;
 
-  // /broadcasting/auth sits at the host root, not under /api/v1
+  // the server's authEndpoint; else /broadcasting/auth at the host root
+  // (not under /api/v1)
   String get _authUrl =>
+      _config.authEndpoint ??
       '${ApiConstants.baseUrl.replaceFirst(RegExp(r'/api/v1/?$'), '')}/broadcasting/auth';
 
-  Future<void> connect() async {
+  /// `GET /realtime-config` (needs login). Offline → the config saved from
+  /// the last login → the built-in fallback.
+  Future<void> loadConfig() async {
+    try {
+      final data = unwrapData(await ApiService().get('/realtime-config'));
+      final cfg = RealtimeConfig.tryParse(data);
+      if (cfg != null) {
+        await applyConfig(cfg);
+        return;
+      }
+    } catch (e) {
+      if (kDebugMode) print('socket: realtime-config failed $e');
+    }
+    if (_configFromServer) return;
+    try {
+      final raw = CacheService().get<String>(_configCacheKey);
+      final saved = raw == null ? null : RealtimeConfig.tryParse(jsonDecode(raw));
+      if (saved != null) _config = saved;
+    } catch (_) {}
+  }
+
+  /// A config from the server (`/realtime-config`, or the `realtime` block in
+  /// the tracking responses). Saved for offline launches; a changed key or
+  /// cluster restarts the socket, and a disabled one closes it (→ polling).
+  Future<void> applyConfig(RealtimeConfig cfg) async {
+    final changed = !cfg.sameConnection(_config);
+    _config = cfg;
+    _configFromServer = true;
+    try {
+      await CacheService().put(_configCacheKey, jsonEncode(cfg.toJson()));
+    } catch (_) {}
+    if (!changed || !_inited) return;
+    _inited = false;
+    if (_connected) {
+      _connected = false;
+      try {
+        await _pusher.disconnect();
+      } catch (_) {}
+    }
+    if (cfg.usable) await _connect();
+  }
+
+  // the shell and the chat inbox both call connect() at start-up
+  Future<void>? _connecting;
+
+  Future<void> connect() {
+    if (_connecting != null) return _connecting!;
+    final f = _connect();
+    _connecting = f;
+    return f.whenComplete(() => _connecting = null);
+  }
+
+  Future<void> _connect() async {
     final myId = _session.user.value?.id;
     if (myId == null || _connected) return;
+    if (!_configFromServer) await loadConfig();
+    if (_connected) return; // applyConfig may have connected meanwhile
+    // server says no Pusher here (or a self-hosted socket the plugin can't
+    // reach): screens fall back to polling
+    if (!_config.usable) return;
 
     try {
       if (!_inited) {
+        // authEndpoint is NOT passed: on iOS it would replace onAuthorizer,
+        // which carries the bearer token
         await _pusher.init(
-          apiKey: _appKey,
-          cluster: _cluster,
+          apiKey: _config.key,
+          cluster: _config.cluster,
+          useTLS: _config.useTLS,
           onAuthorizer: _authorize,
           onEvent: _onEvent,
           onConnectionStateChange: (current, previous) {
@@ -84,7 +159,9 @@ class SocketService extends GetxService {
       await _pusher.connect();
       _connected = true;
       // already-subscribed channels throw on a reconnect — that's fine
-      for (final ch in ['private-chats.$myId', 'private-notifications.$myId']) {
+      // own channels, plus rooms/deals screens still hold (after a restart
+      // for a new config the native client has none of them)
+      for (final ch in ['private-chats.$myId', 'private-notifications.$myId', ..._rooms]) {
         try {
           await _pusher.subscribe(channelName: ch);
         } catch (_) {}
@@ -151,17 +228,30 @@ class SocketService extends GetxService {
     } else if (name == 'chats.messages') {
       final chatId = _chatIdFrom(event.channelName);
       if (chatId != null) _messages.add(SocketMessage(chatId, payload));
+    } else if (name.contains('tracking.stopped') ||
+        _isEvent(name, _config.stoppedEvent) ||
+        name.endsWith('DealTrackingStopped')) {
+      final m = RegExp(r'(\d+)$').firstMatch(event.channelName);
+      final id = int.tryParse('${payload['dealId'] ?? payload['deal_id'] ?? m?.group(1) ?? ''}');
+      _trackingStopped.add({...payload, 'dealId': id});
+      // transporter side: end the GPS service now, not on the next refresh
+      if (id != null && Get.isRegistered<LocationTrackerService>()) {
+        Get.find<LocationTrackerService>().stop(id);
+      }
+      DataBus.changed(DataTopic.deals);
     } else if (name.contains('location.updated') ||
+        _isEvent(name, _config.locationEvent) ||
         name.endsWith('DealLocationUpdated')) {
       // a moving pin, not a state change — must not reload every deal list
-      final m = RegExp(r'private-deal\.(\d+)').firstMatch(event.channelName);
+      final m = RegExp(r'(\d+)$').firstMatch(event.channelName);
       _locations.add({
         ...payload,
         'dealId': payload['dealId'] ?? (m == null ? null : int.tryParse(m.group(1)!)),
       });
     } else if (name.contains('deal.status.updated') ||
         name.endsWith('DealStatusUpdated') ||
-        event.channelName.startsWith('private-deal.')) {
+        event.channelName.startsWith('private-deal.') ||
+        event.channelName.startsWith(_config.channelPrefix)) {
       // Echo may prefix the name (".deal.status.updated" or the class name)
       _dealEvents.add(payload);
       // deal lists and the wallet everywhere reload, not just the open deal
@@ -172,6 +262,10 @@ class SocketService extends GetxService {
       DataBus.changed(DataTopic.deals);
     }
   }
+
+  // plain Pusher gets the exact name; Echo-style senders prefix a dot
+  bool _isEvent(String name, String wanted) =>
+      wanted.isNotEmpty && (name == wanted || name.endsWith('.$wanted'));
 
   int? _chatIdFrom(String channel) {
     final m = RegExp(r'chatRoom\.(\d+)').firstMatch(channel);
@@ -206,7 +300,7 @@ class SocketService extends GetxService {
     _dealRefs[dealId] = (_dealRefs[dealId] ?? 0) + 1;
     if (!_connected) await connect();
     if (!_connected) return;
-    final ch = 'private-deal.$dealId';
+    final ch = '${_config.channelPrefix}$dealId';
     if (!_rooms.add(ch)) return;
     try {
       await _pusher.subscribe(channelName: ch);
@@ -222,7 +316,7 @@ class SocketService extends GetxService {
       return;
     }
     _dealRefs.remove(dealId);
-    final ch = 'private-deal.$dealId';
+    final ch = '${_config.channelPrefix}$dealId';
     if (!_rooms.remove(ch)) return;
     try {
       await _pusher.unsubscribe(channelName: ch);
@@ -232,6 +326,8 @@ class SocketService extends GetxService {
   Future<void> disconnect() async {
     _rooms.clear();
     _dealRefs.clear();
+    // the next login asks /realtime-config again
+    _configFromServer = false;
     if (!_connected) return;
     _connected = false;
     try {
