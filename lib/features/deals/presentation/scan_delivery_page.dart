@@ -12,17 +12,18 @@ import '../../../core/theme/app_palette.dart';
 class ScanDeliveryPage extends StatefulWidget {
   const ScanDeliveryPage({super.key});
 
-  static Future<String?> open(BuildContext context) =>
-      Navigator.of(context).push<String>(
-        MaterialPageRoute(builder: (_) => const ScanDeliveryPage()),
-      );
+  static Future<String?> open(BuildContext context) => Navigator.of(
+    context,
+  ).push<String>(MaterialPageRoute(builder: (_) => const ScanDeliveryPage()));
 
   @override
   State<ScanDeliveryPage> createState() => _ScanDeliveryPageState();
 }
 
 class _ScanDeliveryPageState extends State<ScanDeliveryPage> {
-  final _controller = MobileScannerController(detectionSpeed: DetectionSpeed.noDuplicates);
+  final _controller = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
+  );
   bool _handled = false;
 
   void _onDetect(BarcodeCapture capture) {
@@ -72,7 +73,11 @@ class _ScanDeliveryPageState extends State<ScanDeliveryPage> {
             child: Text(
               'point_camera_at_receiver_qr'.tr,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 13.sp, height: 1.4),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13.sp,
+                height: 1.4,
+              ),
             ),
           ),
           Positioned(
@@ -80,8 +85,11 @@ class _ScanDeliveryPageState extends State<ScanDeliveryPage> {
             right: 20.w,
             child: IconButton(
               onPressed: () => _controller.toggleTorch(),
-              icon: Icon(Icons.flashlight_on_outlined,
-                  color: AppPalette.primary, size: 26.sp),
+              icon: Icon(
+                Icons.flashlight_on_outlined,
+                color: AppPalette.primary,
+                size: 26.sp,
+              ),
             ),
           ),
         ],

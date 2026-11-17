@@ -18,28 +18,32 @@ class DealsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('deals'.tr),
         actions: [
-          Obx(() => IconButton(
-                tooltip: 'filter'.tr,
-                onPressed: () => _openFilter(context, c),
-                icon: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    const Icon(Icons.filter_list),
-                    // a dot marks that a non-"All" filter is active
-                    if (c.filter.value != null)
-                      Positioned(
-                        right: -1,
-                        top: -1,
-                        child: Container(
-                          width: 8.r,
-                          height: 8.r,
-                          decoration: const BoxDecoration(
-                              color: AppPalette.primary, shape: BoxShape.circle),
+          Obx(
+            () => IconButton(
+              tooltip: 'filter'.tr,
+              onPressed: () => _openFilter(context, c),
+              icon: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const Icon(Icons.filter_list),
+                  // a dot marks that a non-"All" filter is active
+                  if (c.filter.value != null)
+                    Positioned(
+                      right: -1,
+                      top: -1,
+                      child: Container(
+                        width: 8.r,
+                        height: 8.r,
+                        decoration: const BoxDecoration(
+                          color: AppPalette.primary,
+                          shape: BoxShape.circle,
                         ),
                       ),
-                  ],
-                ),
-              )),
+                    ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
       body: Column(
@@ -51,7 +55,8 @@ class DealsPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               children: [
                 _chip(context, c, null, 'deals.all'.tr),
-                for (final s in DealStatus.values) _chip(context, c, s, s.label),
+                for (final s in DealStatus.values)
+                  _chip(context, c, s, s.label),
               ],
             ),
           ),
@@ -65,10 +70,13 @@ class DealsPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(c.error.value!,
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                      Text(
+                        c.error.value!,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
                       TextButton(onPressed: c.load, child: Text('retry'.tr)),
                     ],
                   ),
@@ -83,7 +91,8 @@ class DealsPage extends StatelessWidget {
                   separatorBuilder: (_, __) => SizedBox(height: 12.h),
                   itemBuilder: (_, i) => DealCard(
                     deal: c.deals[i],
-                    onTap: () => Get.to(() => DealDetailsPage(deal: c.deals[i])),
+                    onTap: () =>
+                        Get.to(() => DealDetailsPage(deal: c.deals[i])),
                   ),
                 ),
               );
@@ -114,9 +123,14 @@ class DealsPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 8.h),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('filter_deals'.tr,
-                    style: TextStyle(
-                        fontSize: 15.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                child: Text(
+                  'filter_deals'.tr,
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                  ),
+                ),
               ),
             ),
             for (final (status, label) in options)
@@ -127,11 +141,14 @@ class DealsPage extends StatelessWidget {
                     c.filter.value = status;
                     Navigator.pop(context);
                   },
-                  title: Text(label,
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          color: active ? AppPalette.primary : cs.onSurface,
-                          fontWeight: active ? FontWeight.w700 : FontWeight.w500)),
+                  title: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: active ? AppPalette.primary : cs.onSurface,
+                      fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                    ),
+                  ),
                   trailing: active
                       ? const Icon(Icons.check, color: AppPalette.primary)
                       : null,
@@ -144,7 +161,12 @@ class DealsPage extends StatelessWidget {
     );
   }
 
-  Widget _chip(BuildContext context, DealsController c, DealStatus? s, String label) {
+  Widget _chip(
+    BuildContext context,
+    DealsController c,
+    DealStatus? s,
+    String label,
+  ) {
     final cs = Theme.of(context).colorScheme;
     return Obx(() {
       final active = c.filter.value == s;
@@ -158,7 +180,9 @@ class DealsPage extends StatelessWidget {
             decoration: BoxDecoration(
               color: active ? AppPalette.primary : cs.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: active ? AppPalette.primary : cs.outline),
+              border: Border.all(
+                color: active ? AppPalette.primary : cs.outline,
+              ),
             ),
             child: Text(
               label,
@@ -182,8 +206,10 @@ class DealsPage extends StatelessWidget {
         children: [
           Icon(Icons.inbox_outlined, size: 48.sp, color: cs.onSurfaceVariant),
           SizedBox(height: 12.h),
-          Text('no_deals_here_yet'.tr,
-              style: TextStyle(fontSize: 14.sp, color: cs.onSurfaceVariant)),
+          Text(
+            'no_deals_here_yet'.tr,
+            style: TextStyle(fontSize: 14.sp, color: cs.onSurfaceVariant),
+          ),
         ],
       ),
     );

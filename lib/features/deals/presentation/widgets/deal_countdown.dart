@@ -15,6 +15,7 @@ class DealCountdown extends StatefulWidget {
   final DateTime endsAt;
   final DealWindow window;
   final VoidCallback? onExpired;
+
   /// Smaller single-line variant for deal cards.
   final bool compact;
 
@@ -74,25 +75,25 @@ class _DealCountdownState extends State<DealCountdown> {
   }
 
   (IconData, Color, String, String?) get _style => switch (widget.window) {
-        DealWindow.payment => (
-            Icons.timer_outlined,
-            const Color(0xFFB45309),
-            'payment_window_remaining',
-            'payment_window_hint',
-          ),
-        DealWindow.arrival => (
-            Icons.hourglass_bottom,
-            const Color(0xFF0369A1),
-            'arrival_window_remaining',
-            'arrival_window_hint',
-          ),
-        DealWindow.dispute => (
-            Icons.gpp_maybe_outlined,
-            const Color(0xFFBE123C),
-            'dispute_window_remaining',
-            null,
-          ),
-      };
+    DealWindow.payment => (
+      Icons.timer_outlined,
+      const Color(0xFFB45309),
+      'payment_window_remaining',
+      'payment_window_hint',
+    ),
+    DealWindow.arrival => (
+      Icons.hourglass_bottom,
+      const Color(0xFF0369A1),
+      'arrival_window_remaining',
+      'arrival_window_hint',
+    ),
+    DealWindow.dispute => (
+      Icons.gpp_maybe_outlined,
+      const Color(0xFFBE123C),
+      'dispute_window_remaining',
+      null,
+    ),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -115,14 +116,17 @@ class _DealCountdownState extends State<DealCountdown> {
             Icon(icon, size: 13.sp, color: color),
             SizedBox(width: 5.w),
             Flexible(
-              child: Text(text,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w700,
-                      color: color,
-                      fontFeatures: const [FontFeature.tabularFigures()])),
+              child: Text(
+                text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
             ),
           ],
         ),
@@ -146,19 +150,25 @@ class _DealCountdownState extends State<DealCountdown> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(text,
-                    style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
-                        color: color,
-                        fontFeatures: const [FontFeature.tabularFigures()])),
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
                 if (hintKey != null) ...[
                   SizedBox(height: 4.h),
-                  Text(hintKey.tr,
-                      style: TextStyle(
-                          fontSize: 11.5.sp,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          height: 1.4)),
+                  Text(
+                    hintKey.tr,
+                    style: TextStyle(
+                      fontSize: 11.5.sp,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      height: 1.4,
+                    ),
+                  ),
                 ],
               ],
             ),
@@ -188,9 +198,14 @@ class AutoCompletedChip extends StatelessWidget {
         children: [
           Icon(Icons.auto_mode, size: 12.sp, color: color),
           SizedBox(width: 4.w),
-          Text('auto_completed'.tr,
-              style: TextStyle(
-                  fontSize: 10.5.sp, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            'auto_completed'.tr,
+            style: TextStyle(
+              fontSize: 10.5.sp,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
         ],
       ),
     );

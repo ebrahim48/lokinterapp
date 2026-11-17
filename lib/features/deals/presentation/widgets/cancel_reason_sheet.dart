@@ -63,8 +63,13 @@ class _CancelReasonSheetState extends State<CancelReasonSheet> {
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: Text(r.label,
-                            style: TextStyle(fontSize: 13.5.sp, color: cs.onSurface)),
+                        child: Text(
+                          r.label,
+                          style: TextStyle(
+                            fontSize: 13.5.sp,
+                            color: cs.onSurface,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -83,7 +88,9 @@ class _CancelReasonSheetState extends State<CancelReasonSheet> {
                 Expanded(
                   child: ElevatedButton(
                     // stays disabled until a reason is chosen
-                    onPressed: _picked == null ? null : () => Get.back(result: _picked),
+                    onPressed: _picked == null
+                        ? null
+                        : () => Get.back(result: _picked),
                     child: Text('confirm_cancel'.tr),
                   ),
                 ),

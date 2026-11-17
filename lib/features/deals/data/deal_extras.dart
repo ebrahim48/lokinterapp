@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 class DealExtras {
   /// Server: the signed-in user is the counterparty who may accept (GUIDE §3).
   final bool? canAcceptDeal;
+
   /// Server: the signed-in user proposed this deal and just waits.
   final bool? isProposer;
+
   /// First name of whoever proposed it — "Waiting for {name} to accept".
   final String? proposedByName;
 
@@ -25,6 +27,7 @@ class DealExtras {
 
   /// Server says this viewer may open Track My Order right now.
   final bool? trackingAvailable;
+
   /// How often the transporter app should send a position (REQ §6.3).
   final int? trackingIntervalSeconds;
 
@@ -57,26 +60,37 @@ class DealExtras {
     final proposer = json['proposedBy'];
     final track = json['tracking'];
     return DealExtras(
-      canAcceptDeal: json['canAcceptDeal'] is bool ? json['canAcceptDeal'] : null,
+      canAcceptDeal: json['canAcceptDeal'] is bool
+          ? json['canAcceptDeal']
+          : null,
       isProposer: json['isProposer'] is bool ? json['isProposer'] : null,
       proposedByName: proposer is Map
-          ? _str(proposer['firstName'] ?? proposer['fullName'] ?? proposer['name'])
+          ? _str(
+              proposer['firstName'] ?? proposer['fullName'] ?? proposer['name'],
+            )
           : null,
-      deliveryQrToken: _str(json['deliveryQrToken'] ?? json['delivery_qr_token']),
+      deliveryQrToken: _str(
+        json['deliveryQrToken'] ?? json['delivery_qr_token'],
+      ),
       pickupLocation: _place(json['pickupLocation'] ?? json['pickupAddress']),
       pickupLat: _double(json['pickupLat'] ?? json['pickup_lat']),
       pickupLng: _double(json['pickupLng'] ?? json['pickup_lng']),
-      dropoffLocation: _place(json['dropoffLocation'] ?? json['dropoffAddress']),
+      dropoffLocation: _place(
+        json['dropoffLocation'] ?? json['dropoffAddress'],
+      ),
       dropoffLat: _double(json['dropoffLat'] ?? json['dropoff_lat']),
       dropoffLng: _double(json['dropoffLng'] ?? json['dropoff_lng']),
       trackingAvailable: json['trackingAvailable'] is bool
           ? json['trackingAvailable']
           : (track is Map && track['active'] is bool ? track['active'] : null),
-      trackingIntervalSeconds: parseInt(json['trackingIntervalSeconds'] ??
-          (track is Map ? track['intervalSeconds'] : null)),
+      trackingIntervalSeconds: parseInt(
+        json['trackingIntervalSeconds'] ??
+            (track is Map ? track['intervalSeconds'] : null),
+      ),
       currency: _str(json['currency']),
       platformFee: PlatformFee.tryParse(
-          json['platformFee'] ?? json['transporterFee'] ?? json['platform_fee']),
+        json['platformFee'] ?? json['transporterFee'] ?? json['platform_fee'],
+      ),
     );
   }
 
@@ -94,7 +108,8 @@ class DealExtras {
   static double? _double(dynamic v) =>
       v is num ? v.toDouble() : double.tryParse('${v ?? ''}');
 
-  static int? parseInt(dynamic v) => v is num ? v.toInt() : int.tryParse('${v ?? ''}');
+  static int? parseInt(dynamic v) =>
+      v is num ? v.toInt() : int.tryParse('${v ?? ''}');
 }
 
 /// The professional transporter's fee on one completed deal (REQ §7, §8 ·
@@ -102,8 +117,10 @@ class DealExtras {
 class PlatformFee {
   /// False for ordinary travelers — they are never charged.
   final bool applies;
+
   /// PENDING (dispute/verification open) | FINALIZED | WAIVED | REVERSED
   final String status;
+
   /// LOCAL | INTERNATIONAL
   final String? ledger;
   final String currency;
@@ -111,6 +128,7 @@ class PlatformFee {
   final int? tierIndex;
   final int? tierFrom;
   final int? tierTo;
+
   /// CALENDAR_MONTH | ROLLING_90_DAYS
   final String? periodType;
   final int? periodCount;
@@ -133,17 +151,25 @@ class PlatformFee {
   });
 
   bool get isLocal =>
-      (ledger ?? '').toUpperCase() == 'LOCAL' || currency.toUpperCase() == 'TND';
+      (ledger ?? '').toUpperCase() == 'LOCAL' ||
+      currency.toUpperCase() == 'TND';
   bool get isPending => status.toUpperCase() == 'PENDING';
 
   /// "0.900 TND" / "$2.45 USD"
-  String get amountLabel => formatFee(amount, currency.isEmpty ? (isLocal ? 'TND' : 'USD') : currency);
+  String get amountLabel => formatFee(
+    amount,
+    currency.isEmpty ? (isLocal ? 'TND' : 'USD') : currency,
+  );
 
   String get tierLabel {
     if (tierIndex == null) return '';
-    final range = tierTo == null ? '${tierFrom ?? ''}+' : '${tierFrom ?? ''}-$tierTo';
-    return (isLocal ? 'fee_tier_month' : 'fee_tier_90_days')
-        .trParams({'n': '$tierIndex', 'range': range});
+    final range = tierTo == null
+        ? '${tierFrom ?? ''}+'
+        : '${tierFrom ?? ''}-$tierTo';
+    return (isLocal ? 'fee_tier_month' : 'fee_tier_90_days').trParams({
+      'n': '$tierIndex',
+      'range': range,
+    });
   }
 
   static PlatformFee? tryParse(dynamic raw) {
@@ -152,11 +178,15 @@ class PlatformFee {
     }
     if (raw is! Map) return null;
     final m = Map<String, dynamic>.from(raw);
-    final tier = m['tier'] is Map ? Map<String, dynamic>.from(m['tier']) : const <String, dynamic>{};
-    final period =
-        m['period'] is Map ? Map<String, dynamic>.from(m['period']) : const <String, dynamic>{};
-    final next =
-        m['nextTier'] is Map ? Map<String, dynamic>.from(m['nextTier']) : const <String, dynamic>{};
+    final tier = m['tier'] is Map
+        ? Map<String, dynamic>.from(m['tier'])
+        : const <String, dynamic>{};
+    final period = m['period'] is Map
+        ? Map<String, dynamic>.from(m['period'])
+        : const <String, dynamic>{};
+    final next = m['nextTier'] is Map
+        ? Map<String, dynamic>.from(m['nextTier'])
+        : const <String, dynamic>{};
     return PlatformFee(
       applies: m['applies'] is bool ? m['applies'] : true,
       status: '${m['status'] ?? 'FINALIZED'}'.toUpperCase(),

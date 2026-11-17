@@ -76,7 +76,9 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
         } else if (window['remainingSeconds'] is num) {
           final mins = ((window['remainingSeconds'] as num) / 60).ceil();
           _windowNote = mins > 120
-              ? 'dispute_window_open_left'.trParams({'time': '${(mins / 60).floor()}h'})
+              ? 'dispute_window_open_left'.trParams({
+                  'time': '${(mins / 60).floor()}h',
+                })
               : 'dispute_window_open_left'.trParams({'time': '${mins}m'});
         }
       });
@@ -98,7 +100,10 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
       return;
     }
     final imgs = await ImagePicker().pickMultiImage(
-        maxWidth: 1920, imageQuality: 80, limit: room > 1 ? room : null);
+      maxWidth: 1920,
+      imageQuality: 80,
+      limit: room > 1 ? room : null,
+    );
     if (imgs.isEmpty || !mounted) return;
     final known = _evidence.map((x) => x.path).toSet();
     final fresh = imgs.where((x) => !known.contains(x.path)).take(room);
@@ -133,7 +138,10 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
   }
 
   String _labelOf(Map<String, dynamic> r) =>
-      (r['label'] ?? r['title'] ?? r['name'] ?? _prettify('${r['value'] ?? r['reason'] ?? ''}'))
+      (r['label'] ??
+              r['title'] ??
+              r['name'] ??
+              _prettify('${r['value'] ?? r['reason'] ?? ''}'))
           .toString();
 
   // the API returns [{key, label}] — without `key` every reason resolved to the
@@ -150,7 +158,9 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 24.h),
@@ -158,16 +168,26 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('open_a_dispute'.tr, style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'open_a_dispute'.tr,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               SizedBox(height: 6.h),
               Text(
                 'dispute_sheet_intro'.tr,
-                style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant, height: 1.4),
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: cs.onSurfaceVariant,
+                  height: 1.4,
+                ),
               ),
               if (_windowNote != null) ...[
                 SizedBox(height: 10.h),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 8.h,
+                  ),
                   decoration: BoxDecoration(
                     color: _windowClosed
                         ? AppPalette.primary.withValues(alpha: 0.1)
@@ -176,17 +196,24 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.schedule,
-                          size: 15.sp,
-                          color: _windowClosed ? AppPalette.primary : cs.onSurfaceVariant),
+                      Icon(
+                        Icons.schedule,
+                        size: 15.sp,
+                        color: _windowClosed
+                            ? AppPalette.primary
+                            : cs.onSurfaceVariant,
+                      ),
                       SizedBox(width: 8.w),
                       Expanded(
-                        child: Text(_windowNote!,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: _windowClosed
-                                    ? AppPalette.primary
-                                    : cs.onSurfaceVariant)),
+                        child: Text(
+                          _windowNote!,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: _windowClosed
+                                ? AppPalette.primary
+                                : cs.onSurfaceVariant,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -203,22 +230,33 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                   final value = _valueOf(r);
                   final picked = _selected == value;
                   return InkWell(
-                    onTap: _windowClosed ? null : () => setState(() => _selected = value),
+                    onTap: _windowClosed
+                        ? null
+                        : () => setState(() => _selected = value),
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.h),
                       child: Row(
                         children: [
                           Icon(
-                            picked ? Icons.radio_button_checked : Icons.radio_button_off,
+                            picked
+                                ? Icons.radio_button_checked
+                                : Icons.radio_button_off,
                             size: 20.sp,
-                            color: picked ? AppPalette.primary : cs.onSurfaceVariant,
+                            color: picked
+                                ? AppPalette.primary
+                                : cs.onSurfaceVariant,
                           ),
                           SizedBox(width: 10.w),
                           Expanded(
-                            child: Text(_labelOf(r),
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    color: _windowClosed ? cs.onSurfaceVariant : cs.onSurface)),
+                            child: Text(
+                              _labelOf(r),
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                                color: _windowClosed
+                                    ? cs.onSurfaceVariant
+                                    : cs.onSurface,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -228,8 +266,13 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                 if (_reasons.isEmpty)
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.h),
-                    child: Text('no_dispute_reasons_available_for_this_deal'.tr,
-                        style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
+                    child: Text(
+                      'no_dispute_reasons_available_for_this_deal'.tr,
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
                   ),
                 SizedBox(height: 8.h),
                 TextField(
@@ -244,33 +287,47 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                 GestureDetector(
                   onTap: _windowClosed ? null : _pickEvidence,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.w,
+                      vertical: 12.h,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(
-                          color: _needsEvidence && _evidence.isEmpty
-                              ? AppPalette.primary
-                              : cs.outline),
+                        color: _needsEvidence && _evidence.isEmpty
+                            ? AppPalette.primary
+                            : cs.outline,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.photo_camera_outlined,
-                            size: 18.sp, color: cs.onSurfaceVariant),
+                        Icon(
+                          Icons.photo_camera_outlined,
+                          size: 18.sp,
+                          color: cs.onSurfaceVariant,
+                        ),
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Text(
                             _evidence.isNotEmpty
-                                ? 'photos_selected'
-                                    .trParams({'count': '${_evidence.length}'})
+                                ? 'photos_selected'.trParams({
+                                    'count': '${_evidence.length}',
+                                  })
                                 : _needsEvidence
-                                    ? 'add_photo_evidence_required'.tr
-                                    : 'add_photo_evidence_optional'.tr,
-                            style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
+                                ? 'add_photo_evidence_required'.tr
+                                : 'add_photo_evidence_optional'.tr,
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              color: cs.onSurfaceVariant,
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(Icons.add_photo_alternate_outlined,
-                            size: 18.sp, color: cs.onSurfaceVariant),
+                        Icon(
+                          Icons.add_photo_alternate_outlined,
+                          size: 18.sp,
+                          color: cs.onSurfaceVariant,
+                        ),
                       ],
                     ),
                   ),
@@ -301,13 +358,19 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                             child: GestureDetector(
                               onTap: _sending
                                   ? null
-                                  : () => setState(() =>
-                                      _evidence = [..._evidence]..removeAt(i)),
+                                  : () => setState(
+                                      () =>
+                                          _evidence = [..._evidence]
+                                            ..removeAt(i),
+                                    ),
                               child: CircleAvatar(
                                 radius: 10.r,
                                 backgroundColor: Colors.black54,
-                                child: Icon(Icons.close,
-                                    size: 12.sp, color: Colors.white),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 12.sp,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -326,7 +389,9 @@ class _OpenDisputeSheetState extends State<OpenDisputeSheet> {
                             width: 20.r,
                             height: 20.r,
                             child: const CircularProgressIndicator(
-                                strokeWidth: 2, color: Colors.white),
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
                           )
                         : Text('send_dispute'.tr),
                   ),
