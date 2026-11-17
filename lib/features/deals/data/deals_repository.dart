@@ -13,12 +13,15 @@ class DealsRepository {
   final _api = Get.find<ApiService>();
   final _cache = CacheService();
 
-  Future<List<Deal>> list(String status, {int page = 1, int limit = 100}) async {
-    final res = await _api.get('/deals/getAllDeals', queryParameters: {
-      'status': status,
-      'limit': limit,
-      'page': page,
-    });
+  Future<List<Deal>> list(
+    String status, {
+    int page = 1,
+    int limit = 100,
+  }) async {
+    final res = await _api.get(
+      '/deals/getAllDeals',
+      queryParameters: {'status': status, 'limit': limit, 'page': page},
+    );
     final data = unwrapData(res);
     if (status == 'ALL') await _cache.put('deals_all', jsonEncode(data));
     final deals = _parse(data);
@@ -119,8 +122,10 @@ class DealsRepository {
       if (itemLink != null && itemLink.isNotEmpty) 'itemLink': itemLink,
       if (itemDescription != null && itemDescription.isNotEmpty)
         'itemDescription': itemDescription,
-      if (receiverName != null && receiverName.isNotEmpty) 'receiverName': receiverName,
-      if (receiverPhone != null && receiverPhone.isNotEmpty) 'receiverPhone': receiverPhone,
+      if (receiverName != null && receiverName.isNotEmpty)
+        'receiverName': receiverName,
+      if (receiverPhone != null && receiverPhone.isNotEmpty)
+        'receiverPhone': receiverPhone,
       if (receiverCountry != null && receiverCountry.isNotEmpty)
         'receiverCountry': receiverCountry,
       if (pickupLocation != null && pickupLocation.isNotEmpty)
@@ -134,10 +139,12 @@ class DealsRepository {
       'paymentMethod': paymentMethod,
     });
     for (final path in attachFilePaths) {
-      form.files.add(MapEntry(
-        'attachFiles[]',
-        await MultipartFile.fromFile(path, filename: path.split('/').last),
-      ));
+      form.files.add(
+        MapEntry(
+          'attachFiles[]',
+          await MultipartFile.fromFile(path, filename: path.split('/').last),
+        ),
+      );
     }
     unwrapData(await _api.post('/deals/addNewDeal', data: form));
     DataBus.changed(DataTopic.deals);
@@ -173,10 +180,15 @@ class DealsRepository {
   }
 
   Future<void> changeStatus(int id, String status, {String? reason}) async {
-    unwrapData(await _api.post('/deals/changeStatus/$id', data: {
-      'status': status,
-      if (reason != null && reason.isNotEmpty) 'cancelReason': reason,
-    }));
+    unwrapData(
+      await _api.post(
+        '/deals/changeStatus/$id',
+        data: {
+          'status': status,
+          if (reason != null && reason.isNotEmpty) 'cancelReason': reason,
+        },
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
@@ -201,14 +213,22 @@ class DealsRepository {
   // held flags and posts the escrow system message — same two-step the
   // website does (confirmCardPayment → escrow/confirm-*).
   Future<void> confirmPayment(int dealId, String paymentIntentId) async {
-    unwrapData(await _api.post('/escrow/deals/$dealId/confirm-payment',
-        data: {'paymentIntentId': paymentIntentId}));
+    unwrapData(
+      await _api.post(
+        '/escrow/deals/$dealId/confirm-payment',
+        data: {'paymentIntentId': paymentIntentId},
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
   Future<void> confirmGuarantee(int dealId, String paymentIntentId) async {
-    unwrapData(await _api.post('/escrow/deals/$dealId/confirm-guarantee',
-        data: {'paymentIntentId': paymentIntentId}));
+    unwrapData(
+      await _api.post(
+        '/escrow/deals/$dealId/confirm-guarantee',
+        data: {'paymentIntentId': paymentIntentId},
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
@@ -227,12 +247,14 @@ class DealsRepository {
     final form = FormData.fromMap({
       'video': await _videoPart(filePath, fileName),
     });
-    unwrapData(await _api.post(
-      '/deals/$dealId/uploadPickupVideo',
-      data: form,
-      onSendProgress: onProgress,
-      options: Options(receiveTimeout: timeout, sendTimeout: timeout),
-    ));
+    unwrapData(
+      await _api.post(
+        '/deals/$dealId/uploadPickupVideo',
+        data: form,
+        onSendProgress: onProgress,
+        options: Options(receiveTimeout: timeout, sendTimeout: timeout),
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
@@ -250,10 +272,14 @@ class DealsRepository {
       'video': await _videoPart(filePath, fileName),
     });
     // the default 30s receive timeout is too short for a video upload
-    unwrapData(await _api.post('/deals/$referenceId/uploadDeliveryVideo',
+    unwrapData(
+      await _api.post(
+        '/deals/$referenceId/uploadDeliveryVideo',
         data: form,
         onSendProgress: onProgress,
-        options: Options(receiveTimeout: timeout, sendTimeout: timeout)));
+        options: Options(receiveTimeout: timeout, sendTimeout: timeout),
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
@@ -273,26 +299,42 @@ class DealsRepository {
   /// recipient's QR (GUIDE Screen 5). A revoked, used or foreign token comes
   /// back as 422 / code QR_INVALID.
   Future<void> confirmQrDelivery(int dealId, String qrToken) async {
-    unwrapData(await _api.post('/deals/$dealId/confirm-qr-delivery',
-        data: {'qr_token': qrToken}));
+    unwrapData(
+      await _api.post(
+        '/deals/$dealId/confirm-qr-delivery',
+        data: {'qr_token': qrToken},
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
   // completion goes by reference, not numeric id
   /// [completionType]: QR_SCAN (traveler scanned the receiver's code) or
   /// SENDER_CONFIRMATION (sender marked it delivered).
-  Future<void> markCompleted(String referenceId, {String? completionType}) async {
-    unwrapData(await _api.post('/deals/markAsCompleted/$referenceId',
-        data: {if (completionType != null) 'completion_type': completionType}));
+  Future<void> markCompleted(
+    String referenceId, {
+    String? completionType,
+  }) async {
+    unwrapData(
+      await _api.post(
+        '/deals/markAsCompleted/$referenceId',
+        data: {if (completionType != null) 'completion_type': completionType},
+      ),
+    );
     DataBus.changed(DataTopic.deals);
   }
 
   Future<void> rate(int dealId, int stars, String comment) async {
-    unwrapData(await _api.post('/rates/addRate', data: {
-      'dealId': dealId,
-      'stars': stars,
-      if (comment.isNotEmpty) 'comment': comment,
-    }));
+    unwrapData(
+      await _api.post(
+        '/rates/addRate',
+        data: {
+          'dealId': dealId,
+          'stars': stars,
+          if (comment.isNotEmpty) 'comment': comment,
+        },
+      ),
+    );
   }
 
   /// Live FX for the deal form. The backend owns the rate source and caches it
@@ -303,11 +345,10 @@ class DealsRepository {
     required String to,
     required double amount,
   }) async {
-    final res = await _api.get('/currency/convert', queryParameters: {
-      'from': from,
-      'to': to,
-      'amount': amount,
-    });
+    final res = await _api.get(
+      '/currency/convert',
+      queryParameters: {'from': from, 'to': to, 'amount': amount},
+    );
     final data = unwrapData(res);
     return data is Map ? Map<String, dynamic>.from(data) : <String, dynamic>{};
   }
@@ -323,8 +364,10 @@ class DealsRepository {
   /// Contextual reasons for this deal's state — e.g. ghosting reasons are
   /// only offered while OUTGOING. Each entry: `{value, label}`-ish map.
   Future<List<Map<String, dynamic>>> disputeReasons(int dealId) async {
-    final res = await _api
-        .get('/disputes/reasons', queryParameters: {'deal_id': dealId});
+    final res = await _api.get(
+      '/disputes/reasons',
+      queryParameters: {'deal_id': dealId},
+    );
     final data = unwrapData(res);
     final list = data is List ? data : (data is Map ? data['reasons'] : null);
     return (list as List? ?? const [])
@@ -361,14 +404,17 @@ class DealsRepository {
     final form = FormData.fromMap({
       'deal_id': dealId,
       'reason': reason,
-      if (description != null && description.isNotEmpty) 'description': description,
+      if (description != null && description.isNotEmpty)
+        'description': description,
     });
 
     for (final path in allPaths) {
-      form.files.add(MapEntry(
-        'proof_files[]',
-        await MultipartFile.fromFile(path, filename: path.split('/').last),
-      ));
+      form.files.add(
+        MapEntry(
+          'proof_files[]',
+          await MultipartFile.fromFile(path, filename: path.split('/').last),
+        ),
+      );
     }
 
     unwrapData(await _api.post('/disputes/createDispute/$dealId', data: form));

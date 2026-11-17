@@ -37,6 +37,8 @@ import 'widgets/handover_qr_card.dart';
 import '../../../core/widgets/image_viewer.dart';
 import '../../../core/utils/fee_gate.dart';
 import 'widgets/platform_fee_card.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
+import '../../../core/widgets/places_map.dart';
 
 class DealDetailsPage extends StatefulWidget {
   final Deal deal;
@@ -50,11 +52,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   final _repo = DealsRepository();
 
   late Deal deal = widget.deal;
+
   /// The submitted dispute, fetched when the deal payload doesn't carry it.
   Map<String, dynamic>? _disputeReport;
   bool _busy = false;
+
   /// Rated in this session — hides the button before the next reload lands.
   bool _rated = false;
+
   /// Disputed deals lead with the dispute; the rest of the deal is one tap away.
   bool _showFullReport = false;
   bool _loading = true;
@@ -144,7 +149,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     super.dispose();
   }
 
-  Future<void> _run(Future<void> Function() action, String done, {bool pop = true}) async {
+  Future<void> _run(
+    Future<void> Function() action,
+    String done, {
+    bool pop = true,
+  }) async {
     if (_busy) return;
     setState(() => _busy = true);
     try {
@@ -174,8 +183,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     );
   }
 
-  Future<void> _cancel() => _changeWithReason('CANCELED', 'deal_cancelled_toast'.tr);
-  Future<void> _reject() => _changeWithReason('REJECTED', 'deal_rejected_toast'.tr);
+  Future<void> _cancel() =>
+      _changeWithReason('CANCELED', 'deal_cancelled_toast'.tr);
+  Future<void> _reject() =>
+      _changeWithReason('REJECTED', 'deal_rejected_toast'.tr);
 
   // accepting is entering the agreement: verified number, then documents
   Future<void> _acceptDeal() async {
@@ -210,7 +221,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     if (e is! ServerException) return false;
     if (e.code == 'DEAL_ALREADY_CONFIRMED') return true;
     return (e.statusCode == 400 || e.statusCode == 409) &&
-        e.message.toLowerCase().contains('already has an active or confirmed deal');
+        e.message.toLowerCase().contains(
+          'already has an active or confirmed deal',
+        );
   }
 
   Future<void> _showDealUnavailable() async {
@@ -220,10 +233,7 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         title: Text('deal_unavailable'.tr),
         content: Text('deal_already_confirmed_by_another'.tr),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text('ok'.tr),
-          ),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text('ok'.tr)),
         ],
       ),
     );
@@ -292,44 +302,58 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   }
 
   Future<bool?> _confirmBreakdown(Map<String, dynamic> b) {
-    String money(dynamic v) => '\$${double.tryParse('$v')?.toStringAsFixed(2) ?? '$v'}';
+    String money(dynamic v) =>
+        '\$${double.tryParse('$v')?.toStringAsFixed(2) ?? '$v'}';
     final cs = Theme.of(context).colorScheme;
     Widget line(String label, dynamic v, {bool bold = false}) => Padding(
-          padding: EdgeInsets.only(bottom: 8.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 13.sp,
-                      color: bold ? cs.onSurface : cs.onSurfaceVariant,
-                      fontWeight: bold ? FontWeight.w700 : FontWeight.w400)),
-              Text(money(v),
-                  style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: bold ? FontWeight.w800 : FontWeight.w600,
-                      color: cs.onSurface)),
-            ],
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13.sp,
+              color: bold ? cs.onSurface : cs.onSurfaceVariant,
+              fontWeight: bold ? FontWeight.w700 : FontWeight.w400,
+            ),
           ),
-        );
+          Text(
+            money(v),
+            style: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: bold ? FontWeight.w800 : FontWeight.w600,
+              color: cs.onSurface,
+            ),
+          ),
+        ],
+      ),
+    );
     return Get.dialog<bool>(
       AlertDialog(
         title: Text('payment_breakdown'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (b['itemCost'] != null && double.tryParse('${b['itemCost']}') != 0)
+            if (b['itemCost'] != null &&
+                double.tryParse('${b['itemCost']}') != 0)
               line('item_cost'.tr, b['itemCost']),
             if (b['profit'] != null) line('traveler_profit'.tr, b['profit']),
-            if (b['lokinterFee'] != null) line('lokinter_fee'.tr, b['lokinterFee']),
+            if (b['lokinterFee'] != null)
+              line('lokinter_fee'.tr, b['lokinterFee']),
             Divider(height: 16.h),
             line('total'.tr, b['total'], bold: true),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Get.back(result: false), child: Text('cancel'.tr)),
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text('cancel'.tr),
+          ),
           ElevatedButton(
-              onPressed: () => Get.back(result: true), child: Text('continue'.tr)),
+            onPressed: () => Get.back(result: true),
+            child: Text('continue'.tr),
+          ),
         ],
       ),
     );
@@ -474,8 +498,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
   }
 
-  void _showUploadProgress(ValueNotifier<double> progress,
-      {bool preparing = false}) {
+  void _showUploadProgress(
+    ValueNotifier<double> progress, {
+    bool preparing = false,
+  }) {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -486,11 +512,19 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           children: [
             Row(
               children: [
-                Icon(Icons.cloud_upload_outlined,
-                    color: AppPalette.primary, size: 20.sp),
+                Icon(
+                  Icons.cloud_upload_outlined,
+                  color: AppPalette.primary,
+                  size: 20.sp,
+                ),
                 SizedBox(width: 10.w),
-                Text(preparing ? 'preparing_video'.tr : 'uploading_video'.tr,
-                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                Text(
+                  preparing ? 'preparing_video'.tr : 'uploading_video'.tr,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 18.h),
@@ -502,9 +536,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.r),
                     child: LinearProgressIndicator(
-                      value: v == 0 ? null : v, // indeterminate until first bytes
+                      value: v == 0
+                          ? null
+                          : v, // indeterminate until first bytes
                       minHeight: 8.h,
-                      backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
+                      backgroundColor: AppPalette.primary.withValues(
+                        alpha: 0.15,
+                      ),
                     ),
                   ),
                   SizedBox(height: 8.h),
@@ -560,7 +598,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     }
 
     if (failure != null && mounted) {
-      final invalid = failure is ServerException &&
+      final invalid =
+          failure is ServerException &&
           (failure.code == 'QR_INVALID' || failure.statusCode == 422);
       if (invalid) {
         await showDialog<void>(
@@ -569,7 +608,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             title: Text('qr_not_accepted'.tr),
             content: Text('qr_invalid_or_used'.tr),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(ctx), child: Text('ok'.tr)),
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: Text('ok'.tr),
+              ),
             ],
           ),
         );
@@ -675,7 +717,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       return;
     }
 
-    final d = report ?? _disputeReport ?? deal.disputeInfo ?? const <String, dynamic>{};
+    final d =
+        report ??
+        _disputeReport ??
+        deal.disputeInfo ??
+        const <String, dynamic>{};
     String? pick(List<String> keys) {
       for (final k in keys) {
         final v = d[k];
@@ -694,23 +740,30 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     if (!mounted) return;
     final cs = Theme.of(context).colorScheme;
 
-    Widget line(String label, String value, {bool emphasise = false}) => Padding(
+    Widget line(String label, String value, {bool emphasise = false}) =>
+        Padding(
           padding: EdgeInsets.only(bottom: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 10.5.sp,
-                      letterSpacing: 0.4,
-                      color: cs.onSurfaceVariant)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 10.5.sp,
+                  letterSpacing: 0.4,
+                  color: cs.onSurfaceVariant,
+                ),
+              ),
               SizedBox(height: 2.h),
-              Text(value,
-                  style: TextStyle(
-                      fontSize: 13.sp,
-                      height: 1.35,
-                      fontWeight: emphasise ? FontWeight.w700 : FontWeight.w500,
-                      color: emphasise ? AppPalette.primary : cs.onSurface)),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  height: 1.35,
+                  fontWeight: emphasise ? FontWeight.w700 : FontWeight.w500,
+                  color: emphasise ? AppPalette.primary : cs.onSurface,
+                ),
+              ),
             ],
           ),
         );
@@ -735,13 +788,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   decision == null &&
                   notes == null &&
                   description == null)
-                Text('no_report_details_available'.tr,
-                    style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant)),
+                Text(
+                  'no_report_details_available'.tr,
+                  style: TextStyle(fontSize: 13.sp, color: cs.onSurfaceVariant),
+                ),
             ],
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: Text('close'.tr))
+          TextButton(onPressed: () => Get.back(), child: Text('close'.tr)),
         ],
       ),
     );
@@ -799,49 +854,53 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                       onPressed: () =>
                           setState(() => _showFullReport = !_showFullReport),
                       icon: Icon(
-                          _showFullReport ? Icons.expand_less : Icons.expand_more,
-                          size: 18.sp),
-                      label: Text(_showFullReport
-                          ? 'hide_full_deal_report'.tr
-                          : 'view_full_deal_report'.tr),
+                        _showFullReport ? Icons.expand_less : Icons.expand_more,
+                        size: 18.sp,
+                      ),
+                      label: Text(
+                        _showFullReport
+                            ? 'hide_full_deal_report'.tr
+                            : 'view_full_deal_report'.tr,
+                      ),
                     ),
                   ],
                   if (!deal.hasDisputeRecord || _showFullReport) ...[
-                  SizedBox(height: 16.h),
-                  _counterpart(context),
-                  SizedBox(height: 16.h),
-                  _agreement(context),
-                  // the sender shares this QR with the receiver throughout the
-                  // live deal, not just once it's outgoing
-                  if (deal.showsReceiverQr) ...[
                     SizedBox(height: 16.h),
-                    HandoverQrCard(
-                      deal: deal,
-                      onRegenerated: () => _loadDetail(quiet: true),
-                    ),
-                  ],
-                  if (deal.needsGuarantee) ...[
+                    _counterpart(context),
                     SizedBox(height: 16.h),
-                    _guaranteeCard(context),
-                  ],
-                  if (deal.needsPayment) ...[
-                    SizedBox(height: 16.h),
-                    _paymentCard(context),
-                  ],
-                  // traveler can't proceed until the sender's escrow is funded
-                  if (deal.travelerWaitingOnPayment) ...[
-                    SizedBox(height: 16.h),
-                    _waitingOnPayment(context),
-                  ],
-                  if (deal.status == DealStatus.outgoing) ...[
-                    SizedBox(height: 16.h),
-                    _ongoing(context),
-                  ],
-                  // GUIDE Screen 8: the carrier's platform fee on this deal
-                  if (deal.status == DealStatus.completed && deal.isTraveler) ...[
-                    SizedBox(height: 16.h),
-                    PlatformFeeCard(deal: deal),
-                  ],
+                    _agreement(context),
+                    // the sender shares this QR with the receiver throughout the
+                    // live deal, not just once it's outgoing
+                    if (deal.showsReceiverQr) ...[
+                      SizedBox(height: 16.h),
+                      HandoverQrCard(
+                        deal: deal,
+                        onRegenerated: () => _loadDetail(quiet: true),
+                      ),
+                    ],
+                    if (deal.needsGuarantee) ...[
+                      SizedBox(height: 16.h),
+                      _guaranteeCard(context),
+                    ],
+                    if (deal.needsPayment) ...[
+                      SizedBox(height: 16.h),
+                      _paymentCard(context),
+                    ],
+                    // traveler can't proceed until the sender's escrow is funded
+                    if (deal.travelerWaitingOnPayment) ...[
+                      SizedBox(height: 16.h),
+                      _waitingOnPayment(context),
+                    ],
+                    if (deal.status == DealStatus.outgoing) ...[
+                      SizedBox(height: 16.h),
+                      _ongoing(context),
+                    ],
+                    // GUIDE Screen 8: the carrier's platform fee on this deal
+                    if (deal.status == DealStatus.completed &&
+                        deal.isTraveler) ...[
+                      SizedBox(height: 16.h),
+                      PlatformFeeCard(deal: deal),
+                    ],
                   ],
                   if (deal.status == DealStatus.cancelled &&
                       deal.cancelReasonLabel != null) ...[
@@ -877,12 +936,23 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         children: [
           Row(
             children: [
-              Expanded(child: _stat(context, 'from'.tr.toUpperCase(), deal.fromCountry)),
+              Expanded(
+                child: _stat(
+                  context,
+                  'from'.tr.toUpperCase(),
+                  deal.fromCountry,
+                ),
+              ),
               ModeBadge(location: deal.location, place: deal.fromCountry),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: _stat(context, 'to'.tr.toUpperCase(), deal.toCountry, end: true),
+                  child: _stat(
+                    context,
+                    'to'.tr.toUpperCase(),
+                    deal.toCountry,
+                    end: true,
+                  ),
                 ),
               ),
             ],
@@ -893,7 +963,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               _stat(context, 'date'.tr.toUpperCase(), shortDate(deal.date)),
               _stat(context, 'weight'.tr.toUpperCase(), kg(deal.weight)),
-              _stat(context, 'traveler_profit'.tr.toUpperCase(), deal.profitLabel),
+              _stat(
+                context,
+                'traveler_profit'.tr.toUpperCase(),
+                deal.profitLabel,
+              ),
             ],
           ),
           SizedBox(height: 12.h),
@@ -905,7 +979,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 StatusBadge(status: deal.status),
-                if (deal.attemptText != null) AttemptBadge(text: deal.attemptText!),
+                if (deal.attemptText != null)
+                  AttemptBadge(text: deal.attemptText!),
                 if (deal.senderAttemptsText != null)
                   AttemptBadge(text: deal.senderAttemptsText!),
                 if (deal.status == DealStatus.completed && deal.isAutoCompleted)
@@ -918,16 +993,35 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     );
   }
 
-  Widget _stat(BuildContext context, String label, String value, {bool end = false}) {
+  Widget _stat(
+    BuildContext context,
+    String label,
+    String value, {
+    bool end = false,
+  }) {
     final cs = Theme.of(context).colorScheme;
     return Column(
-      crossAxisAlignment: end ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment: end
+          ? CrossAxisAlignment.end
+          : CrossAxisAlignment.start,
       children: [
-        Text(label,
-            style: TextStyle(fontSize: 9.sp, color: cs.onSurfaceVariant, letterSpacing: 0.5)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9.sp,
+            color: cs.onSurfaceVariant,
+            letterSpacing: 0.5,
+          ),
+        ),
         SizedBox(height: 3.h),
-        Text(value,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w700,
+            color: cs.onSurface,
+          ),
+        ),
       ],
     );
   }
@@ -944,7 +1038,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             backgroundColor: AppPalette.primary.withValues(alpha: 0.15),
             child: Text(
               name.isEmpty ? '?' : name[0],
-              style: const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                color: AppPalette.primary,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           SizedBox(width: 12.w),
@@ -955,11 +1052,16 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 Row(
                   children: [
                     Flexible(
-                      child: Text(name.isEmpty ? 'counterpart'.tr : name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                      child: Text(
+                        name.isEmpty ? 'counterpart'.tr : name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: cs.onSurface,
+                        ),
+                      ),
                     ),
                     if (deal.counterpart.isTransporter) ...[
                       SizedBox(width: 6.w),
@@ -968,8 +1070,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   ],
                 ),
                 SizedBox(height: 2.h),
-                Text(deal.isTraveler ? 'sender'.tr : 'traveler'.tr,
-                    style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+                Text(
+                  deal.isTraveler ? 'sender'.tr : 'traveler'.tr,
+                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+                ),
               ],
             ),
           ),
@@ -993,11 +1097,20 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         children: [
           Row(
             children: [
-              Icon(Icons.assignment_turned_in_outlined, size: 18.sp, color: AppPalette.primary),
+              Icon(
+                Icons.assignment_turned_in_outlined,
+                size: 18.sp,
+                color: AppPalette.primary,
+              ),
               SizedBox(width: 8.w),
-              Text('agreement_details'.tr,
-                  style: TextStyle(
-                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              Text(
+                'agreement_details'.tr,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  color: cs.onSurface,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12.h),
@@ -1008,11 +1121,40 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           if ((deal.receiverPhone ?? '').isNotEmpty)
             _row(context, 'receiver_phone'.tr, deal.receiverPhone!),
           if (deal.extras.pickupLocation != null || deal.extras.hasPickupPin)
-            _placeRow(context, 'pickup_location'.tr, deal.extras.pickupLocation,
-                deal.extras.pickupLat, deal.extras.pickupLng),
+            _placeRow(
+              context,
+              'pickup_location'.tr,
+              deal.extras.pickupLocation,
+              deal.extras.pickupLat,
+              deal.extras.pickupLng,
+            ),
           if (deal.extras.dropoffLocation != null || deal.extras.hasDropoffPin)
-            _placeRow(context, 'dropoff_location'.tr, deal.extras.dropoffLocation,
-                deal.extras.dropoffLat, deal.extras.dropoffLng),
+            _placeRow(
+              context,
+              'dropoff_location'.tr,
+              deal.extras.dropoffLocation,
+              deal.extras.dropoffLat,
+              deal.extras.dropoffLng,
+            ),
+          // both points on a small map, labelled From / To like Google Maps
+          if (deal.extras.hasPickupPin || deal.extras.hasDropoffPin) ...[
+            SizedBox(height: 8.h),
+            PlacesMap(
+              pickup: deal.extras.hasPickupPin
+                  ? LatLng(deal.extras.pickupLat!, deal.extras.pickupLng!)
+                  : null,
+              pickupLabel: deal.extras.pickupLocation,
+              dropoff: deal.extras.hasDropoffPin
+                  ? LatLng(deal.extras.dropoffLat!, deal.extras.dropoffLng!)
+                  : null,
+              dropoffLabel: deal.extras.dropoffLocation,
+              // tracking opens only once the deal is accepted (and while it
+              // is on its way) — not while pending, cancelled or done
+              routeEnabled: deal.status == DealStatus.accepted ||
+                  deal.status == DealStatus.outgoing,
+            ),
+            SizedBox(height: 8.h),
+          ],
           _row(context, 'traveler_profit'.tr, deal.profitLabel),
           // what the item is worth — the security-deposit basis on a SEND deal
           if (deal.itemEstimatedCost != null && deal.itemEstimatedCost! > 0)
@@ -1029,7 +1171,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             _row(context, 'item_name'.tr, deal.itemName!),
           if (deal.wantToLabel != null)
             _row(context, 'i_want_to'.tr, deal.wantToLabel!),
-          if ((deal.itemLink ?? '').isNotEmpty) _linkRow(context, deal.itemLink!),
+          if ((deal.itemLink ?? '').isNotEmpty)
+            _linkRow(context, deal.itemLink!),
           if ((deal.notes ?? '').isNotEmpty)
             _row(context, 'notes'.tr, deal.notes!),
           if (deal.attachUrls.isNotEmpty)
@@ -1038,14 +1181,16 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             _row(context, 'attachment'.tr, 'not_provided'.tr)
           else
             _attachmentRow(context),
-          if (deal.tripDate != null) _row(context, 'trip_date'.tr, shortDate(deal.tripDate!)),
+          if (deal.tripDate != null)
+            _row(context, 'trip_date'.tr, shortDate(deal.tripDate!)),
           if (deal.scheduledArrival != null)
             _row(
-                context,
-                'arrival_date'.tr,
-                deal.arrivalAt != null
-                    ? shortDateTime(deal.arrivalAt!)
-                    : shortDate(deal.arrivalDate!)),
+              context,
+              'arrival_date'.tr,
+              deal.arrivalAt != null
+                  ? shortDateTime(deal.arrivalAt!)
+                  : shortDate(deal.arrivalDate!),
+            ),
         ],
       ),
     );
@@ -1053,8 +1198,15 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
 
   /// A pinned point: the address, tappable to open it in Maps.
   Widget _placeRow(
-      BuildContext context, String label, String? place, double? lat, double? lng) {
-    final link = lat != null && lng != null
+    BuildContext context,
+    String label,
+    String? place,
+    double? lat,
+    double? lng,
+  ) {
+    // search by the address so Maps shows the place's real name; the
+    // coordinates are only a fallback when there is no address
+    final link = !hasPlace(place) && lat != null && lng != null
         ? 'https://www.google.com/maps/search/?api=1&query=$lat,$lng'
         : null;
     final text = place ?? (lat != null ? '$lat, $lng' : '—');
@@ -1067,19 +1219,25 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           children: [
             Expanded(
               flex: 2,
-              child: Text(label,
-                  style: TextStyle(
-                      fontSize: 12.5.sp,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant)),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12.5.sp,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text(text,
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                      fontSize: 12.5.sp,
-                      color: AppPalette.primary,
-                      decoration: TextDecoration.underline)),
+              child: Text(
+                text,
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 12.5.sp,
+                  color: AppPalette.primary,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
           ],
         ),
@@ -1095,8 +1253,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('attachments_count'.trParams({'n': '${deal.attachUrls.length}'}),
-              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text(
+            'attachments_count'.trParams({'n': '${deal.attachUrls.length}'}),
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+          ),
           SizedBox(height: 8.h),
           SizedBox(
             height: 84.r,
@@ -1117,8 +1277,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                       width: 84.r,
                       height: 84.r,
                       color: cs.surfaceContainerHighest,
-                      child: Icon(Icons.broken_image_outlined,
-                          size: 22.sp, color: cs.onSurfaceVariant),
+                      child: Icon(
+                        Icons.broken_image_outlined,
+                        size: 22.sp,
+                        color: cs.onSurfaceVariant,
+                      ),
                     ),
                   ),
                 ),
@@ -1138,27 +1301,41 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('security_deposit'.tr,
-              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text(
+            'security_deposit'.tr,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+          ),
           Row(
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  color: required ? const Color(0xFFFEF9C3) : cs.surfaceContainerHighest,
+                  color: required
+                      ? const Color(0xFFFEF9C3)
+                      : cs.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: Text(required ? 'required'.tr : 'not_required'.tr,
-                    style: TextStyle(
-                        fontSize: 9.sp,
-                        fontWeight: FontWeight.w700,
-                        color: required ? const Color(0xFF854D0E) : cs.onSurfaceVariant)),
+                child: Text(
+                  required ? 'required'.tr : 'not_required'.tr,
+                  style: TextStyle(
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w700,
+                    color: required
+                        ? const Color(0xFF854D0E)
+                        : cs.onSurfaceVariant,
+                  ),
+                ),
               ),
               if (required) ...[
                 SizedBox(width: 8.w),
-                Text(deal.depositLabel,
-                    style: TextStyle(
-                        fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                Text(
+                  deal.depositLabel,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                  ),
+                ),
               ],
             ],
           ),
@@ -1174,7 +1351,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('attachment'.tr, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text(
+            'attachment'.tr,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+          ),
           TextButton.icon(
             onPressed: () => Get.dialog(
               Dialog(
@@ -1183,16 +1363,24 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                     deal.attachUrl!,
                     errorBuilder: (_, __, ___) => Padding(
                       padding: EdgeInsets.all(24.w),
-                      child: SelectableText(deal.attachUrl!,
-                          style: TextStyle(fontSize: 12.sp)),
+                      child: SelectableText(
+                        deal.attachUrl!,
+                        style: TextStyle(fontSize: 12.sp),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            icon: Icon(Icons.attachment, size: 15.sp, color: AppPalette.primary),
-            label: Text('open_attachment'.tr,
-                style: TextStyle(fontSize: 12.sp, color: AppPalette.primary)),
+            icon: Icon(
+              Icons.attachment,
+              size: 15.sp,
+              color: AppPalette.primary,
+            ),
+            label: Text(
+              'open_attachment'.tr,
+              style: TextStyle(fontSize: 12.sp, color: AppPalette.primary),
+            ),
           ),
         ],
       ),
@@ -1208,8 +1396,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('item_link'.tr,
-              style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text(
+            'item_link'.tr,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+          ),
           SizedBox(width: 12.w),
           Expanded(
             child: GestureDetector(
@@ -1241,13 +1431,20 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant),
+          ),
           SizedBox(width: 12.w),
           Flexible(
             child: Text(
               value,
               textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface),
+              style: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w700,
+                color: cs.onSurface,
+              ),
             ),
           ),
         ],
@@ -1271,22 +1468,37 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
               SizedBox(width: 8.w),
-              Text('guarantee_required'.tr,
-                  style: TextStyle(
-                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              Text(
+                'guarantee_required'.tr,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  color: cs.onSurface,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8.h),
           Text(
-            'authorize_guarantee_on_card'.trParams({'amount': deal.depositLabel}),
+            'authorize_guarantee_on_card'.trParams({
+              'amount': deal.depositLabel,
+            }),
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: cs.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 4.h),
           Text(
             'this_is_a_hold_only_released_not_charged_when_th'.tr,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.sp,
+              color: cs.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 14.h),
           SizedBox(
@@ -1319,22 +1531,35 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.credit_card, size: 17.sp, color: cs.onSurface),
               SizedBox(width: 8.w),
-              Text('payment_required'.tr,
-                  style: TextStyle(
-                      fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+              Text(
+                'payment_required'.tr,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  color: cs.onSurface,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8.h),
           Text(
             'pay_now_to_secure_this_deal_funds_are_held_until'.tr,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: cs.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 4.h),
           Text(
             'your_payment_is_auto_captured_within_6_days_or_w'.tr,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11.sp, color: cs.onSurfaceVariant, height: 1.4),
+            style: TextStyle(
+              fontSize: 11.sp,
+              color: cs.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
           // the Pay now button lives with the other actions at the bottom
         ],
@@ -1361,13 +1586,22 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('cannot_proceed'.tr,
-                    style: TextStyle(
-                        fontSize: 13.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+                Text(
+                  'cannot_proceed'.tr,
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                  ),
+                ),
                 SizedBox(height: 4.h),
                 Text(
                   'waiting_for_the_sender_to_complete_payment_befor'.tr,
-                  style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: cs.onSurfaceVariant,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1382,7 +1616,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final (bg, fg) = DealStatus.outgoing.colors;
     return Container(
       padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16.r)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(16.r),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1390,8 +1627,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.local_shipping_outlined, color: fg, size: 18.sp),
               SizedBox(width: 8.w),
-              Text('on_the_way'.tr,
-                  style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
+              Text(
+                'on_the_way'.tr,
+                style: TextStyle(
+                  color: fg,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8.h),
@@ -1404,12 +1647,13 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           if (deal.scheduledArrival != null) ...[
             SizedBox(height: 6.h),
             Text(
-                'expected_arrival_on'.trParams({
-                  'date': deal.arrivalAt != null
-                      ? shortDateTime(deal.arrivalAt!)
-                      : shortDate(deal.arrivalDate!)
-                }),
-                style: TextStyle(color: fg, fontSize: 11.sp)),
+              'expected_arrival_on'.trParams({
+                'date': deal.arrivalAt != null
+                    ? shortDateTime(deal.arrivalAt!)
+                    : shortDate(deal.arrivalDate!),
+              }),
+              style: TextStyle(color: fg, fontSize: 11.sp),
+            ),
           ],
           // REQ §6: local deliveries are tracked live while ONGOING
           if (deal.trackingAvailable) ...[
@@ -1423,7 +1667,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
               ),
             ),
           ],
-          if (deal.isTraveler && LocationTrackerService.shouldTrack(deal) &&
+          if (deal.isTraveler &&
+              LocationTrackerService.shouldTrack(deal) &&
               Get.isRegistered<LocationTrackerService>()) ...[
             SizedBox(height: 10.h),
             _sharingStatus(context),
@@ -1439,17 +1684,24 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final tracker = Get.find<LocationTrackerService>();
     return Obx(() {
       final p = tracker.permission.value;
-      final on = tracker.activeDealIds.contains(deal.id) &&
-          (p == TrackerPermission.granted || p == TrackerPermission.foregroundOnly);
-      final blocked = p == TrackerPermission.denied || p == TrackerPermission.servicesOff;
+      final on =
+          tracker.activeDealIds.contains(deal.id) &&
+          (p == TrackerPermission.granted ||
+              p == TrackerPermission.foregroundOnly);
+      final blocked =
+          p == TrackerPermission.denied || p == TrackerPermission.servicesOff;
       final color = blocked
           ? const Color(0xFFB45309)
           : (on ? const Color(0xFF15803D) : const Color(0xFF6B7280));
       final text = switch (p) {
         TrackerPermission.denied => 'location_permission_required_banner'.tr,
         TrackerPermission.servicesOff => 'location_services_off_banner'.tr,
-        TrackerPermission.foregroundOnly => 'sharing_location_foreground_only'.tr,
-        _ => on ? 'sharing_location_with_sender'.tr : 'starting_location_sharing'.tr,
+        TrackerPermission.foregroundOnly =>
+          'sharing_location_foreground_only'.tr,
+        _ =>
+          on
+              ? 'sharing_location_with_sender'.tr
+              : 'starting_location_sharing'.tr,
       };
       return Container(
         padding: EdgeInsets.all(12.w),
@@ -1460,12 +1712,17 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
         ),
         child: Row(
           children: [
-            Icon(blocked ? Icons.location_disabled : Icons.my_location,
-                size: 18.sp, color: color),
+            Icon(
+              blocked ? Icons.location_disabled : Icons.my_location,
+              size: 18.sp,
+              color: color,
+            ),
             SizedBox(width: 8.w),
             Expanded(
-              child: Text(text,
-                  style: TextStyle(fontSize: 11.5.sp, color: color, height: 1.35)),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 11.5.sp, color: color, height: 1.35),
+              ),
             ),
             if (blocked || p == TrackerPermission.foregroundOnly)
               TextButton(
@@ -1473,7 +1730,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                   await tracker.openSettings();
                   await tracker.retry();
                 },
-                child: Text('enable_in_settings'.tr, style: TextStyle(fontSize: 11.5.sp)),
+                child: Text(
+                  'enable_in_settings'.tr,
+                  style: TextStyle(fontSize: 11.5.sp),
+                ),
               ),
           ],
         ),
@@ -1499,9 +1759,11 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           SizedBox(width: 10.w),
           Expanded(
             child: Text(
-                'arrival_window_starts_on'
-                    .trParams({'date': shortDateTime(startsAt)}),
-                style: TextStyle(fontSize: 12.5.sp, color: color, height: 1.4)),
+              'arrival_window_starts_on'.trParams({
+                'date': shortDateTime(startsAt),
+              }),
+              style: TextStyle(fontSize: 12.5.sp, color: color, height: 1.4),
+            ),
           ),
         ],
       ),
@@ -1527,45 +1789,60 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final decision = pick(['decisionLabel', 'decision_label', 'adminDecision']);
     final notes = pick(['resolutionNotes', 'resolution_notes']);
     final resolvedAt = pick(['resolvedAt', 'resolved_at']);
-    final resolvedDate = resolvedAt == null ? null : parseServerDate(resolvedAt);
+    final resolvedDate = resolvedAt == null
+        ? null
+        : parseServerDate(resolvedAt);
     final raw = details?['attachments'] ?? details?['disputeAttachments'];
     final attachments = [
       for (final a in (raw is List ? raw : const []))
         if (a is Map)
           (
             url: fixMediaUrl('${a['signedUrl'] ?? a['url'] ?? ''}') ?? '',
-            video: '${a['mimeType'] ?? ''}'.startsWith('video') ||
-                RegExp(r'\.(mp4|mov|m4v|webm)$', caseSensitive: false)
-                    .hasMatch('${a['fileName'] ?? a['url'] ?? ''}'),
+            video:
+                '${a['mimeType'] ?? ''}'.startsWith('video') ||
+                RegExp(
+                  r'\.(mp4|mov|m4v|webm)$',
+                  caseSensitive: false,
+                ).hasMatch('${a['fileName'] ?? a['url'] ?? ''}'),
           )
         else if (a != null)
           (url: fixMediaUrl('$a') ?? '', video: false),
     ].where((a) => a.url.isNotEmpty).toList();
 
-    Widget labelled(String label, String value, {bool strong = false}) => Padding(
+    Widget labelled(String label, String value, {bool strong = false}) =>
+        Padding(
           padding: EdgeInsets.only(top: 8.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.8),
-                      fontSize: 10.5.sp,
-                      letterSpacing: 0.3)),
+              Text(
+                label,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.8),
+                  fontSize: 10.5.sp,
+                  letterSpacing: 0.3,
+                ),
+              ),
               SizedBox(height: 2.h),
-              Text(value,
-                  style: TextStyle(
-                      color: fg,
-                      fontSize: 12.5.sp,
-                      height: 1.4,
-                      fontWeight: strong ? FontWeight.w700 : FontWeight.w500)),
+              Text(
+                value,
+                style: TextStyle(
+                  color: fg,
+                  fontSize: 12.5.sp,
+                  height: 1.4,
+                  fontWeight: strong ? FontWeight.w700 : FontWeight.w500,
+                ),
+              ),
             ],
           ),
         );
 
     return Container(
       padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16.r)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(16.r),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1573,8 +1850,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             children: [
               Icon(Icons.gpp_maybe_outlined, color: fg, size: 18.sp),
               SizedBox(width: 8.w),
-              Text(deal.disputeActive ? 'dispute_open'.tr : 'dispute_report'.tr,
-                  style: TextStyle(color: fg, fontSize: 13.sp, fontWeight: FontWeight.w700)),
+              Text(
+                deal.disputeActive ? 'dispute_open'.tr : 'dispute_report'.tr,
+                style: TextStyle(
+                  color: fg,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               if (statusLabel != null) ...[
                 const Spacer(),
                 Container(
@@ -1583,9 +1866,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                     color: fg.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
-                  child: Text(statusLabel,
-                      style: TextStyle(
-                          fontSize: 9.sp, fontWeight: FontWeight.w700, color: fg)),
+                  child: Text(
+                    statusLabel,
+                    style: TextStyle(
+                      fontSize: 9.sp,
+                      fontWeight: FontWeight.w700,
+                      color: fg,
+                    ),
+                  ),
                 ),
               ],
             ],
@@ -1594,11 +1882,14 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           if (description != null) labelled('description'.tr, description),
           if (attachments.isNotEmpty) ...[
             SizedBox(height: 10.h),
-            Text('evidence_count'.trParams({'count': '${attachments.length}'}),
-                style: TextStyle(
-                    color: fg.withValues(alpha: 0.8),
-                    fontSize: 10.5.sp,
-                    letterSpacing: 0.3)),
+            Text(
+              'evidence_count'.trParams({'count': '${attachments.length}'}),
+              style: TextStyle(
+                color: fg.withValues(alpha: 0.8),
+                fontSize: 10.5.sp,
+                letterSpacing: 0.3,
+              ),
+            ),
             SizedBox(height: 6.h),
             SizedBox(
               height: 72.r,
@@ -1609,46 +1900,61 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 itemBuilder: (ctx, i) {
                   final a = attachments[i];
                   Widget box(Widget child) => ClipRRect(
-                        borderRadius: BorderRadius.circular(8.r),
-                        child: Container(
-                          width: 72.r,
-                          height: 72.r,
-                          color: fg.withValues(alpha: 0.15),
-                          child: child,
-                        ),
-                      );
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: Container(
+                      width: 72.r,
+                      height: 72.r,
+                      color: fg.withValues(alpha: 0.15),
+                      child: child,
+                    ),
+                  );
                   return GestureDetector(
                     // videos open in the system player, images in the viewer
                     onTap: () => a.video
-                        ? launchUrl(Uri.parse(a.url),
-                            mode: LaunchMode.externalApplication)
+                        ? launchUrl(
+                            Uri.parse(a.url),
+                            mode: LaunchMode.externalApplication,
+                          )
                         : ImageViewerPage.open(ctx, a.url),
                     child: a.video
-                        ? box(Icon(Icons.play_circle_outline,
-                            size: 28.sp, color: fg))
-                        : box(Image.network(
-                            a.url,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Icon(
+                        ? box(
+                            Icon(
+                              Icons.play_circle_outline,
+                              size: 28.sp,
+                              color: fg,
+                            ),
+                          )
+                        : box(
+                            Image.network(
+                              a.url,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => Icon(
                                 Icons.broken_image_outlined,
                                 size: 20.sp,
-                                color: fg),
-                          )),
+                                color: fg,
+                              ),
+                            ),
+                          ),
                   );
                 },
               ),
             ),
           ],
-          if (decision != null) labelled('admin_decision'.tr, decision, strong: true),
+          if (decision != null)
+            labelled('admin_decision'.tr, decision, strong: true),
           if (notes != null) labelled('admin_notes'.tr, notes),
           if (resolvedAt != null)
-            labelled('resolved'.tr,
-                resolvedDate == null ? resolvedAt : shortDateTime(resolvedDate)),
+            labelled(
+              'resolved'.tr,
+              resolvedDate == null ? resolvedAt : shortDateTime(resolvedDate),
+            ),
           if (reason == null && description == null)
             Padding(
               padding: EdgeInsets.only(top: 8.h),
-              child: Text('the_team_is_reviewing_this_delivery'.tr,
-                  style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4)),
+              child: Text(
+                'the_team_is_reviewing_this_delivery'.tr,
+                style: TextStyle(color: fg, fontSize: 12.sp, height: 1.4),
+              ),
             ),
         ],
       ),
@@ -1659,14 +1965,21 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final (bg, fg) = DealStatus.cancelled.colors;
     return Container(
       padding: EdgeInsets.all(14.w),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14.r)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
       child: Row(
         children: [
           Icon(Icons.cancel_outlined, color: fg, size: 17.sp),
           SizedBox(width: 8.w),
           Expanded(
-            child: Text('cancelled_reason'.trParams({'reason': deal.cancelReasonLabel ?? ''}),
-                style: TextStyle(color: fg, fontSize: 12.sp)),
+            child: Text(
+              'cancelled_reason'.trParams({
+                'reason': deal.cancelReasonLabel ?? '',
+              }),
+              style: TextStyle(color: fg, fontSize: 12.sp),
+            ),
           ),
         ],
       ),
@@ -1711,7 +2024,9 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           // guarantee (if required) is secured
           if (deal.isTraveler) ...[
             ElevatedButton.icon(
-              onPressed: (_busy || !deal.travelerCanStart) ? null : _startOutgoing,
+              onPressed: (_busy || !deal.travelerCanStart)
+                  ? null
+                  : _startOutgoing,
               icon: Icon(Icons.upload_outlined, size: 17.sp),
               label: Text('upload_purchase_video_check_as_ongoing'.tr),
             ),
@@ -1730,7 +2045,8 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
           // record the delivery, done — no trip out to the website
           // an open dispute freezes the deal: completing it here would
           // close the dispute behind the resolution process's back
-          if (deal.disputeActive) ..._disputeActions()
+          if (deal.disputeActive)
+            ..._disputeActions()
           else ...[
             if (deal.isTraveler) ...[
               ElevatedButton.icon(
@@ -1745,9 +2061,12 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 onPressed: _busy
                     ? null
                     : () => _run(
-                        () => _repo.markCompleted(deal.refId,
-                            completionType: 'SENDER_CONFIRMATION'),
-                        'marked_as_completed'.tr),
+                        () => _repo.markCompleted(
+                          deal.refId,
+                          completionType: 'SENDER_CONFIRMATION',
+                        ),
+                        'marked_as_completed'.tr,
+                      ),
                 child: Text('mark_as_completed'.tr),
               ),
               SizedBox(height: 12.h),
@@ -1771,15 +2090,23 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
                 children: [
                   Icon(Icons.star, color: Colors.amber, size: 18.sp),
                   SizedBox(width: 6.w),
-                  Text('deal_rated'.tr,
-                      style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w700)),
+                  Text(
+                    'deal_rated'.tr,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 12.h),
           ],
           // one dispute per deal — once filed, only its report is offered
-          if (deal.hasDisputeRecord) ..._disputeActions() else _openDisputeButton(),
+          if (deal.hasDisputeRecord)
+            ..._disputeActions()
+          else
+            _openDisputeButton(),
         ];
       case DealStatus.disputes:
         // no "Mark as completed" here: a dispute closes only through the
@@ -1804,7 +2131,10 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
             ),
             SizedBox(height: 12.h),
           ],
-          OutlinedButton(onPressed: () => Get.back(), child: Text('back_to_deals'.tr)),
+          OutlinedButton(
+            onPressed: () => Get.back(),
+            child: Text('back_to_deals'.tr),
+          ),
         ];
     }
   }
@@ -1816,18 +2146,23 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
     final name = deal.extras.proposedByName != null && !deal.isProposer
         ? deal.extras.proposedByName!
         : (deal.counterpart.name.isNotEmpty
-            ? deal.counterpart.name.split(' ').first
-            : 'counterparty'.tr);
+              ? deal.counterpart.name.split(' ').first
+              : 'counterparty'.tr);
     return Container(
       padding: EdgeInsets.all(14.w),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(14.r)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
       child: Row(
         children: [
           Icon(Icons.hourglass_top, color: fg, size: 17.sp),
           SizedBox(width: 8.w),
           Expanded(
-            child: Text('waiting_for_name_to_accept'.trParams({'name': name}),
-                style: TextStyle(color: fg, fontSize: 12.5.sp)),
+            child: Text(
+              'waiting_for_name_to_accept'.trParams({'name': name}),
+              style: TextStyle(color: fg, fontSize: 12.5.sp),
+            ),
           ),
         ],
       ),
@@ -1835,21 +2170,21 @@ class _DealDetailsPageState extends State<DealDetailsPage> {
   }
 
   Widget _openDisputeButton() => OutlinedButton.icon(
-        onPressed: _busy ? null : _openDispute,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppPalette.primary,
-          side: const BorderSide(color: AppPalette.primary),
-        ),
-        icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
-        label: Text('open_a_dispute'.tr),
-      );
+    onPressed: _busy ? null : _openDispute,
+    style: OutlinedButton.styleFrom(
+      foregroundColor: AppPalette.primary,
+      side: const BorderSide(color: AppPalette.primary),
+    ),
+    icon: Icon(Icons.gpp_maybe_outlined, size: 17.sp),
+    label: Text('open_a_dispute'.tr),
+  );
 
   List<Widget> _disputeActions() => [
-        OutlinedButton(
-          onPressed: _showDisputeReport,
-          child: Text('view_dispute_report'.tr),
-        ),
-      ];
+    OutlinedButton(
+      onPressed: _showDisputeReport,
+      child: Text('view_dispute_report'.tr),
+    ),
+  ];
 
   void _openRateSheet(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -1901,7 +2236,8 @@ class _RateSheetState extends State<_RateSheet> {
       toast('thanks_for_the_review'.tr);
     } on AppException catch (e) {
       // the server refuses a second rating (422 alreadyRated) — hide the button
-      if (e is ServerException && e.statusCode == 422 &&
+      if (e is ServerException &&
+          e.statusCode == 422 &&
           '${e.message} ${e.details ?? ''}'.toLowerCase().contains('already')) {
         widget.onRated();
         if (mounted) Navigator.pop(context);
@@ -1915,14 +2251,19 @@ class _RateSheetState extends State<_RateSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Padding(
         padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 24.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('rate_this_deal'.tr, style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              'rate_this_deal'.tr,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             SizedBox(height: 14.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1941,7 +2282,9 @@ class _RateSheetState extends State<_RateSheet> {
             TextField(
               controller: _comment,
               maxLines: 3,
-              decoration: InputDecoration(hintText: 'leave_a_comment_optional'.tr),
+              decoration: InputDecoration(
+                hintText: 'leave_a_comment_optional'.tr,
+              ),
             ),
             SizedBox(height: 18.h),
             ElevatedButton(
@@ -1950,7 +2293,10 @@ class _RateSheetState extends State<_RateSheet> {
                   ? SizedBox(
                       width: 20.r,
                       height: 20.r,
-                      child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     )
                   : Text('submit_review'.tr),
             ),

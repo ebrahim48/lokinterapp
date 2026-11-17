@@ -14,7 +14,10 @@ enum CancelReason {
   packageConcern('PACKAGE_CONCERN', 'cancel_reason_package_concern'),
   tripChanged('TRIP_CHANGED', 'cancel_reason_trip_changed'),
   cantFindItem('CANT_FIND_ITEM', 'cancel_reason_cant_find_item'),
-  pointsProblem('DELIVERY_PICKUP_POINTS_PROBLEM', 'cancel_reason_points_problem'),
+  pointsProblem(
+    'DELIVERY_PICKUP_POINTS_PROBLEM',
+    'cancel_reason_points_problem',
+  ),
   paymentConcerns('PAYMENT_CONCERNS', 'cancel_reason_payment_concerns'),
   personalReasons('PERSONAL_REASONS', 'cancel_reason_personal_reasons');
 
@@ -66,38 +69,51 @@ class Deal {
   final int? countdownSeconds;
   final DateTime? tripDate;
   final DateTime? arrivalDate;
+
   /// The exact scheduled arrival (date + time the sender picked), when the
   /// server returns it — arrivalDate alone is often just the day.
   final DateTime? arrivalAt;
+
   /// Server-computed end of the 48h auto-completion window, when sent.
   final DateTime? autoCompleteAt;
   final bool fundsLockedForDispute;
   final Map<String, dynamic>? dispute;
+
   /// When false the "Mark Completed" button must be hidden.
   final bool canMarkCompleted;
+
   /// Set by the server when a dispute is open — hides "Mark Completed".
   final bool hasOpenDispute;
+
   /// Full dispute detail block returned by GET /disputes/deal/{id}.
   final Map<String, dynamic>? disputeDetails;
+
   /// When the traveler accepted — the sender's 24h payment window starts here.
   final DateTime? acceptedAt;
+
   /// End of the post-completion dispute window (2h local / 6h international).
   final DateTime? disputeWindowEnd;
+
   /// Server says a dispute can still be opened.
   final bool canDispute;
+
   /// QR_SCAN | SENDER_CONFIRMATION | AUTO_COMPLETED_48H
   final String? completionType;
+
   /// The signed-in user already rated this deal — one rating per deal.
   final bool hasRated;
+
   /// Server's say on showing "Rate": completed, a participant, not yet rated.
   /// Null on older payloads.
   final bool? canRate;
+
   /// Re-request tracking: a rejected sender may try up to [maxAttempts] times
   /// with the same traveler. Null when the API doesn't send it.
   final int? dealAttemptNumber;
   final int? remainingAttempts;
   final int maxAttempts;
   final String? attemptLabel;
+
   /// Nov 2026 additions: accept roles, delivery QR token, pins, tracking, fee.
   final DealExtras extras;
 
@@ -164,7 +180,8 @@ class Deal {
     return v;
   }
 
-  static int? _int(dynamic v) => v is num ? v.toInt() : int.tryParse('${v ?? ''}');
+  static int? _int(dynamic v) =>
+      v is num ? v.toInt() : int.tryParse('${v ?? ''}');
 
   static String? _str(dynamic v) {
     final t = v?.toString().trim() ?? '';
@@ -174,9 +191,7 @@ class Deal {
   /// Whether this user may rate the deal now. The server's canRate wins; on
   /// older payloads only the sender of a completed, unrated deal may.
   bool get rateable =>
-      status == DealStatus.completed &&
-      !hasRated &&
-      (canRate ?? !isTraveler);
+      status == DealStatus.completed && !hasRated && (canRate ?? !isTraveler);
 
   /// "Attempt 2 of 3" — the server's label, or ours from the numbers.
   String? get attemptText {
@@ -202,101 +217,103 @@ class Deal {
 
   /// "Buy for me and deliver" / "Deliver ready items", or null when unknown.
   String? get wantToLabel => switch (wantTo) {
-        'BUY_AND_DELIVER' => 'buy_for_me_and_deliver'.tr,
-        'SEND' => 'deliver_ready_item'.tr,
-        _ => null,
-      };
+    'BUY_AND_DELIVER' => 'buy_for_me_and_deliver'.tr,
+    'SEND' => 'deliver_ready_item'.tr,
+    _ => null,
+  };
 
   Deal withItemDetailsFrom(Deal other) => Deal(
-        id: id,
-        refId: refId,
-        type: type,
-        location: location,
-        fromCountry: fromCountry,
-        toCountry: toCountry,
-        date: date,
-        weight: weight,
-        profitAmount: profitAmount,
-        status: status,
-        counterpart: counterpart,
-        isSender: isSender,
-        isTraveler: isTraveler,
-        paymentMethod: paymentMethod,
-        receiverName: receiverName,
-        receiverPhone: receiverPhone,
-        attachUrl: attachUrl,
-        attachUrls: attachUrls.isNotEmpty ? attachUrls : other.attachUrls,
-        itemName: itemName ?? other.itemName,
-        notes: notes ?? other.notes,
-        itemLink: itemLink ?? other.itemLink,
-        wantTo: wantTo ?? other.wantTo,
-        cancelReason: cancelReason,
-        sdRequired: sdRequired,
-        itemEstimatedCost: itemEstimatedCost,
-        travelerGuaranteeHeld: travelerGuaranteeHeld,
-        senderFundsHeld: senderFundsHeld,
-        countdownSeconds: countdownSeconds,
-        tripDate: tripDate,
-        arrivalDate: arrivalDate ?? other.arrivalDate,
-        arrivalAt: arrivalAt ?? other.arrivalAt,
-        autoCompleteAt: autoCompleteAt ?? other.autoCompleteAt,
-        fundsLockedForDispute: fundsLockedForDispute,
-        dispute: dispute ?? other.dispute,
-        canMarkCompleted: canMarkCompleted,
-        hasOpenDispute: hasOpenDispute,
-        disputeDetails: disputeDetails,
-        acceptedAt: acceptedAt ?? other.acceptedAt,
-        disputeWindowEnd: disputeWindowEnd ?? other.disputeWindowEnd,
-        canDispute: canDispute,
-        completionType: completionType ?? other.completionType,
-        hasRated: hasRated || other.hasRated,
-        canRate: canRate ?? other.canRate,
-        dealAttemptNumber: dealAttemptNumber ?? other.dealAttemptNumber,
-        remainingAttempts: remainingAttempts ?? other.remainingAttempts,
-        maxAttempts: maxAttempts,
-        attemptLabel: attemptLabel ?? other.attemptLabel,
-        extras: extras,
-      );
+    id: id,
+    refId: refId,
+    type: type,
+    location: location,
+    fromCountry: fromCountry,
+    toCountry: toCountry,
+    date: date,
+    weight: weight,
+    profitAmount: profitAmount,
+    status: status,
+    counterpart: counterpart,
+    isSender: isSender,
+    isTraveler: isTraveler,
+    paymentMethod: paymentMethod,
+    receiverName: receiverName,
+    receiverPhone: receiverPhone,
+    attachUrl: attachUrl,
+    attachUrls: attachUrls.isNotEmpty ? attachUrls : other.attachUrls,
+    itemName: itemName ?? other.itemName,
+    notes: notes ?? other.notes,
+    itemLink: itemLink ?? other.itemLink,
+    wantTo: wantTo ?? other.wantTo,
+    cancelReason: cancelReason,
+    sdRequired: sdRequired,
+    itemEstimatedCost: itemEstimatedCost,
+    travelerGuaranteeHeld: travelerGuaranteeHeld,
+    senderFundsHeld: senderFundsHeld,
+    countdownSeconds: countdownSeconds,
+    tripDate: tripDate,
+    arrivalDate: arrivalDate ?? other.arrivalDate,
+    arrivalAt: arrivalAt ?? other.arrivalAt,
+    autoCompleteAt: autoCompleteAt ?? other.autoCompleteAt,
+    fundsLockedForDispute: fundsLockedForDispute,
+    dispute: dispute ?? other.dispute,
+    canMarkCompleted: canMarkCompleted,
+    hasOpenDispute: hasOpenDispute,
+    disputeDetails: disputeDetails,
+    acceptedAt: acceptedAt ?? other.acceptedAt,
+    disputeWindowEnd: disputeWindowEnd ?? other.disputeWindowEnd,
+    canDispute: canDispute,
+    completionType: completionType ?? other.completionType,
+    hasRated: hasRated || other.hasRated,
+    canRate: canRate ?? other.canRate,
+    dealAttemptNumber: dealAttemptNumber ?? other.dealAttemptNumber,
+    remainingAttempts: remainingAttempts ?? other.remainingAttempts,
+    maxAttempts: maxAttempts,
+    attemptLabel: attemptLabel ?? other.attemptLabel,
+    extras: extras,
+  );
 
   // Rows from /deals/getAllDeals — a trimmed shape; the same endpoint also
   // returns the user's own posts, which carry flag "POST" instead of "DEAL".
   factory Deal.fromListJson(Map<String, dynamic> json) => Deal(
-        id: json['id'] ?? 0,
-        refId: '',
-        type: '${json['postType'] ?? json['type'] ?? ''}'.toUpperCase() == 'TRIP'
-            ? PostType.trip
-            : PostType.deliver,
-        location: json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
-        fromCountry: (json['from'] ?? '').toString(),
-        toCountry: (json['to'] ?? '').toString(),
-        date: _parseDate(json['beforeDate']),
-        weight: 0,
-        profitAmount: _num(json['profit']),
-        status: _status(json['status']),
-        counterpart: const PostUser(name: ''),
-        isSender: _hasRole(json, 'SENDER', 'isSender'),
-        isTraveler: _hasRole(json, 'TRAVELER', 'isTraveler'),
-        paymentMethod: json['paymentMethod'] ?? '',
-        countdownSeconds: json['countdownSeconds'],
-        arrivalDate: _nullableDate(json['arrivalDate']),
-        arrivalAt: _arrivalAt(json),
-        autoCompleteAt: _autoCompleteAt(json),
-        fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
-        hasOpenDispute: json['hasOpenDispute'] == true,
-        cancelReason: json['cancelReason'],
-        dispute: _listDispute(json),
-        acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
-        disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
-        canDispute: json['canDispute'] == true,
-        completionType: json['completionType']?.toString(),
-        hasRated: json['hasRated'] == true,
-        canRate: json['canRate'] is bool ? json['canRate'] as bool : null,
-        dealAttemptNumber: _int(json['dealAttemptNumber']),
-        remainingAttempts: _int(json['remainingAttempts']),
-        maxAttempts: _int(json['maxAttempts']) ?? 3,
-        attemptLabel: _str(json['attemptLabel']),
-        extras: DealExtras.fromJson(json),
-      );
+    id: json['id'] ?? 0,
+    refId: '',
+    type: '${json['postType'] ?? json['type'] ?? ''}'.toUpperCase() == 'TRIP'
+        ? PostType.trip
+        : PostType.deliver,
+    location: json['location'] == 'LOCAL'
+        ? PostLocation.local
+        : PostLocation.international,
+    fromCountry: (json['from'] ?? '').toString(),
+    toCountry: (json['to'] ?? '').toString(),
+    date: _parseDate(json['beforeDate']),
+    weight: 0,
+    profitAmount: _num(json['profit']),
+    status: _status(json['status']),
+    counterpart: const PostUser(name: ''),
+    isSender: _hasRole(json, 'SENDER', 'isSender'),
+    isTraveler: _hasRole(json, 'TRAVELER', 'isTraveler'),
+    paymentMethod: json['paymentMethod'] ?? '',
+    countdownSeconds: json['countdownSeconds'],
+    arrivalDate: _nullableDate(json['arrivalDate']),
+    arrivalAt: _arrivalAt(json),
+    autoCompleteAt: _autoCompleteAt(json),
+    fundsLockedForDispute: json['fundsLockedForDispute'] ?? false,
+    hasOpenDispute: json['hasOpenDispute'] == true,
+    cancelReason: json['cancelReason'],
+    dispute: _listDispute(json),
+    acceptedAt: _nullableDate(json['acceptedAt'] ?? json['accepted_at']),
+    disputeWindowEnd: _nullableDate(json['disputeWindowEnd']),
+    canDispute: json['canDispute'] == true,
+    completionType: json['completionType']?.toString(),
+    hasRated: json['hasRated'] == true,
+    canRate: json['canRate'] is bool ? json['canRate'] as bool : null,
+    dealAttemptNumber: _int(json['dealAttemptNumber']),
+    remainingAttempts: _int(json['remainingAttempts']),
+    maxAttempts: _int(json['maxAttempts']) ?? 3,
+    attemptLabel: _str(json['attemptLabel']),
+    extras: DealExtras.fromJson(json),
+  );
 
   /// List rows carry the dispute at the root (disputeStatus, disputeReason…);
   /// fold it into the same shape the detail screen reads.
@@ -308,7 +325,8 @@ class Deal {
       'statusLabel': json['disputeStatusLabel'],
       'reasonLabel': json['disputeReason'],
       'description': json['disputeDescription'],
-      'decisionLabel': json['disputeDecisionLabel'] ?? json['disputeAdminDecision'],
+      'decisionLabel':
+          json['disputeDecisionLabel'] ?? json['disputeAdminDecision'],
       'resolutionNotes': json['disputeResolutionNotes'],
       'resolvedAt': json['disputeResolvedAt'],
       'attachments': json['disputeAttachments'],
@@ -339,14 +357,17 @@ class Deal {
     // whoever is on the other side of the agreement — the id matters as much as
     // the name, it's what opens the chat (getChatDetails/{receiver_id})
     final otherName =
-        (isTraveler ? json['senderName'] : json['travelerName'])?.toString() ?? '';
+        (isTraveler ? json['senderName'] : json['travelerName'])?.toString() ??
+        '';
     final otherId = isTraveler ? json['senderId'] : json['travelerId'];
 
     return Deal(
       id: json['id'] ?? 0,
       refId: (json['referenceId'] ?? json['id'] ?? '').toString(),
       type: json['type'] == 'TRIP' ? PostType.trip : PostType.deliver,
-      location: json['location'] == 'LOCAL' ? PostLocation.local : PostLocation.international,
+      location: json['location'] == 'LOCAL'
+          ? PostLocation.local
+          : PostLocation.international,
       fromCountry: (json['from'] ?? '').toString(),
       toCountry: (json['to'] ?? '').toString(),
       date: _parseDate(json['beforeDate']),
@@ -357,7 +378,8 @@ class Deal {
         id: otherId is int ? otherId : int.tryParse('$otherId') ?? 0,
         name: otherName,
         // Deal detail carries the other party's badges directly
-        isTransporter: (json['isApprovedTransporter'] == true) ||
+        isTransporter:
+            (json['isApprovedTransporter'] == true) ||
             (json['transporterBadge'] == true),
       ),
       isSender: _hasRole(json, 'SENDER', 'isSender'),
@@ -372,12 +394,13 @@ class Deal {
       itemLink: json['itemLink'],
       // BUYITEM and BUY_AND_DELIVER mean the same thing across endpoints
       wantTo: _normaliseWantTo(
-          json['deliveryType'] ?? json['wantTo'] ?? json['dealType']),
+        json['deliveryType'] ?? json['wantTo'] ?? json['dealType'],
+      ),
       cancelReason: json['cancelReason'],
       sdRequired: json['sdRequired'] ?? false,
-      itemEstimatedCost: _num(json['itemEstimatedCost'] ??
-          json['itemValue'] ??
-          json['itemPrice']),
+      itemEstimatedCost: _num(
+        json['itemEstimatedCost'] ?? json['itemValue'] ?? json['itemPrice'],
+      ),
       travelerGuaranteeHeld: json['travelerGuaranteeHeld'] ?? false,
       senderFundsHeld: json['senderFundsHeld'] ?? false,
       countdownSeconds: json['countdownSeconds'],
@@ -460,12 +483,12 @@ class Deal {
   /// Post-completion dispute window still counting. Null when not running.
   DateTime? get disputeWindowEndsAt =>
       status == DealStatus.completed &&
-              canDispute &&
-              !hasDisputeRecord &&
-              disputeWindowEnd != null &&
-              disputeWindowEnd!.isAfter(DateTime.now())
-          ? disputeWindowEnd
-          : null;
+          canDispute &&
+          !hasDisputeRecord &&
+          disputeWindowEnd != null &&
+          disputeWindowEnd!.isAfter(DateTime.now())
+      ? disputeWindowEnd
+      : null;
 
   bool get isAutoCompleted =>
       (completionType ?? '').toUpperCase().startsWith('AUTO_COMPLETED');
@@ -473,8 +496,10 @@ class Deal {
   /// Cancelled by the server because the 24h payment window ran out.
   bool get isAutoCancelledUnpaid {
     final r = (cancelReason ?? '').toLowerCase();
-    return r.contains('auto-cancel') || r.contains('auto_cancel') ||
-        r.contains('within 24h') || r.contains('24 heures');
+    return r.contains('auto-cancel') ||
+        r.contains('auto_cancel') ||
+        r.contains('within 24h') ||
+        r.contains('24 heures');
   }
 
   bool get isLocal => location == PostLocation.local;
@@ -496,8 +521,13 @@ class Deal {
     // raw status / isResolved only — the labels are translated
     if (info['isResolved'] == true) return false;
     final s = '${info['status'] ?? ''}'.toUpperCase();
-    return !const ['RESOLV', 'CLOS', 'REJECT', 'CANCEL', 'DISMISS']
-        .any(s.contains);
+    return !const [
+      'RESOLV',
+      'CLOS',
+      'REJECT',
+      'CANCEL',
+      'DISMISS',
+    ].any(s.contains);
   }
 
   String get profitLabel => profitAmount == null ? '—' : _money(profitAmount!);
@@ -517,7 +547,8 @@ class Deal {
 
   // the receiver scans this at handover — it opens the website's public
   // confirmation page for this deal (getByReferenceId under the hood)
-  String get confirmationLink => '${ApiConstants.webBaseUrl}/deal-details/$refId';
+  String get confirmationLink =>
+      '${ApiConstants.webBaseUrl}/deal-details/$refId';
 
   /// What the sender's handover QR encodes: the single-use token (REQ §3),
   /// or the old public link for deals created before tokens existed.
@@ -530,7 +561,10 @@ class Deal {
 
   // the traveler must put up a card hold before the item moves
   bool get needsGuarantee =>
-      sdRequired && isTraveler && !travelerGuaranteeHeld && status == DealStatus.accepted;
+      sdRequired &&
+      isTraveler &&
+      !travelerGuaranteeHeld &&
+      status == DealStatus.accepted;
 
   // the sender funds the deal once the traveler has accepted
   bool get needsPayment =>
@@ -541,7 +575,8 @@ class Deal {
 
   // COD deals need no escrow, so they count as already paid; STRIPE deals wait
   // for the sender's hold before the traveler can move things on
-  bool get senderHasPaid => senderFundsHeld || paymentMethod.toUpperCase() != 'STRIPE';
+  bool get senderHasPaid =>
+      senderFundsHeld || paymentMethod.toUpperCase() != 'STRIPE';
 
   // the sender shares the receiver's QR the whole time the deal is live —
   // website: shown unless cancelled/rejected/completed (so incl. disputed)
@@ -563,11 +598,11 @@ class Deal {
       (!sdRequired || travelerGuaranteeHeld);
 
   String get paymentLabel => switch (paymentMethod.toUpperCase()) {
-        'STRIPE' => 'pay_online'.tr,
-        'COD' || 'CASH_ON_DELIVERY' => 'cash_on_delivery'.tr,
-        '' => '—',
-        _ => paymentMethod,
-      };
+    'STRIPE' => 'pay_online'.tr,
+    'COD' || 'CASH_ON_DELIVERY' => 'cash_on_delivery'.tr,
+    '' => '—',
+    _ => paymentMethod,
+  };
 
   // reason codes read better as the label the user originally picked
   String? get cancelReasonLabel {
@@ -581,11 +616,13 @@ class Deal {
 
   static String _money(double v) => '\$${v.toStringAsFixed(2)}';
 
-  static double? _num(dynamic v) =>
-      v == null ? null : (v is num ? v.toDouble() : double.tryParse(v.toString()));
+  static double? _num(dynamic v) => v == null
+      ? null
+      : (v is num ? v.toDouble() : double.tryParse(v.toString()));
 
   // the API says OUTGOING in filters but has also sent ONGOING on rows
-  static DealStatus _status(dynamic raw) => switch (raw?.toString().toUpperCase()) {
+  static DealStatus _status(dynamic raw) =>
+      switch (raw?.toString().toUpperCase()) {
         'ACCEPTED' => DealStatus.accepted,
         'OUTGOING' || 'ONGOING' => DealStatus.outgoing,
         'COMPLETED' => DealStatus.completed,
@@ -602,7 +639,8 @@ class Deal {
   /// Exact arrival moment: an explicit field, or arrivalDate + arrivalTime.
   static DateTime? _arrivalAt(Map<String, dynamic> json) {
     final exact = _nullableDate(
-        json['arrivalAt'] ?? json['arrivalDateTime'] ?? json['arrival_at']);
+      json['arrivalAt'] ?? json['arrivalDateTime'] ?? json['arrival_at'],
+    );
     if (exact != null) return exact;
     final day = _nullableDate(json['arrivalDate']);
     final time = '${json['arrivalTime'] ?? ''}'.split(':');
@@ -613,19 +651,28 @@ class Deal {
   }
 
   static DateTime? _autoCompleteAt(Map<String, dynamic> json) => _nullableDate(
-      json['autoCompleteAt'] ?? json['autoCompletesAt'] ?? json['arrivalWindowEnd']);
+    json['autoCompleteAt'] ??
+        json['autoCompletesAt'] ??
+        json['arrivalWindowEnd'],
+  );
 
   /// "10/05/2026 06:00 PM" — the API's display format for dates.
   static DateTime? _parseUsDate(String raw) {
-    final m = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{4})(?:\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])?)?')
-        .firstMatch(raw.trim());
+    final m = RegExp(
+      r'^(\d{1,2})/(\d{1,2})/(\d{4})(?:\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])?)?',
+    ).firstMatch(raw.trim());
     if (m == null) return null;
     var hour = int.tryParse(m.group(4) ?? '') ?? 0;
     final ampm = m.group(6)?.toUpperCase();
     if (ampm == 'PM' && hour < 12) hour += 12;
     if (ampm == 'AM' && hour == 12) hour = 0;
-    return DateTime(int.parse(m.group(3)!), int.parse(m.group(1)!),
-        int.parse(m.group(2)!), hour, int.tryParse(m.group(5) ?? '') ?? 0);
+    return DateTime(
+      int.parse(m.group(3)!),
+      int.parse(m.group(1)!),
+      int.parse(m.group(2)!),
+      hour,
+      int.tryParse(m.group(5) ?? '') ?? 0,
+    );
   }
 
   // dates arrive as "08/01/2026 06:00 AM" or ISO-8601
@@ -644,31 +691,31 @@ class Deal {
 
 extension DealStatusX on DealStatus {
   String get label => switch (this) {
-        DealStatus.pending => 'deal_status_pending'.tr,
-        DealStatus.accepted => 'deal_status_accepted'.tr,
-        DealStatus.outgoing => 'deal_status_ongoing'.tr,
-        DealStatus.completed => 'deal_status_completed'.tr,
-        DealStatus.cancelled => 'deal_status_cancelled'.tr,
-        DealStatus.disputes => 'deal_status_dispute'.tr,
-      };
+    DealStatus.pending => 'deal_status_pending'.tr,
+    DealStatus.accepted => 'deal_status_accepted'.tr,
+    DealStatus.outgoing => 'deal_status_ongoing'.tr,
+    DealStatus.completed => 'deal_status_completed'.tr,
+    DealStatus.cancelled => 'deal_status_cancelled'.tr,
+    DealStatus.disputes => 'deal_status_dispute'.tr,
+  };
 
   // what /deals/getAllDeals expects in ?status=
   String get apiValue => switch (this) {
-        DealStatus.pending => 'PENDING',
-        DealStatus.accepted => 'ACCEPTED',
-        DealStatus.outgoing => 'OUTGOING',
-        DealStatus.completed => 'COMPLETED',
-        DealStatus.cancelled => 'CANCELED',
-        DealStatus.disputes => 'DISPUTES',
-      };
+    DealStatus.pending => 'PENDING',
+    DealStatus.accepted => 'ACCEPTED',
+    DealStatus.outgoing => 'OUTGOING',
+    DealStatus.completed => 'COMPLETED',
+    DealStatus.cancelled => 'CANCELED',
+    DealStatus.disputes => 'DISPUTES',
+  };
 
   // (background, foreground) — tints mirror the web deals list
   (Color, Color) get colors => switch (this) {
-        DealStatus.pending => (const Color(0xFFFEF9C3), const Color(0xFF854D0E)),
-        DealStatus.accepted => (const Color(0xFFDBEAFE), const Color(0xFF1D4ED8)),
-        DealStatus.outgoing => (const Color(0xFFE0F2FE), const Color(0xFF0369A1)),
-        DealStatus.completed => (const Color(0xFFD1FAE5), const Color(0xFF065F46)),
-        DealStatus.cancelled => (const Color(0xFFFEE2E2), const Color(0xFFB91C1C)),
-        DealStatus.disputes => (const Color(0xFFFFF1F2), const Color(0xFFBE123C)),
-      };
+    DealStatus.pending => (const Color(0xFFFEF9C3), const Color(0xFF854D0E)),
+    DealStatus.accepted => (const Color(0xFFDBEAFE), const Color(0xFF1D4ED8)),
+    DealStatus.outgoing => (const Color(0xFFE0F2FE), const Color(0xFF0369A1)),
+    DealStatus.completed => (const Color(0xFFD1FAE5), const Color(0xFF065F46)),
+    DealStatus.cancelled => (const Color(0xFFFEE2E2), const Color(0xFFB91C1C)),
+    DealStatus.disputes => (const Color(0xFFFFF1F2), const Color(0xFFBE123C)),
+  };
 }

@@ -22,10 +22,15 @@ import '../../data/deals_repository.dart';
 /// before tokens existed keep the old public-link QR and no regenerate.
 class HandoverQrCard extends StatefulWidget {
   final Deal deal;
+
   /// Called after a successful regenerate so the page reloads the deal.
   final VoidCallback onRegenerated;
 
-  const HandoverQrCard({super.key, required this.deal, required this.onRegenerated});
+  const HandoverQrCard({
+    super.key,
+    required this.deal,
+    required this.onRegenerated,
+  });
 
   @override
   State<HandoverQrCard> createState() => _HandoverQrCardState();
@@ -35,11 +40,13 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
   final _repo = DealsRepository();
   final _shareKey = GlobalKey();
   bool _busy = false;
+
   /// The fresh token right after a regenerate, before the reload lands.
   String? _override;
 
   String get _data => _override ?? widget.deal.handoverQrData;
-  bool get _hasToken => _override != null || widget.deal.extras.deliveryQrToken != null;
+  bool get _hasToken =>
+      _override != null || widget.deal.extras.deliveryQrToken != null;
 
   @override
   void didUpdateWidget(HandoverQrCard old) {
@@ -56,13 +63,16 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
     try {
       final file = await _renderPng(_data);
       final box = _shareKey.currentContext?.findRenderObject() as RenderBox?;
-      await SharePlus.instance.share(ShareParams(
-        files: [XFile(file.path, mimeType: 'image/png')],
-        text: 'share_qr_message'.tr,
-        subject: 'lokinter_delivery_qr'.tr,
-        sharePositionOrigin:
-            box == null ? null : box.localToGlobal(Offset.zero) & box.size,
-      ));
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path, mimeType: 'image/png')],
+          text: 'share_qr_message'.tr,
+          subject: 'lokinter_delivery_qr'.tr,
+          sharePositionOrigin: box == null
+              ? null
+              : box.localToGlobal(Offset.zero) & box.size,
+        ),
+      );
     } catch (_) {
       toast('could_not_share_qr'.tr);
     } finally {
@@ -76,17 +86,27 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     canvas.drawRect(
-        const Rect.fromLTWH(0, 0, size, size), Paint()..color = Colors.white);
+      const Rect.fromLTWH(0, 0, size, size),
+      Paint()..color = Colors.white,
+    );
     canvas.translate(pad, pad);
     QrPainter(
       data: data,
       version: QrVersions.auto,
       gapless: true,
-      eyeStyle: const QrEyeStyle(eyeShape: QrEyeShape.square, color: Colors.black),
+      eyeStyle: const QrEyeStyle(
+        eyeShape: QrEyeShape.square,
+        color: Colors.black,
+      ),
       dataModuleStyle: const QrDataModuleStyle(
-          dataModuleShape: QrDataModuleShape.square, color: Colors.black),
+        dataModuleShape: QrDataModuleShape.square,
+        color: Colors.black,
+      ),
     ).paint(canvas, const Size(size - 2 * pad, size - 2 * pad));
-    final image = await recorder.endRecording().toImage(size.toInt(), size.toInt());
+    final image = await recorder.endRecording().toImage(
+      size.toInt(),
+      size.toInt(),
+    );
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     final dir = await getTemporaryDirectory();
     final file = File('${dir.path}/lokinter_delivery_qr_${widget.deal.id}.png');
@@ -101,10 +121,16 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
         title: Text('regenerate_qr_code'.tr),
         content: Text('regenerate_qr_confirm'.tr),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text('cancel'.tr)),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text('cancel'.tr),
+          ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text('regenerate'.tr, style: const TextStyle(color: AppPalette.primary)),
+            child: Text(
+              'regenerate'.tr,
+              style: const TextStyle(color: AppPalette.primary),
+            ),
           ),
         ],
       ),
@@ -137,14 +163,23 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
       ),
       child: Column(
         children: [
-          Text('receiver_confirmation'.tr,
-              style: TextStyle(
-                  fontSize: 14.sp, fontWeight: FontWeight.w700, color: cs.onSurface)),
+          Text(
+            'receiver_confirmation'.tr,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+              color: cs.onSurface,
+            ),
+          ),
           SizedBox(height: 6.h),
           Text(
             _hasToken ? 'handover_qr_hint'.tr : 'receiver_qr_hint'.tr,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp, color: cs.onSurfaceVariant, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: cs.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 14.h),
           Container(
@@ -154,7 +189,11 @@ class _HandoverQrCardState extends State<HandoverQrCard> {
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(color: cs.outline),
             ),
-            child: QrImageView(data: _data, size: 180.r, backgroundColor: Colors.white),
+            child: QrImageView(
+              data: _data,
+              size: 180.r,
+              backgroundColor: Colors.white,
+            ),
           ),
           SizedBox(height: 14.h),
           SizedBox(

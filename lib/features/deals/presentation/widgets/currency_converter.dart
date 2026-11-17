@@ -76,8 +76,9 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
         amount: amount,
       );
       if (!mounted) return;
-      setState(() =>
-          _converted = double.tryParse('${res['convertedAmount'] ?? ''}'));
+      setState(
+        () => _converted = double.tryParse('${res['convertedAmount'] ?? ''}'),
+      );
     } catch (_) {
       if (mounted) setState(() => _converted = null);
     } finally {
@@ -110,12 +111,19 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
         children: [
           Row(
             children: [
-              Icon(Icons.currency_exchange, size: 15.sp, color: cs.onSurfaceVariant),
+              Icon(
+                Icons.currency_exchange,
+                size: 15.sp,
+                color: cs.onSurfaceVariant,
+              ),
               SizedBox(width: 8.w),
               Expanded(
                 child: Text(
                   'we_charge_in_usd_note'.tr,
-                  style: TextStyle(fontSize: 11.5.sp, color: cs.onSurfaceVariant),
+                  style: TextStyle(
+                    fontSize: 11.5.sp,
+                    color: cs.onSurfaceVariant,
+                  ),
                 ),
               ),
             ],
@@ -131,8 +139,10 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
                   decoration: InputDecoration(
                     isDense: true,
                     hintText: 'amount'.tr,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 8.h,
+                    ),
                   ),
                   style: TextStyle(fontSize: 13.sp),
                 ),
@@ -144,8 +154,9 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
                 isDense: true,
                 style: TextStyle(fontSize: 12.sp, color: AppPalette.primary),
                 items: [
-                  for (final c
-                      in _currencies.where((c) => c != widget.settlementCurrency))
+                  for (final c in _currencies.where(
+                    (c) => c != widget.settlementCurrency,
+                  ))
                     DropdownMenuItem(value: c, child: Text(c)),
                 ],
                 onChanged: (v) {
@@ -164,8 +175,8 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
                   _busy
                       ? 'calculating_fees'.tr
                       : ready
-                          ? '≈ ${_converted!.toStringAsFixed(2)} ${widget.settlementCurrency}'
-                          : 'estimate_only'.tr,
+                      ? '≈ ${_converted!.toStringAsFixed(2)} ${widget.settlementCurrency}'
+                      : 'estimate_only'.tr,
                   style: TextStyle(
                     fontSize: 12.5.sp,
                     fontWeight: ready ? FontWeight.w700 : FontWeight.w400,

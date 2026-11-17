@@ -21,8 +21,23 @@ import 'location_tracker_service.dart';
 /// The tray entry is drawn by the system from the message's `notification`
 /// block, so there is nothing to show here — but the isolate is cold, so
 /// Firebase has to come up before the message can be read at all.
+///
+/// `TRACKING_STOP` (silent, data-only: `{type, deal_id, deal_status, reason,
+/// stopped_at}`, all strings) must end the transporter's GPS service right
+/// here, without waiting for the UI — see [LocationTrackerService.stopFromPush].
 @pragma('vm:entry-point')
 Future<void> pushBackgroundHandler(RemoteMessage message) async {
+  final type = '${message.data['type'] ?? message.data['notificationType'] ?? ''}'.toUpperCase();
+  if (type == 'TRACKING_STOP') {
+    final id = int.tryParse('${message.data['deal_id'] ?? message.data['dealId'] ?? ''}');
+    if (id != null) {
+      try {
+        await LocationTrackerService.stopFromPush(id);
+      } catch (e) {
+        if (kDebugMode) print('push (background): tracking stop failed $e');
+      }
+    }
+  }
   await Firebase.initializeApp();
   if (kDebugMode) print('push (background): ${message.messageId} ${message.data}');
 }
@@ -257,9 +272,7 @@ class PushService extends GetxService {
     final type = '${data['type'] ?? data['notificationType'] ?? ''}'.toUpperCase();
     if (type == 'TRACKING_STOP') {
       final id = int.tryParse('${data['dealId'] ?? data['deal_id'] ?? ''}');
-      if (id != null && Get.isRegistered<LocationTrackerService>()) {
-        Get.find<LocationTrackerService>().stop(id);
-      }
+      if (id != null) LocationTrackerService.stopFromPush(id);
       DataBus.changed(DataTopic.deals);
       return true;
     }
