@@ -14,7 +14,7 @@ Future<void> main() async {
   // Stripe must know the publishable key before any escrow payment sheet opens
   // (sender hold / traveler guarantee on deals). Pushing it to the native SDK
   // up front keeps the first "Pay now" snappy, but nothing here may block the
-  // first frame — a throw before runApp() leaves a white screen.
+
   Stripe.publishableKey = ApiConstants.stripePublishableKey;
   unawaited(Stripe.instance.applySettings().catchError((Object e) {
     debugPrint('stripe init failed: $e'); // the sheet re-applies on demand
